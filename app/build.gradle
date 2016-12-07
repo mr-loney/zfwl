@@ -18,7 +18,9 @@ android {
         }
     }
 }
-
+ext {
+    easyspVersion = "0.5"
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -26,4 +28,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    provided "com.zzb.easysp:easysp-annotations:${easyspVersion}"
+    annotationProcessor "com.zzb.easysp:easysp-compiler:${easyspVersion}"
 }
