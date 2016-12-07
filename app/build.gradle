@@ -56,4 +56,5 @@ dependencies {
     compile"com.trello:rxlifecycle-components:${rxlifecycleVersion}"
     compile "com.jakewharton:butterknife:${butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+    testCompile "org.mockito:mockito-core:2.2.9"
 }

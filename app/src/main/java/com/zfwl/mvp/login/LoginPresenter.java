@@ -5,7 +5,6 @@ import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.BasePresenter;
 
-import retrofit2.Retrofit;
 import rx.functions.Action1;
 
 /**
@@ -13,12 +12,10 @@ import rx.functions.Action1;
  */
 
 public class LoginPresenter extends BasePresenter<LoginMvpView> {
-    private Retrofit mRetrofit;
     private LoginApi mLoginApi;
 
     public LoginPresenter() {
-        mRetrofit = ApiModule.INSTANCE.provideRetrofit();
-        mLoginApi = mRetrofit.create(LoginApi.class);
+        mLoginApi = ApiModule.INSTANCE.provideLoginApi();
     }
 
     public void login(String phone, String password) {
