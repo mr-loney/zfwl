@@ -28,6 +28,12 @@ ext {
     retrofitVersion = "2.1.0"
     rxJavaVersion = "1.2.3"
     rxAndroidVersion = "1.2.1"
+    rxlifecycleVersion = "1.0"
+}
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,4 +49,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
     compile "io.reactivex:rxjava:${rxJavaVersion}"
     compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+    compile"com.trello:rxlifecycle:${rxlifecycleVersion}"
+    compile"com.trello:rxlifecycle-android:${rxlifecycleVersion}"
+    compile"com.trello:rxlifecycle-components:${rxlifecycleVersion}"
 }
