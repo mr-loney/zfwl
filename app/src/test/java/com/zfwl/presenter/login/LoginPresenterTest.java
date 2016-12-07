@@ -2,6 +2,7 @@ package com.zfwl.presenter.login;
 
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.entity.User;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
 
@@ -36,10 +37,10 @@ public class LoginPresenterTest {
 
     @Test
     public void test() {
-        LoginPresenter loginPresenter = new LoginPresenter();
+        LoginPresenter loginPresenter = new LoginPresenter(mockModule.provideLoginApi());
         loginPresenter.attachView(mockView);
         loginPresenter.login("a", "b");
-        Mockito.verify(mockView).onLoginFailed(Mockito.anyString());
+        Mockito.verify(mockView).onLoginSuccess(Mockito.any(User.class));
 
     }
 }

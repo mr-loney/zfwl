@@ -19,6 +19,9 @@ public class MockLoginApi implements LoginApi {
 
     @Override
     public Observable<User> login(@Field("phone") String phone, @Field("password") String password) {
-        return delegate.returningResponse("").login(phone, password);
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        return delegate.returningResponse(user).login(phone, password);
     }
 }

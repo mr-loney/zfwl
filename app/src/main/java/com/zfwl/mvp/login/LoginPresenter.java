@@ -18,6 +18,10 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         mLoginApi = ApiModule.INSTANCE.provideLoginApi();
     }
 
+    public LoginPresenter(LoginApi mLoginApi) {
+        this.mLoginApi = mLoginApi;
+    }
+
     public void login(String phone, String password) {
         if (!isPhoneAndPswValid(phone, password)) {
             getMvpView().onLoginFailed("invalid phone or psw");
