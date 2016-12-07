@@ -47,6 +47,7 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+    compile "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}"
     compile "io.reactivex:rxjava:${rxJavaVersion}"
     compile "io.reactivex:rxandroid:${rxAndroidVersion}"
     compile"com.trello:rxlifecycle:${rxlifecycleVersion}"
