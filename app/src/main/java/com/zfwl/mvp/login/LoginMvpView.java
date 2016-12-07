@@ -1,5 +1,6 @@
 package com.zfwl.mvp.login;
 
+import com.zfwl.entity.User;
 import com.zfwl.mvp.MvpView;
 
 /**
@@ -10,9 +11,9 @@ public interface LoginMvpView extends MvpView {
 
     void showLoginLoading();
 
-    void onLoginSuccess();
+    void onLoginSuccess(User user);
 
-    void onLoginFailed();
+    void onLoginFailed(String msg);
 
     void hideLoginLoading();
 }

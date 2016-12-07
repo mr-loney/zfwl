@@ -29,6 +29,7 @@ ext {
     rxJavaVersion = "1.2.3"
     rxAndroidVersion = "1.2.1"
     rxlifecycleVersion = "1.0"
+    butterknifeVersion = "8.4.0"
 }
 configurations.all {
     resolutionStrategy {
@@ -53,4 +54,6 @@ dependencies {
     compile"com.trello:rxlifecycle:${rxlifecycleVersion}"
     compile"com.trello:rxlifecycle-android:${rxlifecycleVersion}"
     compile"com.trello:rxlifecycle-components:${rxlifecycleVersion}"
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
 }
