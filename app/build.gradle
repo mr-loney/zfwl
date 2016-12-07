@@ -21,6 +21,8 @@ android {
 ext {
     easyspVersion = "0.5"
     retrofitVersion = "2.1.0"
+    rxJavaVersion = "1.2.3"
+    rxAndroidVersion = "1.2.1"
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -32,4 +34,9 @@ dependencies {
     provided "com.zzb.easysp:easysp-annotations:${easyspVersion}"
     annotationProcessor "com.zzb.easysp:easysp-compiler:${easyspVersion}"
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+    compile "io.reactivex:rxjava:${rxJavaVersion}"
+    compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+
 }
