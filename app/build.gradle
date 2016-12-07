@@ -20,6 +20,7 @@ android {
 }
 ext {
     easyspVersion = "0.5"
+    retrofitVersion = "2.1.0"
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -30,4 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided "com.zzb.easysp:easysp-annotations:${easyspVersion}"
     annotationProcessor "com.zzb.easysp:easysp-compiler:${easyspVersion}"
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
 }
