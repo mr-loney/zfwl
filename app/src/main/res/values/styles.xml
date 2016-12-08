@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mAutoCompleteStyle" parent="@android:style/Widget.AutoCompleteTextView">
+        <item name="android:popupBackground">@drawable/bg_rectangle_lightgray</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/lightblack</item>
+    </style>
 </resources>

@@ -1,0 +1,122 @@
+<com.zfwl.widget.TouchLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_title_bar" />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <com.zfwl.library.controls.AutoCompleteTextViewEx
+            android:id="@+id/login_edtAccount"
+            style="@style/mAutoCompleteStyle"
+            android:layout_width="match_parent"
+            android:completionThreshold="1"
+            android:drawableRight="@drawable/txt_clear_bg"
+            android:hint="手机号"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:textSize="15sp"
+            android:text="18500226297"
+            android:maxLength="11"
+            android:paddingLeft="70dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_username_left" />
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_height="0.5dp"
+        android:layout_width="fill_parent"
+        android:background="@color/white">
+        <View android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lightgray">
+        </View>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/login_edtPassword"
+            style="@style/edit_text_white_corner"
+            android:layout_width="match_parent"
+            android:hint="密码"
+            android:text="111111"
+            android:imeActionLabel="@string/login_btnLogin_text"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:paddingLeft="70dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_pwd_left" />
+
+        <ImageView
+            android:id="@+id/img_see_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/see_pwd" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_btnLogin"
+        style="@style/button_Green_style"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:text="@string/login_btnLogin_text" />
+
+    <Button
+        android:id="@+id/login_btnWXLogin"
+        style="@style/button_Green_style"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:text="微信账号登录" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/login_btnForgotPwd"
+        style="@style/button_notbg_style"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="14sp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:text="@string/login_btnForgotPwd_text"
+        android:textColor="#fd722e" />
+    </RelativeLayout>
+</com.zfwl.widget.TouchLinearLayout>

@@ -1,0 +1,13 @@
+<com.zfwl.widget.TouchFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/guid_item_bg"
+    tools:context=".activity.GuideActivity" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/guide_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.zfwl.widget.TouchFrameLayout>

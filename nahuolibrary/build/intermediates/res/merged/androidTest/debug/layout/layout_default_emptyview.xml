@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<TextView 
+	    android:id="@+id/tv_empty_text"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:gravity="center"
+	    android:text="还没有新的数据哦，点击刷新试试吧"
+	    />
+</LinearLayout>
+<!-- From: file:/Users/pengjun/Desktop/zh/zfwl/nahuolibrary/src/main/res/layout/layout_default_emptyview.xml --><!-- From: file:/Users/pengjun/Desktop/zh/zfwl/nahuolibrary/build/intermediates/bundles/debug/res/layout/layout_default_emptyview.xml -->

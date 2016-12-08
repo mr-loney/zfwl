@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="115dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/user_reg_address_txt"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:text=""
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:padding="8dp" />
+        <TextView
+            android:id="@+id/user_reg_address_del"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:text="删除"
+            android:gravity="right"
+            android:textColor="@color/red"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/user_reg_address_from"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text=""
+        android:hint="从哪里"
+        android:drawableLeft="@drawable/see_pwd"
+        android:background="@color/white"
+        android:padding="8dp" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="10dp"
+        android:background="#aaaaaa"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:id="@+id/user_reg_address_to"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/see_pwd"
+        android:text=""
+        android:hint="到哪里去"
+        android:padding="8dp" />
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/share_menu_item_n" android:state_pressed="true"/>
+    <item android:drawable="@color/share_menu_item_p"/>
+
+</selector><!-- From: file:/Users/pengjun/Desktop/zh/zfwl/nahuolibrary/src/main/res/drawable/selector_share_menu_item.xml --><!-- From: file:/Users/pengjun/Desktop/zh/zfwl/nahuolibrary/build/intermediates/bundles/debug/res/drawable/selector_share_menu_item.xml -->

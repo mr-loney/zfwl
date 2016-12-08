@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="添加您的常跑地"
+            android:layout_marginLeft="10dp"
+            android:padding="8dp" />
+
+        <ListView
+            android:id="@+id/listview_step3"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"></ListView>
+
+        <Button
+            android:id="@+id/btn_add_new"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            style="@style/button_Green_style"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:onClick="onClick"
+            android:text="再添加一组" />
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/id_select_address"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
+
+            <com.zfwl.controls.wheel.widget.WheelView
+                android:id="@+id/id_province"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+            </com.zfwl.controls.wheel.widget.WheelView>
+
+            <com.zfwl.controls.wheel.widget.WheelView
+                android:id="@+id/id_city"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+            </com.zfwl.controls.wheel.widget.WheelView>
+
+            <com.zfwl.controls.wheel.widget.WheelView
+                android:id="@+id/id_district"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+            </com.zfwl.controls.wheel.widget.WheelView>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
