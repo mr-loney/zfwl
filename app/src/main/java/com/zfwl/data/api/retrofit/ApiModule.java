@@ -1,11 +1,12 @@
 package com.zfwl.data.api.retrofit;
 
+import com.google.gson.Gson;
 import com.zfwl.data.api.LoginApi;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.zfwl.ZfwlConverterFactory;
 
 /**
  * Created by ZZB on 2016/12/7.
@@ -23,6 +24,7 @@ public class ApiModule {
     public Retrofit provideRetrofit() {
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                    .addConverterFactory(ZfwlConverterFactory.create(new Gson()))
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(provideOkHttpClient())
@@ -30,9 +32,11 @@ public class ApiModule {
         }
         return mRetrofit;
     }
-    public LoginApi provideLoginApi(){
+
+    public LoginApi provideLoginApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(LoginApi.class);
     }
+
     private OkHttpClient provideOkHttpClient() {
         return new OkHttpClient();
     }
