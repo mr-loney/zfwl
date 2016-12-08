@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
+import com.zfwl.entity.User;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -555,7 +556,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void onRegisterSuccess() {
+    public void onRegisterSuccess(User usr) {
         ViewHub.showLongToast(this, "注册成功");
         onGotoStep2(null);
     }
@@ -567,7 +568,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
 
     @Override
-    public void onRegisterAddInfoSuccess() {
+    public void onRegisterAddInfoSuccess(User usr) {
         onGotoStep3(null);
     }
 

@@ -34,7 +34,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
-        mApi.veriftCode(phoneNo, randVeriftCode).subscribe(new Action1() {
+        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
             @Override
             public void call() {
                 getMvpView().onGetVerifyCodeSuccess();
@@ -49,11 +49,11 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
 
     public void Register(String phoneNo,String vCode,String pwd){
 
-        if (vCode != randVeriftCode) {
+        if (vCode != (randVeriftCode+"")) {
             getMvpView().onRegisterFailed("验证码错误");
             return;
         }
-        if (phoneNo.count != 11) {
+        if (phoneNo.length() != 11) {
             getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
@@ -71,7 +71,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
     }
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
-        mApi.registerAddInfo(userid, phoneNo, realName, memberType).subscribe(new Action1<User>() {
+        mApi.registerAddInfo(userid, phoneNo, realName, memberType+"").subscribe(new Action1<User>() {
             @Override
             public void call(User user) {
                 getMvpView().onRegisterAddInfoSuccess(user);
