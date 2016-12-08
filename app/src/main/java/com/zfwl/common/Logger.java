@@ -1,7 +1,5 @@
 package com.zfwl.common;
 
-import android.util.Log;
-
 import com.zfwl.BuildConfig;
 
 import timber.log.Timber;
@@ -17,7 +15,9 @@ public class Logger {
         }
     }
     public static void info(String tag, String msg){
-
+        Timber.tag(tag).i(msg);
     }
-
+    public static void info(String tag, String msg, Object... args){
+        Timber.tag(tag).i(msg, args);
+    }
 }
