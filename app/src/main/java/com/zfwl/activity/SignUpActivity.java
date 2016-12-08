@@ -24,14 +24,9 @@ import android.widget.TextView;
 
 import com.zfwl.adapter.UserRegAddressAdatper;
 import com.zfwl.api.RequestMethod;
-import com.zfwl.common.AnimUtils;
-import com.zfwl.common.InputFilterHelper;
-import com.zfwl.common.SpManager;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
-import com.zfwl.library.controls.LoadingDialog;
-import com.zfwl.library.helper.FunctionHelper;
 import com.zfwl.model.CityModel;
 import com.zfwl.model.DistrictModel;
 import com.zfwl.model.ProvinceModel;

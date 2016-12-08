@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 
-import com.baidu.mobstat.StatService;
 import com.zfwl.adapter.GuideViewPagerAdapter;
 
 import java.util.ArrayList;

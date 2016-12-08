@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">正丰物流</string>
+    <string name="login_edtAccount_empty">请输入正确的手机号</string>
+    <string name="login_edtAccount_error">请输入正确的手机号</string>
+    <string name="login_edtPassword_empty">请输入密码</string>
+    <string name="login_edtPassword_hint">请输入密码</string>
+    <string name="login_doLogin_loading">正在登录，请稍候&#8230;</string>
+    <string name="title_activity_login">登录</string>
+    <string name="login_btnLogin_text">登录</string>
+    <string name="login_btnReg_text">注册</string>
+    <string name="login_btnForgotPwd_text">忘记密码</string>
+    <string name="login_edtAccount_title">账　号：</string>
+    <string name="login_edtAccount_hint">手机/账号</string>
+    <string name="login_edtPassword_title">密　码：</string>
+    <string name="forgotpwd_edtPwd_error">新密码不能少于6位数</string>
+    <string name="me_check_app_update_loading">正在检查程序更新，请稍候&#8230;</string>
+    <string name="dialog_title_update">程序更新</string>
+    <string name="dialog_msg_no_update">当前已是最新版本，祝您使用愉快。</string>
+    <string name="dialog_msg_update">检测到有新版本程序更新啦，最新版本{0}，当前程序版本{1}，快去下载更新吧！</string>
+    <string name="zxing_camera_desc">将二维码图像置于矩形方框内，离手机摄像头10CM左右，系统会自动识别。</string>
+    <string name="cancel">取消</string>
+    <string name="forgotpwd_getSmsKey_success">验证码已经发送到您的手机，请查看您的手机短信！</string>
+    <string name="connect_failuer_toast">请检查网络或稍候重试</string>
+    <string name="main_exit_confirm">是否要退出正丰物流？</string>
+    <string name="shopset_exit_confirm">确定要退出登录吗？</string>
+    <string name="copy_tips">复制</string>
+    <string name="camera_close">取消</string>
+    <string name="camera_enter">确定</string>
+    <string name="camera_Lookup">查看</string>
+    <string name="camera_Delete">移除</string>
+    <string name="camera_Cancel">取消</string>
 </resources>
