@@ -14,10 +14,7 @@ public class Logger {
             Timber.plant(new Timber.DebugTree());
         }
     }
-    public static void info(String tag, String msg){
-        Timber.tag(tag).i(msg);
-    }
-    public static void info(String tag, String msg, Object... args){
+    public static void i(String tag, String msg, Object... args){
         Timber.tag(tag).i(msg, args);
     }
 }
