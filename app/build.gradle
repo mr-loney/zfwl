@@ -58,4 +58,5 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
     testCompile "org.mockito:mockito-core:2.2.9"
+    compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
 }
