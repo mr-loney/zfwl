@@ -13,5 +13,10 @@ public class ZfwlApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Logger.init();
+        initWeChat();
+    }
+
+    private void initWeChat() {
+//        IWXAPI api = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID , false);
     }
 }
