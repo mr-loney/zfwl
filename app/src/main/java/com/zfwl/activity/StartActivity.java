@@ -10,7 +10,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.zfwl.util.TimeUtils;
+import com.zfwl.common.SpManager;
 import java.util.Date;
+import com.zfwl.R;
 
 public class StartActivity extends Activity {
 
@@ -144,12 +147,10 @@ public class StartActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        StatService.onPause(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        StatService.onResume(this);
     }
 }

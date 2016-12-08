@@ -1,5 +1,6 @@
 package com.zfwl.activity;
 
+import com.zfwl.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -92,12 +93,10 @@ public class GuideActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		StatService.onResume(this);
 	}
 }

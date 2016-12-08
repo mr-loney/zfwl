@@ -1,4 +1,4 @@
-package com.zfwl;
+package com.zfwl.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -36,6 +35,10 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.zfwl.controls.LightAlertDialog;
+import com.zfwl.controls.LightPopDialog;
+import com.zfwl.controls.LightPopDialog.PopDialogListener;
+import com.zfwl.R;
 
 import java.lang.reflect.Field;
 
@@ -43,14 +46,6 @@ public class ViewHub {
 
     private static final String TAG = ViewHub.class.getSimpleName();
 
-    /**
-     *@author ZZB
-     *@desc 设置TextInputLayout错误
-     */
-    public static void setTextInputLayoutError(TextInputLayout til, String error){
-        til.setError(error);
-        til.setErrorEnabled(true);
-    }
     /**
      * @description TextView 着色
      * @created 2015-5-1 下午7:15:26
@@ -163,51 +158,6 @@ public class ViewHub {
         et.setSelection(et.getText().toString().length());
         InputMethodManager inputManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(et, 0);
-    }
-
-    /**
-     * @description view的复制
-     * @created 2014-11-11 下午2:08:56
-     * @author ZZB
-     */
-    @SuppressWarnings("deprecation")
-    public static void showCopyView(final Context context, final View v, String copyText, final Boolean issavebgcolor) {
-
-        int width = FunctionHelper.dip2px(context.getResources(), 80);
-        int hight = FunctionHelper.dip2px(context.getResources(), 40);
-        int[] location = new int[2];
-
-        v.getLocationOnScreen(location);
-        View popview = LayoutInflater.from(context).inflate(R.layout.layout_copy_text_popview, null);
-        final PopupWindow popupWindow = new PopupWindow(popview, width, hight);
-        Button btnCopy = (Button)popview.findViewById(R.id.btnCopy);
-        btnCopy.setTag(copyText);
-
-        btnCopy.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("label", v.getTag().toString());
-                cmb.setPrimaryClip(clip);
-                popupWindow.dismiss();
-            }
-        });
-
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0] + v.getWidth() / 2 - width / 2, location[1]
-                - hight);
-        popupWindow.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                if (v != null && issavebgcolor) {
-
-                    v.setBackgroundResource(R.color.transparent);
-                }
-            }
-        });
     }
 
     /**
@@ -463,23 +413,6 @@ public class ViewHub {
         public void onPositiveClick(DialogInterface dialog, int which);
 
         public void onNegativeClick(DialogInterface dialog, int which);
-    }
-
-    /**
-     * @description
-     * @created 2015年4月17日 上午10:49:33
-     * @author JorsonWong
-     */
-    public static void showLightPopDialog(Activity activity, CharSequence title, CharSequence messgae,
-            CharSequence negative, CharSequence positive, PopDialogListener positiveListener) {
-        try {
-            LightPopDialog dialog = new LightPopDialog(activity);
-            dialog.setTitle(title).setMessage(messgae).setNegative(negative, null).setPositive(positive, positiveListener)
-                    .show(); 
-        } catch (BadTokenException e) {
-            e.printStackTrace();
-        }
-        
     }
 
     /**

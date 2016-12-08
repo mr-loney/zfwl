@@ -91,7 +91,7 @@
 
 
     <TextView
-        android:id="@+id/tv_error"
+        android:id="@+id/tv_error1"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:gravity="center"

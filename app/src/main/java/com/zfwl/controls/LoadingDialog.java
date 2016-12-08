@@ -6,8 +6,8 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zfwl.library.R;
-import com.zfwl.library.controls.pulltorefresh.CircleLoadingDrawable;
+import com.zfwl.R;
+import com.zfwl.controls.CircleLoadingDrawable;
 
 public class LoadingDialog extends Dialog {
 

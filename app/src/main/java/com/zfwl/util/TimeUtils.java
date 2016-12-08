@@ -1,4 +1,4 @@
-package com.zfwl.utils;
+package com.zfwl.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

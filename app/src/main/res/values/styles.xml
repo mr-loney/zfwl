@@ -25,12 +25,29 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="LightPopDialogAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/light_pop_dialog_appear</item>
+        <item name="android:windowExitAnimation">@anim/light_pop_dialog_disappear</item>
+    </style>
+    <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <style name="AppFullScreenTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowAnimationStyle">@style/ActivityFadeAnimation</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <declare-styleable name="EditTextEx">
+        <attr name="ex_title" format="string" />
+        <!-- <attr name="leftText" format="string" /> -->
+    </declare-styleable>
     <style name="mAutoCompleteStyle" parent="@android:style/Widget.AutoCompleteTextView">
         <item name="android:popupBackground">@drawable/bg_rectangle_lightgray</item>
         <item name="android:background">@color/white</item>
@@ -81,4 +98,40 @@
         <item name="android:drawableLeft">@drawable/back</item>
     </style>
     <style name="button_titlebar_default_style" parent="button_titlebar_base_style"></style>
+    <!-- 字体风格 -->
+    <style name="myTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="myTextAppearance.big">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="myTextAppearance.medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="myTextAppearance.small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="myTextAppearance.micro">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="myTextAppearance.hint">
+        <item name="android:textColor">@color/hint</item>
+    </style>
+
+    <style name="myTextAppearance.hint.medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="myTextAppearance.hint.small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="myTextAppearance.hint.micro">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

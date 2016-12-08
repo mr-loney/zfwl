@@ -17,11 +17,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.zfwl.util.ViewHub;
+import com.zfwl.util.FunctionHelper;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.zfwl.util.XmlParserHandler;
 import com.zfwl.adapter.UserRegAddressAdatper;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
@@ -31,6 +34,9 @@ import com.zfwl.model.DistrictModel;
 import com.zfwl.model.ProvinceModel;
 import com.zfwl.model.UserRegAddressModel;
 
+import com.zfwl.util.AnimUtils;
+import com.zfwl.common.InputFilterHelper;
+import com.zfwl.R;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +49,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import com.zfwl.mvp.signup.SignUpView;
 import com.zfwl.mvp.signup.SignUpPresenter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
 
@@ -59,45 +68,45 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     //step 1
     @BindView(R.id.et_phone_num)
-    private EditText mEtPhoneNum;
+     EditText mEtPhoneNum;
     @BindView(R.id.et_verifycode)
-    private EditText mEtVerifyCode;
+     EditText mEtVerifyCode;
     @BindView(R.id.et_password)
-    private EditText mEtPWD;
+     EditText mEtPWD;
     @BindView(R.id.btn_see_pwd)
-    private ImageView mImSeePWD;
+     ImageView mImSeePWD;
     @BindView(R.id.btn_next)
-    private Button mBtnGotoStep2;
+     Button mBtnGotoStep2;
     @BindView(R.id.et_get_verifycode)
-    private Button mBtnGetVerifyCode;
-    @BindView(R.id.tv_error)
-    private TextView mTvError;
+     Button mBtnGetVerifyCode;
+    @BindView(R.id.tv_error1)
+     TextView mTvError;
 
     //step 2
     @BindView(R.id.btn_confirm)
-    private Button mBtnOK;
+     Button mBtnOK;
     @BindView(R.id.btn_im_sj)
-    private Button mBtnSj;
+     Button mBtnSj;
     @BindView(R.id.btn_im_cz)
-    private Button mBtnCZ;
+     Button mBtnCZ;
     @BindView(R.id.tv_error)
-    private TextView mTvStep2Error;
+     TextView mTvStep2Error;
     @BindView(R.id.et_name)
-    private EditText mEtUserName;
+     EditText mEtUserName;
 
     //step 3
     @BindView(R.id.btn_add_new)
-    private Button btnAddNew;
+     Button btnAddNew;
     @BindView(R.id.listview_step3)
-    private ListView mListAddress;
+     ListView mListAddress;
     @BindView(R.id.id_select_address)
-    private View id_select_address;
+     View id_select_address;
     @BindView(R.id.id_province)
-    private com.zfwl.controls.wheel.widget.WheelView mViewProvince;
+     com.zfwl.controls.wheel.widget.WheelView mViewProvince;
     @BindView(R.id.id_city)
-    private com.zfwl.controls.wheel.widget.WheelView mViewCity;
+     com.zfwl.controls.wheel.widget.WheelView mViewCity;
     @BindView(R.id.id_district)
-    private com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
+     com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
 
     private UserRegAddressAdatper adapter;
 
@@ -111,6 +120,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        mPresenter = new SignUpPresenter();
+        mPresenter.attachView(this);
         initViews();
     }
 
@@ -255,6 +266,12 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     private void initToolbar() {
         FunctionHelper.hideSoftInput(mContext);
 
@@ -301,13 +318,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
             sigupBtn.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    protected void initPresenters() {
-        super.initPresenters();
-        mPresenter = new SignUpPresenter(this);
-        mPresenters.add(mPresenter);
     }
 
     @Override
@@ -364,7 +374,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                     ViewHub.showLongToast(this, "请输入正确的手机号码");
                     return;
                 }
-                mPresenter.getVerifyCode(mEtPhoneNum.getText().toString(), mEtUserName.getText().toString());
+                mPresenter.getVerifyCode(mEtPhoneNum.getText().toString());
                 break;
             case R.id.btn_confirm: {
                 if (validateStep2Input()) {
@@ -379,11 +389,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             }
             case R.id.titlebar_btnRight: {
                 if (validateStep3Input()) {
-                    mPresenter.signUpUser("",
+                    mPresenter.Register(
                             mEtPhoneNum.getText().toString(),
-                            mEtUserName.getText().toString(),
-                            mEtPWD.getText().toString(),
-                            mEtVerifyCode.getText().toString());
+                            mEtVerifyCode.getText().toString(),
+                            mEtPWD.getText().toString());
                 }
             }
         }
@@ -524,15 +533,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void showLoading() {
-        if (requestData != null) {
-            String method = requestData.method;
-            if (RequestMethod.UserMethod.GET_SIGN_UP_VERIFY_CODE.equals(method)) {
-                mLoadingDialog.start("获取验证码中...");
-            } else if (RequestMethod.UserMethod.USER_REGISTER.equals(method)) {
-                mLoadingDialog.start("注册用户中...");
-            }
-        }
-
+                mLoadingDialog.start("处理中...");
     }
 
     @Override

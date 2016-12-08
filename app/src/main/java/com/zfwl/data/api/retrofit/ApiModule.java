@@ -2,6 +2,7 @@ package com.zfwl.data.api.retrofit;
 
 import com.google.gson.Gson;
 import com.zfwl.data.api.LoginApi;
+import com.zfwl.data.api.SignUpApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

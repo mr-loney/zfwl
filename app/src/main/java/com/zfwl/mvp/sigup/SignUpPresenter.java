@@ -2,13 +2,13 @@ package com.zfwl.mvp.signup;
 
 import android.content.Context;
 
-import com.zfwl.common.SpManager;
-import com.zfwl.model.Params;
-import com.zfwl.model.PublicData;
-import com.zfwl.mvp.MvpBasePresenter;
-import com.zfwl.mvp.RequestData;
-import com.zfwl.mvp.RequestError;
-import com.zfwl.mvp.view.SignUpView;
+import com.zfwl.data.api.SignUpApi;
+import com.zfwl.mvp.signup.SignUpView;
+import com.zfwl.mvp.BasePresenter;
+import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.entity.User;
+
+import rx.functions.Action1;
 
 import org.json.JSONObject;
 
@@ -30,11 +30,11 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
      */
     public void getVerifyCode(String phoneNo){
 
-        if (phoneNo.count!=11) {
-            getMvpView().onLoginFailed("手机号码错误");
+        if (phoneNo.length()!=11) {
+            getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
-        mApi.veriftCode(phone, randVeriftCode).subscribe(new Action1() {
+        mApi.veriftCode(phoneNo, randVeriftCode).subscribe(new Action1() {
             @Override
             public void call(User user) {
                 getMvpView().onGetVerifyCodeSuccess();
@@ -50,14 +50,14 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
     public void Register(String phoneNo,String vCode,String pwd){
 
         if (vCode != randVeriftCode) {
-            getMvpView().onLoginFailed("验证码错误");
+            getMvpView().onRegisterFailed("验证码错误");
             return;
         }
         if (phoneNo.count != 11) {
-            getMvpView().onLoginFailed("手机号码错误");
+            getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
-        mApi.register(phone, pwd).subscribe(new Action1<>() {
+        mApi.register(phoneNo, pwd).subscribe(new Action1<>() {
             @Override
             public void call(User user) {
                 getMvpView().onRegisterSuccess(user);
@@ -71,7 +71,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
     }
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
-        mApi.register(userid, phoneNo, realName, memberType).subscribe(new Action1<>() {
+        mApi.registerAddInfo(userid, phoneNo, realName, memberType).subscribe(new Action1<>() {
             @Override
             public void call(User user) {
                 getMvpView().onRegisterAddInfoSuccess(user);
