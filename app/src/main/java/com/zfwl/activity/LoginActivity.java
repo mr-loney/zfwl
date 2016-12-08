@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.zfwl.R;
 import com.zfwl.entity.User;
+import com.zfwl.controls.AutoCompleteTextViewEx;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
 
@@ -17,10 +18,10 @@ import butterknife.OnClick;
  * Created by ZZB on 2016/12/7.
  */
 public class LoginActivity extends BaseActivity implements LoginMvpView {
-    @BindView(R.id.et_psw)
+    @BindView(R.id.login_edtPassword)
     EditText mEtPsw;
-    @BindView(R.id.et_phone)
-    EditText mEtPhone;
+    @BindView(R.id.login_edtAccount)
+    AutoCompleteTextViewEx mEtPhone;
     private LoginPresenter mLoginPresenter;
 
     @Override
@@ -38,9 +39,34 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoginPresenter.detachView();
     }
 
-    @OnClick(R.id.btn_login)
+    @OnClick(R.id.login_btnLogin)
     public void onLoginClick() {
         mLoginPresenter.login(mEtPhone.getText().toString(), mEtPsw.getText().toString());
+    }
+    @OnClick(R.id.login_btnForgotPwd)
+    public void onForgotPWDClick() {
+        Intent findPwdIntent = new Intent(mContext, ForgotPwdActivity.class);
+        startActivity(findPwdIntent);
+    }
+    @OnClick(R.id.login_btnWXLogin)
+    public void onWxLoginClick() {
+    }
+    @OnClick(R.id.img_see_pwd)
+    public void onSeePWDClick() {
+        int length = edtPassword.getText().length();
+        if (length > 0) {
+            if (edtPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edtPassword.invalidate();
+                edtPassword.setSelection(length);
+                mImSeePWD.setImageResource(R.drawable.see_pwd);
+            } else {
+                edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edtPassword.invalidate();
+                edtPassword.setSelection(edtPassword.getText().length());
+                mImSeePWD.setImageResource(R.drawable.see_pwd1);
+            }
+        }
     }
 
     @Override

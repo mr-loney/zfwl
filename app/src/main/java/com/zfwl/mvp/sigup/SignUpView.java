@@ -1,23 +1,18 @@
-package com.zfwl.mvp.view;
+package com.zfwl.mvp.signup;
 
 import com.zfwl.mvp.MvpView;
-import com.zfwl.mvp.RequestData;
-import com.zfwl.mvp.RequestError;
 
 public interface SignUpView extends MvpView{
 
-    public void showLoading(RequestData requestData);
-    public void hideLoading(RequestData requestData);
+    public void showLoading();
+    public void hideLoading();
 
     public void onGetVerifyCodeSuccess();
-    public void onGetVerifyCodeFailed(RequestError requestError);
-    public void onSignUpUserSuccess();
-    public void onSignUpUserFailed(RequestError requestError);
-
+    public void onGetVerifyCodeFailed(String msg);
     public void onRegisterSuccess();
-    public void onRegisterFailed(RequestError requestError);
+    public void onRegisterFailed(String msg);
     public void onRegisterAddInfoSuccess();
-    public void onRegisterAddInfoFailed(RequestError requestError);
+    public void onRegisterAddInfoFailed(String msg);
 
 
 }

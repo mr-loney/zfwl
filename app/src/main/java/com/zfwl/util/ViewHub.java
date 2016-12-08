@@ -37,14 +37,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zfwl.library.controls.FlowLayout;
-import com.zfwl.library.controls.LightAlertDialog;
-import com.zfwl.library.controls.LightPopDialog;
-import com.zfwl.library.controls.LightPopDialog.PopDialogListener;
-import com.zfwl.library.helper.DisplayUtil;
-import com.zfwl.library.helper.FunctionHelper;
-import com.zfwl.exceptions.CatchedException;
-
 import java.lang.reflect.Field;
 
 public class ViewHub {

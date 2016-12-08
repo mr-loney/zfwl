@@ -15,7 +15,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true" >
 
-        <com.zfwl.library.controls.AutoCompleteTextViewEx
+        <com.zfwl.controls.AutoCompleteTextViewEx
             android:id="@+id/login_edtAccount"
             style="@style/mAutoCompleteStyle"
             android:layout_width="match_parent"

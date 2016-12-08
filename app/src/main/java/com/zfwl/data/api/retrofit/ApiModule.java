@@ -37,6 +37,10 @@ public class ApiModule {
     public LoginApi provideLoginApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(LoginApi.class);
     }
+    public SignUpApi provideSignUpApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(SignUpApi.class);
+    }
+
 
     private OkHttpClient provideOkHttpClient() {
         return new OkHttpClient();

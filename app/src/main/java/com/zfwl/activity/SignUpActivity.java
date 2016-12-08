@@ -1,4 +1,4 @@
-package com.zfwl;
+package com.zfwl.activity;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.adapter.UserRegAddressAdatper;
-import com.zfwl.api.RequestMethod;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
@@ -31,12 +30,6 @@ import com.zfwl.model.CityModel;
 import com.zfwl.model.DistrictModel;
 import com.zfwl.model.ProvinceModel;
 import com.zfwl.model.UserRegAddressModel;
-import com.zfwl.mvp.BaseMVPActivity;
-import com.zfwl.mvp.RequestData;
-import com.zfwl.mvp.RequestError;
-import com.zfwl.mvp.presenter.SignUpPresenter;
-import com.zfwl.mvp.view.SignUpView;
-import com.zfwl.utils.XmlParserHandler;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -44,38 +37,69 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import com.zfwl.controls.LoadingDialog;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import com.zfwl.mvp.signup.SignUpView;
+import com.zfwl.mvp.signup.SignUpPresenter;
 
-public class SignUpActivity extends BaseMVPActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
+public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
 
-    private SignUpActivity mContext = this;
-    private ViewGroup mViewStep1, mViewStep2, mViewStep3;
-
-    private LoadingDialog mLoadingDialog;
+    @BindView(R.id.layout_step1)
+    ViewGroup mViewStep1;
+    @BindView(R.id.layout_step2)
+    ViewGroup mViewStep2;
+    @BindView(R.id.layout_step3)
+    ViewGroup mViewStep3;
     private SignUpPresenter mPresenter;
 
+    private SignUpActivity mContext = this;
+    private LoadingDialog mLoadingDialog;
+
     //step 1
-    private EditText mEtPhoneNum, mEtVerifyCode, mEtPWD;
+    @BindView(R.id.et_phone_num)
+    private EditText mEtPhoneNum;
+    @BindView(R.id.et_verifycode)
+    private EditText mEtVerifyCode;
+    @BindView(R.id.et_password)
+    private EditText mEtPWD;
+    @BindView(R.id.btn_see_pwd)
     private ImageView mImSeePWD;
-    private Button mBtnGotoStep2, mBtnGetVerifyCode;
+    @BindView(R.id.btn_next)
+    private Button mBtnGotoStep2;
+    @BindView(R.id.et_get_verifycode)
+    private Button mBtnGetVerifyCode;
+    @BindView(R.id.tv_error)
     private TextView mTvError;
 
     //step 2
-    private Button mBtnOK, mBtnSj, mBtnCZ;
+    @BindView(R.id.btn_confirm)
+    private Button mBtnOK;
+    @BindView(R.id.btn_im_sj)
+    private Button mBtnSj;
+    @BindView(R.id.btn_im_cz)
+    private Button mBtnCZ;
+    @BindView(R.id.tv_error)
     private TextView mTvStep2Error;
+    @BindView(R.id.et_name)
     private EditText mEtUserName;
 
     //step 3
+    @BindView(R.id.btn_add_new)
     private Button btnAddNew;
+    @BindView(R.id.listview_step3)
     private ListView mListAddress;
+    @BindView(R.id.id_select_address)
     private View id_select_address;
-    private UserRegAddressAdatper adapter;
+    @BindView(R.id.id_province)
     private com.zfwl.controls.wheel.widget.WheelView mViewProvince;
+    @BindView(R.id.id_city)
     private com.zfwl.controls.wheel.widget.WheelView mViewCity;
+    @BindView(R.id.id_district)
     private com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
 
+    private UserRegAddressAdatper adapter;
 
     private WaitTimer mWaitTimer = new WaitTimer();
     private static final int REQUEST_OPEN_CAMERA = 1;
@@ -126,30 +150,13 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
 
     private void initViews() {
         mLoadingDialog = new LoadingDialog(this);
-        mViewStep1 = $(R.id.layout_step1);
-        initLayoutTransition(mViewStep1);
-        mViewStep2 = $(R.id.layout_step2);
+        initLayoutTransition(mViewStep1);;
         initLayoutTransition(mViewStep2);
-        mViewStep3 = $(R.id.layout_step3);
         initLayoutTransition(mViewStep3);
         mViewStep1.setVisibility(View.VISIBLE);
-        mEtPhoneNum = $(mViewStep1, R.id.et_phone_num);
-        mEtVerifyCode = $(mViewStep1, R.id.et_verifycode);
-        mBtnGetVerifyCode = $(mViewStep1, R.id.et_get_verifycode);
-        mBtnGotoStep2 = $(mViewStep1, R.id.btn_next);
-        mImSeePWD = $(mViewStep1, R.id.btn_see_pwd);
-        mEtPWD = $(mViewStep1, R.id.et_password);
         mBtnGetVerifyCode.setOnClickListener(this);
         mBtnGotoStep2.setOnClickListener(this);
 
-        mEtUserName = $(mViewStep2, R.id.et_name);
-        mBtnOK = $(mViewStep2, R.id.btn_confirm);
-        mBtnSj = $(mViewStep2, R.id.btn_im_sj);
-        mBtnCZ = $(mViewStep2, R.id.btn_im_cz);
-
-        btnAddNew = $(mViewStep3, R.id.btn_add_new);
-        mListAddress = $(mViewStep3, R.id.listview_step3);
-        id_select_address = $(mViewStep3, R.id.id_select_address);
         id_select_address.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -170,9 +177,6 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
                 return false;
             }
         });
-        mViewProvince = $(mViewStep3, R.id.id_province);
-        mViewCity = $(mViewStep3, R.id.id_city);
-        mViewDistrict = $(mViewStep3, R.id.id_district);
         mViewProvince.addChangingListener(this);
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
@@ -183,10 +187,6 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
         mBtnCZ.setOnClickListener(this);
         mBtnOK.setOnClickListener(this);
         mImSeePWD.setOnClickListener(this);
-
-        mTvStep2Error = $(mViewStep2, R.id.tv_error);
-        mTvError = $(mViewStep1, R.id.tv_error);
-
 
         mEtPWD.setFilters(new InputFilter[]{
                 InputFilterHelper.maxLengthFilter(12),
@@ -369,10 +369,10 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
             case R.id.btn_confirm: {
                 if (validateStep2Input()) {
 
-                    mPresenter.RegisterAddInfo(SpManager.getUserId(mContext),
-                            SpManager.getUserPhone(mContext),
-                            mEtUserName.getText().toString(),
-                            selectSF==1?2:1);
+//                    mPresenter.RegisterAddInfo(SpManager.getUserId(mContext),
+//                            SpManager.getUserPhone(mContext),
+//                            mEtUserName.getText().toString(),
+//                            selectSF==1?2:1);
 //                    onGotoStep3(null);
                 }
                 break;
@@ -523,7 +523,7 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
 
 
     @Override
-    public void showLoading(RequestData requestData) {
+    public void showLoading() {
         if (requestData != null) {
             String method = requestData.method;
             if (RequestMethod.UserMethod.GET_SIGN_UP_VERIFY_CODE.equals(method)) {
@@ -536,7 +536,7 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
     }
 
     @Override
-    public void hideLoading(RequestData requestData) {
+    public void hideLoading() {
         mLoadingDialog.stop();
     }
 
@@ -549,8 +549,8 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
     }
 
     @Override
-    public void onGetVerifyCodeFailed(RequestError requestError) {
-        showError(requestError.msg);
+    public void onGetVerifyCodeFailed(String msg) {
+        showError(msg);
     }
 
     @Override
@@ -560,8 +560,8 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
     }
 
     @Override
-    public void onRegisterFailed(RequestError requestError) {
-        showError(requestError.msg);
+    public void onRegisterFailed(String msg) {
+        showError(msg);
     }
 
 
@@ -571,11 +571,8 @@ public class SignUpActivity extends BaseMVPActivity implements View.OnClickListe
     }
 
     @Override
-    public void onRegisterAddInfoFailed(RequestError requestError) {
-        if (!requestError.isServerExp) {
-            String error = requestError.msg;
-            setStep2Error(error);
-        }
+    public void onRegisterAddInfoFailed(String msg) {
+            setStep2Error(msg);
     }
 
     //选择地址

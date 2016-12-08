@@ -1,4 +1,4 @@
-package com.zfwl;
+package com.zfwl.activity;
 
 import android.app.Activity;
 import android.content.Intent;

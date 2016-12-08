@@ -1,4 +1,4 @@
-package com.zfwl.library.helper;
+package com.zfwl.helper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,8 +25,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
-import com.zfwl.library.R;
-import com.zfwl.library.utils.TimeUtils;
+import com.zfwl.R;
+import com.zfwl.utils.TimeUtils;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

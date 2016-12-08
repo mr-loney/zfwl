@@ -1,4 +1,4 @@
-package com.zfwl;
+package com.zfwl.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,10 +9,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.baidu.mobstat.StatService;
-import com.zfwl.common.SpManager;
-import com.zfwl.library.utils.TimeUtils;
 
 import java.util.Date;
 

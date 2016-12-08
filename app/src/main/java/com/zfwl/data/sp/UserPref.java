@@ -9,6 +9,9 @@ import com.zzb.easysp.EasySP;
 public class UserPref {
 
     private long userId;
+    private long userId;
+    private long userId;
+    private long userId;
 
     public long getUserId() {
         return userId;
