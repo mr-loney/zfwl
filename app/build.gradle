@@ -29,6 +29,7 @@ ext {
     rxJavaVersion = "1.2.3"
     rxAndroidVersion = "1.2.1"
     rxlifecycleVersion = "1.0"
+    butterknifeVersion = "8.4.0"
 }
 configurations.all {
     resolutionStrategy {
@@ -47,9 +48,13 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+    compile "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}"
     compile "io.reactivex:rxjava:${rxJavaVersion}"
     compile "io.reactivex:rxandroid:${rxAndroidVersion}"
     compile"com.trello:rxlifecycle:${rxlifecycleVersion}"
     compile"com.trello:rxlifecycle-android:${rxlifecycleVersion}"
     compile"com.trello:rxlifecycle-components:${rxlifecycleVersion}"
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+    testCompile "org.mockito:mockito-core:2.2.9"
 }

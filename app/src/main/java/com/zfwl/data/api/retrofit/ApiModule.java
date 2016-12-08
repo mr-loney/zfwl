@@ -1,5 +1,7 @@
 package com.zfwl.data.api.retrofit;
 
+import com.zfwl.data.api.LoginApi;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -28,7 +30,9 @@ public class ApiModule {
         }
         return mRetrofit;
     }
-
+    public LoginApi provideLoginApi(){
+        return ApiModule.INSTANCE.provideRetrofit().create(LoginApi.class);
+    }
     private OkHttpClient provideOkHttpClient() {
         return new OkHttpClient();
     }
