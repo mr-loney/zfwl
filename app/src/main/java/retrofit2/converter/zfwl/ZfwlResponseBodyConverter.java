@@ -28,7 +28,7 @@ public class ZfwlResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             String body = value.string();
             JSONObject json = new JSONObject(body);
             int status = json.optInt("status");
-            String msg = json.optString("msg", "");
+            String msg = json.optString("message", "");
             if (status == 200) {
                 if (json.has("result")) {
                     Object data = json.get("result");
