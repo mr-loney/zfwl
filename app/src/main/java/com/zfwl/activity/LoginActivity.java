@@ -2,15 +2,15 @@ package com.zfwl.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.EditText;
-
 import android.text.InputType;
+import android.widget.EditText;
+import android.widget.ImageView;
+
 import com.zfwl.R;
-import com.zfwl.entity.User;
 import com.zfwl.controls.AutoCompleteTextViewEx;
+import com.zfwl.entity.User;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
-import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +31,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
