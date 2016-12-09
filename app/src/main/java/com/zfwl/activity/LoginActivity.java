@@ -6,12 +6,19 @@ import android.text.InputType;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
+import com.zfwl.common.Const;
 import com.zfwl.controls.AutoCompleteTextViewEx;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.User;
+import com.zfwl.event.WeChatAuthEvent;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     ImageView mImSeePWD;
     private LoginPresenter mLoginPresenter;
     private LoadingDialog mLoadingDialog;
-
+    private IWXAPI mWxApi;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoadingDialog = new LoadingDialog(this);
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
-
+        mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID , false);
     }
 
     @Override
@@ -58,6 +65,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     }
     @OnClick(R.id.login_btnWXLogin)
     public void onWxLoginClick() {
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "none";
+        mWxApi.sendReq(req);
     }
     @OnClick(R.id.img_see_pwd)
     public void onSeePWDClick() {
@@ -97,5 +108,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Override
     public void hideLoginLoading() {
         //hide loading
+    }
+    @Subscribe
+    public void onWeChatAuthSuccess(WeChatAuthEvent event){
+        //event.getCode() then get token
     }
 }

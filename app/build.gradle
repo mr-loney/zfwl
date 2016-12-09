@@ -61,4 +61,5 @@ dependencies {
     compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
