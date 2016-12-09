@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.zfwl.R;
 import com.zfwl.controls.AutoCompleteTextViewEx;
+import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
@@ -27,12 +28,14 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @BindView(R.id.img_see_pwd)
     ImageView mImSeePWD;
     private LoginPresenter mLoginPresenter;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        mLoadingDialog = new LoadingDialog(this);
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
 
@@ -76,18 +79,19 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void showLoginLoading() {
-        //login...
+        mLoadingDialog.start("登录中...");
     }
 
     @Override
     public void onLoginSuccess(User user) {
-        //go to other activity
+        mLoadingDialog.stop();
         MainActivity.launch(this);
+
     }
 
     @Override
     public void onLoginFailed(String msg) {
-        //show error
+        mLoadingDialog.stop();
     }
 
     @Override

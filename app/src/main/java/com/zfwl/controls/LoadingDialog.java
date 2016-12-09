@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.controls.CircleLoadingDrawable;
 
 public class LoadingDialog extends Dialog {
 
@@ -17,15 +16,15 @@ public class LoadingDialog extends Dialog {
 
     public LoadingDialog(Context context) {
         super(context, R.style.LoadingDialog);
-        InitDialog(context);
+        initDialog(context);
     }
 
     public LoadingDialog(Context context, int theme) {
         super(context, R.style.LoadingDialog);
-        InitDialog(context);
+        initDialog(context);
     }
 
-    public void InitDialog(Context context) {
+    public void initDialog(Context context) {
         mContext = context;
         setCancelable(false);
         setCanceledOnTouchOutside(false);
