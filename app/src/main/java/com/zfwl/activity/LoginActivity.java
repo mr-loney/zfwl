@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Override
     public void onLoginSuccess(User user) {
         //go to other activity
+        MainActivity.launch(this);
     }
 
     @Override
