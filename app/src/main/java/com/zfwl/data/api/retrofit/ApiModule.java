@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
 public class ApiModule {
 
     public static ApiModule INSTANCE = new ApiModule();
-    private static final String BASE_URL = "http://api.zflogistics.com/";
+    private static final String BASE_URL = "http://139.129.218.83:90/logistics/";
     private Retrofit mRetrofit;
 
     private ApiModule() {

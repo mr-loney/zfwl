@@ -1,8 +1,6 @@
 package com.zfwl.activity;
 
 import android.animation.LayoutTransition;
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,19 +12,17 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
-import com.zfwl.entity.User;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import com.zfwl.util.ViewHub;
-import com.zfwl.util.FunctionHelper;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zfwl.util.XmlParserHandler;
+import com.zfwl.R;
 import com.zfwl.adapter.UserRegAddressAdatper;
+<<<<<<< HEAD
 import com.zfwl.controls.widget.OnWheelChangedListener;
 import com.zfwl.controls.widget.WheelView;
 import com.zfwl.controls.widget.adapters.ArrayWheelAdapter;
@@ -35,24 +31,36 @@ import com.zfwl.entity.DistrictModel;
 import com.zfwl.entity.ProvinceModel;
 import com.zfwl.entity.UserRegAddressModel;
 
-import com.zfwl.util.AnimUtils;
+=======
 import com.zfwl.common.InputFilterHelper;
-import com.zfwl.R;
+import com.zfwl.controls.LoadingDialog;
+import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
+import com.zfwl.controls.wheel.widget.WheelView;
+import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
+import com.zfwl.entity.User;
+import com.zfwl.model.CityModel;
+import com.zfwl.model.DistrictModel;
+import com.zfwl.model.ProvinceModel;
+import com.zfwl.model.UserRegAddressModel;
+import com.zfwl.mvp.sigup.SignUpPresenter;
+import com.zfwl.mvp.sigup.SignUpView;
+>>>>>>> origin/master
+import com.zfwl.util.AnimUtils;
+import com.zfwl.util.FunctionHelper;
+import com.zfwl.util.ViewHub;
+import com.zfwl.util.XmlParserHandler;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import com.zfwl.controls.LoadingDialog;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import com.zfwl.mvp.signup.SignUpView;
-import com.zfwl.mvp.signup.SignUpPresenter;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
 

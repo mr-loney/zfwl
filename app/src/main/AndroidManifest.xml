@@ -49,7 +49,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".wxapi.WXEntryActivity"></activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

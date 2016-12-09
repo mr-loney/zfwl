@@ -1,4 +1,4 @@
-package com.zfwl.mvp.signup;
+package com.zfwl.mvp.sigup;
 
 import com.zfwl.entity.User;
 import com.zfwl.mvp.MvpView;

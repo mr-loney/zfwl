@@ -1,16 +1,11 @@
-package com.zfwl.mvp.signup;
-
-import android.content.Context;
+package com.zfwl.mvp.sigup;
 
 import com.zfwl.data.api.SignUpApi;
-import com.zfwl.mvp.signup.SignUpView;
-import com.zfwl.mvp.BasePresenter;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
+import com.zfwl.mvp.BasePresenter;
 
 import rx.functions.Action1;
-
-import org.json.JSONObject;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
     private SignUpApi mApi;
@@ -34,6 +29,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
+<<<<<<< HEAD
 //        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
 //            @Override
 //            public void call() {
@@ -45,6 +41,19 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
 //                getMvpView().onGetVerifyCodeFailed(throwable.toString());
 //            }
 //        });
+=======
+        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
+            @Override
+            public void call(Object o) {
+                getMvpView().onGetVerifyCodeSuccess();
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                getMvpView().onGetVerifyCodeFailed(throwable.toString());
+            }
+        });
+>>>>>>> origin/master
     }
 
     public void Register(String phoneNo,String vCode,String pwd){
