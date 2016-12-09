@@ -34,17 +34,17 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
-        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
-            @Override
-            public void call() {
-                getMvpView().onGetVerifyCodeSuccess();
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                getMvpView().onGetVerifyCodeFailed(throwable.toString());
-            }
-        });
+//        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
+//            @Override
+//            public void call() {
+//                getMvpView().onGetVerifyCodeSuccess();
+//            }
+//        }, new Action1<Throwable>() {
+//            @Override
+//            public void call(Throwable throwable) {
+//                getMvpView().onGetVerifyCodeFailed(throwable.toString());
+//            }
+//        });
     }
 
     public void Register(String phoneNo,String vCode,String pwd){

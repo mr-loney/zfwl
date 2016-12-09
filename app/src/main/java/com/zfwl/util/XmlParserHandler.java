@@ -1,8 +1,8 @@
 package com.zfwl.util;
 
-import com.zfwl.model.CityModel;
-import com.zfwl.model.DistrictModel;
-import com.zfwl.model.ProvinceModel;
+import com.zfwl.entity.CityModel;
+import com.zfwl.entity.DistrictModel;
+import com.zfwl.entity.ProvinceModel;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

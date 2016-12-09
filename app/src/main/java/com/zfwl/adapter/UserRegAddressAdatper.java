@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.model.UserRegAddressModel;
+import com.zfwl.entity.UserRegAddressModel;
 
 import java.util.List;
 

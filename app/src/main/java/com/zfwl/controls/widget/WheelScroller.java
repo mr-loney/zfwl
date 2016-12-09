@@ -17,7 +17,7 @@
  *  limitations under the License.
  */
 
-package com.zfwl.controls.wheel.widget;
+package com.zfwl.controls.widget;
 
 import android.content.Context;
 import android.os.Handler;

@@ -1,4 +1,4 @@
-package com.zfwl.model;
+package com.zfwl.entity;
 
 import com.google.gson.annotations.Expose;
 

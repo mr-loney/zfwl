@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.zfwl.controls.wheel.widget.adapters;
+package com.zfwl.controls.widget.adapters;
 
 import android.content.Context;
 

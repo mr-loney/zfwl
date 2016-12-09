@@ -17,13 +17,13 @@
  *  limitations under the License.
  */
 
-package com.zfwl.controls.wheel.widget;
+package com.zfwl.controls.widget;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.zfwl.R;
-import com.zfwl.controls.wheel.widget.adapters.WheelViewAdapter;
+import com.zfwl.controls.widget.adapters.WheelViewAdapter;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;

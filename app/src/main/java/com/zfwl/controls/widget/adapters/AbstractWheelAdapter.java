@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.zfwl.controls.wheel.widget.adapters;
+package com.zfwl.controls.widget.adapters;
 
 import java.util.LinkedList;
 import java.util.List;

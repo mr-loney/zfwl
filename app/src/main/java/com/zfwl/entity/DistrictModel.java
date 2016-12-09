@@ -1,4 +1,4 @@
-package com.zfwl.model;
+package com.zfwl.entity;
 
 public class DistrictModel {
 	private String name;

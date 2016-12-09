@@ -27,13 +27,13 @@ import android.widget.TextView;
 
 import com.zfwl.util.XmlParserHandler;
 import com.zfwl.adapter.UserRegAddressAdatper;
-import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
-import com.zfwl.controls.wheel.widget.WheelView;
-import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
-import com.zfwl.model.CityModel;
-import com.zfwl.model.DistrictModel;
-import com.zfwl.model.ProvinceModel;
-import com.zfwl.model.UserRegAddressModel;
+import com.zfwl.controls.widget.OnWheelChangedListener;
+import com.zfwl.controls.widget.WheelView;
+import com.zfwl.controls.widget.adapters.ArrayWheelAdapter;
+import com.zfwl.entity.CityModel;
+import com.zfwl.entity.DistrictModel;
+import com.zfwl.entity.ProvinceModel;
+import com.zfwl.entity.UserRegAddressModel;
 
 import com.zfwl.util.AnimUtils;
 import com.zfwl.common.InputFilterHelper;
@@ -103,11 +103,11 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.id_select_address)
      View id_select_address;
     @BindView(R.id.id_province)
-     com.zfwl.controls.wheel.widget.WheelView mViewProvince;
+     com.zfwl.controls.widget.WheelView mViewProvince;
     @BindView(R.id.id_city)
-     com.zfwl.controls.wheel.widget.WheelView mViewCity;
+     com.zfwl.controls.widget.WheelView mViewCity;
     @BindView(R.id.id_district)
-     com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
+     com.zfwl.controls.widget.WheelView mViewDistrict;
 
     private UserRegAddressAdatper adapter;
 

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.zfwl.controls.wheel.widget;
+package com.zfwl.controls.widget;
 
 /**
  * Wheel clicked listener interface.
