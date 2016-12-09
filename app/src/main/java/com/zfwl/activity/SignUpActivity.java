@@ -22,29 +22,18 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.UserRegAddressAdatper;
-<<<<<<< HEAD
-import com.zfwl.controls.widget.OnWheelChangedListener;
-import com.zfwl.controls.widget.WheelView;
-import com.zfwl.controls.widget.adapters.ArrayWheelAdapter;
-import com.zfwl.entity.CityModel;
-import com.zfwl.entity.DistrictModel;
-import com.zfwl.entity.ProvinceModel;
-import com.zfwl.entity.UserRegAddressModel;
-
-=======
 import com.zfwl.common.InputFilterHelper;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
 import com.zfwl.entity.User;
-import com.zfwl.model.CityModel;
-import com.zfwl.model.DistrictModel;
-import com.zfwl.model.ProvinceModel;
-import com.zfwl.model.UserRegAddressModel;
+import com.zfwl.entity.CityModel;
+import com.zfwl.entity.DistrictModel;
+import com.zfwl.entity.ProvinceModel;
+import com.zfwl.entity.UserRegAddressModel;
 import com.zfwl.mvp.sigup.SignUpPresenter;
 import com.zfwl.mvp.sigup.SignUpView;
->>>>>>> origin/master
 import com.zfwl.util.AnimUtils;
 import com.zfwl.util.FunctionHelper;
 import com.zfwl.util.ViewHub;
@@ -111,11 +100,11 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.id_select_address)
      View id_select_address;
     @BindView(R.id.id_province)
-     com.zfwl.controls.widget.WheelView mViewProvince;
+     com.zfwl.controls.wheel.widget.WheelView mViewProvince;
     @BindView(R.id.id_city)
-     com.zfwl.controls.widget.WheelView mViewCity;
+     com.zfwl.controls.wheel.widget.WheelView mViewCity;
     @BindView(R.id.id_district)
-     com.zfwl.controls.widget.WheelView mViewDistrict;
+     com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
 
     private UserRegAddressAdatper adapter;
 

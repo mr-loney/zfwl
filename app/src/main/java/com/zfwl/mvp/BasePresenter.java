@@ -1,7 +1,5 @@
 package com.zfwl.mvp;
 
-import com.zfwl.common.Logger;
-
 /**
  * Created by ZZB on 2016/10/13.
  */
