@@ -19,7 +19,7 @@ public class BottomNavBtn extends LinearLayout {
     @BindView(R.id.tv_nav_text)
     TextView mTvText;
     private int mEnableColorResId = 0xff157afb;
-    private int mDisableColorResId = 0xb9c0c8;
+    private int mDisableColorResId = 0xffb9c0c8;
 
     public BottomNavBtn(Context context) {
         super(context);
