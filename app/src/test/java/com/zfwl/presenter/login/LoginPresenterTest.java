@@ -39,7 +39,7 @@ public class LoginPresenterTest {
     public void test() {
         LoginPresenter loginPresenter = new LoginPresenter(mockModule.provideLoginApi());
         loginPresenter.attachView(mockView);
-        loginPresenter.login("a", "b");
+        loginPresenter.phoneLogin("a", "b");
         Mockito.verify(mockView).onLoginSuccess(Mockito.any(User.class));
 
     }

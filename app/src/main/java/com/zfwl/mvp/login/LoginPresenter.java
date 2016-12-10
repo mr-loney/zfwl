@@ -22,7 +22,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         this.mLoginApi = mLoginApi;
     }
 
-    public void login(String phone, String password) {
+    public void phoneLogin(String phone, String password) {
         if (!isPhoneAndPswValid(phone, password)) {
             getMvpView().onLoginFailed("invalid phone or psw");
             return;

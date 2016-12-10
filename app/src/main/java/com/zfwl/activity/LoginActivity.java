@@ -18,6 +18,7 @@ import com.zfwl.event.WeChatAuthEvent;
 import com.zfwl.mvp.login.LoginMvpView;
 import com.zfwl.mvp.login.LoginPresenter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -37,39 +38,46 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     private LoginPresenter mLoginPresenter;
     private LoadingDialog mLoadingDialog;
     private IWXAPI mWxApi;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         mLoadingDialog = new LoadingDialog(this);
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
-        mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID , false);
+        mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID, false);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mLoginPresenter.detachView();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R.id.login_btnLogin)
     public void onLoginClick() {
-        mLoginPresenter.login(mEtPhone.getText().toString(), mEtPsw.getText().toString());
+        mLoginPresenter.phoneLogin(mEtPhone.getText().toString(), mEtPsw.getText().toString());
     }
+
     @OnClick(R.id.login_btnForgotPwd)
     public void onForgotPWDClick() {
 //        Intent findPwdIntent = new Intent(mContext, ForgotPwdActivity.class);
 //        startActivity(findPwdIntent);
     }
+
     @OnClick(R.id.login_btnWXLogin)
     public void onWxLoginClick() {
         final SendAuth.Req req = new SendAuth.Req();
+        //弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
         req.scope = "snsapi_userinfo";
         req.state = "none";
         mWxApi.sendReq(req);
     }
+
     @OnClick(R.id.img_see_pwd)
     public void onSeePWDClick() {
         int length = mEtPsw.getText().length();
@@ -109,8 +117,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void hideLoginLoading() {
         //hide loading
     }
+
     @Subscribe
-    public void onWeChatAuthSuccess(WeChatAuthEvent event){
+    public void onWeChatAuthSuccess(WeChatAuthEvent event) {
         //event.getCode() then get token
     }
 }
