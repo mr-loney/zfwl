@@ -1,10 +1,14 @@
 package com.zfwl.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -35,6 +39,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     AutoCompleteTextViewEx mEtPhone;
     @BindView(R.id.img_see_pwd)
     ImageView mImSeePWD;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.titlebar_btnRight)
+    Button sigupBtn;
     private LoginPresenter mLoginPresenter;
     private LoadingDialog mLoadingDialog;
     private IWXAPI mWxApi;
@@ -49,13 +57,26 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoginPresenter = new LoginPresenter();
         mLoginPresenter.attachView(this);
         mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID, false);
+
+        initView();
     }
 
+    private void initView() {
+        tvTitle.setText("登录");
+        sigupBtn.setText("注册");
+        sigupBtn.setVisibility(View.VISIBLE);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mLoginPresenter.detachView();
         EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R.id.titlebar_btnRight)
+    public void onTitleRightClick() {
+        Intent intent1 = new Intent(this, SignUpActivity.class);
+        startActivity(intent1);
     }
 
     @OnClick(R.id.login_btnLogin)

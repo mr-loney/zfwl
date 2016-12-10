@@ -50,6 +50,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
 
@@ -118,6 +119,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        ButterKnife.bind(this);
         mPresenter = new SignUpPresenter();
         mPresenter.attachView(this);
         initViews();
@@ -366,10 +368,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             case R.id.et_get_verifycode://重新获取验证码
                 String phoneNo = mEtPhoneNum.getText().toString();
                 if (isEtEmpty(mEtPhoneNum)) {
-                    ViewHub.showLongToast(this, "请输入手机号码");
+                    ViewHub.showLongToast(mContext, "请输入手机号码");
                     return;
                 } else if (!FunctionHelper.isPhoneNo(phoneNo)) {
-                    ViewHub.showLongToast(this, "请输入正确的手机号码");
+                    ViewHub.showLongToast(mContext, "请输入正确的手机号码");
                     return;
                 }
                 mPresenter.getVerifyCode(mEtPhoneNum.getText().toString());
@@ -494,7 +496,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         String firstFrom = adapter.mList.get(0).getFromDistrict();
         String firstTo = adapter.mList.get(0).getToDistrict();
         if (firstFrom.length() == 0 || firstTo.length() == 0) {
-            ViewHub.showLongToast(this, "请选择常用地点");
+            ViewHub.showLongToast(mContext, "请选择常用地点");
             return false;
         }
         return true;
@@ -503,20 +505,20 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     private void setStep2Error(String error) {
 //        mTvStep2Error.setVisibility(View.VISIBLE);
 //        mTvStep2Error.setText(error);
-        ViewHub.showLongToast(this, error);
+        ViewHub.showLongToast(mContext, error);
     }
 
     private void setTilError(EditText et, String error) {
 //        ViewHub.setEditError(et, error);
 //        et.setError(error);
 //        AnimUtils.shake(et);
-        ViewHub.showLongToast(this, error);
+        ViewHub.showLongToast(mContext, error);
     }
 
     private void showError(String error) {
 //        mTvError.setVisibility(View.VISIBLE);
 //        mTvError.setText(error);
-        ViewHub.showLongToast(this, error);
+        ViewHub.showLongToast(mContext, error);
     }
 
     private boolean isEtEmpty(EditText et) {
@@ -544,7 +546,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         mEtVerifyCode.requestFocus();
         mWaitTimer.cancel();
         mWaitTimer.start();
-//        ViewHub.showOkDialog(this, "提示", getString(R.string.forgotpwd_getSmsKey_success), "OK");
+//        ViewHub.showOkDialog(mContext, "提示", getString(R.string.forgotpwd_getSmsKey_success), "OK");
     }
 
     @Override
@@ -554,7 +556,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onRegisterSuccess(User usr) {
-        ViewHub.showLongToast(this, "注册成功");
+        ViewHub.showLongToast(mContext, "注册成功");
         onGotoStep2(null);
     }
 

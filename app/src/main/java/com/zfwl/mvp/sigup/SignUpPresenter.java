@@ -44,7 +44,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
 
     public void Register(String phoneNo,String vCode,String pwd){
 
-        if (vCode != (randVeriftCode+"")) {
+        if ((vCode+"").equals(randVeriftCode)) {
             getMvpView().onRegisterFailed("验证码错误");
             return;
         }
