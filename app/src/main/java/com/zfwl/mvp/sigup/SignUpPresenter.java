@@ -5,7 +5,9 @@ import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.BasePresenter;
 
-import rx.android.schedulers.AndroidSchedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.functions.Action1;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
@@ -53,15 +55,25 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
-        mApi.register(phoneNo, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
+//        mApi.register(phoneNo, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
+//            @Override
+//            public void call(User user) {
+//                getMvpView().onRegisterSuccess(user);
+//            }
+//        }, new Action1<Throwable>() {
+//            @Override
+//            public void call(Throwable throwable) {
+//                getMvpView().onRegisterFailed(throwable.toString());
+//            }
+//        });
+        mApi.register1(phoneNo, pwd).enqueue(new Callback<User>() {
             @Override
-            public void call(User user) {
-                getMvpView().onRegisterSuccess(user);
+            public void onResponse(Call<User> call, Response<User> response) {
+                getMvpView().onRegisterSuccess(response.body());
             }
-        }, new Action1<Throwable>() {
             @Override
-            public void call(Throwable throwable) {
-                getMvpView().onRegisterFailed(throwable.toString());
+            public void onFailure(Call<User> call, Throwable t) {
+                getMvpView().onRegisterFailed(t.getMessage());
             }
         });
 
