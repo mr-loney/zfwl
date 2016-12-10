@@ -14,6 +14,7 @@ import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.common.Const;
 import com.zfwl.controls.AutoCompleteTextViewEx;
 import com.zfwl.controls.LoadingDialog;
@@ -125,7 +126,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Override
     public void onLoginSuccess(User user) {
         mLoadingDialog.stop();
-        MainActivity.launch(this);
+        HomeActivity.launch(this);
 
     }
 

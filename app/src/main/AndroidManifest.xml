@@ -51,11 +51,12 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".activity.GuideActivity"
-            android:screenOrientation="portrait"
-            />
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GuideActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.home.HomeActivity"></activity>
     </application>
 
 </manifest>

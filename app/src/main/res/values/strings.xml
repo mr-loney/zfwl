@@ -54,4 +54,7 @@
     <string name="ignore">下次提示</string>
     <string name="download_progress">正在更新...%d%%</string>
     <string name="forced_update_tip"><Data><![CDATA[<font color="#FF0000"><b>请您务必更新此版本，否则无法使用^_^</b></font>]]></Data></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

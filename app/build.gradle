@@ -41,7 +41,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.0.0'
     testCompile 'junit:junit:4.12'
     provided "com.zzb.easysp:easysp-annotations:${easyspVersion}"
     annotationProcessor "com.zzb.easysp:easysp-compiler:${easyspVersion}"
@@ -50,16 +49,18 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
     compile "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}"
     compile "io.reactivex:rxjava:${rxJavaVersion}"
-    compile 'com.squareup.picasso:picasso:2.4.0'
     compile "io.reactivex:rxandroid:${rxAndroidVersion}"
-    compile"com.trello:rxlifecycle:${rxlifecycleVersion}"
-    compile"com.trello:rxlifecycle-android:${rxlifecycleVersion}"
-    compile"com.trello:rxlifecycle-components:${rxlifecycleVersion}"
+    compile "com.trello:rxlifecycle:${rxlifecycleVersion}"
+    compile "com.trello:rxlifecycle-android:${rxlifecycleVersion}"
+    compile "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
     compile "com.jakewharton:butterknife:${butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
     testCompile "org.mockito:mockito-core:2.2.9"
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.android.support:support-v4:24.2.1'
 }
