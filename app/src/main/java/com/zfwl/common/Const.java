@@ -7,5 +7,6 @@ public class Const {
 
     public interface WeChatLogin {
         String APP_ID = "";
+        String APP_SECRET = "";
     }
 }

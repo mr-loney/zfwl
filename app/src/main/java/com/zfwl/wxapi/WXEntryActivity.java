@@ -82,4 +82,21 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
         }
     }
+    /**
+     * 1.get code
+     * 2.get token via code
+     * https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+     * {
+     * "access_token":"ACCESS_TOKEN",
+     * "expires_in":7200,//两小时过期
+     * "refresh_token":"REFRESH_TOKEN",//30天
+     * "openid":"OPENID",
+     * "scope":"SCOPE",
+     * "unionid":"o6_bmasdasdsad6_2sgVt7hMZOPfL"
+     * }
+     * 3.https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
+     * token 过期，refresh token可以获取新token
+     * token未过期，refresh token刷新token过期时间
+     * 4./sns/userinfo	获取用户个人信息
+     */
 }

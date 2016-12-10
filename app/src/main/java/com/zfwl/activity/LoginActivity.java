@@ -54,7 +54,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         mLoadingDialog = new LoadingDialog(this);
-        mLoginPresenter = new LoginPresenter();
+        mLoginPresenter = new LoginPresenter(this);
         mLoginPresenter.attachView(this);
         mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID, false);
 
