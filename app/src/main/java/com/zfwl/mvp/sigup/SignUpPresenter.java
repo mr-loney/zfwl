@@ -5,6 +5,7 @@ import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.BasePresenter;
 
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
@@ -52,7 +53,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
-        mApi.register(phoneNo, pwd).subscribe(new Action1<User>() {
+        mApi.register(phoneNo, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
             @Override
             public void call(User user) {
                 getMvpView().onRegisterSuccess(user);
@@ -63,6 +64,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                 getMvpView().onRegisterFailed(throwable.toString());
             }
         });
+
     }
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
