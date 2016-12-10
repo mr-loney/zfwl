@@ -5,14 +5,13 @@ import android.content.Context;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.data.sp.WeChatPref;
-import com.zfwl.entity.User;
 import com.zfwl.mvp.BasePresenter;
+import com.zfwl.util.StringUtils;
 import com.zzb.easysp.generated.EasySPWeChatPref;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * Created by ZZB on 2016/12/7.
@@ -37,21 +36,16 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
             getMvpView().onLoginFailed("invalid phone or psw");
             return;
         }
-        mLoginApi.login(phone, password).subscribe(new Action1<User>() {
-            @Override
-            public void call(User user) {
-                getMvpView().onLoginSuccess(user);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                getMvpView().onLoginFailed(throwable.toString());
-            }
+        mLoginApi.login(phone, password).subscribe(user -> {
+            getMvpView().onLoginSuccess(user);
+        }, throwable -> {
+            getMvpView().onLoginFailed(throwable.toString());
         });
     }
 
     public void wechatLogin(String code) {
 //        https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+
     }
 
     /**
@@ -75,6 +69,6 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
     }
 
     private boolean isPhoneAndPswValid(String phone, String psw) {
-        return true;
+        return StringUtils.notEmpty(phone) && StringUtils.notEmpty(psw);
     }
 }
