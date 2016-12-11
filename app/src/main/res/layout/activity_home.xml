@@ -14,7 +14,7 @@
         android:id="@+id/view_bottom_divider"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/lightgray"
+        android:background="@color/divider"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="51dp"
         />
@@ -23,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:weightSum="3">
 

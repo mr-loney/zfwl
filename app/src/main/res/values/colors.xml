@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="divider">#c8c7cc</color>
     <color name="text_red">#E03E3F</color>
     <color name="bg_red">#C60A1E</color>
     <color name="main_shopshare_bg">#B3CE1D</color>
