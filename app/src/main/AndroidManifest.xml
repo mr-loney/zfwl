@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.zfwl">
+    package="com.zfwl">
 
     <!-- 支持所有屏幕分辨率的设备 -->
     <supports-screens

@@ -1,13 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zfwl.activity.home.WLFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#0687F4"
+        app:bgatitlebar_titleDrawable="@drawable/ic_wl_title"
+        app:bgatitlebar_titleTextColor="@color/white"
+        app:bgatitlebar_titleText="物流服务平台"
+        app:bgatitlebar_titleTextSize="17sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="物流" />
+        android:text="物流"/>
 
-</FrameLayout>
+</LinearLayout>
