@@ -9,8 +9,15 @@
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/layout_bottom" />
-
+        android:layout_above="@+id/view_bottom_divider"/>
+    <View
+        android:id="@+id/view_bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/lightgray"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="51dp"
+        />
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
@@ -24,18 +31,25 @@
             android:id="@+id/btn_wl"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
-        <com.zfwl.widget.BottomNavBtn
-            android:id="@+id/btn_fc"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/btn_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_main_fc"/>
+        </FrameLayout>
 
         <com.zfwl.widget.BottomNavBtn
             android:id="@+id/btn_me"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
     </LinearLayout>
 </RelativeLayout>

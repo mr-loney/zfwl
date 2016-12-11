@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.zfwl.R;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
@@ -29,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.btn_wl)
     BottomNavBtn mBtnWl;
     @BindView(R.id.btn_fc)
-    BottomNavBtn mBtnFc;
+    View mBtnFc;
     @BindView(R.id.btn_me)
     BottomNavBtn mBtnMe;
     private List<BottomNavBtn> mNavBtns = new ArrayList<>();
@@ -65,10 +66,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initViews() {
         mBtnWl.init("物流", R.drawable.ic_main_wl_e, R.drawable.ic_main_wl_d);
-        mBtnFc.init("发车", R.drawable.ic_main_wl_e, R.drawable.ic_main_fc_d);
         mBtnMe.init("我的", R.drawable.ic_main_me_e, R.drawable.ic_main_me_d);
         mBtnWl.enable();
-        mBtnFc.disable();
         mBtnMe.disable();
     }
 
