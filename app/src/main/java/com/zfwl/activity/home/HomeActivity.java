@@ -64,9 +64,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        mBtnWl.init("物流", R.drawable.ic_main_wl_e, R.drawable.ic_main_fc_d);
+        mBtnWl.init("物流", R.drawable.ic_main_wl_e, R.drawable.ic_main_wl_d);
         mBtnFc.init("发车", R.drawable.ic_main_wl_e, R.drawable.ic_main_fc_d);
-        mBtnMe.init("我的", R.drawable.ic_main_wl_e, R.drawable.ic_main_me_d);
+        mBtnMe.init("我的", R.drawable.ic_main_me_e, R.drawable.ic_main_me_d);
         mBtnWl.enable();
         mBtnFc.disable();
         mBtnMe.disable();
