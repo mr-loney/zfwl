@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 
 import com.zfwl.R;
 
+import butterknife.ButterKnife;
+
 
 public class WLFragment extends Fragment {
+    private static final String TAG = "WLFragment";
+    View mContentView;
 
     public WLFragment() {
     }
+
     public static WLFragment newInstance() {
         WLFragment fragment = new WLFragment();
         return fragment;
@@ -21,14 +26,21 @@ public class WLFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_wl, container, false);
+        mContentView = inflater.inflate(R.layout.fragment_wl, container, false);
+        ButterKnife.bind(this, mContentView);
+        initViews();
+        return mContentView;
     }
+
+    private void initViews() {
+    }
+
+
 
 
 }
