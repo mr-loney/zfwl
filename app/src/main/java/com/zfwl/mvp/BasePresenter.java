@@ -6,7 +6,7 @@ package com.zfwl.mvp;
 
 public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
-    public static final String TAG = "BasePresenter";
+    private static final String TAG = "BasePresenter";
 
     private V mMvpView;
     private boolean mIsAttachViewMethodCalled = false;

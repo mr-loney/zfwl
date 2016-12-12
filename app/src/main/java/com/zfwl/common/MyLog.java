@@ -23,4 +23,7 @@ public class MyLog {
     public static void e(String tag, String msg, Object... args){
         Timber.tag(tag).e(msg, args);
     }
+    public static void e(String tag, Throwable throwable){
+        Timber.tag(tag).e(throwable);
+    }
 }

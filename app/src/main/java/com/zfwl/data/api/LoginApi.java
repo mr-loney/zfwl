@@ -1,7 +1,6 @@
 package com.zfwl.data.api;
 
 import com.zfwl.entity.User;
-import com.zfwl.entity.WeChatTokenResult;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,8 +19,12 @@ public interface LoginApi {
     Observable<User> login(@Field("phone") String phone, @Field("password") String password);
 
     @GET("https://api.weixin.qq.com/sns/oauth2/access_token")
-    Observable<WeChatTokenResult> getWechatAccessToken(@Query("appid") String appId,
-                                                       @Query("secret") String secret,
-                                                       @Query("code") String code,
-                                                       @Query("grant_type") String grantType);//todo: 直接放url里？authorization_code
+    Observable<String> getWechatAccessToken(@Query("appid") String appId,
+                                            @Query("secret") String secret,
+                                            @Query("code") String code,
+                                            @Query("grant_type") String grantType);//todo: 直接放url里？authorization_code
+
+    @GET("https://api.weixin.qq.com/sns/sns/userinfo")
+    Observable<String> getWechatUser(@Query("access_token") String accessToken, @Query("openid") String openId);
+
 }
