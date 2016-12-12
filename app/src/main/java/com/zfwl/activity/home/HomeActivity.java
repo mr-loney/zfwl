@@ -12,6 +12,7 @@ import com.zfwl.R;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
 import com.zfwl.common.MyLog;
 import com.zfwl.widget.BottomNavBtn;
+import com.zfwl.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_fc)
     public void onBtnFcClick() {
-
+        ToastUtils.show(this, "发车");
     }
 
     @OnClick(R.id.btn_me)

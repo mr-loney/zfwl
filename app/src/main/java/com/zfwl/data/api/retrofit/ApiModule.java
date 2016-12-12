@@ -33,7 +33,7 @@ public class ApiModule {
     public Retrofit provideRetrofit() {
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                    .addConverterFactory(ZfwlConverterFactory.create(new Gson()))
+                    .addConverterFactory(ZfwlConverterFactory.create(new Gson()))//json converter always say yes, put it to the last
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .client(provideOkHttpClient())
