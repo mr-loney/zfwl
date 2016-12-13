@@ -2,9 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="164dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="16dp">
+
+    <View
+        style="@style/GrayDivider"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -153,4 +157,8 @@
             android:textSize="17sp"/>
 
     </RelativeLayout>
+
+    <View
+        style="@style/GrayDivider"
+        />
 </LinearLayout>

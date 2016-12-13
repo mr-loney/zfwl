@@ -24,6 +24,7 @@ android {
     }
 }
 ext {
+    supportVersion = "24.2.1"
     easyspVersion = "0.5"
     retrofitVersion = "2.1.0"
     rxJavaVersion = "1.2.3"
@@ -56,11 +57,11 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
     testCompile "org.mockito:mockito-core:2.2.9"
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile "com.android.support:appcompat-v7:${supportVersion}"
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.android.support:support-v4:24.2.1'
+    compile "com.android.support:support-v4:${supportVersion}"
 }
