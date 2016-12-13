@@ -1,7 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="164dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_package_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="装"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_package_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="山东省菏泽市牡丹区"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_unpack_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_package_place"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卸"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_unpack_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="河北省石家庄市芒果区"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="26dp"
+            tools:text="发布时间：11:11"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/GrayDivider"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_book_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="装"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_book_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#8f8e94"
+                android:textSize="14sp"
+                tools:text="2016-12-09"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_book_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_book_date"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卸"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_book_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#8f8e94"
+                android:textSize="14sp"
+                tools:text="门窗4.2米 要6辆车"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_rob"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="26dp"
+            android:gravity="center"
+            tools:text="抢"/>
+
+    </RelativeLayout>
 </LinearLayout>
