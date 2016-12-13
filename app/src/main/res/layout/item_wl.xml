@@ -12,21 +12,25 @@
         >
 
         <LinearLayout
-            android:id="@+id/layout_package_place"
+            android:id="@+id/layout_pack_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/bg_pack_ic"
+                android:gravity="center"
                 android:text="装"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 />
 
             <TextView
-                android:id="@+id/tv_package_place"
+                android:id="@+id/tv_pack_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
@@ -40,13 +44,17 @@
             android:id="@+id/layout_unpack_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_package_place"
+            android:layout_below="@id/layout_pack_place"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/bg_unpack_ic"
+                android:gravity="center"
                 android:text="卸"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 />
 
@@ -88,11 +96,11 @@
             android:layout_marginTop="14dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="装"
-                android:textSize="12sp"
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_book_date"
                 />
 
             <TextView
@@ -113,11 +121,11 @@
             android:layout_below="@id/layout_book_date"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="卸"
-                android:textSize="12sp"
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_book_desc"
                 />
 
             <TextView
@@ -138,8 +146,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp"
             android:layout_marginTop="26dp"
+            android:background="@drawable/bg_btn_rob"
             android:gravity="center"
-            tools:text="抢"/>
+            android:text="抢"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
 
     </RelativeLayout>
 </LinearLayout>
