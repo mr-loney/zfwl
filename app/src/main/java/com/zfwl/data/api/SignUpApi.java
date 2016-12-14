@@ -15,20 +15,16 @@ import rx.Observable;
 public interface SignUpApi {
     @FormUrlEncoded
     @POST("app/sendMsg.do")
-    Observable veriftCode(@Field("phone") String phone,
+    Call veriftCode(@Field("phone") String phone,
                               @Field("content") String content);
 
     @FormUrlEncoded
     @POST("app/member/reg.do")
-    Observable<User> register(@Field("phone") String phone,
-                              @Field("password") String password);
-    @FormUrlEncoded
-    @POST("app/member/reg.do")
-    Call<User> register1(@Field("phone") String phone,
+    Call<User> register(@Field("phone") String phone,
                          @Field("password") String password);
     @FormUrlEncoded
     @POST("app/member/complete.do")
-    Observable<User> registerAddInfo(@Field("userid") String userid,
+    Call<User> registerAddInfo(@Field("userid") String userid,
                               @Field("phone") String phone,
                               @Field("realname") String realname,
                               @Field("memberType") String memberType);

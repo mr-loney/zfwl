@@ -1,5 +1,6 @@
 package com.zfwl.activity.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.zfwl.R;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity {
+    private Activity mContext = this;
     private static final String TAG = "HomeActivity";
     private WLFragment mWlFragment;
     private MeFragment mMeFragment;
@@ -99,5 +102,19 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    private long exitTime = 0;
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(mContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            mContext.finish();
+            System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 }

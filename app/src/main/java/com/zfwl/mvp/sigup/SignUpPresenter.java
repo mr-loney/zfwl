@@ -32,17 +32,16 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
-        mApi.veriftCode(phoneNo, randVeriftCode+"").subscribe(new Action1() {
-            @Override
-            public void call(Object o) {
-                getMvpView().onGetVerifyCodeSuccess();
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                getMvpView().onGetVerifyCodeFailed(throwable.toString());
-            }
-        });
+        mApi.veriftCode(phoneNo, randVeriftCode+"").enqueue(new Callback() {
+        @Override
+        public void onResponse(Call call, Response response) {
+            getMvpView().onGetVerifyCodeSuccess();
+        }
+        @Override
+        public void onFailure(Call call, Throwable t) {
+            getMvpView().onGetVerifyCodeFailed(t.toString());
+        }
+    });
     }
 
     public void Register(String phoneNo,String vCode,String pwd){
@@ -55,18 +54,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
-//        mApi.register(phoneNo, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
-//            @Override
-//            public void call(User user) {
-//                getMvpView().onRegisterSuccess(user);
-//            }
-//        }, new Action1<Throwable>() {
-//            @Override
-//            public void call(Throwable throwable) {
-//                getMvpView().onRegisterFailed(throwable.toString());
-//            }
-//        });
-        mApi.register1(phoneNo, pwd).enqueue(new Callback<User>() {
+        mApi.register(phoneNo, pwd).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 getMvpView().onRegisterSuccess(response.body());
@@ -80,17 +68,16 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
     }
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
-        mApi.registerAddInfo(userid, phoneNo, realName, memberType+"").subscribe(new Action1<User>() {
-            @Override
-            public void call(User user) {
-                getMvpView().onRegisterAddInfoSuccess(user);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                getMvpView().onRegisterAddInfoFailed(throwable.toString());
-            }
-        });
+        mApi.registerAddInfo(userid, phoneNo, realName, memberType+"").enqueue(new Callback<User>() {
+        @Override
+        public void onResponse(Call<User> call, Response<User> response) {
+            getMvpView().onRegisterAddInfoSuccess(response.body());
+        }
+        @Override
+        public void onFailure(Call<User> call, Throwable t) {
+            getMvpView().onRegisterAddInfoFailed(t.getMessage());
+        }
+    });
     }
 
 }
