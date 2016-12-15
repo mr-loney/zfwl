@@ -5,9 +5,13 @@ import com.zfwl.mvp.BasePresenter;
 /**
  * Created by ZZB on 2016/12/15.
  */
-public class LogisticsPresenter extends BasePresenter<LogisticsMvpView>{
+public class LogisticsPresenter extends BasePresenter<LogisticsMvpView> {
+    //String departure, String destination, String date
+    public void refreshLogisticsList() {
+        getMvpView().onRefreshLogisticsListSuccess(null);
+    }
 
-    public void loadLogisticsList(String departure, String destination, String date){
-        getMvpView().onLoadLogisticsListSuccess(null);
+    public void loadMoreLogisticsList() {
+
     }
 }

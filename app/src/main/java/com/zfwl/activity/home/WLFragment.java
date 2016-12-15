@@ -6,20 +6,26 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.zfwl.R;
+import com.zfwl.adapter.LogisticsAdapter;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
 import com.zfwl.entity.CityModel;
 import com.zfwl.entity.DistrictModel;
+import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.entity.ProvinceModel;
 import com.zfwl.entity.UserRegAddressModel;
+import com.zfwl.mvp.logistics.LogisticsMvpView;
+import com.zfwl.mvp.logistics.LogisticsPresenter;
 import com.zfwl.util.XmlParserHandler;
 
 import java.io.InputStream;
@@ -34,18 +40,19 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class WLFragment extends Fragment implements View.OnClickListener,
-        OnWheelChangedListener {
+        OnWheelChangedListener, LogisticsMvpView {
     private static final String TAG = "WLFragment";
     View mContentView;
     private Activity mContext;
-    private TextView tvFrom,tvTo,tvBeginTime;
+    private TextView tvFrom, tvTo, tvBeginTime;
 
     private View tv_detail_area;
-    private TextView tv_detail_area1,tv_detail_area2,tv_detail_area3,tv_detail_area4;
+    private TextView tv_detail_area1, tv_detail_area2, tv_detail_area3, tv_detail_area4;
     private int select_tv_detail_area_index = 1;
 
     private boolean isFrom;
@@ -54,8 +61,12 @@ public class WLFragment extends Fragment implements View.OnClickListener,
     private WheelView mViewProvince;
     private WheelView mViewCity;
     private WheelView mViewDistrict;
+    @BindView(R.id.rv_logistics)
+    UltimateRecyclerView mRvLogistics;
+    private LogisticsAdapter mRvAdapter;
 
 
+    private LogisticsPresenter mLogisticsPresenter;
 
     public WLFragment() {
     }
@@ -76,28 +87,40 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         mContentView = inflater.inflate(R.layout.fragment_wl, container, false);
         ButterKnife.bind(this, mContentView);
         mContext = this.getActivity();
+        initPresenters();
         initView();
         return mContentView;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLogisticsPresenter.detachView();
+    }
+
+    private void initPresenters() {
+        mLogisticsPresenter = new LogisticsPresenter();
+        mLogisticsPresenter.attachView(this);
+    }
 
 
     private void initView() {
+        initRv();
         tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
-        tv_detail_area1 = (TextView)mContentView.findViewById(R.id.tv_detail_area1);
+        tv_detail_area1 = (TextView) mContentView.findViewById(R.id.tv_detail_area1);
         tv_detail_area1.setOnClickListener(this);
-        tv_detail_area2 = (TextView)mContentView.findViewById(R.id.tv_detail_area2);
+        tv_detail_area2 = (TextView) mContentView.findViewById(R.id.tv_detail_area2);
         tv_detail_area2.setOnClickListener(this);
-        tv_detail_area3 = (TextView)mContentView.findViewById(R.id.tv_detail_area3);
+        tv_detail_area3 = (TextView) mContentView.findViewById(R.id.tv_detail_area3);
         tv_detail_area3.setOnClickListener(this);
-        tv_detail_area4 = (TextView)mContentView.findViewById(R.id.tv_detail_area4);
+        tv_detail_area4 = (TextView) mContentView.findViewById(R.id.tv_detail_area4);
         tv_detail_area4.setOnClickListener(this);
 
-        tvFrom = (TextView)mContentView.findViewById(R.id.tv_from);
+        tvFrom = (TextView) mContentView.findViewById(R.id.tv_from);
         tvFrom.setOnClickListener(this);
-        tvTo = (TextView)mContentView.findViewById(R.id.tv_to);
+        tvTo = (TextView) mContentView.findViewById(R.id.tv_to);
         tvTo.setOnClickListener(this);
-        tvBeginTime = (TextView)mContentView.findViewById(R.id.tv_begin_time);
+        tvBeginTime = (TextView) mContentView.findViewById(R.id.tv_begin_time);
         tvBeginTime.setOnClickListener(this);
 
         id_select_address = (View) mContentView.findViewById(R.id.id_select_address);
@@ -131,6 +154,39 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         initSelectProvinceData();
     }
 
+    private void initRv() {
+        mRvAdapter = new LogisticsAdapter();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        mRvLogistics.setLayoutManager(layoutManager);
+        mRvLogistics.setAdapter(mRvAdapter);
+        mRvLogistics.setDefaultOnRefreshListener(this::refreshLogistics);
+        mRvLogistics.setOnLoadMoreListener((itemsCount, maxLastVisiblePosition) -> loadMoreLogistics());
+    }
+
+    private void refreshLogistics() {
+        mLogisticsPresenter.refreshLogisticsList();
+
+    }
+
+    private void loadMoreLogistics() {
+        mLogisticsPresenter.loadMoreLogisticsList();
+    }
+
+    @Override
+    public void onRefreshLogisticsListSuccess(List<LogisticsInfo> logistics) {
+        mRvAdapter.setItems(logistics);
+    }
+
+    @Override
+    public void onLoadMoreLogisticsListSuccess(List<LogisticsInfo> logistics) {
+        mRvAdapter.addItems(logistics);
+    }
+
+    @Override
+    public void onLoadLogisticsListFailed(String errorMsg) {
+
+    }
+
     private void initSelectProvinceData() {
         if (mProvinceDatas == null || mProvinceDatas.length == 0) {
             initProvinceDatas();
@@ -142,6 +198,7 @@ public class WLFragment extends Fragment implements View.OnClickListener,
             updateAreas();
         }
     }
+
     private void resetTvDetailArea() {
         tv_detail_area1.setBackgroundResource(0);
         tv_detail_area2.setBackgroundResource(0);
@@ -204,16 +261,16 @@ public class WLFragment extends Fragment implements View.OnClickListener,
                 Date lastMonth = ca.getTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 ArrayList<String> dateArr = new ArrayList<>();
-                for (int i = 0 ; i < 10 ;i ++) {
+                for (int i = 0; i < 10; i++) {
                     ca.add(Calendar.DAY_OF_YEAR, 1);
                     String t = sdf.format(ca.getTime());
-                    if (i==0) {
+                    if (i == 0) {
                         t += " 今天";
                     }
-                    if (i==1) {
+                    if (i == 1) {
                         t += " 明天";
                     }
-                    if (i==2) {
+                    if (i == 2) {
                         t += " 后天";
                     }
                     if (t.equals(nowText)) {
@@ -245,10 +302,10 @@ public class WLFragment extends Fragment implements View.OnClickListener,
                 builder.create().show();
                 break;
             case R.id.id_reset_wheelView:
-                 mCurrentProviceName = null;
-                 mCurrentCityName = null;
-                 mCurrentDistrictName = null;
-                 mCurrentZipCode = null;
+                mCurrentProviceName = null;
+                mCurrentCityName = null;
+                mCurrentDistrictName = null;
+                mCurrentZipCode = null;
                 addressData = new UserRegAddressModel();
                 tvTo.setText("目的地");
                 tvFrom.setText("出发地");
@@ -278,18 +335,18 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    private void reloadSelectAddress(){
+    private void reloadSelectAddress() {
         String s = "";
-        if (addressData.getToProvince().length()>0) {
+        if (addressData.getToProvince().length() > 0) {
             s = addressData.getToProvince();
         }
-        if (addressData.getToCity().length()>0) {
+        if (addressData.getToCity().length() > 0) {
             s = addressData.getToCity();
         }
-        if (addressData.getToDistrict().length()>0) {
+        if (addressData.getToDistrict().length() > 0) {
             s = addressData.getToDistrict();
         }
-        if (s.length()>0) {
+        if (s.length() > 0) {
             tv_detail_area.setVisibility(View.VISIBLE);
             tvTo.setText(s);
         } else {
@@ -297,16 +354,16 @@ public class WLFragment extends Fragment implements View.OnClickListener,
             tvTo.setText("目的地");
         }
 
-        if (addressData.getFromProvince().length()>0) {
+        if (addressData.getFromProvince().length() > 0) {
             s = addressData.getFromProvince();
         }
-        if (addressData.getFromCity().length()>0) {
+        if (addressData.getFromCity().length() > 0) {
             s = addressData.getFromCity();
         }
-        if (addressData.getFromDistrict().length()>0) {
+        if (addressData.getFromDistrict().length() > 0) {
             s = addressData.getFromDistrict();
         }
-        if (s.length()>0) {
+        if (s.length() > 0) {
             tvFrom.setText(s);
         } else {
             tvFrom.setText("出发地");
@@ -332,7 +389,7 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         int pIndex = 0;
         int cIndex = 0;
         int dIndex = 0;
-        if (p.length()>0) {
+        if (p.length() > 0) {
             for (int i = 0; i < mProvinceDatas.length; i++) {
                 if (mProvinceDatas[i].contains(p)) {
                     pIndex = i;
@@ -365,8 +422,9 @@ public class WLFragment extends Fragment implements View.OnClickListener,
     protected Map<String, String> mZipcodeDatasMap = new HashMap<String, String>();
     protected String mCurrentProviceName;
     protected String mCurrentCityName;
-    protected String mCurrentDistrictName ="";
-    protected String mCurrentZipCode ="";
+    protected String mCurrentDistrictName = "";
+    protected String mCurrentZipCode = "";
+
     protected void initProvinceDatas() {
         List<ProvinceModel> provinceList = null;
         AssetManager asset = mContext.getAssets();
@@ -425,6 +483,7 @@ public class WLFragment extends Fragment implements View.OnClickListener,
 
         }
     }
+
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
         // TODO Auto-generated method stub
         if (wheel == mViewProvince) {
@@ -436,23 +495,25 @@ public class WLFragment extends Fragment implements View.OnClickListener,
             mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
         }
     }
+
     private void updateAreas() {
         int pCurrent = mViewCity.getCurrentItem();
         mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
         String[] areas = mDistrictDatasMap.get(mCurrentCityName);
 
         if (areas == null) {
-            areas = new String[] { "" };
+            areas = new String[]{""};
         }
         mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(mContext, areas));
         mViewDistrict.setCurrentItem(0);
     }
+
     private void updateCities() {
         int pCurrent = mViewProvince.getCurrentItem();
         mCurrentProviceName = mProvinceDatas[pCurrent];
         String[] cities = mCitisDatasMap.get(mCurrentProviceName);
         if (cities == null) {
-            cities = new String[] { "" };
+            cities = new String[]{""};
         }
         mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(mContext, cities));
         mViewCity.setCurrentItem(0);
