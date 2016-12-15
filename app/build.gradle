@@ -66,4 +66,5 @@ dependencies {
     compile "com.android.support:support-v4:${supportVersion}"
     compile "com.android.support:recyclerview-v7:${supportVersion}"
     compile 'com.github.simonpercic:oklog3:2.1.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.6'
 }

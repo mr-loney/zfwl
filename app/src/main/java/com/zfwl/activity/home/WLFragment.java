@@ -1,39 +1,26 @@
 package com.zfwl.activity.home;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zfwl.R;
-import com.zfwl.adapter.AllzfwlAdapter;
-import com.zfwl.adapter.UserRegAddressAdatper;
-import com.zfwl.controls.LoadingDialog;
-import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
-import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.entity.CityModel;
 import com.zfwl.entity.DistrictModel;
 import com.zfwl.entity.ProvinceModel;
 import com.zfwl.entity.UserRegAddressModel;
-import com.zfwl.util.ViewHub;
 import com.zfwl.util.XmlParserHandler;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -51,23 +38,11 @@ import butterknife.ButterKnife;
 
 
 public class WLFragment extends Fragment implements View.OnClickListener,
-        PullToRefreshListView.OnLoadMoreListener,
-        PullToRefreshListView.OnRefreshListener,
         OnWheelChangedListener {
     private static final String TAG = "WLFragment";
     View mContentView;
     private Activity mContext;
-    private LoadingDialog mloadingDialog;
-    private TextView tvEmptyMessage,tvFrom,tvTo,tvBeginTime;
-    private AllzfwlAdapter adapter;
-    private List<AllzfwlModel> itemList = null;
-    private PullToRefreshListView pullRefreshListView;
-    private int mPageIndex = 1;
-    private int mPageSize = 20;
-    private View emptyView;
-    private Button btnTitleLeft,btnTitleRight;
-    private EventBus mEventBus;
-    private boolean isRefresh;
+    private TextView tvFrom,tvTo,tvBeginTime;
 
     private View tv_detail_area;
     private TextView tv_detail_area1,tv_detail_area2,tv_detail_area3,tv_detail_area4;
@@ -76,13 +51,11 @@ public class WLFragment extends Fragment implements View.OnClickListener,
     private boolean isFrom;
     private UserRegAddressModel addressData = new UserRegAddressModel();
     private View id_select_address;
-    private com.zfwl.controls.wheel.widget.WheelView mViewProvince;
-    private com.zfwl.controls.wheel.widget.WheelView mViewCity;
-    private com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
+    private WheelView mViewProvince;
+    private WheelView mViewCity;
+    private WheelView mViewDistrict;
 
-    private static enum Step {
-        LOAD_ALL_LOGISTICS_DATA
-    }
+
 
     public WLFragment() {
     }
@@ -104,60 +77,12 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         ButterKnife.bind(this, mContentView);
         mContext = this.getActivity();
         initView();
-        mloadingDialog = new LoadingDialog(mContext);
-        initData();
-//        mEventBus.register(mContext);
         return mContentView;
     }
 
-    @Override
-    public void onDestroy() {
-//        mEventBus.unregister(mContext);
-        super.onDestroy();
-    }
 
-//    public void onEventMainThread(BusEvent event) {
-//        switch (event.id) {
-//            case EventBusId.USERINFO_LOADED:
-//                break;
-//
-//        }
-//    }
 
     private void initView() {
-        itemList = new ArrayList<AllzfwlModel>();
-        emptyView = mContentView.findViewById(R.id.view_empty);
-        tvEmptyMessage = (TextView) emptyView
-                .findViewById(R.id.layout_empty_tvMessage);
-        mloadingDialog = new LoadingDialog(mContext);
-        pullRefreshListView = (PullToRefreshListView) mContentView.findViewById(R.id.pull_refresh_listview_items);
-        pullRefreshListView.setCanLoadMore(true);
-        pullRefreshListView.setCanRefresh(true);
-        pullRefreshListView.setMoveToFirstItemAfterRefresh(true);
-        pullRefreshListView.setOnRefreshListener(this);
-        pullRefreshListView.setOnLoadListener(this);
-
-        // 刷新数据
-        showEmptyView(false, "");
-        emptyView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                pullRefreshListView.pull2RefreshManually();
-
-                if (pullRefreshListView != null) {
-                    if (pullRefreshListView.isCanRefresh())
-                        pullRefreshListView.onRefreshComplete();
-
-                    if (pullRefreshListView.isCanLoadMore())
-                        pullRefreshListView.onLoadMoreComplete();
-                }
-
-            }
-        });
-
-        initItemAdapter();
-
         tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
         tv_detail_area1 = (TextView)mContentView.findViewById(R.id.tv_detail_area1);
         tv_detail_area1.setOnClickListener(this);
@@ -217,134 +142,6 @@ public class WLFragment extends Fragment implements View.OnClickListener,
             updateAreas();
         }
     }
-
-    /**
-     * 显示空数据视图
-     * */
-    private void showEmptyView(boolean show, String msg) {
-        pullRefreshListView.setVisibility(show ? View.GONE : View.VISIBLE);
-        emptyView.setVisibility(show ? View.VISIBLE : View.GONE);
-        if (TextUtils.isEmpty(msg)) {
-            tvEmptyMessage.setText("没有物流数据");
-        } else {
-            tvEmptyMessage.setText(msg);
-        }
-    }
-
-    // 初始化数据
-    private void initItemAdapter() {
-        if (itemList == null)
-            itemList = new ArrayList<AllzfwlModel>();
-
-        adapter = new AllzfwlAdapter(mContext, itemList);
-        pullRefreshListView.setAdapter(adapter);
-
-    }
-
-    @Override
-    public void onRefresh() {
-        isRefresh = true;
-        new Task(Step.LOAD_ALL_LOGISTICS_DATA).execute((Void) null);
-        if (itemList.size() == 0) {
-            showEmptyView(false, "还没有物流记录");
-        } else {
-
-        }
-    }
-    @Override
-    public void onLoadMore() {
-        isRefresh = false;
-        new Task(Step.LOAD_ALL_LOGISTICS_DATA).execute((Void) null);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    private void initData()
-    {
-        onRefresh();
-    }
-
-    private class Task extends AsyncTask<Object, Void, Object> {
-        private Step mStep;
-
-        public Task(Step step) {
-            mStep = step;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            switch (mStep) {
-                case LOAD_ALL_LOGISTICS_DATA:
-                    mloadingDialog.start("获取物流数据中...");
-                    break;
-            }
-        }
-
-        @Override
-        protected Object doInBackground(Object... params) {
-            try {
-                switch (mStep) {
-                    case LOAD_ALL_LOGISTICS_DATA: {
-
-                        try {
-//                            List<AllzfwlModel> result = zfwlAPI.getInstance().getAllzfwlLists(1,1,SpManager.getCookie(mContext));
-//
-//                            if (isRefresh) {
-//                                itemList = result;
-//                            } else {
-//                                itemList.addAll(result);
-//                            }
-
-                            return "OK";
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            return ex.getMessage() == null ? "未知异常" : ex.getMessage();
-                        }
-
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "error:" + e.getMessage();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            if (mloadingDialog.isShowing()) {
-                mloadingDialog.stop();
-            }
-            else {
-                switch (mStep) {
-                    case LOAD_ALL_LOGISTICS_DATA:
-                        if (isRefresh) {
-                            pullRefreshListView.onRefreshComplete();
-                        } else {
-                            pullRefreshListView.onLoadMoreComplete();
-                        }
-
-                        adapter.mList = itemList;
-
-                        adapter.notifyDataSetChanged();
-                        if(itemList.size()>0) {
-                            showEmptyView(false,"");
-                        } else {
-                            showEmptyView(true,"您还没有交易记录");
-                        }
-
-                        if (!result.equals("OK")) {
-                            ViewHub.showLongToast(mContext,result.toString());
-                        }
-                        break;
-                }
-            }
-        }
-    }
-
     private void resetTvDetailArea() {
         tv_detail_area1.setBackgroundResource(0);
         tv_detail_area2.setBackgroundResource(0);
@@ -456,7 +253,6 @@ public class WLFragment extends Fragment implements View.OnClickListener,
                 tvTo.setText("目的地");
                 tvFrom.setText("出发地");
                 id_select_address.setVisibility(View.GONE);
-                onRefresh();
                 reloadSelectAddress();
                 break;
             case R.id.id_ok_wheelView:
@@ -471,7 +267,6 @@ public class WLFragment extends Fragment implements View.OnClickListener,
                     addressData.setToDistrict(mCurrentDistrictName);
                 }
                 reloadSelectAddress();
-                onRefresh();
                 reloadSelectAddress();
                 break;
 //            case R.id.titlebar_btnRight:
