@@ -139,4 +139,18 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/divider</item>
     </style>
+
+    <style name="activity_dialog_theme" parent="android:Theme.Light">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/popwin_anim_style</item>
+    </style>
+
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom_out</item>
+    </style>
 </resources>
