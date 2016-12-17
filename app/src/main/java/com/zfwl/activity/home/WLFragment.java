@@ -24,20 +24,26 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class WLFragment extends Fragment implements View.OnClickListener, SelectAreaCallback,
+public class WLFragment extends Fragment implements SelectAreaCallback,
         LogisticsMvpView, FromAndToView.Callback {
     private static final String TAG = "WLFragment";
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
     View mContentView;
     private Activity mContext;
-
-    private View tv_detail_area;
-    private TextView tv_detail_area1, tv_detail_area2, tv_detail_area3, tv_detail_area4;
-    private int select_tv_detail_area_index = 1;
-
+    @BindView(R.id.tv_area_condition)
+    View tvAreaCondition;
+    @BindView(R.id.tv_area_all)
+    TextView tvAreaAll;
+    @BindView(R.id.tv_area_district)
+    TextView tvAreaDistrict;
+    @BindView(R.id.tv_area_city)
+    TextView tvAreaCity;
+    @BindView(R.id.tv_area_province)
+    TextView tvAreaProvince;
     @BindView(R.id.rv_logistics)
     UltimateRecyclerView mRvLogistics;
     @BindView(R.id.view_from_n_to)
@@ -45,7 +51,6 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
     @BindView(R.id.view_select_area)
     SelectAreaView mSelectAreaView;
     private LogisticsAdapter mRvAdapter;
-
 
     private LogisticsPresenter mLogisticsPresenter;
 
@@ -82,6 +87,7 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
         mLogisticsPresenter = new LogisticsPresenter();
         mLogisticsPresenter.attachView(this);
     }
+
     private void refreshLogistics() {
         mLogisticsPresenter.refreshLogisticsList();
     }
@@ -105,54 +111,30 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
 
     }
 
-
-    private void resetTvDetailArea() {
-        tv_detail_area1.setBackgroundResource(0);
-        tv_detail_area2.setBackgroundResource(0);
-        tv_detail_area3.setBackgroundResource(0);
-        tv_detail_area4.setBackgroundResource(0);
-
-        switch (select_tv_detail_area_index) {
-            case 1:
-                tv_detail_area1.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+    private void resetTvDetailArea(int viewId) {
+        tvAreaAll.setBackgroundResource(0);
+        tvAreaDistrict.setBackgroundResource(0);
+        tvAreaCity.setBackgroundResource(0);
+        tvAreaProvince.setBackgroundResource(0);
+        switch (viewId) {
+            case R.id.tv_area_all:
+                tvAreaAll.setBackgroundResource(R.drawable.bg_rect_blue_corner);
                 break;
-            case 2:
-                tv_detail_area2.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+            case R.id.tv_area_district:
+                tvAreaDistrict.setBackgroundResource(R.drawable.bg_rect_blue_corner);
                 break;
-            case 3:
-                tv_detail_area3.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+            case R.id.tv_area_city:
+                tvAreaCity.setBackgroundResource(R.drawable.bg_rect_blue_corner);
                 break;
-            case 4:
-                tv_detail_area4.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+            case R.id.tv_area_province:
+                tvAreaProvince.setBackgroundResource(R.drawable.bg_rect_blue_corner);
                 break;
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_detail_area1: {
-                select_tv_detail_area_index = 1;
-                resetTvDetailArea();
-                break;
-            }
-            case R.id.tv_detail_area2: {
-                select_tv_detail_area_index = 2;
-                resetTvDetailArea();
-                break;
-            }
-            case R.id.tv_detail_area3: {
-                select_tv_detail_area_index = 3;
-                resetTvDetailArea();
-                break;
-            }
-            case R.id.tv_detail_area4: {
-                select_tv_detail_area_index = 4;
-                resetTvDetailArea();
-                break;
-            }
-
-        }
+    @OnClick({R.id.tv_area_all, R.id.tv_area_district, R.id.tv_area_city, R.id.tv_area_province})
+    public void onAreaConditionBtnClick(View v) {
+        resetTvDetailArea(v.getId());
     }
 
 
@@ -179,6 +161,7 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
                 break;
             case ID_WHO_SELECT_TO:
                 mFromAndToView.setToAddress(address);
+                tvAreaCondition.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -186,23 +169,13 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
     @Override
     public void onAreaReset() {
         mFromAndToView.resetArea();
+        tvAreaCondition.setVisibility(View.GONE);
     }
 
     private void initView() {
         initRv();
         mFromAndToView.setCallback(this);
         mSelectAreaView.setCallback(this);
-        tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
-        tv_detail_area1 = (TextView) mContentView.findViewById(R.id.tv_detail_area1);
-        tv_detail_area1.setOnClickListener(this);
-        tv_detail_area2 = (TextView) mContentView.findViewById(R.id.tv_detail_area2);
-        tv_detail_area2.setOnClickListener(this);
-        tv_detail_area3 = (TextView) mContentView.findViewById(R.id.tv_detail_area3);
-        tv_detail_area3.setOnClickListener(this);
-        tv_detail_area4 = (TextView) mContentView.findViewById(R.id.tv_detail_area4);
-        tv_detail_area4.setOnClickListener(this);
-
-
     }
 
     private void initRv() {

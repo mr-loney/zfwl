@@ -43,12 +43,13 @@
             android:layout_height="40dp"/>
 
         <LinearLayout
-            android:id="@+id/tv_detail_area"
+            android:id="@+id/tv_area_condition"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,7 +59,7 @@
                 android:text="目的地周边："/>
 
             <TextView
-                android:id="@+id/tv_detail_area1"
+                android:id="@+id/tv_area_all"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
@@ -67,21 +68,21 @@
                 android:text="全部"/>
 
             <TextView
-                android:id="@+id/tv_detail_area2"
+                android:id="@+id/tv_area_district"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:text="区县"/>
 
             <TextView
-                android:id="@+id/tv_detail_area3"
+                android:id="@+id/tv_area_city"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:text="城市"/>
 
             <TextView
-                android:id="@+id/tv_detail_area4"
+                android:id="@+id/tv_area_province"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:gravity="center"
