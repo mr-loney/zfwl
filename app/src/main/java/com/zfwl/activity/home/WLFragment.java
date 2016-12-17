@@ -172,7 +172,7 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
     }
 
     @Override
-    public void onAreaSelected(int idWhoSelect, Address address) {
+    public void onAddressSelected(int idWhoSelect, Address address) {
         switch (idWhoSelect) {
             case ID_WHO_SELECT_FROM:
                 mFromAndToView.setFromAddress(address);

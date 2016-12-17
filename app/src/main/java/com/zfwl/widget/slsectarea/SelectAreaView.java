@@ -12,7 +12,6 @@ import com.zfwl.entity.Address;
 import com.zfwl.entity.Area;
 import com.zfwl.mvp.selectarea.SelectAreaMvpView;
 import com.zfwl.mvp.selectarea.SelectAreaPresenter;
-import com.zfwl.util.FP;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private Area mCurrentProvince, mCurrentCity, mCurrentDistrict;
 
     public interface SelectAreaCallback {
-        void onAreaSelected(int idWhoSelect, Address address);
+        void onAddressSelected(int idWhoSelect, Address address);
 
         void onAreaReset();
     }
@@ -98,6 +97,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private void updateDistricts(int cityId) {
         mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), cityId);
         List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
+        mCurrentDistrict = districtList.get(0);
         updateWheelView(mViewDistrict, districtList);
     }
 
@@ -111,7 +111,8 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     @OnClick(R.id.tv_select_address)
     public void onSelectClick() {
         setVisibility(GONE);
-        mCallback.onAreaSelected(mIdWhoSelect, mAddress);
+        mAddress = new Address(mCurrentProvince, mCurrentCity, mCurrentDistrict);
+        mCallback.onAddressSelected(mIdWhoSelect, mAddress);
     }
 
     @OnClick(R.id.root_view)

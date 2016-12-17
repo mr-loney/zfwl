@@ -16,4 +16,28 @@ public class Address {
         this.city = city;
         this.district = district;
     }
+
+    public Area getProvince() {
+        return province;
+    }
+
+    public void setProvince(Area province) {
+        this.province = province;
+    }
+
+    public Area getCity() {
+        return city;
+    }
+
+    public void setCity(Area city) {
+        this.city = city;
+    }
+
+    public Area getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(Area district) {
+        this.district = district;
+    }
 }
