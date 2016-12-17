@@ -1,5 +1,6 @@
 package com.zfwl.widget.slsectarea;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -8,6 +9,11 @@ import android.widget.TextView;
 import com.zfwl.R;
 import com.zfwl.common.Const;
 import com.zfwl.entity.Address;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +55,46 @@ public class FromAndToView extends LinearLayout {
     @OnClick(R.id.tv_begin_time)
     public void onStartTimeClick() {
 //        mCallback.onStartTimeSelected(0);
+        String nowText = mTvStartTime.getText().toString();
+        int checkIndex = 0;
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(new Date());
+        Date lastMonth = ca.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<String> dateArr = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            ca.add(Calendar.DAY_OF_YEAR, 1);
+            String t = sdf.format(ca.getTime());
+            if (i == 0) {
+                t += " 今天";
+            }
+            if (i == 1) {
+                t += " 明天";
+            }
+            if (i == 2) {
+                t += " 后天";
+            }
+            if (t.equals(nowText)) {
+                checkIndex = i;
+            }
+            dateArr.add(t);
+        }
+        final int checkedItem = checkIndex;
+        final String[] items = dateArr.toArray(new String[dateArr.size()]);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("选择发车时间");
+        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
+            if (which >= 0 && which < items.length) {
+                mTvStartTime.setText(items[which]);
+            }
+        });
+        builder.setPositiveButton("确定", (dialog, which) -> {
+            dialog.dismiss();
+            if (which >= 0 && which < items.length) {
+                mTvStartTime.setText(items[which]);
+            }
+        });
+        builder.create().show();
     }
 
     public void resetArea() {
