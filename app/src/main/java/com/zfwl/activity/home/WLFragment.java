@@ -63,8 +63,7 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContentView = inflater.inflate(R.layout.fragment_wl, container, false);
         ButterKnife.bind(this, mContentView);
         mContext = this.getActivity();
@@ -83,37 +82,8 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
         mLogisticsPresenter = new LogisticsPresenter();
         mLogisticsPresenter.attachView(this);
     }
-
-
-    private void initView() {
-        initRv();
-        mFromAndToView.setCallback(this);
-        mSelectAreaView.setCallback(this);
-        tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
-        tv_detail_area1 = (TextView) mContentView.findViewById(R.id.tv_detail_area1);
-        tv_detail_area1.setOnClickListener(this);
-        tv_detail_area2 = (TextView) mContentView.findViewById(R.id.tv_detail_area2);
-        tv_detail_area2.setOnClickListener(this);
-        tv_detail_area3 = (TextView) mContentView.findViewById(R.id.tv_detail_area3);
-        tv_detail_area3.setOnClickListener(this);
-        tv_detail_area4 = (TextView) mContentView.findViewById(R.id.tv_detail_area4);
-        tv_detail_area4.setOnClickListener(this);
-
-
-    }
-
-    private void initRv() {
-        mRvAdapter = new LogisticsAdapter();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        mRvLogistics.setLayoutManager(layoutManager);
-        mRvLogistics.setAdapter(mRvAdapter);
-        mRvLogistics.setDefaultOnRefreshListener(this::refreshLogistics);
-        mRvLogistics.setOnLoadMoreListener((itemsCount, maxLastVisiblePosition) -> loadMoreLogistics());
-    }
-
     private void refreshLogistics() {
         mLogisticsPresenter.refreshLogisticsList();
-
     }
 
     private void loadMoreLogistics() {
@@ -217,30 +187,31 @@ public class WLFragment extends Fragment implements View.OnClickListener, Select
     public void onAreaReset() {
         mFromAndToView.resetArea();
     }
-//
-//    private void updateAreas() {
-//        int pCurrent = mViewCity.getCurrentItem();
-//        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-//        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-//
-//        if (areas == null) {
-//            areas = new String[]{""};
-//        }
-//        mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(mContext, areas));
-//        mViewDistrict.setCurrentItem(0);
-//    }
-//
-//    private void updateCities() {
-//        int pCurrent = mViewProvince.getCurrentItem();
-//        mCurrentProviceName = mProvinceDatas[pCurrent];
-//        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-//        if (cities == null) {
-//            cities = new String[]{""};
-//        }
-//        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(mContext, cities));
-//        mViewCity.setCurrentItem(0);
-//        updateAreas();
-//    }
 
+    private void initView() {
+        initRv();
+        mFromAndToView.setCallback(this);
+        mSelectAreaView.setCallback(this);
+        tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
+        tv_detail_area1 = (TextView) mContentView.findViewById(R.id.tv_detail_area1);
+        tv_detail_area1.setOnClickListener(this);
+        tv_detail_area2 = (TextView) mContentView.findViewById(R.id.tv_detail_area2);
+        tv_detail_area2.setOnClickListener(this);
+        tv_detail_area3 = (TextView) mContentView.findViewById(R.id.tv_detail_area3);
+        tv_detail_area3.setOnClickListener(this);
+        tv_detail_area4 = (TextView) mContentView.findViewById(R.id.tv_detail_area4);
+        tv_detail_area4.setOnClickListener(this);
+
+
+    }
+
+    private void initRv() {
+        mRvAdapter = new LogisticsAdapter();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        mRvLogistics.setLayoutManager(layoutManager);
+        mRvLogistics.setAdapter(mRvAdapter);
+        mRvLogistics.setDefaultOnRefreshListener(this::refreshLogistics);
+        mRvLogistics.setOnLoadMoreListener((itemsCount, maxLastVisiblePosition) -> loadMoreLogistics());
+    }
 
 }
