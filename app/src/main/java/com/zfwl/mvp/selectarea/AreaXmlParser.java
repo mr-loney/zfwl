@@ -32,9 +32,7 @@ public class AreaXmlParser extends DefaultHandler {
             mProvinceIndex++;
             mCityIndex = 0;
             mDistrictIndex = 0;
-            MyLog.i(TAG, "===============province: %s", mProvince.toString());
         } else if (qName.equals("city")) {
-
             mCity = new Area();
             mCity.setId(mCityIndex);
             mCity.setParentId(mProvinceIndex - 1);
@@ -42,7 +40,6 @@ public class AreaXmlParser extends DefaultHandler {
             mCity.setSubAreas(new ArrayList<>());
             mCityIndex++;
             mDistrictIndex = 0;
-            MyLog.i(TAG, "city++++: %s", mCity.toString());
         } else if (qName.equals("district")) {
             mDistrict = new Area();
             mDistrict.setId(mDistrictIndex);
@@ -50,7 +47,6 @@ public class AreaXmlParser extends DefaultHandler {
             mDistrict.setName(attributes.getValue(0));
             mDistrict.setZipCode(attributes.getValue(1));
             mDistrictIndex++;
-            MyLog.i(TAG, "dis: %s", mDistrict.toString());
         }
     }
 
