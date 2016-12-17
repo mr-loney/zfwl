@@ -1,14 +1,10 @@
 package com.zfwl.activity.home;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,51 +14,42 @@ import com.zfwl.R;
 import com.zfwl.adapter.LogisticsAdapter;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
-import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
-import com.zfwl.entity.CityModel;
-import com.zfwl.entity.DistrictModel;
+import com.zfwl.entity.Address;
+import com.zfwl.entity.Area;
 import com.zfwl.entity.LogisticsInfo;
-import com.zfwl.entity.ProvinceModel;
-import com.zfwl.entity.UserRegAddressModel;
 import com.zfwl.mvp.logistics.LogisticsMvpView;
 import com.zfwl.mvp.logistics.LogisticsPresenter;
-import com.zfwl.util.XmlParserHandler;
+import com.zfwl.widget.slsectarea.FromAndToView;
+import com.zfwl.widget.slsectarea.SelectAreaView;
+import com.zfwl.widget.slsectarea.SelectAreaView.SelectAreaCallback;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class WLFragment extends Fragment implements View.OnClickListener,
-        OnWheelChangedListener, LogisticsMvpView {
+public class WLFragment extends Fragment implements View.OnClickListener, SelectAreaCallback,
+        OnWheelChangedListener, LogisticsMvpView, FromAndToView.Callback {
     private static final String TAG = "WLFragment";
+    private static final int ID_WHO_SELECT_FROM = 1;
+    private static final int ID_WHO_SELECT_TO = 2;
     View mContentView;
     private Activity mContext;
-    private TextView tvFrom, tvTo, tvBeginTime;
 
     private View tv_detail_area;
     private TextView tv_detail_area1, tv_detail_area2, tv_detail_area3, tv_detail_area4;
     private int select_tv_detail_area_index = 1;
 
     private boolean isFrom;
-    private UserRegAddressModel addressData = new UserRegAddressModel();
-    private View id_select_address;
-    private WheelView mViewProvince;
-    private WheelView mViewCity;
-    private WheelView mViewDistrict;
     @BindView(R.id.rv_logistics)
     UltimateRecyclerView mRvLogistics;
+    @BindView(R.id.view_from_n_to)
+    FromAndToView mFromAndToView;
+    @BindView(R.id.view_select_area)
+    SelectAreaView mSelectAreaView;
     private LogisticsAdapter mRvAdapter;
 
 
@@ -106,6 +93,8 @@ public class WLFragment extends Fragment implements View.OnClickListener,
 
     private void initView() {
         initRv();
+        mFromAndToView.setCallback(this);
+        mSelectAreaView.setCallback(this);
         tv_detail_area = mContentView.findViewById(R.id.tv_detail_area);
         tv_detail_area1 = (TextView) mContentView.findViewById(R.id.tv_detail_area1);
         tv_detail_area1.setOnClickListener(this);
@@ -116,42 +105,33 @@ public class WLFragment extends Fragment implements View.OnClickListener,
         tv_detail_area4 = (TextView) mContentView.findViewById(R.id.tv_detail_area4);
         tv_detail_area4.setOnClickListener(this);
 
-        tvFrom = (TextView) mContentView.findViewById(R.id.tv_from);
-        tvFrom.setOnClickListener(this);
-        tvTo = (TextView) mContentView.findViewById(R.id.tv_to);
-        tvTo.setOnClickListener(this);
-        tvBeginTime = (TextView) mContentView.findViewById(R.id.tv_begin_time);
-        tvBeginTime.setOnClickListener(this);
 
-        id_select_address = (View) mContentView.findViewById(R.id.id_select_address);
-        id_select_address.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                id_select_address.setVisibility(View.GONE);
-
-                if (isFrom) {
-                    addressData.setFromProvince(mCurrentProviceName);
-                    addressData.setFromCity(mCurrentCityName);
-                    addressData.setFromDistrict(mCurrentDistrictName);
-                } else {
-                    addressData.setToProvince(mCurrentProviceName);
-                    addressData.setToCity(mCurrentCityName);
-                    addressData.setToDistrict(mCurrentDistrictName);
-                }
-                reloadSelectAddress();
-                return false;
-            }
-        });
-        mViewProvince = (WheelView) mContentView.findViewById(R.id.id_province);
-        mViewCity = (WheelView) mContentView.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) mContentView.findViewById(R.id.id_district);
-        mViewProvince.addChangingListener(this);
-        mContentView.findViewById(R.id.id_reset_wheelView).setOnClickListener(this);
-        mContentView.findViewById(R.id.id_ok_wheelView).setOnClickListener(this);
-        mViewCity.addChangingListener(this);
-        mViewDistrict.addChangingListener(this);
-
-        initSelectProvinceData();
+//        id_select_address = (View) mContentView.findViewById(R.id.id_select_address);
+//        id_select_address.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                id_select_address.setVisibility(View.GONE);
+//
+//                if (isFrom) {
+//                    addressData.setFromProvince(mCurrentProviceName);
+//                    addressData.setFromCity(mCurrentCityName);
+//                    addressData.setFromDistrict(mCurrentDistrictName);
+//                } else {
+//                    addressData.setToProvince(mCurrentProviceName);
+//                    addressData.setToCity(mCurrentCityName);
+//                    addressData.setToDistrict(mCurrentDistrictName);
+//                }
+//                reloadSelectAddress();
+//                return false;
+//            }
+//        });
+//        mViewProvince.addChangingListener(this);
+//        mContentView.findViewById(R.id.id_reset_wheelView).setOnClickListener(this);
+//        mContentView.findViewById(R.id.id_ok_wheelView).setOnClickListener(this);
+//        mViewCity.addChangingListener(this);
+//        mViewDistrict.addChangingListener(this);
+//
+//        initSelectProvinceData();
     }
 
     private void initRv() {
@@ -188,15 +168,15 @@ public class WLFragment extends Fragment implements View.OnClickListener,
     }
 
     private void initSelectProvinceData() {
-        if (mProvinceDatas == null || mProvinceDatas.length == 0) {
-            initProvinceDatas();
-            mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(mContext, mProvinceDatas));
-            mViewProvince.setVisibleItems(7);
-            mViewCity.setVisibleItems(7);
-            mViewDistrict.setVisibleItems(7);
-            updateCities();
-            updateAreas();
-        }
+//        if (mProvinceDatas == null || mProvinceDatas.length == 0) {
+//            initProvinceDatas();
+//            mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(mContext, mProvinceDatas));
+//            mViewProvince.setVisibleItems(7);
+//            mViewCity.setVisibleItems(7);
+//            mViewDistrict.setVisibleItems(7);
+//            updateCities();
+//            updateAreas();
+//        }
     }
 
     private void resetTvDetailArea() {
@@ -253,167 +233,160 @@ public class WLFragment extends Fragment implements View.OnClickListener,
                 beginSelectAddress();
                 break;
             case R.id.tv_begin_time:
-                String nowText = tvBeginTime.getText().toString();
-
-                int checkIndex = 0;
-                Calendar ca = Calendar.getInstance();
-                ca.setTime(new Date());
-                Date lastMonth = ca.getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                ArrayList<String> dateArr = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    ca.add(Calendar.DAY_OF_YEAR, 1);
-                    String t = sdf.format(ca.getTime());
-                    if (i == 0) {
-                        t += " 今天";
-                    }
-                    if (i == 1) {
-                        t += " 明天";
-                    }
-                    if (i == 2) {
-                        t += " 后天";
-                    }
-                    if (t.equals(nowText)) {
-                        checkIndex = i;
-                    }
-                    dateArr.add(t);
-                }
-                final int checkedItem = checkIndex;
-                final String[] items = dateArr.toArray(new String[dateArr.size()]);
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("选择发车时间");
-                builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which >= 0 && which < items.length) {
-                            tvBeginTime.setText(items[which]);
-                        }
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        if (which >= 0 && which < items.length) {
-                            tvBeginTime.setText(items[which]);
-                        }
-                    }
-                });
-                builder.create().show();
+//                String nowText = tvBeginTime.getText().toString();
+//
+//                int checkIndex = 0;
+//                Calendar ca = Calendar.getInstance();
+//                ca.setTime(new Date());
+//                Date lastMonth = ca.getTime();
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                ArrayList<String> dateArr = new ArrayList<>();
+//                for (int i = 0; i < 10; i++) {
+//                    ca.add(Calendar.DAY_OF_YEAR, 1);
+//                    String t = sdf.format(ca.getTime());
+//                    if (i == 0) {
+//                        t += " 今天";
+//                    }
+//                    if (i == 1) {
+//                        t += " 明天";
+//                    }
+//                    if (i == 2) {
+//                        t += " 后天";
+//                    }
+//                    if (t.equals(nowText)) {
+//                        checkIndex = i;
+//                    }
+//                    dateArr.add(t);
+//                }
+//                final int checkedItem = checkIndex;
+//                final String[] items = dateArr.toArray(new String[dateArr.size()]);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setTitle("选择发车时间");
+//                builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which >= 0 && which < items.length) {
+//                            tvBeginTime.setText(items[which]);
+//                        }
+//                    }
+//                });
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        if (which >= 0 && which < items.length) {
+//                            tvBeginTime.setText(items[which]);
+//                        }
+//                    }
+//                });
+//                builder.create().show();
                 break;
-            case R.id.id_reset_wheelView:
-                mCurrentProviceName = null;
-                mCurrentCityName = null;
-                mCurrentDistrictName = null;
-                mCurrentZipCode = null;
-                addressData = new UserRegAddressModel();
-                tvTo.setText("目的地");
-                tvFrom.setText("出发地");
-                id_select_address.setVisibility(View.GONE);
-                reloadSelectAddress();
-                break;
-            case R.id.id_ok_wheelView:
-                id_select_address.setVisibility(View.GONE);
-                if (isFrom) {
-                    addressData.setFromProvince(mCurrentProviceName);
-                    addressData.setFromCity(mCurrentCityName);
-                    addressData.setFromDistrict(mCurrentDistrictName);
-                } else {
-                    addressData.setToProvince(mCurrentProviceName);
-                    addressData.setToCity(mCurrentCityName);
-                    addressData.setToDistrict(mCurrentDistrictName);
-                }
-                reloadSelectAddress();
-                reloadSelectAddress();
-                break;
-//            case R.id.titlebar_btnRight:
-//                Intent intent1 = new Intent(mContext, TradeListActivity.class);
-//                startActivity(intent1);
+//            case R.id.id_reset_wheelView:
+//                mCurrentProviceName = null;
+//                mCurrentCityName = null;
+//                mCurrentDistrictName = null;
+//                mCurrentZipCode = null;
+//                addressData = new UserRegAddressModel();
+//                tvTo.setText("目的地");
+//                tvFrom.setText("出发地");
+//                id_select_address.setVisibility(View.GONE);
+//                reloadSelectAddress();
 //                break;
-            default:
-                break;
+//            case R.id.id_ok_wheelView:
+//                id_select_address.setVisibility(View.GONE);
+//                if (isFrom) {
+//                    addressData.setFromProvince(mCurrentProviceName);
+//                    addressData.setFromCity(mCurrentCityName);
+//                    addressData.setFromDistrict(mCurrentDistrictName);
+//                } else {
+//                    addressData.setToProvince(mCurrentProviceName);
+//                    addressData.setToCity(mCurrentCityName);
+//                    addressData.setToDistrict(mCurrentDistrictName);
+//                }
+//                reloadSelectAddress();
+//                break;
         }
     }
 
     private void reloadSelectAddress() {
-        String s = "";
-        if (addressData.getToProvince().length() > 0) {
-            s = addressData.getToProvince();
-        }
-        if (addressData.getToCity().length() > 0) {
-            s = addressData.getToCity();
-        }
-        if (addressData.getToDistrict().length() > 0) {
-            s = addressData.getToDistrict();
-        }
-        if (s.length() > 0) {
-            tv_detail_area.setVisibility(View.VISIBLE);
-            tvTo.setText(s);
-        } else {
-            tv_detail_area.setVisibility(View.GONE);
-            tvTo.setText("目的地");
-        }
-
-        if (addressData.getFromProvince().length() > 0) {
-            s = addressData.getFromProvince();
-        }
-        if (addressData.getFromCity().length() > 0) {
-            s = addressData.getFromCity();
-        }
-        if (addressData.getFromDistrict().length() > 0) {
-            s = addressData.getFromDistrict();
-        }
-        if (s.length() > 0) {
-            tvFrom.setText(s);
-        } else {
-            tvFrom.setText("出发地");
-        }
+//        String s = "";
+//        if (addressData.getToProvince().length() > 0) {
+//            s = addressData.getToProvince();
+//        }
+//        if (addressData.getToCity().length() > 0) {
+//            s = addressData.getToCity();
+//        }
+//        if (addressData.getToDistrict().length() > 0) {
+//            s = addressData.getToDistrict();
+//        }
+//        if (s.length() > 0) {
+//            tv_detail_area.setVisibility(View.VISIBLE);
+//            tvTo.setText(s);
+//        } else {
+//            tv_detail_area.setVisibility(View.GONE);
+//            tvTo.setText("目的地");
+//        }
+//
+//        if (addressData.getFromProvince().length() > 0) {
+//            s = addressData.getFromProvince();
+//        }
+//        if (addressData.getFromCity().length() > 0) {
+//            s = addressData.getFromCity();
+//        }
+//        if (addressData.getFromDistrict().length() > 0) {
+//            s = addressData.getFromDistrict();
+//        }
+//        if (s.length() > 0) {
+//            tvFrom.setText(s);
+//        } else {
+//            tvFrom.setText("出发地");
+//        }
     }
 //-----------------------------------------------------//
 
     //选择地址
     private void beginSelectAddress() {
-        id_select_address.setVisibility(View.VISIBLE);
-        String p = "";
-        String c = "";
-        String d = "";
-        if (isFrom) {
-            p = addressData.getFromProvince();
-            c = addressData.getFromCity();
-            d = addressData.getFromDistrict();
-        } else {
-            p = addressData.getToProvince();
-            c = addressData.getToCity();
-            d = addressData.getToDistrict();
-        }
-        int pIndex = 0;
-        int cIndex = 0;
-        int dIndex = 0;
-        if (p.length() > 0) {
-            for (int i = 0; i < mProvinceDatas.length; i++) {
-                if (mProvinceDatas[i].contains(p)) {
-                    pIndex = i;
-                }
-            }
-
-            String[] cs = mCitisDatasMap.get(p);
-            for (int i = 0; i < cs.length; i++) {
-                if (cs[i].toString().contains(c)) {
-                    cIndex = i;
-                }
-            }
-
-            String[] ds = mDistrictDatasMap.get(c);
-            for (int i = 0; i < ds.length; i++) {
-                if (ds[i].toString().contains(d)) {
-                    dIndex = i;
-                }
-            }
-        }
-
-        mViewProvince.setCurrentItem(pIndex);
-        mViewCity.setCurrentItem(cIndex);
-        mViewDistrict.setCurrentItem(dIndex);
+//        id_select_address.setVisibility(View.VISIBLE);
+//        String p = "";
+//        String c = "";
+//        String d = "";
+//        if (isFrom) {
+//            p = addressData.getFromProvince();
+//            c = addressData.getFromCity();
+//            d = addressData.getFromDistrict();
+//        } else {
+//            p = addressData.getToProvince();
+//            c = addressData.getToCity();
+//            d = addressData.getToDistrict();
+//        }
+//        int pIndex = 0;
+//        int cIndex = 0;
+//        int dIndex = 0;
+//        if (p.length() > 0) {
+//            for (int i = 0; i < mProvinceDatas.length; i++) {
+//                if (mProvinceDatas[i].contains(p)) {
+//                    pIndex = i;
+//                }
+//            }
+//
+//            String[] cs = mCitisDatasMap.get(p);
+//            for (int i = 0; i < cs.length; i++) {
+//                if (cs[i].toString().contains(c)) {
+//                    cIndex = i;
+//                }
+//            }
+//
+//            String[] ds = mDistrictDatasMap.get(c);
+//            for (int i = 0; i < ds.length; i++) {
+//                if (ds[i].toString().contains(d)) {
+//                    dIndex = i;
+//                }
+//            }
+//        }
+//
+//        mViewProvince.setCurrentItem(pIndex);
+//        mViewCity.setCurrentItem(cIndex);
+//        mViewDistrict.setCurrentItem(dIndex);
     }
 
     protected String[] mProvinceDatas;
@@ -425,100 +398,132 @@ public class WLFragment extends Fragment implements View.OnClickListener,
     protected String mCurrentDistrictName = "";
     protected String mCurrentZipCode = "";
 
-    protected void initProvinceDatas() {
-        List<ProvinceModel> provinceList = null;
-        AssetManager asset = mContext.getAssets();
-        try {
-            InputStream input = asset.open("province_data.xml");
-            // ����һ������xml�Ĺ�������
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-            // ����xml
-            SAXParser parser = spf.newSAXParser();
-            XmlParserHandler handler = new XmlParserHandler();
-            parser.parse(input, handler);
-            input.close();
-            // ��ȡ�������������
-            provinceList = handler.getDataList();
-            //*/ ��ʼ��Ĭ��ѡ�е�ʡ���С���
-            if (provinceList != null && !provinceList.isEmpty()) {
-                mCurrentProviceName = provinceList.get(0).getName();
-                List<CityModel> cityList = provinceList.get(0).getCityList();
-                if (cityList != null && !cityList.isEmpty()) {
-                    mCurrentCityName = cityList.get(0).getName();
-                    List<DistrictModel> districtList = cityList.get(0).getDistrictList();
-                    mCurrentDistrictName = districtList.get(0).getName();
-                    mCurrentZipCode = districtList.get(0).getZipcode();
-                }
-            }
-            //*/
-            mProvinceDatas = new String[provinceList.size()];
-            for (int i = 0; i < provinceList.size(); i++) {
-                // ��������ʡ�����
-                mProvinceDatas[i] = provinceList.get(i).getName();
-                List<CityModel> cityList = provinceList.get(i).getCityList();
-                String[] cityNames = new String[cityList.size()];
-                for (int j = 0; j < cityList.size(); j++) {
-                    // ����ʡ����������е����
-                    cityNames[j] = cityList.get(j).getName();
-                    List<DistrictModel> districtList = cityList.get(j).getDistrictList();
-                    String[] distrinctNameArray = new String[districtList.size()];
-                    DistrictModel[] distrinctArray = new DistrictModel[districtList.size()];
-                    for (int k = 0; k < districtList.size(); k++) {
-                        // ����������������/�ص����
-                        DistrictModel districtModel = new DistrictModel(districtList.get(k).getName(), districtList.get(k).getZipcode());
-                        // ��/�ض��ڵ��ʱ࣬���浽mZipcodeDatasMap
-                        mZipcodeDatasMap.put(districtList.get(k).getName(), districtList.get(k).getZipcode());
-                        distrinctArray[k] = districtModel;
-                        distrinctNameArray[k] = districtModel.getName();
-                    }
-                    // ��-��/�ص���ݣ����浽mDistrictDatasMap
-                    mDistrictDatasMap.put(cityNames[j], distrinctNameArray);
-                }
-                // ʡ-�е���ݣ����浽mCitisDatasMap
-                mCitisDatasMap.put(provinceList.get(i).getName(), cityNames);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-    }
-
+    //    protected void initProvinceDatas() {
+//        List<ProvinceModel> provinceList = null;
+//        AssetManager asset = mContext.getAssets();
+//        try {
+//            InputStream input = asset.open("province_data.xml");
+//            // ����һ������xml�Ĺ�������
+//            SAXParserFactory spf = SAXParserFactory.newInstance();
+//            // ����xml
+//            SAXParser parser = spf.newSAXParser();
+//            XmlParserHandler handler = new XmlParserHandler();
+//            parser.parse(input, handler);
+//            input.close();
+//            // ��ȡ�������������
+//            provinceList = handler.getDataList();
+//            //*/ ��ʼ��Ĭ��ѡ�е�ʡ���С���
+//            if (provinceList != null && !provinceList.isEmpty()) {
+//                mCurrentProviceName = provinceList.get(0).getName();
+//                List<CityModel> cityList = provinceList.get(0).getCityList();
+//                if (cityList != null && !cityList.isEmpty()) {
+//                    mCurrentCityName = cityList.get(0).getName();
+//                    List<DistrictModel> districtList = cityList.get(0).getDistrictList();
+//                    mCurrentDistrictName = districtList.get(0).getName();
+//                    mCurrentZipCode = districtList.get(0).getZipcode();
+//                }
+//            }
+//            //*/
+//            mProvinceDatas = new String[provinceList.size()];
+//            for (int i = 0; i < provinceList.size(); i++) {
+//                // ��������ʡ�����
+//                mProvinceDatas[i] = provinceList.get(i).getName();
+//                List<CityModel> cityList = provinceList.get(i).getCityList();
+//                String[] cityNames = new String[cityList.size()];
+//                for (int j = 0; j < cityList.size(); j++) {
+//                    // ����ʡ����������е����
+//                    cityNames[j] = cityList.get(j).getName();
+//                    List<DistrictModel> districtList = cityList.get(j).getDistrictList();
+//                    String[] distrinctNameArray = new String[districtList.size()];
+//                    DistrictModel[] distrinctArray = new DistrictModel[districtList.size()];
+//                    for (int k = 0; k < districtList.size(); k++) {
+//                        // ����������������/�ص����
+//                        DistrictModel districtModel = new DistrictModel(districtList.get(k).getName(), districtList.get(k).getZipcode());
+//                        // ��/�ض��ڵ��ʱ࣬���浽mZipcodeDatasMap
+//                        mZipcodeDatasMap.put(districtList.get(k).getName(), districtList.get(k).getZipcode());
+//                        distrinctArray[k] = districtModel;
+//                        distrinctNameArray[k] = districtModel.getName();
+//                    }
+//                    // ��-��/�ص���ݣ����浽mDistrictDatasMap
+//                    mDistrictDatasMap.put(cityNames[j], distrinctNameArray);
+//                }
+//                // ʡ-�е���ݣ����浽mCitisDatasMap
+//                mCitisDatasMap.put(provinceList.get(i).getName(), cityNames);
+//            }
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        } finally {
+//
+//        }
+//    }
+//
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-        } else if (wheel == mViewCity) {
-            updateAreas();
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+//        // TODO Auto-generated method stub
+//        if (wheel == mViewProvince) {
+//            updateCities();
+//        } else if (wheel == mViewCity) {
+//            updateAreas();
+//        } else if (wheel == mViewDistrict) {
+//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
+//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+//        }
+    }
+
+    @Override
+    public void onFromAreaClick(Area area) {// TODO: 2016/12/17 change to address
+        mSelectAreaView.show(ID_WHO_SELECT_FROM, null);
+    }
+
+    @Override
+    public void onToAreaClick(Area area) {// TODO: 2016/12/17 change to address
+        mSelectAreaView.show(ID_WHO_SELECT_TO, null);
+    }
+
+    @Override
+    public void onStartTimeSelected(long timeInMillis) {
+
+    }
+
+    @Override
+    public void onAreaSelected(int idWhoSelect, Address address) {
+        switch (idWhoSelect) {//// TODO: 2016/12/17 change area to address
+            case ID_WHO_SELECT_FROM:
+                mFromAndToView.setFromArea(null);
+                break;
+            case ID_WHO_SELECT_TO:
+                mFromAndToView.setToArea(null);
+                break;
         }
     }
 
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(mContext, areas));
-        mViewDistrict.setCurrentItem(0);
+    @Override
+    public void onAreaReset() {
+        mFromAndToView.resetArea();
     }
-
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(mContext, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
-    }
+//
+//    private void updateAreas() {
+//        int pCurrent = mViewCity.getCurrentItem();
+//        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
+//        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
+//
+//        if (areas == null) {
+//            areas = new String[]{""};
+//        }
+//        mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(mContext, areas));
+//        mViewDistrict.setCurrentItem(0);
+//    }
+//
+//    private void updateCities() {
+//        int pCurrent = mViewProvince.getCurrentItem();
+//        mCurrentProviceName = mProvinceDatas[pCurrent];
+//        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+//        if (cities == null) {
+//            cities = new String[]{""};
+//        }
+//        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(mContext, cities));
+//        mViewCity.setCurrentItem(0);
+//        updateAreas();
+//    }
 
 
 }

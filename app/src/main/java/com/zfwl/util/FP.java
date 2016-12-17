@@ -14,10 +14,16 @@ public class FP {
     public static boolean empty(Collection collection) {
         return isNull(collection) || collection.size() == 0;
     }
-    public static boolean notEmpty(Collection collection){
+
+    public static boolean notEmpty(Collection collection) {
         return !empty(collection);
     }
+
     private static boolean isNull(Object o) {
         return o == null;
+    }
+
+    public static int size(Collection collection) {
+        return notEmpty(collection) ? collection.size() : 0;
     }
 }

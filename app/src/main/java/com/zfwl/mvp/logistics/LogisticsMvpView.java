@@ -15,4 +15,6 @@ public interface LogisticsMvpView extends MvpView {
     void onLoadMoreLogisticsListSuccess(List<LogisticsInfo> logistics);
 
     void onLoadLogisticsListFailed(String errorMsg);
+
+
 }
