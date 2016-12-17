@@ -7,11 +7,9 @@ import com.zfwl.entity.Address;
  */
 public class Const {
     public static final Address INVALID_ADDRESS = new Address();
-    public interface WeChatLogin {
+    public interface WeChat {
         String APP_ID = "";
         String APP_SECRET = "";
     }
-    public interface WeChatShare{
-        String APP_ID = "";
-    }
+
 }

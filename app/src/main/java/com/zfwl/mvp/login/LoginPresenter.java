@@ -2,7 +2,7 @@ package com.zfwl.mvp.login;
 
 import android.content.Context;
 
-import com.zfwl.common.Const.WeChatLogin;
+import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.retrofit.ApiModule;
@@ -63,7 +63,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     //  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
     private Observable<WeChatTokenResult> getWechatToken(String code) {
-        return mLoginApi.getWechatAccessToken(WeChatLogin.APP_ID, WeChatLogin.APP_SECRET, code, "authorization_code")
+        return mLoginApi.getWechatAccessToken(WeChat.APP_ID, WeChat.APP_SECRET, code, "authorization_code")
                 .map(this::parseWechatTokenResult);
     }
 

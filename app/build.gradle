@@ -73,4 +73,6 @@ dependencies {
     compile 'com.marshalchen.ultimaterecyclerview:library:0.7.0'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'com.jungly.socialize:biliShare:0.1.05'
+    compile 'com.jungly.socialize:biliShare-util:0.1.05@aar'
 }

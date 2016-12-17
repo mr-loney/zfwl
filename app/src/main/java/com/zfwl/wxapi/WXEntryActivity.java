@@ -3,6 +3,7 @@ package com.zfwl.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bilibili.socialize.share.core.ui.BaseWXEntryActivity;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -10,15 +11,14 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
-import com.zfwl.activity.BaseActivity;
-import com.zfwl.common.Const;
+import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.event.WeChatAuthEvent;
 import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
     private static final int RESP_CODE_LOGIN = 1;
     private static final int RESP_CODE_SHARE = 2;
@@ -28,7 +28,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxentry);
-        mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID, false);
+        mWxApi = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
         mWxApi.handleIntent(getIntent(), this);
     }
 
@@ -64,6 +64,11 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         }
         ToastUtils.show(this, result);
         finish();
+    }
+
+    @Override
+    protected String getAppId() {
+        return WeChat.APP_ID;
     }
 
     private void onAuthSuccess(BaseResp baseResp) {

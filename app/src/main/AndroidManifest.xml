@@ -52,7 +52,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait"/>
@@ -61,10 +62,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"
             />
-        <activity android:name=".activity.GoodsDetailActivity"
+        <activity
+            android:name=".activity.GoodsDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"
             />
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent---YourAppId"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

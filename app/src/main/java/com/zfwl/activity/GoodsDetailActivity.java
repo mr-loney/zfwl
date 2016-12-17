@@ -3,7 +3,10 @@ package com.zfwl.activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
+import com.bilibili.socialize.share.core.SocializeMedia;
+import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
+import com.zfwl.share.ShareHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,7 +17,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar.SimpleDelegate;
  * 货源详情
  * Created by ZZB on 2016/12/17.
  */
-public class GoodsDetailActivity extends BaseActivity {
+public class GoodsDetailActivity extends BaseShareableActivity  {
 
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
@@ -47,5 +50,10 @@ public class GoodsDetailActivity extends BaseActivity {
 
     private void initViews() {
         initTitleBar();
+    }
+
+    @Override
+    public BaseShareParam getShareContent(ShareHelper helper, SocializeMedia target) {
+        return null;
     }
 }

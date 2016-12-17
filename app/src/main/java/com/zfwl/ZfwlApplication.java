@@ -5,7 +5,7 @@ import android.app.Application;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.zfwl.common.Const;
+import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 
 /**
@@ -27,7 +27,7 @@ public class ZfwlApplication extends Application {
     }
 
     private void initWeChat() {
-        IWXAPI api = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID , false);
-        api.registerApp(Const.WeChatLogin.APP_ID);
+        IWXAPI api = WXAPIFactory.createWXAPI(this, WeChat.APP_ID , false);
+        api.registerApp(WeChat.APP_ID);
     }
 }

@@ -14,7 +14,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
 import com.zfwl.activity.home.HomeActivity;
-import com.zfwl.common.Const;
+import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.controls.AutoCompleteTextViewEx;
 import com.zfwl.controls.LoadingDialog;
@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoadingDialog = new LoadingDialog(this);
         mLoginPresenter = new LoginPresenter(this);
         mLoginPresenter.attachView(this);
-        mWxApi = WXAPIFactory.createWXAPI(this, Const.WeChatLogin.APP_ID, false);
+        mWxApi = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
 
         initView();
     }
