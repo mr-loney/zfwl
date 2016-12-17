@@ -2,6 +2,7 @@ package com.zfwl;
 
 import android.app.Application;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.common.Const;
@@ -16,7 +17,13 @@ public class ZfwlApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MyLog.init();
+        initBugly();
         initWeChat();
+
+    }
+
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext(), "6b09ee46cf", BuildConfig.DEBUG);
     }
 
     private void initWeChat() {
