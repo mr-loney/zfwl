@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.zfwl.R;
-import com.zfwl.common.MyLog;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ListWheelAdapter;
@@ -66,7 +65,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
 
     @Override
     public void onProvincesLoaded(List<Area> provinces) {
-        updateWheelView(mViewProvince, provinces);
+        updateProvinces(provinces);
     }
 
     private String[] toStrArr(List<Area> areas) {
@@ -81,22 +80,31 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
         if (wheel == mViewProvince) {
-            mCurrentProvince = mSelectAreaPresenter.getProvince(newValue);
-            MyLog.i(TAG, "mViewProvince：" + mCurrentProvince.toString());
-            List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
-            updateWheelView(mViewCity, cityList);
+            updateCities(newValue);
         } else if (wheel == mViewCity) {
-            MyLog.i(TAG, "mViewCity");
-            mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), newValue);
-            MyLog.i(TAG, "mViewCity：" + mCurrentCity.toString());
-            List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
-            updateWheelView(mViewDistrict, districtList);
+            updateDistricts(newValue);
         } else if (wheel == mViewDistrict) {
-            MyLog.i(TAG, "mViewDistrict");
             mCurrentDistrict = mSelectAreaPresenter.getDistrict(mCurrentProvince.getId(), mCurrentCity.getId(), newValue);
-            MyLog.i(TAG, "mViewDistrict：" + mCurrentDistrict.toString());
         }
     }
+    private void updateProvinces(List<Area> provinces){
+        updateWheelView(mViewProvince, provinces);
+        updateCities(0);
+        updateDistricts(0);
+    }
+    private void updateCities(int provinceId) {
+        mCurrentProvince = mSelectAreaPresenter.getProvince(provinceId);
+        List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
+        updateWheelView(mViewCity, cityList);
+        updateDistricts(0);
+    }
+
+    private void updateDistricts(int cityId) {
+        mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), cityId);
+        List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
+        updateWheelView(mViewDistrict, districtList);
+    }
+
 
 
     @OnClick(R.id.tv_reset_address)
