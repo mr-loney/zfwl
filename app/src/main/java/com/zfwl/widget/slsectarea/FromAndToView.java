@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.common.Const;
-import com.zfwl.entity.Area;
+import com.zfwl.entity.Address;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,24 +26,24 @@ public class FromAndToView extends LinearLayout {
     @BindView(R.id.tv_begin_time)
     TextView mTvStartTime;
     private Callback mCallback;
-    private Area mFromArea, mToArea;
+    private Address mFromAddress, mToAddress;
 
     public interface Callback {
-        void onFromAreaClick(Area area);
+        void onFromAddressClick(Address address);
 
-        void onToAreaClick(Area area);
+        void onToAddressClick(Address address);
 
         void onStartTimeSelected(long timeInMillis);
     }
 
     @OnClick(R.id.tv_from)
     public void onFromAreaClick() {
-        mCallback.onFromAreaClick(mFromArea);
+        mCallback.onFromAddressClick(mFromAddress);
     }
 
     @OnClick(R.id.tv_to)
     public void onToAreaClick() {
-        mCallback.onToAreaClick(mToArea);
+        mCallback.onToAddressClick(mToAddress);
     }
 
     @OnClick(R.id.tv_begin_time)
@@ -54,8 +54,8 @@ public class FromAndToView extends LinearLayout {
     public void resetArea() {
         mTvFrom.setText(DEFAULT_FROM);
         mTvTo.setText(DEFAULT_TO);
-        mFromArea = Const.INVALID_AREA;
-        mToArea = Const.INVALID_AREA;
+        mFromAddress = Const.INVALID_ADDRESS;
+        mToAddress = Const.INVALID_ADDRESS;
     }
 
     public void setCallback(Callback callback) {
@@ -68,20 +68,20 @@ public class FromAndToView extends LinearLayout {
         resetArea();
     }
 
-    public void setFromArea(Area area) {
-        this.mFromArea = area;
+    public Address getFromAddress() {
+        return mFromAddress;
     }
 
-    public void setToArea(Area area) {
-        this.mFromArea = area;
+    public void setFromAddress(Address fromAddress) {
+        mFromAddress = fromAddress;
     }
 
-    public Area getFromArea() {
-        return mFromArea;
+    public Address getToAddress() {
+        return mToAddress;
     }
 
-    public Area getToArea() {
-        return mToArea;
+    public void setToAddress(Address toAddress) {
+        mToAddress = toAddress;
     }
 
     public FromAndToView(Context context) {

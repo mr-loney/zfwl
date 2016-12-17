@@ -35,7 +35,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private SelectAreaCallback mCallback;
     private Address mAddress;
     private int mIdWhoSelect;
-//    private AreaAdapter mProvinceAdapter, mCityAdapter, mDistrictAdapter;
+    //    private AreaAdapter mProvinceAdapter, mCityAdapter, mDistrictAdapter;
     private SelectAreaPresenter mSelectAreaPresenter;
     private Area mCurrentProvince, mCurrentCity, mCurrentDistrict;
 
@@ -60,7 +60,9 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
         mIdWhoSelect = idWhoSelect;
         setVisibility(VISIBLE);
         mAddress = address;
-        //// TODO: 2016/12/17 get list by area
+        if (address != null) {
+            // TODO: 2016/12/17
+        }
     }
 
     @Override
@@ -68,14 +70,6 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
         updateProvinces(provinces);
     }
 
-    private String[] toStrArr(List<Area> areas) {
-        String[] arr = new String[FP.size(areas)];
-        int index = 0;
-        for (Area area : areas) {
-            arr[index++] = area.getName();
-        }
-        return arr;
-    }
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -87,11 +81,13 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
             mCurrentDistrict = mSelectAreaPresenter.getDistrict(mCurrentProvince.getId(), mCurrentCity.getId(), newValue);
         }
     }
-    private void updateProvinces(List<Area> provinces){
+
+    private void updateProvinces(List<Area> provinces) {
         updateWheelView(mViewProvince, provinces);
         updateCities(0);
         updateDistricts(0);
     }
+
     private void updateCities(int provinceId) {
         mCurrentProvince = mSelectAreaPresenter.getProvince(provinceId);
         List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
@@ -104,7 +100,6 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
         List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
         updateWheelView(mViewDistrict, districtList);
     }
-
 
 
     @OnClick(R.id.tv_reset_address)

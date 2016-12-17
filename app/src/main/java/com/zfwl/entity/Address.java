@@ -8,6 +8,9 @@ public class Address {
     private Area city;
     private Area district;
 
+    public Address() {
+    }
+
     public Address(Area province, Area city, Area district) {
         this.province = province;
         this.city = city;
