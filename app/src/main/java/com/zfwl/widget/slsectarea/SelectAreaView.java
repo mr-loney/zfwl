@@ -8,7 +8,6 @@ import com.zfwl.R;
 import com.zfwl.common.MyLog;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
-import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
 import com.zfwl.controls.wheel.widget.adapters.ListWheelAdapter;
 import com.zfwl.controls.wheel.widget.adapters.WheelViewAdapter;
 import com.zfwl.entity.Address;
@@ -51,25 +50,27 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private void init(Context context) {
         inflate(context, R.layout.layout_select_area, this);
         ButterKnife.bind(this, this);
-//        initWheelView(mViewProvince, mProvinceAdapter);
-//        initWheelView(mViewCity, mCityAdapter);
-//        initWheelView(mViewDistrict, mDistrictAdapter);
+        mProvinceAdapter = new AreaAdapter(context);
+        mCityAdapter = new AreaAdapter(context);
+        mDistrictAdapter = new AreaAdapter(context);
+        initWheelView(mViewProvince, mProvinceAdapter);
+        initWheelView(mViewCity, mCityAdapter);
+        initWheelView(mViewDistrict, mDistrictAdapter);
         mSelectAreaPresenter = new SelectAreaPresenter(context);
         mSelectAreaPresenter.attachView(this);
+        mSelectAreaPresenter.loadProvincesIfNeeded();
     }
 
     public void show(int idWhoSelect, Address address) {
         mIdWhoSelect = idWhoSelect;
         setVisibility(VISIBLE);
         mAddress = address;
-        mSelectAreaPresenter.loadProvincesIfNeeded();
         //// TODO: 2016/12/17 get list by area
     }
 
     @Override
     public void onProvincesLoaded(List<Area> provinces) {
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<>(getContext(), toStrArr(provinces)));
-        mViewProvince.setCurrentItem(0);
+        updateWheelView(mViewProvince, mProvinceAdapter, provinces);
     }
     private String[] toStrArr(List<Area> areas){
         String[] arr =  new String[FP.size(areas)];
@@ -82,17 +83,17 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
         MyLog.i(TAG, "oldValue: %d, newValue: %d", oldValue, newValue);
-//        if (wheel == mViewProvince) {
-//            mCurrentProvince = mSelectAreaPresenter.getProvince(newValue);
-//            List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
-//            updateWheelView(mViewCity, mCityAdapter, cityList);
-//        } else if (wheel == mViewCity) {
-//            mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), newValue);
-//            List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
-//            updateWheelView(mViewDistrict, mDistrictAdapter, districtList);
-//        } else if (wheel == mViewDistrict) {
-//            mCurrentDistrict = mSelectAreaPresenter.getDistrict(mCurrentProvince.getId(), mCurrentCity.getId(), newValue);
-//        }
+        if (wheel == mViewProvince) {
+            mCurrentProvince = mSelectAreaPresenter.getProvince(newValue);
+            List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
+            updateWheelView(mViewCity, mCityAdapter, cityList);
+        } else if (wheel == mViewCity) {
+            mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), newValue);
+            List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
+            updateWheelView(mViewDistrict, mDistrictAdapter, districtList);
+        } else if (wheel == mViewDistrict) {
+            mCurrentDistrict = mSelectAreaPresenter.getDistrict(mCurrentProvince.getId(), mCurrentCity.getId(), newValue);
+        }
     }
 
 
@@ -127,7 +128,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     }
 
     private void initWheelView(WheelView view, WheelViewAdapter adapter) {
-        adapter = new AreaAdapter(view.getContext());
+//        adapter = new AreaAdapter(view.getContext());
         view.setViewAdapter(adapter);
         view.addChangingListener(this);
     }
