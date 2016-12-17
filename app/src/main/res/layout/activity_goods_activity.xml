@@ -8,7 +8,8 @@
     <cn.bingoogolapple.titlebar.BGATitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        app:bgatitlebar_leftDrawable="@drawable/back"
         android:layout_height="@dimen/titlebar_height"
+        app:bgatitlebar_leftDrawable="@drawable/back"
+        app:bgatitlebar_rightDrawable="@drawable/ic_share"
         app:bgatitlebar_titleText="货源详情"/>
 </LinearLayout>

@@ -68,6 +68,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
     private void onAuthSuccess(BaseResp baseResp) {
         switch (baseResp.getType()) {
+
             case RESP_CODE_LOGIN:
                 MyLog.i(TAG, "onAuthSuccess, login");
                 String code = ((SendAuth.Resp) baseResp).code;
@@ -75,6 +76,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 break;
             case RESP_CODE_SHARE:
                 MyLog.i(TAG, "onAuthSuccess, share");
+
                 break;
             default:
                 MyLog.e(TAG, "onAuthSuccess, unknown type: %d", baseResp.getType());

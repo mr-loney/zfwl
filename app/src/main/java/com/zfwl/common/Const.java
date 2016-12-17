@@ -11,4 +11,7 @@ public class Const {
         String APP_ID = "";
         String APP_SECRET = "";
     }
+    public interface WeChatShare{
+        String APP_ID = "";
+    }
 }
