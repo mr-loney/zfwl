@@ -32,7 +32,6 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     private static final String TAG = "WLFragment";
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
-    View mContentView;
     private Activity mContext;
     @BindView(R.id.tv_area_condition)
     View tvAreaCondition;
@@ -69,12 +68,12 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_wl, container, false);
-        ButterKnife.bind(this, mContentView);
+        View contentView = inflater.inflate(R.layout.fragment_wl, container, false);
+        ButterKnife.bind(this, contentView);
         mContext = this.getActivity();
         initPresenters();
         initView();
-        return mContentView;
+        return contentView;
     }
 
     @Override

@@ -37,7 +37,9 @@ public abstract class BaseRvAdapter<T, VH extends ViewHolder> extends UltimateVi
     public List<T> getItems() {
         return new ArrayList<>(mList);
     }
-
+    public T getItem(int position){
+        return mList.get(position);
+    }
     public void clear() {
         mList.clear();
         notifyDataSetChanged();
