@@ -64,7 +64,6 @@ public class AreaModel {
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
-            asset.close();
         }
         long duration = System.currentTimeMillis() - start;
         mIsDataLoaded = true;
