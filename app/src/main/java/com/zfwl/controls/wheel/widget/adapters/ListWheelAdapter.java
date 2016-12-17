@@ -15,19 +15,12 @@ import java.util.List;
 public abstract class ListWheelAdapter<T> extends AbstractWheelTextAdapter {
     private List<T> mItems = new ArrayList<>();
 
-    protected ListWheelAdapter(Context context) {
-        super(context);
-    }
 
-    public ListWheelAdapter(Context context, int itemResource, List<T> items) {
-        super(context, itemResource);
+    public ListWheelAdapter(Context context, List<T> items) {
+        super(context);
         mItems = items;
     }
 
-    public void setItems(List<T> items){
-        mItems.clear();
-        mItems.addAll(items);
-    }
     @Override
     public int getItemsCount() {
         return FP.size(mItems);

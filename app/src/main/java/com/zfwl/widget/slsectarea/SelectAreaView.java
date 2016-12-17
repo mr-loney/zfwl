@@ -9,7 +9,6 @@ import com.zfwl.common.MyLog;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ListWheelAdapter;
-import com.zfwl.controls.wheel.widget.adapters.WheelViewAdapter;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.Area;
 import com.zfwl.mvp.selectarea.SelectAreaMvpView;
@@ -37,7 +36,7 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private SelectAreaCallback mCallback;
     private Address mAddress;
     private int mIdWhoSelect;
-    private AreaAdapter mProvinceAdapter, mCityAdapter, mDistrictAdapter;
+//    private AreaAdapter mProvinceAdapter, mCityAdapter, mDistrictAdapter;
     private SelectAreaPresenter mSelectAreaPresenter;
     private Area mCurrentProvince, mCurrentCity, mCurrentDistrict;
 
@@ -50,12 +49,9 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     private void init(Context context) {
         inflate(context, R.layout.layout_select_area, this);
         ButterKnife.bind(this, this);
-        mProvinceAdapter = new AreaAdapter(context);
-        mCityAdapter = new AreaAdapter(context);
-        mDistrictAdapter = new AreaAdapter(context);
-        initWheelView(mViewProvince, mProvinceAdapter);
-        initWheelView(mViewCity, mCityAdapter);
-        initWheelView(mViewDistrict, mDistrictAdapter);
+        initWheelView(mViewProvince);
+        initWheelView(mViewCity);
+        initWheelView(mViewDistrict);
         mSelectAreaPresenter = new SelectAreaPresenter(context);
         mSelectAreaPresenter.attachView(this);
         mSelectAreaPresenter.loadProvincesIfNeeded();
@@ -70,29 +66,35 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
 
     @Override
     public void onProvincesLoaded(List<Area> provinces) {
-        updateWheelView(mViewProvince, mProvinceAdapter, provinces);
+        updateWheelView(mViewProvince, provinces);
     }
-    private String[] toStrArr(List<Area> areas){
-        String[] arr =  new String[FP.size(areas)];
+
+    private String[] toStrArr(List<Area> areas) {
+        String[] arr = new String[FP.size(areas)];
         int index = 0;
-        for(Area area : areas){
+        for (Area area : areas) {
             arr[index++] = area.getName();
         }
         return arr;
     }
+
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        MyLog.i(TAG, "oldValue: %d, newValue: %d", oldValue, newValue);
         if (wheel == mViewProvince) {
             mCurrentProvince = mSelectAreaPresenter.getProvince(newValue);
+            MyLog.i(TAG, "mViewProvince：" + mCurrentProvince.toString());
             List<Area> cityList = mSelectAreaPresenter.getCityListByProvince(mCurrentProvince);
-            updateWheelView(mViewCity, mCityAdapter, cityList);
+            updateWheelView(mViewCity, cityList);
         } else if (wheel == mViewCity) {
+            MyLog.i(TAG, "mViewCity");
             mCurrentCity = mSelectAreaPresenter.getCity(mCurrentProvince.getId(), newValue);
+            MyLog.i(TAG, "mViewCity：" + mCurrentCity.toString());
             List<Area> districtList = mSelectAreaPresenter.getDistrictListByProvince(mCurrentCity);
-            updateWheelView(mViewDistrict, mDistrictAdapter, districtList);
+            updateWheelView(mViewDistrict, districtList);
         } else if (wheel == mViewDistrict) {
+            MyLog.i(TAG, "mViewDistrict");
             mCurrentDistrict = mSelectAreaPresenter.getDistrict(mCurrentProvince.getId(), mCurrentCity.getId(), newValue);
+            MyLog.i(TAG, "mViewDistrict：" + mCurrentDistrict.toString());
         }
     }
 
@@ -119,17 +121,15 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     }
 
 
-    private void updateWheelView(WheelView view, AreaAdapter adapter, List<Area> areas) {
-        if (adapter == null || view == null) {
-            return;
-        }
-        adapter.setItems(areas);
+    private void updateWheelView(WheelView view, List<Area> areas) {
+        AreaAdapter adapter = new AreaAdapter(view.getContext(), areas);
+//        adapter.setItems(areas);
+        view.setViewAdapter(adapter);
         view.setCurrentItem(0);
     }
 
-    private void initWheelView(WheelView view, WheelViewAdapter adapter) {
+    private void initWheelView(WheelView view) {
 //        adapter = new AreaAdapter(view.getContext());
-        view.setViewAdapter(adapter);
         view.addChangingListener(this);
     }
 
@@ -156,8 +156,8 @@ public class SelectAreaView extends FrameLayout implements SelectAreaMvpView, On
     }
 
     private static class AreaAdapter extends ListWheelAdapter<Area> {
-        protected AreaAdapter(Context context) {
-            super(context);
+        protected AreaAdapter(Context context, List<Area> items) {
+            super(context, items);
         }
 
         @Override

@@ -81,7 +81,7 @@ public class AreaModel {
     public List<Area> getDistrictListByCity(Area city) {
         try {
             Area province = mProvinces.get(city.getParentId());
-            List<Area> cityList = getDistrictListByCity(province);
+            List<Area> cityList = getCityListByProvince(province);
             return cityList.get(city.getId()).getSubAreas();
         } catch (Exception e) {
             MyLog.e(TAG, e, "getDistricts failed");
