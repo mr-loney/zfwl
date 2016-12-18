@@ -23,7 +23,7 @@
     <color name="bule_overlay">#B20D92DD</color>
     <color name="hint">#B8B8B8</color>
     <color name="light_blue">#6AB5EA</color>
-
+    <color name="black_333333">#333333</color>
     <color name="possible_result_points">#c0ffff00</color>
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_frame">#ff000000</color>
