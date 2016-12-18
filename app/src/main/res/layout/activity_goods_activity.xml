@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFEFF4"
     >
 
     <cn.bingoogolapple.titlebar.BGATitleBar
+        android:background="@color/white"
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
@@ -32,11 +34,12 @@
                 android:background="#EFEFF4"/>
 
             <LinearLayout
+                android:background="@color/white"
                 android:id="@+id/layout_pack_place"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="21dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="21dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -62,11 +65,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="@color/white"
                 android:id="@+id/layout_to"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_pack_place"
-                android:layout_marginLeft="16dp"
+                android:paddingLeft="16dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -97,11 +101,13 @@
                 />
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_big_car_passable"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
@@ -112,21 +118,25 @@
                 android:background="#EFEFF4"/>
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_goods_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_goods_weight"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_goods_length"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
             <com.zfwl.widget.goodsdetail.GoodsDetailItem
+                android:background="@color/white"
                 android:id="@+id/item_car_number"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
@@ -142,6 +152,8 @@
                 android:orientation="vertical"
                 android:paddingBottom="16dp"
                 android:paddingLeft="12dp"
+                android:paddingTop="14dp"
+                android:background="@color/white"
                 >
 
                 <TextView
@@ -163,14 +175,14 @@
 
                 <View
                     style="@style/GrayDivider"/>
-            </LinearLayout>
 
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:background="#EFEFF4"
-                android:minHeight="30dp"
                 />
+
         </LinearLayout>
     </ScrollView>
 
