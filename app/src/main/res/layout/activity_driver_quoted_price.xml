@@ -62,6 +62,7 @@
                         android:textSize="28sp"/>
 
                     <TextView
+                        android:id="@+id/tv_car_num"
                         android:layout_width="60dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_quoted_price_rect"
