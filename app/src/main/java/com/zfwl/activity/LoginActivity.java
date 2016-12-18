@@ -104,7 +104,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 //        mWxApi.sendReq(req);
 
 //        mLoginPresenter.wechatLogin("code");
-        GoodsDetailActivity.launch(this);
+        DriverQuotedPriceActivity.launch(this);
     }
 
     @OnClick(R.id.img_see_pwd)

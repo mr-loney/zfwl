@@ -9,6 +9,7 @@ public class Task {
         //物流首页
         //货源详情
         //司机报价
+        //报价详情
     }
 
     private void pj() {

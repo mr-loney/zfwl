@@ -137,4 +137,5 @@
     <color name="bg_window_gray">#F6F6F4</color>
 
     <color name="circle_loading">#d2d2d2</color>
+    <color name="gray_background">#EFEFF4</color>
 </resources>

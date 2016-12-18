@@ -153,4 +153,11 @@
         <item name="android:windowEnterAnimation">@anim/slide_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom_out</item>
     </style>
+    <style name="title_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/titlebar_height</item>
+        <item name="bgatitlebar_titleTextColor">#030303</item>
+        <item name="bgatitlebar_titleTextSize">17sp</item>
+        <item name="bgatitlebar_leftDrawable">@drawable/back</item>
+    </style>
 </resources>

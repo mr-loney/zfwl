@@ -60,13 +60,11 @@
         <activity
             android:name=".activity.home.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppCompatTheme"
-            />
+            android:theme="@style/AppCompatTheme"/>
         <activity
             android:name=".activity.GoodsDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppCompatTheme"
-            />
+            android:theme="@style/AppCompatTheme"/>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -80,6 +78,9 @@
                 <data android:scheme="tencent---YourAppId"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activity.DriverQuotedPriceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
     </application>
 
 </manifest>
