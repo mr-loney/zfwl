@@ -9,7 +9,7 @@ import com.bilibili.socialize.share.core.SocializeMedia;
 import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
 import com.zfwl.share.ShareHelper;
-import com.zfwl.widget.goodsdetail.GoodsDetailItem;
+import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,17 +29,17 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     @BindView(R.id.tv_to)
     TextView mTvTo;
     @BindView(R.id.item_start_time)
-    GoodsDetailItem mItemStartTime;
+    KeyValueItem mItemStartTime;
     @BindView(R.id.item_big_car_passable)
-    GoodsDetailItem mItemBigCarPassable;
+    KeyValueItem mItemBigCarPassable;
     @BindView(R.id.item_goods_name)
-    GoodsDetailItem mItemGoodsName;
+    KeyValueItem mItemGoodsName;
     @BindView(R.id.item_goods_weight)
-    GoodsDetailItem mItemGoodsWeight;
+    KeyValueItem mItemGoodsWeight;
     @BindView(R.id.item_goods_length)
-    GoodsDetailItem mItemGoodsLength;
+    KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_car_number)
-    GoodsDetailItem mItemCarNumber;
+    KeyValueItem mItemCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
     @BindView(R.id.tv_quoted_price)

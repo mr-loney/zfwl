@@ -78,9 +78,12 @@
                 <data android:scheme="tencent---YourAppId"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DriverQuotedPriceActivity"
+        <activity
+            android:name=".activity.DriverQuotedPriceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
+        <activity android:name=".activity.QuotedPriceDetailActivity">
+        </activity>
     </application>
 
 </manifest>

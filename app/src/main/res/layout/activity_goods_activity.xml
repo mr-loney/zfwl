@@ -100,13 +100,13 @@
                 android:layout_marginLeft="12dp"
                 />
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_big_car_passable"
                 android:layout_width="match_parent"
@@ -117,25 +117,25 @@
                 android:layout_height="21dp"
                 android:background="#EFEFF4"/>
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_goods_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_goods_weight"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_goods_length"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
-            <com.zfwl.widget.goodsdetail.GoodsDetailItem
+            <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:background="@color/white"
                 android:id="@+id/item_car_number"
                 android:layout_width="match_parent"

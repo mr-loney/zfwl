@@ -13,29 +13,29 @@ import butterknife.ButterKnife;
 /**
  * Created by ZZB on 2016/12/18.
  */
-public class GoodsDetailItem extends RelativeLayout {
+public class KeyValueItem extends RelativeLayout {
     @BindView(R.id.tv_key)
     TextView mTvKey;
     @BindView(R.id.tv_value)
     TextView mTvValue;
 
-    public GoodsDetailItem(Context context) {
+    public KeyValueItem(Context context) {
         super(context);
         init(context);
     }
 
-    public GoodsDetailItem(Context context, AttributeSet attrs) {
+    public KeyValueItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public GoodsDetailItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public KeyValueItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     private void init(Context context) {
-        inflate(context, R.layout.layout_goods_detail_item, this);
+        inflate(context, R.layout.layout_key_value_item, this);
         ButterKnife.bind(this, this);
     }
 
