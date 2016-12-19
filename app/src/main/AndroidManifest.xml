@@ -82,8 +82,9 @@
             android:name=".activity.DriverQuotedPriceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
-        <activity android:name=".activity.QuotedPriceDetailActivity">
-        </activity>
+        <activity android:name=".activity.QuotedPriceDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
     </application>
 
 </manifest>
