@@ -11,6 +11,7 @@ public class Task {
         //司机报价
         //我的报价列表
         //报价详情
+        //空车详情
     }
 
     private void pj() {
