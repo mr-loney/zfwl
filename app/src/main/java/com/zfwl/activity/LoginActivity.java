@@ -14,6 +14,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
 import com.zfwl.activity.home.HomeActivity;
+import com.zfwl.activity.myorders.MyOrdersActivity;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.controls.AutoCompleteTextViewEx;
@@ -104,7 +105,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 //        mWxApi.sendReq(req);
 
 //        mLoginPresenter.wechatLogin("code");
-        DriverQuotedPriceActivity.launch(this);
+        MyOrdersActivity.launch(this);
     }
 
     @OnClick(R.id.img_see_pwd)

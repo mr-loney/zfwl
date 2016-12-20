@@ -75,4 +75,5 @@ dependencies {
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'com.jungly.socialize:biliShare:0.1.05'
     compile 'com.jungly.socialize:biliShare-util:0.1.05@aar'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }
