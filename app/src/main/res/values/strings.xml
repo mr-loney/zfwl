@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">demo</string>
+    <string name="app_name">正丰物流</string>
     <string name="login_edtAccount_empty">请输入正确的手机号</string>
     <string name="login_edtAccount_error">请输入正确的手机号</string>
     <string name="login_edtPassword_empty">请输入密码</string>
