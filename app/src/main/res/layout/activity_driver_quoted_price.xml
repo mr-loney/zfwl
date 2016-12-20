@@ -54,12 +54,11 @@
                     android:orientation="horizontal"
                     >
 
-                    <TextView
+                    <ImageView
                         android:layout_width="50dp"
+                        android:padding="8dp"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textSize="28sp"/>
+                        android:src="@drawable/minus_disable"/>
 
                     <TextView
                         android:id="@+id/tv_car_num"
@@ -71,12 +70,12 @@
                         android:text="4"
                         android:textSize="16sp"/>
 
-                    <TextView
+                    <ImageView
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="+"
-                        android:textSize="28sp"/>
+                        android:src="@drawable/plus"
+                        android:padding="8dp"
+                        android:text="+"/>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
