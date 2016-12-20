@@ -15,6 +15,11 @@ public class BaseActivity extends RxFragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
         ButterKnife.bind(this);
     }
 }
