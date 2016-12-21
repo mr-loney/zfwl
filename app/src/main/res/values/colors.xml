@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <drawable name="transparent">#00000000</drawable>
     <color name="colorAccent">#FF4081</color>
     <color name="divider">#c8c7cc</color>
     <color name="text_red">#E03E3F</color>

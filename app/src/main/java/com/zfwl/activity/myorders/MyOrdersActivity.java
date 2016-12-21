@@ -38,9 +38,12 @@ public class MyOrdersActivity extends BaseActivity {
         MyOrdersPagerAdapter adapter = new MyOrdersPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mTabs.setViewPager(mViewPager);
-        mTabs.setTextColor(0xff1373fa);
-//        mTabs.setTabBackground();
-//        mTabs.setUnderlineColor();
-        mTabs.setUnderlineHeight(DisplayUtil.dpToPx(3));
+        mTabs.setTextColor(getResources().getColorStateList(R.color.orders_tab_text_color));
+        mTabs.setIndicatorColor(0xff1373fa);
+        mTabs.setIndicatorHeight(DisplayUtil.dpToPx(3));
+        mTabs.setDividerColorResource(R.color.transparent);
+        mTabs.setUnderlineHeight(DisplayUtil.dpToPx(1));
+        mTabs.setUnderlineColorResource(R.color.divider);
+
     }
 }
