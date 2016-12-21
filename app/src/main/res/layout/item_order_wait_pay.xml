@@ -22,16 +22,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="树苗"
             android:textColor="#333333"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            tools:text="树苗"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="待确认"
+            android:text="待支付"
             android:textColor="#fa5547"
             android:textSize="14sp"/>
     </RelativeLayout>
@@ -107,30 +107,19 @@
         android:layout_height="44dp">
 
         <TextView
-            android:id="@+id/btn_cancel_order"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="110dp"
-            android:background="@drawable/btn_white_solid_black_stroke"
-            android:gravity="center"
-            android:text="不接单"
-            android:textColor="#666666"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:id="@+id/btn_confirm_order"
+            android:id="@+id/btn_contact_sales"
             android:layout_width="90dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_red_corner"
+            android:background="@drawable/btn_white_solid_black_stroke"
             android:gravity="center"
-            android:text="确认接单"
-            android:textColor="@color/white"
+            android:text="联系业务员"
+            android:textColor="#666666"
             android:textSize="14sp"/>
+
+
     </RelativeLayout>
 
     <View
