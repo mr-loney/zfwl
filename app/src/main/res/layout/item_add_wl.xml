@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp">
+
+    <View
+        style="@style/GrayDivider"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:padding="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="40dp"
+            android:src="@drawable/cb_false_big"/>
+
+            <TextView
+                android:id="@+id/to"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_pack_ic"
+                android:gravity="center"
+                android:text="到哪里去"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                />
+
+        <TextView
+            android:id="@+id/btn"
+            android:layout_width="40dp"
+            android:padding="5dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/cb_false_big"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            />
+        </LinearLayout>
+
+    <View
+        style="@style/GrayDivider"
+        />
+</LinearLayout>

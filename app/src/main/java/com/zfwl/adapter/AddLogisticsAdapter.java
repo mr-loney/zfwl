@@ -1,67 +1,107 @@
 package com.zfwl.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.LogisticsAdapter.VH;
-import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.util.FP;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by ZZB on 2016/12/15.
- */
-public class AddLogisticsAdapter extends BaseRvAdapter<LogisticsInfo, VH> {
+public class AddLogisticsAdapter extends BaseAdapter {
 
-    @Override
-    public int getAdapterItemCount() {
-        return FP.size(getItems());
+    public AddLogisticsAdapter vThis = this;
+    public Context mContext;
+    public List<AllzfwlModel.AllzfwlToModel> mList;
+
+    public AddLogisticsAdapter(Context Context, List<AllzfwlModel.AllzfwlToModel> List){
+        mContext=Context;
+        mList=List;
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wl, parent, false);
-        return new VH(itemView);
+    public int getCount() {
+        return mList.size();
     }
-
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
-        LogisticsInfo item = getItem(position);
-        holder.tvFrom.setText(item.getDeparture());
-        holder.tvTo.setText(item.getDescription());
-        holder.tvPublishTime.setText(item.getPublishDate());
-        holder.tvDesc.setText(item.getDescription());
-        holder.tvSendTime.setText(item.getDepartDate());
-        holder.btnRob.setOnClickListener(view -> {
-            // TODO: 2016/12/17
-        });
+    public Object getItem(int position) {
+        return mList.get(position);
     }
 
-    public static class VH extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_from)
-        TextView tvFrom;
-        @BindView(R.id.tv_to)
-        TextView tvTo;
-        @BindView(R.id.tv_send_date)
-        TextView tvSendTime;
-        @BindView(R.id.tv_desc)
-        TextView tvDesc;
-        @BindView(R.id.tv_publish_time)
-        TextView tvPublishTime;
-        @BindView(R.id.btn_rob)
-        View btnRob;
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
 
-        public VH(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final AddLogisticsAdapter.ViewHolder holder;
+        final AllzfwlModel.AllzfwlToModel model = mList.get(position);
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_add_wl, parent, false);
+            holder = new AddLogisticsAdapter.ViewHolder();
+            holder.to = (TextView) view.findViewById(R.id.to);
+            holder.btn = (TextView) view.findViewById(R.id.btn);
+            holder.btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int p = (int)view.getTag();
+                    if (p==0) {
+                        AllzfwlModel.AllzfwlToModel addModel = new AllzfwlModel().new AllzfwlToModel();
+                        addModel.setToDistrict("");
+                        addModel.setToProvince("");
+                        addModel.setToCity("");
+                        mList.add(addModel);
+                        vThis.notifyDataSetChanged();
+                    } else {
+                        mList.remove(p);
+                        vThis.notifyDataSetChanged();
+                    }
+                }
+            });
+            holder.to = (TextView) view.findViewById(R.id.user_reg_address_to);
+            holder.to.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.selectToAddress(Integer.parseInt(view.getTag().toString()));
+                }
+            });
+            view.setTag(holder);
+        } else {
+            holder = (AddLogisticsAdapter.ViewHolder) view.getTag();
         }
+
+        holder.to.setTag(position);
+        holder.btn.setTag(position);
+        holder.btn.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+        if (model != null) {
+            holder.to.setText(model.getToProvince()+" "+model.getToCity()+" "+model.getToDistrict());
+        }
+
+        return view;
     }
+
+    public class ViewHolder {
+        TextView to,btn;
+    }
+
+    private AddLogisticsAdapter.OnAdapterListener mListener;
+    public static interface OnAdapterListener {
+        public void selectToAddress(int index);
+    }
+    public void setListener(AddLogisticsAdapter.OnAdapterListener listener) {
+        mListener = listener;
+    }
+
 }
