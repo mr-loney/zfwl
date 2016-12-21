@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/bg_gray"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="树苗"
+            android:textColor="#333333"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="待确认"
+            android:textColor="#fa5547"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/GrayDivider"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp">
+
+        <TextView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_pack_ic"
+            android:gravity="center"
+            android:text="装"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            tools:text="山东省菏泽市牡丹区"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp">
+
+        <TextView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_unpack_ic"
+            android:gravity="center"
+            android:text="卸"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            tools:text="1.山东省菏泽市牡丹区\n2.山东省菏泽市牡丹区"
+            />
+    </LinearLayout>
+
+    <View
+        style="@style/GrayDivider"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/btn_cancel_order"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="110dp"
+            android:background="@drawable/btn_white_solid_black_stroke"
+            android:gravity="center"
+            android:text="不接单"
+            android:textColor="#666666"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/btn_confirm_order"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_red_corner"
+            android:gravity="center"
+            android:text="确认接单"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/GrayDivider"
+        android:layout_marginTop="7dp"/>
+</LinearLayout>
