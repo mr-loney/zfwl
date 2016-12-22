@@ -3,6 +3,8 @@ package com.zfwl.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 
+import com.zfwl.util.FP;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +44,8 @@ public abstract class BaseRvAdapter<T, VH extends ViewHolder> extends RecyclerVi
         notifyDataSetChanged();
     }
 
-
+    @Override
+    public int getItemCount() {
+        return FP.size(mList);
+    }
 }

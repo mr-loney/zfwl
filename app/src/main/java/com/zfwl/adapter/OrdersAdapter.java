@@ -13,24 +13,15 @@ import com.zfwl.entity.Order;
  */
 public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
 
-    @Override
-    public VH onCreateViewHolder(ViewGroup parent) {
-        return null;
-    }
-
-    @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
-    @Override
-    public int getAdapterItemCount() {
-        return 0;
-    }
 
     @Override
     public int getItemViewType(int position) {
         return getItem(position).getType();
+    }
+
+    @Override
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
     }
 
     @Override

@@ -75,4 +75,5 @@ dependencies {
     compile 'com.jungly.socialize:biliShare:0.1.05'
     compile 'com.jungly.socialize:biliShare-util:0.1.05@aar'
     compile 'com.jpardogo.materialtabstrip:library:1.1.1'
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
 }
