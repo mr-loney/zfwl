@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zfwl.R;
+import com.zfwl.activity.AddzfwlActivity;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
 import com.zfwl.common.MyLog;
 import com.zfwl.widget.BottomNavBtn;
@@ -60,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_fc)
     public void onBtnFcClick() {
-        ToastUtils.show(this, "发车");
+        AddzfwlActivity.launch(this);
     }
 
     @OnClick(R.id.btn_me)

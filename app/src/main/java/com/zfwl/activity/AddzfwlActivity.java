@@ -1,5 +1,6 @@
 package com.zfwl.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.AddLogisticsAdapter;
 import com.zfwl.adapter.LogisticsAdapter;
 import com.zfwl.adapter.UserRegAddressAdatper;
@@ -46,10 +48,15 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 	@BindView(R.id.titlebar_btnLeft)
 	 Button lBtn;
 	@BindView(R.id.tv_title)
-	 Button tvTitle;
+	 TextView tvTitle;
 
 	private AddLogisticsAdapter adapter;
 	private AddLogisticsPresenter mLogisticsPresenter;
+
+	public static void launch(Context context) {
+		Intent intent = new Intent(context, AddzfwlActivity.class);
+		context.startActivity(intent);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

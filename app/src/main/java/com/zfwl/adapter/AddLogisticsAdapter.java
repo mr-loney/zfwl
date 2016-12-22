@@ -52,6 +52,12 @@ public class AddLogisticsAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_add_wl, parent, false);
             holder = new AddLogisticsAdapter.ViewHolder();
             holder.to = (TextView) view.findViewById(R.id.to);
+            holder.to.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.selectToAddress(Integer.parseInt(view.getTag().toString()));
+                }
+            });
             holder.btn = (TextView) view.findViewById(R.id.btn);
             holder.btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,13 +76,6 @@ public class AddLogisticsAdapter extends BaseAdapter {
                     }
                 }
             });
-            holder.to = (TextView) view.findViewById(R.id.user_reg_address_to);
-            holder.to.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListener.selectToAddress(Integer.parseInt(view.getTag().toString()));
-                }
-            });
             view.setTag(holder);
         } else {
             holder = (AddLogisticsAdapter.ViewHolder) view.getTag();
@@ -84,7 +83,6 @@ public class AddLogisticsAdapter extends BaseAdapter {
 
         holder.to.setTag(position);
         holder.btn.setTag(position);
-        holder.btn.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         if (model != null) {
             holder.to.setText(model.getToProvince()+" "+model.getToCity()+" "+model.getToDistrict());
         }

@@ -89,6 +89,10 @@
         <activity android:name=".activity.myorders.MyOrdersActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.AddzfwlActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
