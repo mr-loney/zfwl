@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.zfwl.R;
 import com.zfwl.adapter.LogisticsAdapter;
 import com.zfwl.entity.Address;
@@ -44,7 +44,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     @BindView(R.id.tv_area_province)
     TextView tvAreaProvince;
     @BindView(R.id.rv_logistics)
-    UltimateRecyclerView mRvLogistics;
+    RecyclerView mRvLogistics;
     @BindView(R.id.view_from_n_to)
     FromAndToView mFromAndToView;
     @BindView(R.id.view_select_area)
@@ -182,8 +182,6 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRvLogistics.setLayoutManager(layoutManager);
         mRvLogistics.setAdapter(mRvAdapter);
-        mRvLogistics.setDefaultOnRefreshListener(this::refreshLogistics);
-        mRvLogistics.setOnLoadMoreListener((itemsCount, maxLastVisiblePosition) -> loadMoreLogistics());
     }
 
 }

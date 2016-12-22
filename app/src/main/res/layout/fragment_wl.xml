@@ -99,7 +99,7 @@
             />
     </RelativeLayout>
 
-    <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_logistics"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
