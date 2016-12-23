@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.zfwl.R;
 import com.zfwl.adapter.LogisticsAdapter.VH;
 import com.zfwl.entity.LogisticsInfo;
-import com.zfwl.util.FP;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,16 +18,14 @@ import butterknife.ButterKnife;
  */
 public class LogisticsAdapter extends BaseRvAdapter<LogisticsInfo, VH> {
 
-    @Override
-    public int getAdapterItemCount() {
-        return FP.size(getItems());
-    }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent) {
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wl, parent, false);
         return new VH(itemView);
     }
+
+
 
 
     @Override
