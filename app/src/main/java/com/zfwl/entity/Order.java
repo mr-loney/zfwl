@@ -48,4 +48,14 @@ public class Order {
     public void setTo(String to) {
         this.to = to;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "type=" + type +
+                ", goodsName='" + goodsName + '\'' +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                '}';
+    }
 }

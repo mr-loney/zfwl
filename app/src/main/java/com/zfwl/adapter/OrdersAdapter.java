@@ -94,6 +94,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         public void setCallback(Callback callback) {
             mCallback = callback;
         }
+
     }
 
     public static class WaitConfirmVH extends VH {
@@ -122,15 +123,11 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-        @OnClick({R.id.btn_contact_sales})
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_contact_sales:
-                    mCallback.onContactSalesClick(mOrder);
-                    break;
-            }
+        @OnClick(R.id.btn_contact_sales)
+        public void onContactSalesClick() {
+            mCallback.onContactSalesClick(mOrder);
         }
+
     }
 
     public static class WaitPayVH extends VH {
@@ -139,15 +136,11 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-        @OnClick({R.id.btn_contact_sales})
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_contact_sales:
-                    mCallback.onContactSalesClick(mOrder);
-                    break;
-            }
+        @OnClick(R.id.btn_contact_sales)
+        public void onContactSalesClick() {
+            mCallback.onContactSalesClick(mOrder);
         }
+
     }
 
     public static class PaidVH extends VH {
@@ -157,13 +150,9 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick({R.id.btn_contact_sales})
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_contact_sales:
-                    mCallback.onContactSalesClick(mOrder);
-                    break;
-            }
+        @OnClick(R.id.btn_contact_sales)
+        public void onContactSalesClick() {
+            mCallback.onContactSalesClick(mOrder);
         }
     }
 
@@ -179,7 +168,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         @OnClick({R.id.btn_comment})
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.btn_contact_sales:
+                case R.id.btn_comment:
                     mCallback.onCommentClick(mOrder);
                     break;
             }
