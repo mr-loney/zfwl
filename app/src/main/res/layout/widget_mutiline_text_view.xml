@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:background="@color/white" >
+
+    <View
+        android:id="@+id/lineT"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:background="@color/line_gray" />
+    <View
+        android:id="@+id/lineC"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:background="@color/line_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="5dp"
+            android:text=""
+            android:layout_weight="3"
+            android:textColor="@color/lightgray" />
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/transparent"
+            android:text=""
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/transparent"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <View
+        android:id="@+id/lineE"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_gray" />
+
+</RelativeLayout>

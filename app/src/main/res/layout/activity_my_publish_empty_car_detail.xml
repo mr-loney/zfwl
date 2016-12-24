@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="#efeff4" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:focusable ="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="50dp" >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cb_false_big"/>
+
+            <TextView
+                android:id="@+id/txt_from"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:hint="从哪里出发"
+                android:text=""/>
+                </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#efeff4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:focusable ="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="50dp" >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/cb_false_big"/>
+
+                <TextView
+                    android:id="@+id/txt_to"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:hint="从哪里出发"
+                    android:text=""/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="#efeff4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="详细信息"/>
+            <com.zfwl.controls.LineTextView
+                android:id="@+id/detail_txt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:linet="true"
+                app:normaltitle="预计发车时间"
+                />
+            <com.zfwl.controls.LineTextView
+                android:id="@+id/detail_txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:linec="true"
+                app:normaltitle="可提供车辆"
+                />
+            <com.zfwl.controls.LineTextView
+                android:id="@+id/detail_txt3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:linec="true"
+                app:normaltitle="车斗长度（米）"
+                />
+            <com.zfwl.controls.LineTextView
+                android:id="@+id/detail_txt4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:linec="true"
+                app:linee="true"
+                app:normaltitle="装载吨数（吨）"
+                />
+        </LinearLayout>
+</ScrollView>
+</LinearLayout>

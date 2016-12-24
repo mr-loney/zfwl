@@ -18,4 +18,18 @@
         <attr name="right_width" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="LineTextView">
+        <attr name="linet" format="boolean" />
+        <attr name="linec" format="boolean" />
+        <attr name="linee" format="boolean" />
+        <attr name="normaltitle" format="string" />
+        <attr name="showmore" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="MutiLineTextView">
+        <attr name="mutilinet" format="boolean" />
+        <attr name="mutilinec" format="boolean" />
+        <attr name="mutilinee" format="boolean" />
+        <attr name="mutinormaltitle" format="string" />
+        <attr name="mutishowmore" format="boolean" />
+    </declare-styleable>
 </resources>

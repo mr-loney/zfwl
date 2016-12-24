@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/me_item_height"
+    android:background="@color/white" >
+
+    <View
+        android:id="@+id/lineT"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:background="@color/line_gray" />
+    <View
+        android:id="@+id/lineC"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:background="@color/line_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:layout_weight="3"
+            android:textColor="@color/lightgray" />
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:background="@color/transparent"
+            android:layout_gravity="center_vertical|left"
+            android:text=""
+            android:visibility="gone"
+            android:layout_weight="7"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:background="@color/transparent"
+            android:layout_gravity="center_vertical|right"
+            android:text=""
+            android:layout_weight="7"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/showmore"
+            android:visibility="gone"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/more_mini"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <View
+        android:id="@+id/lineE"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_gray" />
+
+</RelativeLayout>
