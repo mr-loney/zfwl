@@ -8,6 +8,7 @@ import com.zfwl.mvp.BasePresenter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
@@ -32,16 +33,13 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
             return;
         }
-        mApi.veriftCode(phoneNo, randVeriftCode+"").enqueue(new Callback() {
-        @Override
-        public void onResponse(Call call, Response response) {
-            getMvpView().onGetVerifyCodeSuccess();
-        }
-        @Override
-        public void onFailure(Call call, Throwable t) {
-            getMvpView().onGetVerifyCodeFailed(t.toString());
-        }
-    });
+        mApi.veriftCode(phoneNo, randVeriftCode+"")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(str -> {
+                    getMvpView().onGetVerifyCodeSuccess();
+                }, throwable -> {
+                    getMvpView().onGetVerifyCodeFailed(throwable.toString());
+                });
     }
 
     public void Register(String phoneNo,String vCode,String pwd){
@@ -54,30 +52,23 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             getMvpView().onRegisterFailed("手机号码错误");
             return;
         }
-        mApi.register(phoneNo, pwd).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                getMvpView().onRegisterSuccess(response.body());
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                getMvpView().onRegisterFailed(t.getMessage());
-            }
-        });
-
+        mApi.register(phoneNo, pwd)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(User -> {
+                    getMvpView().onRegisterSuccess(User);
+                }, throwable -> {
+                    getMvpView().onRegisterFailed(throwable.toString());
+                });
     }
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
-        mApi.registerAddInfo(userid, phoneNo, realName, memberType+"").enqueue(new Callback<User>() {
-        @Override
-        public void onResponse(Call<User> call, Response<User> response) {
-            getMvpView().onRegisterAddInfoSuccess(response.body());
-        }
-        @Override
-        public void onFailure(Call<User> call, Throwable t) {
-            getMvpView().onRegisterAddInfoFailed(t.getMessage());
-        }
-    });
+        mApi.registerAddInfo(userid, phoneNo, realName, memberType+"")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(User -> {
+                    getMvpView().onRegisterAddInfoSuccess(User);
+                }, throwable -> {
+                    getMvpView().onGetVerifyCodeFailed(throwable.toString());
+                });
     }
 
 }
