@@ -5,11 +5,12 @@ import com.zfwl.entity.Order;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.GET;
 
 /**
  * Created by ZZB on 2016/12/25.
  */
 public interface OrderApi {
-
+    @GET("/getOrders")
     Call<List<Order>> getOrders();
 }

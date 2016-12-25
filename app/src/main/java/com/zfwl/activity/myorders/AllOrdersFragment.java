@@ -5,16 +5,20 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.entity.Order;
+import com.zfwl.entity.Order.Type;
+import com.zfwl.mvp.orders.OrdersMvpView;
+import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.widget.ToastUtils;
 
 import java.util.ArrayList;
@@ -22,21 +26,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout.BGARefreshLayoutDelegate;
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 
 /**
  * Created by ZZB on 2016/12/20.
  */
-public class AllOrdersFragment extends BaseFragment implements Callback, BGARefreshLayoutDelegate {
+public class AllOrdersFragment extends BaseFragment implements Callback, OrdersMvpView {
     @BindView(R.id.rv_orders)
-    RecyclerView mRvOrders;
-    @BindView(R.id.refresh_layout)
-    BGARefreshLayout mRefreshLayout;
+    XRecyclerView mRvOrders;
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
+    private OrdersPresenter mOrdersPresenter;
 
     public AllOrdersFragment() {
     }
@@ -57,26 +56,44 @@ public class AllOrdersFragment extends BaseFragment implements Callback, BGARefr
         View contentView = inflater.inflate(R.layout.fragment_all_orders, container, false);
         ButterKnife.bind(this, contentView);
         initViews();
+        initPresenters();
         loadData();
         return contentView;
     }
 
-    private void initViews() {
-        initRv();
-        initRefreshLayout();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mOrdersPresenter.detachView();
     }
 
-    private void initRefreshLayout() {
-        mRefreshLayout.setDelegate(this);
-        BGARefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
-        mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
+    private void initPresenters() {
+        mOrdersPresenter = new OrdersPresenter(Type.ALL);
+        mOrdersPresenter.attachView(this);
     }
+
+    private void initViews() {
+        initRv();
+    }
+
 
     private void initRv() {
         mOrdersAdapter = new OrdersAdapter();
         mOrdersAdapter.setCallback(this);
         mRvOrders.setAdapter(mOrdersAdapter);
         mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        mRvOrders.setLoadingMoreEnabled(true);
+        mRvOrders.setLoadingListener(new LoadingListener() {
+            @Override
+            public void onRefresh() {
+                mOrdersPresenter.refreshOrders();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mOrdersPresenter.loadMoreOrders();
+            }
+        });
     }
 
     @Override
@@ -119,13 +136,39 @@ public class AllOrdersFragment extends BaseFragment implements Callback, BGARefr
         return order;
     }
 
+
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void showOrderEmptyView() {
 
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+    public void showOrderErrorView(String msg) {
+        hideRvLoading();
+        ToastUtils.show(mContext, msg);
+    }
+
+    @Override
+    public void showNoMoreOrdersView() {
+        mRvOrders.setNoMore(true);
+    }
+
+    @Override
+    public void onRefreshOrdersSuccess(List<Order> orders) {
+
+    }
+
+    @Override
+    public void onLoadMoreOrdersSuccess(List<Order> orders) {
+
+    }
+
+    @Override
+    public void onGetOrdersFailed(String msg) {
+
+    }
+    private void hideRvLoading(){
+        mRvOrders.loadMoreComplete();
+        mRvOrders.refreshComplete();
     }
 }

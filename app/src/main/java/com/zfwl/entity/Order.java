@@ -5,6 +5,7 @@ package com.zfwl.entity;
  */
 public class Order {
     public interface Type {
+        int ALL = 0;
         int WAIT_CONFIRM = 1;
         int WAIT_PAY = 2;
         int PAID = 3;
