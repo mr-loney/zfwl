@@ -12,7 +12,7 @@ public interface OrdersMvpView extends MvpView {
 
     void showOrderEmptyView();
 
-    void showOrderErrorView();
+    void showOrderErrorView(String msg);
 
     void showNoMoreOrdersView();
 

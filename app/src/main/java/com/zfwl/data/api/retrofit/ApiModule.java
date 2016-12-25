@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.api.AreaApi;
 import com.zfwl.data.api.LoginApi;
+import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 
 import java.util.concurrent.TimeUnit;
@@ -53,8 +54,13 @@ public class ApiModule {
         return ApiModule.INSTANCE.provideRetrofit().create(SignUpApi.class);
     }
 
+
     public AreaApi provideAreaApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(AreaApi.class);
+    }
+    public OrderApi provideOrderApi(){
+        return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);
+
     }
 
     private OkHttpClient provideOkHttpClient() {
