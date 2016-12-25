@@ -12,10 +12,12 @@ import com.zfwl.common.MyLog;
  * Created by ZZB on 2016/12/8.
  */
 public class ZfwlApplication extends Application {
+    public static ZfwlApplication APP_CONTEXT;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        APP_CONTEXT = this;
         MyLog.init();
         initBugly();
         initWeChat();
@@ -27,7 +29,7 @@ public class ZfwlApplication extends Application {
     }
 
     private void initWeChat() {
-        IWXAPI api = WXAPIFactory.createWXAPI(this, WeChat.APP_ID , false);
+        IWXAPI api = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
         api.registerApp(WeChat.APP_ID);
     }
 }

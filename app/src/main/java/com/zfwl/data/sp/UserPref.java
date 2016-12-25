@@ -1,5 +1,6 @@
 package com.zfwl.data.sp;
 
+import com.zzb.easysp.DefaultValue;
 import com.zzb.easysp.EasySP;
 
 /**
@@ -9,6 +10,8 @@ import com.zzb.easysp.EasySP;
 public class UserPref {
 
     private long userId;
+    @DefaultValue("{}")
+    private String userJson;
 
     public long getUserId() {
         return userId;
@@ -16,5 +19,13 @@ public class UserPref {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getUserJson() {
+        return userJson;
+    }
+
+    public void setUserJson(String userJson) {
+        this.userJson = userJson;
     }
 }
