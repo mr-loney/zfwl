@@ -3,6 +3,7 @@ package com.zfwl.data.api.retrofit;
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.zfwl.common.MyLog;
+import com.zfwl.data.api.AreaApi;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.SignUpApi;
 
@@ -52,6 +53,9 @@ public class ApiModule {
         return ApiModule.INSTANCE.provideRetrofit().create(SignUpApi.class);
     }
 
+    public AreaApi provideAreaApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(AreaApi.class);
+    }
 
     private OkHttpClient provideOkHttpClient() {
         if (mOkHttpClient == null) {

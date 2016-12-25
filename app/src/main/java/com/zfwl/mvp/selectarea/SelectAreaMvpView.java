@@ -11,4 +11,10 @@ import java.util.List;
 public interface SelectAreaMvpView extends MvpView {
 
     void onProvincesLoaded(List<Area> provinces);
+
+    void onCityLoaded(List<Area> citys);
+
+    void onDistrictLoaded(List<Area> districts);
+
+    void onFailed(String msg);
 }

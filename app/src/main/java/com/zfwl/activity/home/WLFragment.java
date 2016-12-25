@@ -17,8 +17,9 @@ import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.mvp.logistics.LogisticsMvpView;
 import com.zfwl.mvp.logistics.LogisticsPresenter;
 import com.zfwl.widget.slsectarea.FromAndToView;
+import com.zfwl.widget.slsectarea.SelectAreaListView;
 import com.zfwl.widget.slsectarea.SelectAreaView;
-import com.zfwl.widget.slsectarea.SelectAreaView.SelectAreaCallback;
+import com.zfwl.widget.slsectarea.SelectAreaListView.SelectAreaCallback;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     @BindView(R.id.view_from_n_to)
     FromAndToView mFromAndToView;
     @BindView(R.id.view_select_area)
-    SelectAreaView mSelectAreaView;
+    SelectAreaListView mSelectAreaView;
     private LogisticsAdapter mRvAdapter;
 
     private LogisticsPresenter mLogisticsPresenter;

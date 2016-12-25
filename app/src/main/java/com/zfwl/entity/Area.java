@@ -1,5 +1,7 @@
 package com.zfwl.entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,25 +9,25 @@ import java.util.List;
  * Created by ZZB on 2016/12/16.
  */
 public class Area {
-    private int id;
-    private int parentId;
+    private String id;
+    private String parentId;
     private String name;
     private String zipCode;
-    List<Area> mSubAreas = new ArrayList<>();
+    private int dataDepth;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -45,22 +47,11 @@ public class Area {
         this.zipCode = zipCode;
     }
 
-    public List<Area> getSubAreas() {
-        return mSubAreas;
+    public int getDataDepth() {
+        return dataDepth;
     }
 
-    public void setSubAreas(List<Area> subAreas) {
-        mSubAreas = subAreas;
-    }
-
-    @Override
-    public String toString() {
-        return "Area{" +
-                "id=" + id +
-                ", parentId=" + parentId +
-                ", name='" + name + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", mSubAreas=" + mSubAreas +
-                '}';
+    public void setDataDepth(int dataDepth) {
+        this.dataDepth = dataDepth;
     }
 }
