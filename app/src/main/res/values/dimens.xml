@@ -21,4 +21,5 @@
     <dimen name="dialog_width">280dp</dimen>
     <dimen name="top_tab_radius">5dp</dimen>
     <dimen name="circle_loading_borderWidth">2dp</dimen>
+    <dimen name="me_item_height">44dp</dimen>
 </resources>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
 import com.zfwl.adapter.OrdersAdapter;
+import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.entity.Order;
 import com.zfwl.widget.ToastUtils;
 
@@ -21,13 +22,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout.BGARefreshLayoutDelegate;
+import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 
 /**
  * Created by ZZB on 2016/12/20.
  */
-public class AllOrdersFragment extends BaseFragment implements OrdersAdapter.Callback{
+public class AllOrdersFragment extends BaseFragment implements Callback, BGARefreshLayoutDelegate {
     @BindView(R.id.rv_orders)
     RecyclerView mRvOrders;
+    @BindView(R.id.refresh_layout)
+    BGARefreshLayout mRefreshLayout;
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
 
@@ -49,9 +56,20 @@ public class AllOrdersFragment extends BaseFragment implements OrdersAdapter.Cal
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_all_orders, container, false);
         ButterKnife.bind(this, contentView);
-        initRv();
+        initViews();
         loadData();
         return contentView;
+    }
+
+    private void initViews() {
+        initRv();
+        initRefreshLayout();
+    }
+
+    private void initRefreshLayout() {
+        mRefreshLayout.setDelegate(this);
+        BGARefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
     }
 
     private void initRv() {
@@ -60,6 +78,7 @@ public class AllOrdersFragment extends BaseFragment implements OrdersAdapter.Cal
         mRvOrders.setAdapter(mOrdersAdapter);
         mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
     }
+
     @Override
     public void onCancelOrderClick(Order order) {
         ToastUtils.show(mContext, "onCancelOrderClick:" + order.toString());
@@ -79,6 +98,7 @@ public class AllOrdersFragment extends BaseFragment implements OrdersAdapter.Cal
     public void onCommentClick(Order order) {
         ToastUtils.show(mContext, "onCommentClick:" + order.toString());
     }
+
     private void loadData() {
         List<Order> orders = new ArrayList<>();
         orders.add(getOrder("yt1", "from1", "to1", 1));
@@ -97,5 +117,15 @@ public class AllOrdersFragment extends BaseFragment implements OrdersAdapter.Cal
         order.setFrom(from);
         order.setTo(to);
         return order;
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        return false;
     }
 }
