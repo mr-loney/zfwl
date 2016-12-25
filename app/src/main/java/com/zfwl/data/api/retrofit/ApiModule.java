@@ -4,6 +4,7 @@ import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.api.LoginApi;
+import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 
 import java.util.concurrent.TimeUnit;
@@ -51,7 +52,9 @@ public class ApiModule {
     public SignUpApi provideSignUpApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(SignUpApi.class);
     }
-
+    public OrderApi provideOrderApi(){
+        return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);
+    }
 
     private OkHttpClient provideOkHttpClient() {
         if (mOkHttpClient == null) {
