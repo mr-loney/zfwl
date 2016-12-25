@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.data.sp.WeChatPref;
+import com.zfwl.entity.User;
 import com.zfwl.entity.WeChatTokenResult;
 import com.zfwl.entity.WechatUser;
 import com.zfwl.mvp.BasePresenter;
@@ -44,12 +46,16 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
             getMvpView().onLoginFailed("invalid phone or psw");
             return;
         }
-        mLoginApi.login(phone, password).observeOn(AndroidSchedulers.mainThread()).subscribe(user -> {
-            getMvpView().onLoginSuccess(user);
-        }, throwable -> {
-            getMvpView().onLoginFailed(throwable.toString());
-        });
+        mLoginApi.login(phone, password)
+                .doOnNext(this::saveUserInfo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> {
+                    getMvpView().onLoginSuccess(user);
+                }, throwable -> {
+                    getMvpView().onLoginFailed(throwable.toString());
+                });
     }
+
 
     public void wechatLogin(String code) {
         getWechatToken(code)
@@ -57,7 +63,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
                 .subscribe(wechatUser -> {
                     MyLog.i(TAG, "wechat login success, user: %s", wechatUser.toString());
                 }, throwable -> {
-                    MyLog.e(TAG, throwable, "wechat login failed" );
+                    MyLog.e(TAG, throwable, "wechat login failed");
                 });
     }
 
@@ -105,5 +111,9 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     private boolean isPhoneAndPswValid(String phone, String psw) {
         return StringUtils.notEmpty(phone) && StringUtils.notEmpty(psw);
+    }
+
+    private void saveUserInfo(User user) {
+        UserInfoManager.INSTANCE.saveUserInfo(user);
     }
 }
