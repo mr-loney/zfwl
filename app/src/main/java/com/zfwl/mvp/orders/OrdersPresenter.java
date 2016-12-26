@@ -91,6 +91,4 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
             getMvpView().onRefreshOrdersSuccess(orders);
         }
     }
-
-
 }

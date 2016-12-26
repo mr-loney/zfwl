@@ -18,11 +18,13 @@ public class UserInfoManager {
     private User mUser;
 
     private UserInfoManager() {
-        mUserPref = EasySPUserPref.create(mContext);
+
     }
 
     public void saveUserInfo(User user) {
         mUser = user;
+        //每个用户存一份sp
+        mUserPref = EasySPUserPref.create(mContext, user.getId() + "");
         mUserPref.setUserJson(GsonUtils.objectToJson(user));
     }
 
@@ -36,6 +38,6 @@ public class UserInfoManager {
 
     public void clear() {
         INSTANCE = new UserInfoManager();
-        //// TODO: 2016/12/25 clear easy sp
+        mUserPref = null;
     }
 }

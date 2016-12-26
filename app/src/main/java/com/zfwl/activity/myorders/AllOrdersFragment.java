@@ -165,7 +165,8 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
 
     @Override
     public void onGetOrdersFailed(String msg) {
-
+        hideRvLoading();
+        ToastUtils.show(mContext, msg);
     }
     private void hideRvLoading(){
         mRvOrders.loadMoreComplete();
