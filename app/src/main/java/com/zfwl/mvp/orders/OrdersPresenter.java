@@ -34,7 +34,9 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     public void refreshOrders() {
         MyLog.i(TAG, "refreshOrders");
         mPage = 0;
-        mOrderApi.getOrders().enqueue(new Callback<List<Order>>() {
+        Call<List<Order>> call = mOrderApi.getOrders();
+        addCall(call);
+        call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 List<Order> orders = response.body();
@@ -51,7 +53,9 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     //加载更多订单
     public void loadMoreOrders() {
         mPage++;
-        mOrderApi.getOrders().enqueue(new Callback<List<Order>>() {
+        Call<List<Order>> call = mOrderApi.getOrders();
+        addCall(call);
+        call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 onLoadMoreOrdersSuccess(response.body());

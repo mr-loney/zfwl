@@ -11,6 +11,6 @@ import retrofit2.http.GET;
  * Created by ZZB on 2016/12/25.
  */
 public interface OrderApi {
-    @GET("/getOrders")
+    @GET("https://github.com/zzb1")
     Call<List<Order>> getOrders();
 }
