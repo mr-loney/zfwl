@@ -18,5 +18,10 @@ public class Task {
     private void pj() {
 //首页-发布信息
 //我发布的空车
+        //我发布的空车详情
+        //注册
+        //guid页
+        //设置
+        //常跑地
     }
 }

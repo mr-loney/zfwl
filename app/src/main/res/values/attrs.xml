@@ -18,6 +18,14 @@
         <attr name="right_width" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="WidgetSettingItem">
+        <attr name="wsiLeftIcon" format="reference" />
+        <attr name="wsiLeftText" format="string" />
+        <attr name="wsiRightIcon" format="reference" />
+        <attr name="wsiRightText" format="string" />
+        <attr name="wsiRightTextIcon" format="reference" />
+        <attr name="wsiShowbottomLine" format="boolean" />
+    </declare-styleable>
     <declare-styleable name="LineTextView">
         <attr name="linet" format="boolean" />
         <attr name="linec" format="boolean" />

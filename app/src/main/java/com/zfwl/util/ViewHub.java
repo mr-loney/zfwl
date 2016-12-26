@@ -400,6 +400,18 @@ public class ViewHub {
         inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    public static void showLightPopDialog(Activity activity, CharSequence title, CharSequence messgae,
+                                          CharSequence negative, CharSequence positive, PopDialogListener positiveListener) {
+        try {
+            LightPopDialog dialog = new LightPopDialog(activity);
+            dialog.setTitle(title).setMessage(messgae).setNegative(negative, null).setPositive(positive, positiveListener)
+                    .show();
+        } catch (BadTokenException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static interface EditDialogListener {
 
         public void onOkClick(DialogInterface dialog, EditText editText);

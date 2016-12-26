@@ -8,6 +8,9 @@ public class UserRegAddressModel implements Serializable {
 
     private static final long serialVersionUID = -2492773240079820333L;
 
+	public Address fromaddress = new Address();
+	public Address toaddress = new Address();
+
 	@Expose
 	private String fromProvince = "";
 	@Expose

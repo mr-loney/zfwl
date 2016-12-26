@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<com.zfwl.widget.TouchFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ebebeb" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.zfwl.controls.WidgetSettingItem
+                android:id="@+id/wsi_cpd_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                app:wsiLeftIcon="@null"
+                app:wsiLeftText="常跑地设置" />
+
+            <com.zfwl.controls.WidgetSettingItem
+                android:id="@+id/wsi_notify"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                app:wsiLeftIcon="@null"
+                app:wsiLeftText="是否接收订单通知"
+                app:wsiRightText="开" />
+
+            <com.zfwl.controls.WidgetSettingItem
+                android:id="@+id/wsi_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                app:wsiLeftIcon="@null"
+                app:wsiLeftText="清空缓存" />
+
+            <com.zfwl.controls.WidgetSettingItem
+                android:id="@+id/wsi_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:onClick="onClick"
+                app:wsiLeftIcon="@null"
+                app:wsiLeftText="退出账号"
+                app:wsiShowbottomLine="false" />
+        </LinearLayout>
+    </ScrollView>
+
+</com.zfwl.widget.TouchFrameLayout>

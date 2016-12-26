@@ -27,6 +27,7 @@ import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
 import com.zfwl.controls.wheel.widget.WheelView;
 import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
+import com.zfwl.entity.Address;
 import com.zfwl.entity.User;
 import com.zfwl.entity.CityModel;
 import com.zfwl.entity.DistrictModel;
@@ -38,6 +39,7 @@ import com.zfwl.util.AnimUtils;
 import com.zfwl.util.FunctionHelper;
 import com.zfwl.util.ViewHub;
 import com.zfwl.util.XmlParserHandler;
+import com.zfwl.widget.slsectarea.SelectAreaListView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -52,8 +54,10 @@ import javax.xml.parsers.SAXParserFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, OnWheelChangedListener {
+public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, SelectAreaListView.SelectAreaCallback {
 
+    private static final int ID_WHO_SELECT_FROM = 1;
+    private static final int ID_WHO_SELECT_TO = 2;
     @BindView(R.id.layout_step1)
     ViewGroup mViewStep1;
     @BindView(R.id.layout_step2)
@@ -98,14 +102,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
      Button btnAddNew;
     @BindView(R.id.listview_step3)
      ListView mListAddress;
-    @BindView(R.id.id_select_address)
-     View id_select_address;
-    @BindView(R.id.id_province)
-     com.zfwl.controls.wheel.widget.WheelView mViewProvince;
-    @BindView(R.id.id_city)
-     com.zfwl.controls.wheel.widget.WheelView mViewCity;
-    @BindView(R.id.id_district)
-     com.zfwl.controls.wheel.widget.WheelView mViewDistrict;
+    @BindView(R.id.view_select_area)
+    SelectAreaListView mSelectAreaView;
 
     private UserRegAddressAdatper adapter;
 
@@ -168,34 +166,13 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         mBtnGetVerifyCode.setOnClickListener(this);
         mBtnGotoStep2.setOnClickListener(this);
 
-        id_select_address.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                id_select_address.setVisibility(View.GONE);
-
-                if (select_address_index >= 0) {
-                    if (isFrom) {
-                        adapter.mList.get(select_address_index).setFromProvince(mCurrentProviceName);
-                        adapter.mList.get(select_address_index).setFromCity(mCurrentCityName);
-                        adapter.mList.get(select_address_index).setFromDistrict(mCurrentDistrictName);
-                    } else {
-                        adapter.mList.get(select_address_index).setToProvince(mCurrentProviceName);
-                        adapter.mList.get(select_address_index).setToCity(mCurrentCityName);
-                        adapter.mList.get(select_address_index).setToDistrict(mCurrentDistrictName);
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-                return false;
-            }
-        });
-        mViewProvince.addChangingListener(this);
-        mViewCity.addChangingListener(this);
-        mViewDistrict.addChangingListener(this);
+        mSelectAreaView.setCallback(this);
 
         btnAddNew.setOnClickListener(this);
         mBtnSj.setOnClickListener(this);
-        mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_gray_corner);
         mBtnCZ.setOnClickListener(this);
+        mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
+        mBtnCZ.setBackgroundResource(R.drawable.bg_rect_white_stroke_gray_corner);
         mBtnOK.setOnClickListener(this);
         mImSeePWD.setOnClickListener(this);
 
@@ -246,12 +223,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         public void onTick(long millisUntilFinished) {
             mBtnGetVerifyCode.setEnabled(false);
             mBtnGetVerifyCode.setTextColor(Color.WHITE);
+            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#333333"));
             mBtnGetVerifyCode.setText("重新获取(" + (millisUntilFinished / 1000) + ")");
         }
 
         @Override
         public void onFinish() {
             mBtnGetVerifyCode.setEnabled(true);
+            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#54cd93"));
             mBtnGetVerifyCode.setText("重新获取");
         }
     }
@@ -359,10 +338,11 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_next://提交验证码
                 if (validateStep1Input()) {
-                    mPresenter.Register(mEtPhoneNum.getText().toString(),
-                            mEtVerifyCode.getText().toString(),
-                            mEtPWD.getText().toString());
-//                    onGotoStep2(null);
+//                    mPresenter.Register(mEtPhoneNum.getText().toString(),
+//                            mEtVerifyCode.getText().toString(),
+//                            mEtPWD.getText().toString());
+
+                    onGotoStep2(null);
                 }
                 break;
             case R.id.et_get_verifycode://重新获取验证码
@@ -378,12 +358,11 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_confirm: {
                 if (validateStep2Input()) {
-
 //                    mPresenter.RegisterAddInfo(SpManager.getUserId(mContext),
 //                            SpManager.getUserPhone(mContext),
 //                            mEtUserName.getText().toString(),
 //                            selectSF==1?2:1);
-//                    onGotoStep3(null);
+                    onGotoStep3(null);
                 }
                 break;
             }
@@ -414,15 +393,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             mViewStep2.setVisibility(View.GONE);
             mViewStep3.setVisibility(View.VISIBLE);
             initToolbar();
-            if (mProvinceDatas == null || mProvinceDatas.length == 0) {
-                initProvinceDatas();
-                mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(this, mProvinceDatas));
-                mViewProvince.setVisibleItems(7);
-                mViewCity.setVisibleItems(7);
-                mViewDistrict.setVisibleItems(7);
-                updateCities();
-                updateAreas();
-            }
             if (adapter == null) {
                 ArrayList arr = new ArrayList();
                 UserRegAddressModel m = new UserRegAddressModel();
@@ -434,14 +404,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                     public void selectToAddress(int index) {
                         select_address_index = index;
                         isFrom = false;
-                        beginSelectAddress();
+                        mSelectAreaView.show(ID_WHO_SELECT_TO, ((UserRegAddressModel)adapter.getItem(index)).toaddress);
                     }
 
                     @Override
                     public void selectFromAddress(int index) {
                         select_address_index = index;
                         isFrom = true;
-                        beginSelectAddress();
+                        mSelectAreaView.show(ID_WHO_SELECT_FROM, ((UserRegAddressModel)adapter.getItem(index)).fromaddress);
                     }
                 });
 //                adapter.notifyDataSetChanged();
@@ -576,153 +546,19 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             setStep2Error(msg);
     }
 
-    //选择地址
-    private void beginSelectAddress() {
-        id_select_address.setVisibility(View.VISIBLE);
-        UserRegAddressModel m = adapter.mList.get(select_address_index);
-        String p = "";
-        String c = "";
-        String d = "";
-        if (isFrom) {
-            p = m.getFromProvince();
-            c = m.getFromCity();
-            d = m.getFromDistrict();
-        } else {
-            p = m.getToProvince();
-            c = m.getToCity();
-            d = m.getToDistrict();
-        }
-        int pIndex = 0;
-        int cIndex = 0;
-        int dIndex = 0;
-        if (p.length() > 0) {
-            for (int i = 0; i < mProvinceDatas.length; i++) {
-                if (mProvinceDatas[i].contains(p)) {
-                    pIndex = i;
-                }
-            }
-
-            String[] cs = mCitisDatasMap.get(p);
-            for (int i = 0; i < cs.length; i++) {
-                if (cs[i].toString().contains(c)) {
-                    cIndex = i;
-                }
-            }
-
-            String[] ds = mDistrictDatasMap.get(c);
-            for (int i = 0; i < ds.length; i++) {
-                if (ds[i].toString().contains(d)) {
-                    dIndex = i;
-                }
-            }
-        }
-
-        mViewProvince.setCurrentItem(pIndex);
-        mViewCity.setCurrentItem(cIndex);
-        mViewDistrict.setCurrentItem(dIndex);
-    }
-
-    protected String[] mProvinceDatas;
-    protected Map<String, String[]> mCitisDatasMap = new HashMap<String, String[]>();
-    protected Map<String, String[]> mDistrictDatasMap = new HashMap<String, String[]>();
-    protected Map<String, String> mZipcodeDatasMap = new HashMap<String, String>();
-    protected String mCurrentProviceName;
-    protected String mCurrentCityName;
-    protected String mCurrentDistrictName = "";
-    protected String mCurrentZipCode = "";
-
-    protected void initProvinceDatas() {
-        List<ProvinceModel> provinceList = null;
-        AssetManager asset = getAssets();
-        try {
-            InputStream input = asset.open("province_data.xml");
-            // ����һ������xml�Ĺ�������
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-            // ����xml
-            SAXParser parser = spf.newSAXParser();
-            XmlParserHandler handler = new XmlParserHandler();
-            parser.parse(input, handler);
-            input.close();
-            // ��ȡ�������������
-            provinceList = handler.getDataList();
-            //*/ ��ʼ��Ĭ��ѡ�е�ʡ���С���
-            if (provinceList != null && !provinceList.isEmpty()) {
-                mCurrentProviceName = provinceList.get(0).getName();
-                List<CityModel> cityList = provinceList.get(0).getCityList();
-                if (cityList != null && !cityList.isEmpty()) {
-                    mCurrentCityName = cityList.get(0).getName();
-                    List<DistrictModel> districtList = cityList.get(0).getDistrictList();
-                    mCurrentDistrictName = districtList.get(0).getName();
-                    mCurrentZipCode = districtList.get(0).getZipcode();
-                }
-            }
-            //*/
-            mProvinceDatas = new String[provinceList.size()];
-            for (int i = 0; i < provinceList.size(); i++) {
-                // ��������ʡ�����
-                mProvinceDatas[i] = provinceList.get(i).getName();
-                List<CityModel> cityList = provinceList.get(i).getCityList();
-                String[] cityNames = new String[cityList.size()];
-                for (int j = 0; j < cityList.size(); j++) {
-                    // ����ʡ����������е����
-                    cityNames[j] = cityList.get(j).getName();
-                    List<DistrictModel> districtList = cityList.get(j).getDistrictList();
-                    String[] distrinctNameArray = new String[districtList.size()];
-                    DistrictModel[] distrinctArray = new DistrictModel[districtList.size()];
-                    for (int k = 0; k < districtList.size(); k++) {
-                        // ����������������/�ص����
-                        DistrictModel districtModel = new DistrictModel(districtList.get(k).getName(), districtList.get(k).getZipcode());
-                        // ��/�ض��ڵ��ʱ࣬���浽mZipcodeDatasMap
-                        mZipcodeDatasMap.put(districtList.get(k).getName(), districtList.get(k).getZipcode());
-                        distrinctArray[k] = districtModel;
-                        distrinctNameArray[k] = districtModel.getName();
-                    }
-                    // ��-��/�ص���ݣ����浽mDistrictDatasMap
-                    mDistrictDatasMap.put(cityNames[j], distrinctNameArray);
-                }
-                // ʡ-�е���ݣ����浽mCitisDatasMap
-                mCitisDatasMap.put(provinceList.get(i).getName(), cityNames);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        } finally {
-
+    //    public void onAddressSelected(boolean isFrom, int index) {
+    @Override
+    public void onAddressSelected(int idWhoSelect, Address address) {
+        switch (idWhoSelect) {
+            case ID_WHO_SELECT_FROM:
+                ((UserRegAddressModel)adapter.getItem(select_address_index)).fromaddress = address;
+                break;
+            case ID_WHO_SELECT_TO:
+                ((UserRegAddressModel)adapter.getItem(select_address_index)).toaddress = address;
+                break;
         }
     }
-
-    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-        } else if (wheel == mViewCity) {
-            updateAreas();
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-        }
-    }
-
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-        mViewDistrict.setCurrentItem(0);
-    }
-
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
+    @Override
+    public void onAreaReset() {
     }
 }

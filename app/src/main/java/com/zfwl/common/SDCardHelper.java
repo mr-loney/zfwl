@@ -1,4 +1,4 @@
-package com.zfwl.helper;
+package com.zfwl.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

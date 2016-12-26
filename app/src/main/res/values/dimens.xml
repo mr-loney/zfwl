@@ -22,4 +22,6 @@
     <dimen name="top_tab_radius">5dp</dimen>
     <dimen name="circle_loading_borderWidth">2dp</dimen>
     <dimen name="me_item_height">48dp</dimen>
+    <dimen name="me_item_line_spacing">16dp</dimen>
+    <dimen name="me_item_right_text_max_width">138dp</dimen>
 </resources>
