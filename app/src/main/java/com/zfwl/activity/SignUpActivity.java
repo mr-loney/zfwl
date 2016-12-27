@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.common.InputFilterHelper;
 import com.zfwl.controls.LoadingDialog;
@@ -94,11 +95,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         if (mViewStep1.getVisibility() == View.VISIBLE) {
             super.onBackPressed();
         } else if (mViewStep2.getVisibility() == View.VISIBLE) {
-            //以后再说
-//            Intent intent = new Intent(mContext, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-            backToStep1();
+            HomeActivity.launch(mContext);
+            finish();
         }
     }
 
@@ -172,7 +170,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         public void onTick(long millisUntilFinished) {
             mBtnGetVerifyCode.setEnabled(false);
             mBtnGetVerifyCode.setTextColor(Color.WHITE);
-            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#333333"));
+            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#AAAAAA"));
             mBtnGetVerifyCode.setText("重新获取(" + (millisUntilFinished / 1000) + ")");
         }
 
@@ -312,7 +310,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             setTilError(mEtPhoneNum, "请输入正确的手机号码");
         } else if (isEtEmpty(mEtVerifyCode)) {
             showError("请输入验证码");
-        } else if (code.length() != 6) {
+        } else if (code.length() < 4) {
             setTilError(mEtUserName, "验证码格式不正确");
         } else if (isEtEmpty(mEtPWD)) {
             setStep2Error("请输入密码");
