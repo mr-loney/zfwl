@@ -1,5 +1,6 @@
 package com.zfwl.mvp.orders;
 
+import com.zfwl.Exception.ResponseException;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.retrofit.ApiModule;
@@ -10,8 +11,7 @@ import com.zfwl.util.FP;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.callback.CustomCallback;
 
 /**
  * Created by ZZB on 2016/12/25.
@@ -36,16 +36,15 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
         mPage = 0;
         Call<List<Order>> call = mOrderApi.getOrders();
         addCall(call);
-        call.enqueue(new Callback<List<Order>>() {
+        call.enqueue(new CustomCallback<List<Order>>() {
             @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                List<Order> orders = response.body();
-                onRefreshOrdersSuccess(orders);
+            public void onSuccess(List<Order> response) {
+                onRefreshOrdersSuccess(response);
             }
 
             @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-                onRefreshOrdersFailed(t);
+            public void onFailure(ResponseException exception) {
+                onRefreshOrdersFailed(exception);
             }
         });
     }
@@ -55,15 +54,15 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
         mPage++;
         Call<List<Order>> call = mOrderApi.getOrders();
         addCall(call);
-        call.enqueue(new Callback<List<Order>>() {
+        call.enqueue(new CustomCallback<List<Order>>() {
             @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                onLoadMoreOrdersSuccess(response.body());
+            public void onSuccess(List<Order> response) {
+                onLoadMoreOrdersSuccess(response);
             }
 
             @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-                onLoadMoreOrdersFailed(t);
+            public void onFailure(ResponseException exception) {
+                onLoadMoreOrdersFailed(exception);
             }
         });
     }

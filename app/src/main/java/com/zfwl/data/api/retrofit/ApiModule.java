@@ -6,6 +6,7 @@ import com.zfwl.common.MyLog;
 import com.zfwl.data.api.AreaApi;
 import com.zfwl.data.api.CPDApi;
 import com.zfwl.data.api.LoginApi;
+import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 
@@ -63,9 +64,10 @@ public class ApiModule {
     }
     public OrderApi provideOrderApi(){
         return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);
-
     }
-
+    public LogisticsApi provideLogisticsApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(LogisticsApi.class);
+    }
     private OkHttpClient provideOkHttpClient() {
         if (mOkHttpClient == null) {
             initOkHttpClient();
@@ -98,5 +100,6 @@ public class ApiModule {
         OkLogInterceptor okLogInterceptor = OkLogInterceptor.builder().build();
         return okLogInterceptor;
     }
+
 
 }
