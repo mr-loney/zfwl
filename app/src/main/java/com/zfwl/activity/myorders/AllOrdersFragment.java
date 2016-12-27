@@ -139,7 +139,7 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
 
     @Override
     public void showOrderEmptyView() {
-
+        // TODO: 2016/12/26
     }
 
     @Override
@@ -155,12 +155,12 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
 
     @Override
     public void onRefreshOrdersSuccess(List<Order> orders) {
-
+        mOrdersAdapter.setItems(orders);
     }
 
     @Override
     public void onLoadMoreOrdersSuccess(List<Order> orders) {
-
+        mOrdersAdapter.addItems(orders);
     }
 
     @Override
