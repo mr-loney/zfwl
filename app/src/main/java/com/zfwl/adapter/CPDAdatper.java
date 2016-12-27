@@ -8,17 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.entity.UserRegAddressModel;
-
+import com.zfwl.entity.CPDModel;
 import java.util.List;
 
-public class UserRegAddressAdatper extends BaseAdapter {
+public class CPDAdatper extends BaseAdapter {
 
-    public UserRegAddressAdatper vThis = this;
+    public CPDAdatper vThis = this;
     public Context mContext;
-    public List<UserRegAddressModel> mList;
+    public List<CPDModel> mList;
 
-    public UserRegAddressAdatper(Context Context, List<UserRegAddressModel> List){
+    public CPDAdatper(Context Context, List<CPDModel> List){
         mContext=Context;
         mList=List;
     }
@@ -41,7 +40,7 @@ public class UserRegAddressAdatper extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        final UserRegAddressModel model = mList.get(position);
+        final CPDModel model = mList.get(position);
         View view = convertView;
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.layout_user_reg_address, parent, false);
@@ -80,8 +79,8 @@ public class UserRegAddressAdatper extends BaseAdapter {
         holder.del.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         holder.txt1.setText("常用"+(position+1));
         if (model != null) {
-            holder.from.setText(model.getFromProvince()+" "+model.getFromCity()+" "+model.getFromDistrict());
-            holder.to.setText(model.getToProvince()+" "+model.getToCity()+" "+model.getToDistrict());
+            holder.from.setText(model.getFromAddressName());
+            holder.to.setText(model.getToAddressName());
         }
 
         return view;

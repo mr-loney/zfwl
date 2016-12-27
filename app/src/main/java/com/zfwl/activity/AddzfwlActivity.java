@@ -2,29 +2,20 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.AddLogisticsAdapter;
-import com.zfwl.adapter.LogisticsAdapter;
-import com.zfwl.adapter.UserRegAddressAdatper;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
-import com.zfwl.mvp.logistics.LogisticsPresenter;
 import com.zfwl.widget.ToastUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

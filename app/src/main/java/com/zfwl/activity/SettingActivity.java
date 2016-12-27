@@ -62,6 +62,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.wsi_cpd_set)
     public void onCptClick() {
+        MyCPDActivity.launch(mContext);
     }
     @OnClick(R.id.wsi_notify)
     public void onNotifyClick() {

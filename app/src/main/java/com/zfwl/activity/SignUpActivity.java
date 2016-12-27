@@ -1,7 +1,6 @@
 package com.zfwl.activity;
 
 import android.animation.LayoutTransition;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,59 +10,38 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.UserRegAddressAdatper;
+import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.common.InputFilterHelper;
 import com.zfwl.controls.LoadingDialog;
-import com.zfwl.controls.wheel.widget.OnWheelChangedListener;
-import com.zfwl.controls.wheel.widget.WheelView;
-import com.zfwl.controls.wheel.widget.adapters.ArrayWheelAdapter;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.User;
-import com.zfwl.entity.CityModel;
-import com.zfwl.entity.DistrictModel;
-import com.zfwl.entity.ProvinceModel;
-import com.zfwl.entity.UserRegAddressModel;
 import com.zfwl.mvp.sigup.SignUpPresenter;
 import com.zfwl.mvp.sigup.SignUpView;
 import com.zfwl.util.AnimUtils;
 import com.zfwl.util.FunctionHelper;
 import com.zfwl.util.ViewHub;
-import com.zfwl.util.XmlParserHandler;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView, SelectAreaListView.SelectAreaCallback {
+public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView {
 
-    private static final int ID_WHO_SELECT_FROM = 1;
-    private static final int ID_WHO_SELECT_TO = 2;
     @BindView(R.id.layout_step1)
     ViewGroup mViewStep1;
     @BindView(R.id.layout_step2)
     ViewGroup mViewStep2;
-    @BindView(R.id.layout_step3)
-    ViewGroup mViewStep3;
     private SignUpPresenter mPresenter;
 
     private SignUpActivity mContext = this;
@@ -97,21 +75,9 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.et_name)
      EditText mEtUserName;
 
-    //step 3
-    @BindView(R.id.btn_add_new)
-     Button btnAddNew;
-    @BindView(R.id.listview_step3)
-     ListView mListAddress;
-    @BindView(R.id.view_select_area)
-    SelectAreaListView mSelectAreaView;
-
-    private UserRegAddressAdatper adapter;
-
     private WaitTimer mWaitTimer = new WaitTimer();
     private static final int REQUEST_OPEN_CAMERA = 1;
     private int selectSF = 1;
-    private int select_address_index;
-    private boolean isFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,25 +99,12 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 //            startActivity(intent);
 //            finish();
             backToStep1();
-        } else if (mViewStep3.getVisibility() == View.VISIBLE) {
-            backToStep2();
         }
-
     }
 
     private void backToStep1() {
         mViewStep1.setVisibility(View.VISIBLE);
         mViewStep2.setVisibility(View.GONE);
-        mViewStep3.setVisibility(View.GONE);
-        mEtVerifyCode.setText("");
-        mTvStep2Error.setVisibility(View.GONE);
-        initToolbar();
-    }
-
-    private void backToStep2() {
-        mViewStep1.setVisibility(View.GONE);
-        mViewStep2.setVisibility(View.VISIBLE);
-        mViewStep3.setVisibility(View.GONE);
         mEtVerifyCode.setText("");
         mTvStep2Error.setVisibility(View.GONE);
         initToolbar();
@@ -161,14 +114,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         mLoadingDialog = new LoadingDialog(this);
         initLayoutTransition(mViewStep1);;
         initLayoutTransition(mViewStep2);
-        initLayoutTransition(mViewStep3);
         mViewStep1.setVisibility(View.VISIBLE);
         mBtnGetVerifyCode.setOnClickListener(this);
         mBtnGotoStep2.setOnClickListener(this);
 
-        mSelectAreaView.setCallback(this);
-
-        btnAddNew.setOnClickListener(this);
         mBtnSj.setOnClickListener(this);
         mBtnCZ.setOnClickListener(this);
         mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
@@ -259,10 +208,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         Button backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
         backBtn.setOnClickListener(this);
 
-        Button sigupBtn = (Button) findViewById(R.id.titlebar_btnRight);
-        sigupBtn.setOnClickListener(this);
-        sigupBtn.setText("完成");
-
         if (mViewStep1.getVisibility() == View.VISIBLE) {
             tvTitle.setText("注册");
 
@@ -272,8 +217,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             Drawable img = getResources().getDrawable(R.drawable.back);
             img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
             backBtn.setCompoundDrawables(img, null, null, null);
-
-            sigupBtn.setVisibility(View.GONE);
         }
         if (mViewStep2.getVisibility() == View.VISIBLE) {
             tvTitle.setText("完善信息");
@@ -282,31 +225,12 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             backBtn.setCompoundDrawables(null, null, null, null);
             backBtn.setText("以后再说");
             backBtn.setVisibility(View.VISIBLE);
-
-            sigupBtn.setVisibility(View.GONE);
-        }
-        if (mViewStep3.getVisibility() == View.VISIBLE) {
-            tvTitle.setText("管理常跑地");
-
-            backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
-            backBtn.setText("");
-            backBtn.setVisibility(View.VISIBLE);
-            Drawable img = getResources().getDrawable(R.drawable.back);
-            img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
-            backBtn.setCompoundDrawables(img, null, null, null);
-
-            sigupBtn.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_add_new:
-                UserRegAddressModel m = new UserRegAddressModel();
-                adapter.mList.add(m);
-                adapter.notifyDataSetChanged();
-                break;
             case R.id.btn_im_sj:
                 selectSF = 1;
                 mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
@@ -362,17 +286,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 //                            SpManager.getUserPhone(mContext),
 //                            mEtUserName.getText().toString(),
 //                            selectSF==1?2:1);
-                    onGotoStep3(null);
                 }
                 break;
-            }
-            case R.id.titlebar_btnRight: {
-                if (validateStep3Input()) {
-                    mPresenter.Register(
-                            mEtPhoneNum.getText().toString(),
-                            mEtVerifyCode.getText().toString(),
-                            mEtPWD.getText().toString());
-                }
             }
         }
 
@@ -382,94 +297,43 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         if (validateStep1Input()) {
             mViewStep1.setVisibility(View.GONE);
             mViewStep2.setVisibility(View.VISIBLE);
-            mViewStep3.setVisibility(View.GONE);
             initToolbar();
-        }
-    }
-
-    private void onGotoStep3(View v) {
-        if (validateStep2Input()) {
-            mViewStep1.setVisibility(View.GONE);
-            mViewStep2.setVisibility(View.GONE);
-            mViewStep3.setVisibility(View.VISIBLE);
-            initToolbar();
-            if (adapter == null) {
-                ArrayList arr = new ArrayList();
-                UserRegAddressModel m = new UserRegAddressModel();
-                arr.add(m);
-                adapter = new UserRegAddressAdatper(this, arr);
-                mListAddress.setAdapter(adapter);
-                adapter.setListener(new UserRegAddressAdatper.OnUserRegAddressAdapterListener() {
-                    @Override
-                    public void selectToAddress(int index) {
-                        select_address_index = index;
-                        isFrom = false;
-                        mSelectAreaView.show(ID_WHO_SELECT_TO, ((UserRegAddressModel)adapter.getItem(index)).toaddress);
-                    }
-
-                    @Override
-                    public void selectFromAddress(int index) {
-                        select_address_index = index;
-                        isFrom = true;
-                        mSelectAreaView.show(ID_WHO_SELECT_FROM, ((UserRegAddressModel)adapter.getItem(index)).fromaddress);
-                    }
-                });
-//                adapter.notifyDataSetChanged();
-            }
         }
     }
 
     private boolean validateStep1Input() {
-        return true;
-//        String phoneNo = mEtPhoneNum.getText().toString();
-//        String psw = mEtPWD.getText().toString();
-//        String code = mEtVerifyCode.getText().toString();
-//        mTvError.setVisibility(View.GONE);
-//        if (isEtEmpty(mEtPhoneNum)) {
-//            showError("请输入手机号码");
-//        } else if (!FunctionHelper.isPhoneNo(phoneNo)) {
-//            setTilError(mEtPhoneNum, "请输入正确的手机号码");
-//        } else if (isEtEmpty(mEtVerifyCode)) {
-//            showError("请输入验证码");
-//        } else if (code.length() != 6) {
-//            setTilError(mEtUserName, "验证码格式不正确");
-//        } else if (isEtEmpty(mEtPWD)) {
-//            setStep2Error("请输入密码");
-//        } else if (psw.length() < 6) {
-//            setTilError(mEtPWD, "密码长度必须大于6");
-//        } else {
-//            mTvError.setVisibility(View.GONE);
-//            return true;
-//        }
-//        return false;
+        String phoneNo = mEtPhoneNum.getText().toString();
+        String psw = mEtPWD.getText().toString();
+        String code = mEtVerifyCode.getText().toString();
+        mTvError.setVisibility(View.GONE);
+        if (isEtEmpty(mEtPhoneNum)) {
+            showError("请输入手机号码");
+        } else if (!FunctionHelper.isPhoneNo(phoneNo)) {
+            setTilError(mEtPhoneNum, "请输入正确的手机号码");
+        } else if (isEtEmpty(mEtVerifyCode)) {
+            showError("请输入验证码");
+        } else if (code.length() != 6) {
+            setTilError(mEtUserName, "验证码格式不正确");
+        } else if (isEtEmpty(mEtPWD)) {
+            setStep2Error("请输入密码");
+        } else if (psw.length() < 6) {
+            setTilError(mEtPWD, "密码长度必须大于6");
+        } else {
+            mTvError.setVisibility(View.GONE);
+            return true;
+        }
+        return false;
     }
 
     private boolean validateStep2Input() {
-        return true;
-//        String phoneNo = mEtPhoneNum.getText().toString();
-//        String userName = mEtUserName.getText().toString();
-//        mTvStep2Error.setVisibility(View.GONE);
-//        if (isEtEmpty(mEtPhoneNum)) {
-//            setStep2Error("请输入手机号码");
-//        } else if (!FunctionHelper.isPhoneNo(phoneNo)) {
-//            setTilError(mEtPhoneNum, "请输入正确的手机号码");
-//        } else if (isEtEmpty(mEtUserName)) {
-//            setStep2Error("请输入用户名");
-//        } else {
-//            mTvStep2Error.setVisibility(View.GONE);
-//            return true;
-//        }
-//        return false;
-    }
-
-    private boolean validateStep3Input() {
-        String firstFrom = adapter.mList.get(0).getFromDistrict();
-        String firstTo = adapter.mList.get(0).getToDistrict();
-        if (firstFrom.length() == 0 || firstTo.length() == 0) {
-            ViewHub.showLongToast(mContext, "请选择常用地点");
-            return false;
+        mTvStep2Error.setVisibility(View.GONE);
+        if (isEtEmpty(mEtUserName)) {
+            setStep2Error("请输入用户名");
+        } else {
+            mTvStep2Error.setVisibility(View.GONE);
+            return true;
         }
-        return true;
+        return false;
     }
 
     private void setStep2Error(String error) {
@@ -538,7 +402,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onRegisterAddInfoSuccess(User usr) {
-        onGotoStep3(null);
+        MyCPDActivity.launch(mContext);
     }
 
     @Override
@@ -547,18 +411,5 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     }
 
     //    public void onAddressSelected(boolean isFrom, int index) {
-    @Override
-    public void onAddressSelected(int idWhoSelect, Address address) {
-        switch (idWhoSelect) {
-            case ID_WHO_SELECT_FROM:
-                ((UserRegAddressModel)adapter.getItem(select_address_index)).fromaddress = address;
-                break;
-            case ID_WHO_SELECT_TO:
-                ((UserRegAddressModel)adapter.getItem(select_address_index)).toaddress = address;
-                break;
-        }
-    }
-    @Override
-    public void onAreaReset() {
-    }
+
 }

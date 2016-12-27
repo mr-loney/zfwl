@@ -4,6 +4,7 @@ import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.api.AreaApi;
+import com.zfwl.data.api.CPDApi;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
@@ -25,7 +26,7 @@ import rx.schedulers.Schedulers;
 public class ApiModule {
 
     public static ApiModule INSTANCE = new ApiModule();
-    private static final String BASE_URL = "http://139.129.218.83:9080/logistics/";
+    private static final String BASE_URL = "http://112.126.93.160:9080/logistics/";
     private static final int CONNECT_TIMEOUT = 15;
     private Retrofit mRetrofit;
     private OkHttpClient mOkHttpClient;
@@ -56,6 +57,9 @@ public class ApiModule {
 
     public AreaApi provideAreaApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(AreaApi.class);
+    }
+    public CPDApi cpdApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(CPDApi.class);
     }
     public OrderApi provideOrderApi(){
         return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);

@@ -19,11 +19,6 @@
         layout="@layout/layout_signup_step2"
         android:visibility="gone"
         />
-    <include
-        android:id="@+id/layout_step3"
-        layout="@layout/layout_signup_step3"
-        android:visibility="gone"
-        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
