@@ -1,18 +1,27 @@
 package com.zfwl.activity.myorders.detail;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.zfwl.R;
+import com.zfwl.activity.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 /**
  * 运输中
  */
-public class CarryingOrderDetailActivity extends AppCompatActivity {
+public class CarryingOrderDetailActivity extends BaseActivity {
+
+    @BindView(R.id.title_bar)
+    BGATitleBar mTitleBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrying_order_detail);
+        ButterKnife.bind(this);
+        initDefaultTitleBar(mTitleBar);
     }
 }

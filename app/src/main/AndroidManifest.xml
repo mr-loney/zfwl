@@ -92,16 +92,27 @@
             android:theme="@style/AppCompatTheme"/>
         <activity
             android:name=".activity.AddzfwlActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.myorders.detail.WaitConfirmOrderDetailActivity">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity android:name=".activity.myorders.detail.WaitConfirmOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".activity.myorders.detail.WaitPayOrderDetailActivity">
+        <activity android:name=".activity.myorders.detail.WaitPayOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".activity.myorders.detail.PaidOrderDetailActivity">
+        <activity android:name=".activity.myorders.detail.PaidOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".activity.myorders.detail.CarryingOrderDetailActivity">
+        <activity android:name=".activity.myorders.detail.CarryingOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".activity.myorders.detail.FinishedOrderDetailActivity">
+        <activity android:name=".activity.myorders.detail.FinishedOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme">
         </activity>
     </application>
 
