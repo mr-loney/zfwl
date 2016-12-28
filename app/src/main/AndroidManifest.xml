@@ -86,13 +86,23 @@
             android:name=".activity.QuotedPriceDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
-        <activity android:name=".activity.myorders.MyOrdersActivity"
+        <activity
+            android:name=".activity.myorders.MyOrdersActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
         <activity
             android:name=".activity.AddzfwlActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".activity.myorders.detail.WaitConfirmOrderDetailActivity">
+        </activity>
+        <activity android:name=".activity.myorders.detail.WaitPayOrderDetailActivity">
+        </activity>
+        <activity android:name=".activity.myorders.detail.PaidOrderDetailActivity">
+        </activity>
+        <activity android:name=".activity.myorders.detail.CarryingOrderDetailActivity">
+        </activity>
+        <activity android:name=".activity.myorders.detail.FinishedOrderDetailActivity">
+        </activity>
     </application>
 
 </manifest>
