@@ -14,7 +14,9 @@ public class FP {
     public static boolean empty(Collection collection) {
         return isNull(collection) || collection.size() == 0;
     }
-
+    public static boolean notEmpty(String str){
+        return !empty(str);
+    }
     public static boolean notEmpty(Collection collection) {
         return !empty(collection);
     }

@@ -2,7 +2,12 @@ package com.zfwl.mvp.logistics;
 
 import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.entity.request.LogisticsRequest;
 import com.zfwl.mvp.BasePresenter;
+import com.zfwl.util.FP;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ZZB on 2016/12/15.
@@ -24,6 +29,17 @@ public class LogisticsPresenter extends BasePresenter<LogisticsMvpView> {
     }
 
     public void loadMoreLogisticsList() {
+        mPage++;
+    }
 
+    private Map<String, String> getQueryMap(LogisticsRequest request) {
+        Map<String, String> params = new HashMap<>();
+        if(FP.notEmpty(request.getFromCity())){
+            params.put("fromCity", request.getFromCity());
+        }
+//        if(FP.notEmpty(request.getFromCounty())){
+//            params.put("fromCounty")
+//        }
+        return params;
     }
 }
