@@ -1,14 +1,18 @@
 package com.zfwl.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.LogisticsAdapter.VH;
 import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.MyPublishEmptyCarListModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,49 +20,83 @@ import butterknife.ButterKnife;
 /**
  * Created by ZZB on 2016/12/15.
  */
-public class LogisticsAdapter extends BaseRvAdapter<LogisticsInfo, VH> {
+public class LogisticsAdapter  extends BaseAdapter {
 
 
-    @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wl, parent, false);
-        return new VH(itemView);
+    public Context mContext;
+    public List<LogisticsInfo.ListBean> mList;
+
+    // 构造函数
+    public LogisticsAdapter(Context Context) {
+        mContext = Context;
+
     }
 
-
-
-
     @Override
-    public void onBindViewHolder(VH holder, int position) {
-        LogisticsInfo item = getItem(position);
-        holder.tvFrom.setText(item.getDeparture());
-        holder.tvTo.setText(item.getDescription());
-        holder.tvPublishTime.setText(item.getPublishDate());
-        holder.tvDesc.setText(item.getDescription());
-        holder.tvSendTime.setText(item.getDepartDate());
-        holder.btnRob.setOnClickListener(view -> {
-            // TODO: 2016/12/17
-        });
+    public int getCount() {
+        return mList.size();
     }
 
-    public static class VH extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_from)
-        TextView tvFrom;
-        @BindView(R.id.tv_to)
-        TextView tvTo;
-        @BindView(R.id.tv_send_date)
-        TextView tvSendTime;
-        @BindView(R.id.tv_desc)
-        TextView tvDesc;
-        @BindView(R.id.tv_publish_time)
-        TextView tvPublishTime;
-        @BindView(R.id.btn_rob)
-        View btnRob;
+    @Override
+    public Object getItem(int arg0) {
+        return mList.get(arg0);
+    }
 
-        public VH(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+    @Override
+    public long getItemId(int arg0) {
+        return arg0;
+    }
 
+    @Override
+    public View getView(int arg0, View arg1, ViewGroup arg2) {
+
+        final LogisticsAdapter.ViewHolder holder;
+        View view = arg1;
+        if (mList.size() > 0) {
+            if (view == null) {
+                view = LayoutInflater.from(mContext).inflate(
+                        R.layout.item_wl, arg2, false);
+                holder = new LogisticsAdapter.ViewHolder();
+
+                holder.tvFrom = (TextView) view
+                        .findViewById(R.id.tv_from);
+                holder.tvTo = (TextView) view
+                        .findViewById(R.id.txt_to);
+                holder.tvSendTime = (TextView) view
+                        .findViewById(R.id.tv_send_date);
+                holder.tvDesc = (TextView) view
+                        .findViewById(R.id.tv_desc);
+                holder.tvPublishTime = (TextView) view
+                        .findViewById(R.id.tv_publish_time);
+                holder.btnRob = (TextView) view
+                        .findViewById(R.id.btn_rob);
+                view.setTag(holder);
+            } else {
+                holder = (LogisticsAdapter.ViewHolder) view.getTag();
+            }
+            holder.position = arg0;
+            LogisticsInfo.ListBean data = mList.get(arg0);
+            holder.tvFrom.setText(data.getAddressInfoList().get(0).getFromDetail());
+            holder.tvTo.setText(data.getAddressInfoList().get(0).getToDetail());
+            holder.tvPublishTime.setText(data.getDepartureTime());
+            holder.tvDesc.setText(data.getRemark());
+            holder.tvSendTime.setText(data.getDepartureTime());
+//            holder.btnRob.setOnClickListener(view -> {
+//                // TODO: 2016/12/17
+//            });
         }
+
+        return view;
     }
+
+    class ViewHolder {
+        int position;
+        TextView tvFrom;
+        TextView tvTo;
+        TextView tvSendTime;
+        TextView tvDesc;
+        TextView tvPublishTime;
+        View btnRob;
+    }
+
 }

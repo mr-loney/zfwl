@@ -30,7 +30,7 @@ public class FromAndToView extends LinearLayout {
     @BindView(R.id.tv_to)
     TextView mTvTo;
     @BindView(R.id.tv_begin_time)
-    TextView mTvStartTime;
+    public TextView mTvStartTime;
     private Callback mCallback;
     private Address mFromAddress, mToAddress;
 
@@ -85,13 +85,15 @@ public class FromAndToView extends LinearLayout {
         builder.setTitle("选择发车时间");
         builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
             if (which >= 0 && which < items.length) {
-                mTvStartTime.setText(items[which]);
+                String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
+                mTvStartTime.setText(t);
             }
         });
         builder.setPositiveButton("确定", (dialog, which) -> {
             dialog.dismiss();
             if (which >= 0 && which < items.length) {
-                mTvStartTime.setText(items[which]);
+                String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
+                mTvStartTime.setText(t);
             }
         });
         builder.create().show();

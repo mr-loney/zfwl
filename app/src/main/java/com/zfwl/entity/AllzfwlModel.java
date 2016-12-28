@@ -1,7 +1,5 @@
 package com.zfwl.entity;
 
-import com.google.gson.annotations.Expose;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,70 +7,110 @@ public class AllzfwlModel implements Serializable {
 
     private static final long serialVersionUID = -3718423961923385889L;
 
-	@Expose
-	private String fromProvince = "";
-	@Expose
-	private String fromCity = "";
-	@Expose
-	private String fromDistrict = "";
-	@Expose
-	private String beginTime = "";
-	@Expose
-	private int carCount = 0;
-	@Expose
-	private double carLength = 0;
-	@Expose
-	private double carWeight = 0;
 
-    @Expose
-    private List<AllzfwlToModel> to;
+	public Address fromaddress = new Address();
+	/**
+	 * id : 4
+	 * memberId : 1
+	 * fromProvinceId : 110000
+	 * fromCityId : 110100
+	 * fromCountyId : 110101
+	 * fromAddressName : 北京市-市辖区-东城区 aaaa
+	 * goDate : 2016-12-29 10:00:00.0
+	 * carNumber : 5
+	 * loadNumber : 10
+	 * carLength : 15
+	 * cdate : 1482908283000
+	 * mdate : 1482908282000
+	 * remark : null
+	 * emptyCarAddressList : [{"id":2,"emptyCarId":4,"toProvinceId":120000,"toCityId":120100,"toCountyId":0,"toAddressName":"滨海","toProvinceName":"天津市","toCityName":"市辖区","toCountyName":null},{"id":1,"emptyCarId":4,"toProvinceId":110000,"toCityId":110100,"toCountyId":110112,"toAddressName":"大运河","toProvinceName":"北京市","toCityName":"市辖区","toCountyName":"通州区"}]
+	 */
 
-	public List<AllzfwlToModel> getTo() {
-		return to;
+	private int id;
+	private int memberId;
+	private String fromProvinceId;
+	private String fromCityId;
+	private String fromCountyId;
+	private String fromAddressName;
+	private String goDate;
+	private int carNumber;
+	private double loadNumber;
+	private double carLength;
+	private long cdate;
+	private long mdate;
+	private Object remark;
+	private List<EmptyCarAddressListBean> emptyCarAddressList;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setTo(List<AllzfwlToModel> to) {
-		this.to = to;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getFromProvince() {
-		return fromProvince;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setFromProvince(String fromProvince) {
-		this.fromProvince = fromProvince;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getFromCity() {
-		return fromCity;
+	public String getFromProvinceId() {
+		return fromProvinceId;
 	}
 
-	public void setFromCity(String fromCity) {
-		this.fromCity = fromCity;
+	public void setFromProvinceId(String fromProvinceId) {
+		this.fromProvinceId = fromProvinceId;
 	}
 
-	public String getFromDistrict() {
-		return fromDistrict;
+	public String getFromCityId() {
+		return fromCityId;
 	}
 
-	public void setFromDistrict(String fromDistrict) {
-		this.fromDistrict = fromDistrict;
+	public void setFromCityId(String fromCityId) {
+		this.fromCityId = fromCityId;
 	}
 
-	public String getBeginTime() {
-		return beginTime;
+	public String getFromCountyId() {
+		return fromCountyId;
 	}
 
-	public void setBeginTime(String beginTime) {
-		this.beginTime = beginTime;
+	public void setFromCountyId(String fromCountyId) {
+		this.fromCountyId = fromCountyId;
 	}
 
-	public int getCarCount() {
-		return carCount;
+	public String getFromAddressName() {
+		return fromAddressName;
 	}
 
-	public void setCarCount(int carCount) {
-		this.carCount = carCount;
+	public void setFromAddressName(String fromAddressName) {
+		this.fromAddressName = fromAddressName;
+	}
+
+	public String getGoDate() {
+		return goDate;
+	}
+
+	public void setGoDate(String goDate) {
+		this.goDate = goDate;
+	}
+
+	public int getCarNumber() {
+		return carNumber;
+	}
+
+	public void setCarNumber(int carNumber) {
+		this.carNumber = carNumber;
+	}
+
+	public double getLoadNumber() {
+		return loadNumber;
+	}
+
+	public void setLoadNumber(double loadNumber) {
+		this.loadNumber = loadNumber;
 	}
 
 	public double getCarLength() {
@@ -83,57 +121,133 @@ public class AllzfwlModel implements Serializable {
 		this.carLength = carLength;
 	}
 
-	public double getCarWeight() {
-		return carWeight;
+	public long getCdate() {
+		return cdate;
 	}
 
-	public void setCarWeight(double carWeight) {
-		this.carWeight = carWeight;
+	public void setCdate(long cdate) {
+		this.cdate = cdate;
 	}
 
-	public class AllzfwlToModel {
-		@Expose
-		private String toProvince = "";
-		@Expose
-		private String toCity = "";
-		@Expose
-		private String toDistrict = "";
+	public long getMdate() {
+		return mdate;
+	}
 
-		public String getToProvince() {
-			return toProvince;
+	public void setMdate(long mdate) {
+		this.mdate = mdate;
+	}
+
+	public Object getRemark() {
+		return remark;
+	}
+
+	public void setRemark(Object remark) {
+		this.remark = remark;
+	}
+
+	public List<EmptyCarAddressListBean> getEmptyCarAddressList() {
+		return emptyCarAddressList;
+	}
+
+	public void setEmptyCarAddressList(List<EmptyCarAddressListBean> emptyCarAddressList) {
+		this.emptyCarAddressList = emptyCarAddressList;
+	}
+
+	public class EmptyCarAddressListBean {
+
+		public Address toaddress = new Address();
+		/**
+		 * id : 2
+		 * emptyCarId : 4
+		 * toProvinceId : 120000
+		 * toCityId : 120100
+		 * toCountyId : 0
+		 * toAddressName : 滨海
+		 * toProvinceName : 天津市
+		 * toCityName : 市辖区
+		 * toCountyName : null
+		 */
+
+		private int id;
+		private int emptyCarId;
+		private String toProvinceId;
+		private String toCityId;
+		private String toCountyId;
+		private String toAddressName;
+		private String toProvinceName;
+		private String toCityName;
+		private Object toCountyName;
+
+		public int getId() {
+			return id;
 		}
 
-		public void setToProvince(String toProvince) {
-			this.toProvince = toProvince;
+		public void setId(int id) {
+			this.id = id;
 		}
 
-		public String getToCity() {
-			return toCity;
+		public int getEmptyCarId() {
+			return emptyCarId;
 		}
 
-		public void setToCity(String toCity) {
-			this.toCity = toCity;
+		public void setEmptyCarId(int emptyCarId) {
+			this.emptyCarId = emptyCarId;
 		}
 
-		public String getToDistrict() {
-			return toDistrict;
+		public String getToProvinceId() {
+			return toProvinceId;
 		}
 
-		public void setToDistrict(String toDistrict) {
-			this.toDistrict = toDistrict;
+		public void setToProvinceId(String toProvinceId) {
+			this.toProvinceId = toProvinceId;
 		}
 
-		public String getStr() {
-			if (toDistrict != "") {
-				return toDistrict;
-			}
-			if (toCity != "") {
-				return toCity;
-			}
-			if (toProvince != "") {
-				return toProvince;
-			}
-			return "";
+		public String getToCityId() {
+			return toCityId;
+		}
+
+		public void setToCityId(String toCityId) {
+			this.toCityId = toCityId;
+		}
+
+		public String getToCountyId() {
+			return toCountyId;
+		}
+
+		public void setToCountyId(String toCountyId) {
+			this.toCountyId = toCountyId;
+		}
+
+		public String getToAddressName() {
+			return toAddressName;
+		}
+
+		public void setToAddressName(String toAddressName) {
+			this.toAddressName = toAddressName;
+		}
+
+		public String getToProvinceName() {
+			return toProvinceName;
+		}
+
+		public void setToProvinceName(String toProvinceName) {
+			this.toProvinceName = toProvinceName;
+		}
+
+		public String getToCityName() {
+			return toCityName;
+		}
+
+		public void setToCityName(String toCityName) {
+			this.toCityName = toCityName;
+		}
+
+		public Object getToCountyName() {
+			return toCountyName;
+		}
+
+		public void setToCountyName(Object toCountyName) {
+			this.toCountyName = toCountyName;
 		}
 	}
 }

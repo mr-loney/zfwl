@@ -37,59 +37,109 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.zfwl.widget.slsectarea.FromAndToView
-            android:id="@+id/view_from_n_to"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
         <LinearLayout
-            android:id="@+id/tv_area_condition"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.zfwl.widget.slsectarea.FromAndToView
+                android:id="@+id/view_from_n_to"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+
+            <LinearLayout
+                android:id="@+id/tv_area_condition"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="目的地周边："/>
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-            <TextView
-                android:id="@+id/tv_area_all"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/bg_rect_blue_corner"
-                android:gravity="center"
-                android:text="全部"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="目的地周边："/>
 
-            <TextView
-                android:id="@+id/tv_area_district"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="区县"/>
+                <TextView
+                    android:id="@+id/tv_area_all"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_rect_blue_corner"
+                    android:gravity="center"
+                    android:text="全部"/>
 
-            <TextView
-                android:id="@+id/tv_area_city"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="城市"/>
+                <TextView
+                    android:id="@+id/tv_area_district"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="区县"/>
 
-            <TextView
-                android:id="@+id/tv_area_province"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="省份"/>
+                <TextView
+                    android:id="@+id/tv_area_city"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="城市"/>
+
+                <TextView
+                    android:id="@+id/tv_area_province"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="省份"/>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx
+                    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/pull_refresh_listview_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:columnWidth="140dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="2"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollingCache="true"
+                    android:stretchMode="columnWidth" />
+
+
+                <LinearLayout
+                    android:id="@+id/view_empty"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/search_nodata" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="还没有发布空车"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/fontsize_content_normal" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </LinearLayout>
-
-
         <com.zfwl.widget.slsectarea.SelectAreaListView
             android:id="@+id/view_select_area"
             android:layout_width="match_parent"
@@ -99,8 +149,8 @@
             />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_logistics"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_logistics"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 </LinearLayout>
