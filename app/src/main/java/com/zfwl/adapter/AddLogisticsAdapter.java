@@ -21,9 +21,9 @@ public class AddLogisticsAdapter extends BaseAdapter {
 
     public AddLogisticsAdapter vThis = this;
     public Context mContext;
-    public List<AllzfwlModel.AllzfwlToModel> mList;
+    public List<AllzfwlModel.EmptyCarAddressListBean> mList;
 
-    public AddLogisticsAdapter(Context Context, List<AllzfwlModel.AllzfwlToModel> List){
+    public AddLogisticsAdapter(Context Context, List<AllzfwlModel.EmptyCarAddressListBean> List){
         mContext=Context;
         mList=List;
     }
@@ -46,7 +46,7 @@ public class AddLogisticsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final AddLogisticsAdapter.ViewHolder holder;
-        final AllzfwlModel.AllzfwlToModel model = mList.get(position);
+        final AllzfwlModel.EmptyCarAddressListBean model = mList.get(position);
         View view = convertView;
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_add_wl, parent, false);
@@ -64,10 +64,13 @@ public class AddLogisticsAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     int p = (int)view.getTag();
                     if (p==0) {
-                        AllzfwlModel.AllzfwlToModel addModel = new AllzfwlModel().new AllzfwlToModel();
-                        addModel.setToDistrict("");
-                        addModel.setToProvince("");
-                        addModel.setToCity("");
+                        AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
+                        addModel.setToCityId("");
+                        addModel.setToCityName("");
+                        addModel.setToProvinceId("");
+                        addModel.setToProvinceName("");
+                        addModel.setToCountyId("");
+                        addModel.setToCountyName("");
                         mList.add(addModel);
                         vThis.notifyDataSetChanged();
                     } else {
@@ -84,7 +87,7 @@ public class AddLogisticsAdapter extends BaseAdapter {
         holder.to.setTag(position);
         holder.btn.setTag(position);
         if (model != null) {
-            holder.to.setText(model.getToProvince()+" "+model.getToCity()+" "+model.getToDistrict());
+            holder.to.setText(model.getToAddressName());
         }
 
         return view;

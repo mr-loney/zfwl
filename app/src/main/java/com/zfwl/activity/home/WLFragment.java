@@ -1,6 +1,7 @@
 package com.zfwl.activity.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,19 +9,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.MyPublishEmptyCarDetailActivity;
 import com.zfwl.adapter.LogisticsAdapter;
+import com.zfwl.adapter.MyPublishEmptyCarListAdapter;
+import com.zfwl.controls.LoadingDialog;
+import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
+import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.MyPublishEmptyCarListModel;
 import com.zfwl.mvp.logistics.LogisticsMvpView;
 import com.zfwl.mvp.logistics.LogisticsPresenter;
+import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.FromAndToView;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 import com.zfwl.widget.slsectarea.SelectAreaView;
 import com.zfwl.widget.slsectarea.SelectAreaListView.SelectAreaCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,7 +40,7 @@ import butterknife.OnClick;
 
 
 public class WLFragment extends Fragment implements SelectAreaCallback,
-        LogisticsMvpView, FromAndToView.Callback {
+        LogisticsMvpView, FromAndToView.Callback,PullToRefreshListView.OnLoadMoreListener, PullToRefreshListView.OnRefreshListener {
     private static final String TAG = "WLFragment";
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
@@ -44,15 +55,23 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     TextView tvAreaCity;
     @BindView(R.id.tv_area_province)
     TextView tvAreaProvince;
-    @BindView(R.id.rv_logistics)
-    RecyclerView mRvLogistics;
+//    @BindView(R.id.rv_logistics)
+//    RecyclerView mRvLogistics;
+    @BindView(R.id.pull_refresh_listview_items)
+    PullToRefreshListViewEx pullRefreshListView;;
+    @BindView(R.id.view_empty)
+    View emptyView;
     @BindView(R.id.view_from_n_to)
     FromAndToView mFromAndToView;
     @BindView(R.id.view_select_area)
     SelectAreaListView mSelectAreaView;
-    private LogisticsAdapter mRvAdapter;
 
+    private LogisticsAdapter adapter;
     private LogisticsPresenter mLogisticsPresenter;
+
+    private Address from;
+    private Address to;
+    private String sendData;
 
     public WLFragment() {
     }
@@ -84,31 +103,34 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     }
 
     private void initPresenters() {
-        mLogisticsPresenter = new LogisticsPresenter();
+        mLogisticsPresenter = new LogisticsPresenter(mContext);
         mLogisticsPresenter.attachView(this);
     }
 
-    private void refreshLogistics() {
-        mLogisticsPresenter.refreshLogisticsList();
-    }
+    @Override
+    public void onRefreshLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics) {
 
-    private void loadMoreLogistics() {
-        mLogisticsPresenter.loadMoreLogisticsList();
+        pullRefreshListView.onRefreshComplete();
+        adapter.mList = logistics;
+        if (adapter == null) {
+            adapter = new LogisticsAdapter(mContext);
+            pullRefreshListView.setAdapter(adapter);
+        }
+        adapter.notifyDataSetChanged();
+        showEmptyView(logistics.size()==0);
     }
 
     @Override
-    public void onRefreshLogisticsListSuccess(List<LogisticsInfo> logistics) {
-        mRvAdapter.setItems(logistics);
-    }
+    public void onLoadMoreLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics) {
 
-    @Override
-    public void onLoadMoreLogisticsListSuccess(List<LogisticsInfo> logistics) {
-        mRvAdapter.addItems(logistics);
+        pullRefreshListView.onLoadMoreComplete();
+        adapter.mList.addAll(logistics);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoadLogisticsListFailed(String errorMsg) {
-
+        ToastUtils.show(mContext, errorMsg);
     }
 
     private void resetTvDetailArea(int viewId) {
@@ -173,16 +195,105 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     }
 
     private void initView() {
-        initRv();
+//        initRv();
         mFromAndToView.setCallback(this);
         mSelectAreaView.setCallback(this);
+        pullRefreshListView.setCanLoadMore(true);
+        pullRefreshListView.setCanRefresh(true);
+        pullRefreshListView.setMoveToFirstItemAfterRefresh(true);
+        pullRefreshListView.setOnRefreshListener(this);
+        pullRefreshListView.setOnLoadListener(this);
+        pullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
+        // 刷新数据
+        showEmptyView(false);
+        emptyView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                pullRefreshListView.pull2RefreshManually();
+
+                if (pullRefreshListView != null) {
+                    if (pullRefreshListView.isCanRefresh())
+                        pullRefreshListView.onRefreshComplete();
+
+                    if (pullRefreshListView.isCanLoadMore())
+                        pullRefreshListView.onLoadMoreComplete();
+                }
+
+            }
+        });
+
+        onRefresh();
     }
 
-    private void initRv() {
-        mRvAdapter = new LogisticsAdapter();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        mRvLogistics.setLayoutManager(layoutManager);
-        mRvLogistics.setAdapter(mRvAdapter);
+    /**
+     * 显示空数据视图
+     */
+    private void showEmptyView(boolean show) {
+        pullRefreshListView.setVisibility(show ? View.GONE : View.VISIBLE);
+        emptyView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void onRefresh() {
+//        showEmptyView(false);
+//        loadData(true);
+    }
+
+    @Override
+    public void onLoadMore() {
+        loadData(false);
+    }
+
+    private void loadData(boolean isRefresh) {
+        Address from = mFromAndToView.getFromAddress();
+        Address to = mFromAndToView.getToAddress();
+        String fromP = "";
+        String fromC = "";
+        String fromD = "";
+        if (from!=null) {
+            if (from.getProvince()!=null) {
+                fromP = from.getProvince().getId();
+            }
+            if (from.getCity()!=null) {
+                fromC = from.getCity().getId();
+            }
+            if (from.getDistrict()!=null) {
+                fromD = from.getDistrict().getId();
+            }
+        }
+        String toP = "";
+        String toC = "";
+        String toD = "";
+        if (to!=null) {
+            if (to.getProvince()!=null) {
+                toP = from.getProvince().getId();
+            }
+            if (to.getCity()!=null) {
+                toC = from.getCity().getId();
+            }
+            if (to.getDistrict()!=null) {
+                toD = from.getDistrict().getId();
+            }
+        }
+        String time = mFromAndToView.mTvStartTime.getText().toString();
+        if (time.equals("发车时间")) {
+            time = "";
+        }
+        mLogisticsPresenter.getLogisticsList(isRefresh,fromP,fromC,fromD,toP,toC,toD,time);
+    }
+
+//    private void initRv() {
+//        mRvAdapter = new LogisticsAdapter();
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+//        mRvLogistics.setLayoutManager(layoutManager);
+//        mRvLogistics.setAdapter(mRvAdapter);
+//    }
 
 }

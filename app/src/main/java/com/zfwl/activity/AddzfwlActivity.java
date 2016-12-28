@@ -12,10 +12,13 @@ import android.widget.TextView;
 import com.zfwl.R;
 import com.zfwl.adapter.AddLogisticsAdapter;
 import com.zfwl.controls.LoadingDialog;
+import com.zfwl.entity.Address;
 import com.zfwl.entity.AllzfwlModel;
+import com.zfwl.entity.CPDModel;
 import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
 import com.zfwl.widget.ToastUtils;
+import com.zfwl.widget.slsectarea.SelectAreaListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView {
+public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.SelectAreaCallback,AddLogisticsMvpView {
+
+	private static final int ID_WHO_SELECT_FROM = 1;
+	private static final int ID_WHO_SELECT_TO = 2;
 
 	private static final String TAG = "LoginActivity";
 	private AddzfwlActivity vThis = this;
@@ -40,7 +46,11 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 	 Button lBtn;
 	@BindView(R.id.tv_title)
 	 TextView tvTitle;
+	@BindView(R.id.view_select_area)
+	SelectAreaListView mSelectAreaView;
 
+	private AllzfwlModel data = new AllzfwlModel();
+	private int select_address_index;
 	private AddLogisticsAdapter adapter;
 	private AddLogisticsPresenter mLogisticsPresenter;
 
@@ -62,7 +72,7 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 	}
 
 	private void initPresenters() {
-		mLogisticsPresenter = new AddLogisticsPresenter();
+		mLogisticsPresenter = new AddLogisticsPresenter(this);
 		mLogisticsPresenter.attachView(this);
 	}
 
@@ -73,7 +83,7 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 	}
 
 	@Override
-	public void onAddLogisticsSuccess() {
+	public void onAddLogisticsSuccess(AllzfwlModel d) {
 		loadingDialog.stop();
 		ToastUtils.show(this, "添加成功");
 		finish();
@@ -98,24 +108,32 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 		rBtn.setVisibility(View.VISIBLE);
 		rBtn.setText("常跑地");
 
-		List<AllzfwlModel.AllzfwlToModel> list = new ArrayList<>();
-		AllzfwlModel.AllzfwlToModel addModel = new AllzfwlModel().new AllzfwlToModel();
-		addModel.setToDistrict("");
-		addModel.setToProvince("");
-		addModel.setToCity("");
+		List<AllzfwlModel.EmptyCarAddressListBean> list = new ArrayList<>();
+		AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
+		addModel.setToCityId("");
+		addModel.setToCityName("");
+		addModel.setToProvinceId("");
+		addModel.setToProvinceName("");
+		addModel.setToCountyId("");
+		addModel.setToCountyName("");
 		list.add(addModel);
 		adapter = new AddLogisticsAdapter(vThis,list);
 		listView.setAdapter(adapter);
 		adapter.setListener(new AddLogisticsAdapter.OnAdapterListener() {
 			@Override
 			public void selectToAddress(int index) {
-//				select_address_index = index;
-//				isFrom = false;
-//				beginSelectAddress();
+				select_address_index = index;
+				mSelectAreaView.show(ID_WHO_SELECT_TO, ((AllzfwlModel.EmptyCarAddressListBean)adapter.getItem(index)).toaddress);
 			}
 		});
+
+		mSelectAreaView.setCallback(this);
 	}
 
+	@OnClick(R.id.txt_from)
+	public void onFromClick() {
+		mSelectAreaView.show(ID_WHO_SELECT_FROM, data.fromaddress);
+	}
 	@OnClick(R.id.titlebar_btnRight)
 	public void onTitleRightClick() {
 
@@ -130,7 +148,36 @@ public class AddzfwlActivity extends BaseActivity implements AddLogisticsMvpView
 		if (!loadingDialog.isShowing()) {
 			loadingDialog.show();
 		}
-		mLogisticsPresenter.addLogistics();
+		data.setEmptyCarAddressList(adapter.mList);
+		mLogisticsPresenter.addLogistics(data);
+	}
+
+	@Override
+	public void onAddressSelected(int idWhoSelect, Address address) {
+		switch (idWhoSelect) {
+			case ID_WHO_SELECT_FROM:
+				data.setFromProvinceId(address.getProvince().getId());
+				data.setFromCityId(address.getCity().getId());
+				data.setFromCountyId(address.getDistrict().getId());
+				data.setFromAddressName(address.getProvince().getName()+" "+address.getCity().getName()+" "+ address.getDistrict().getName());
+				txtFrom.setText(data.getFromAddressName());
+				break;
+			case ID_WHO_SELECT_TO:
+				AllzfwlModel.EmptyCarAddressListBean item = ((AllzfwlModel.EmptyCarAddressListBean)adapter.getItem(select_address_index));
+				item.toaddress = address;
+				item.setToProvinceId(address.getProvince().getId());
+				item.setToProvinceName(address.getProvince().getName());
+				item.setToCityId(address.getCity().getId());
+				item.setToCityName(address.getCity().getName());
+				item.setToCountyId(address.getDistrict().getId());
+				item.setToCountyName(address.getDistrict().getName());
+				item.setToAddressName(address.getProvince().getName()+" "+address.getCity().getName()+" "+ address.getDistrict().getName());
+				adapter.notifyDataSetChanged();
+				break;
+		}
+	}
+	@Override
+	public void onAreaReset() {
 	}
 
 }

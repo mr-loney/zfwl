@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface LogisticsMvpView extends MvpView {
 
-    void onRefreshLogisticsListSuccess(List<LogisticsInfo> logistics);
+    void onRefreshLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics);
 
-    void onLoadMoreLogisticsListSuccess(List<LogisticsInfo> logistics);
+    void onLoadMoreLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics);
 
     void onLoadLogisticsListFailed(String errorMsg);
 
