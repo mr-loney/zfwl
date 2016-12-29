@@ -94,6 +94,22 @@
             android:name=".activity.AddzfwlActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.MyPublishEmptyCarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.WJActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
+            android:name=".activity.MyPublishEmptyCarDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
         <activity android:name=".activity.myorders.detail.WaitConfirmOrderDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme">

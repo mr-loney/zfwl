@@ -13,6 +13,7 @@
     <dimen name="fontsize_button_min">16sp</dimen>
     <dimen name="fontsize_title_max">20sp</dimen>
     <dimen name="fontsize_title_min">18sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
     <dimen name="fontsize_title_button_max">18sp</dimen>
     <dimen name="fontsize_title_button_middle">16sp</dimen>
     <dimen name="fontsize_title_button_min">14sp</dimen>

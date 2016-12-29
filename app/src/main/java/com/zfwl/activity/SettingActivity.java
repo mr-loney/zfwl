@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.common.FileUtils;
@@ -33,6 +35,8 @@ import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
 
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.wsi_cpd_set)
     WidgetSettingItem wsiCpdSet;
     @BindView(R.id.wsi_notify)
@@ -46,18 +50,27 @@ public class SettingActivity extends BaseActivity {
     private boolean mUploadingErrorLog;
     private LoadingDialog loadingDialog;
 
+    public static void launch(Context context){
+        Intent intent = new Intent(context, SettingActivity.class);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        setTitle("设置");
         initView();
         loadingDialog = new LoadingDialog(this);
     }
 
-    private void initView() {
+    @OnClick(R.id.titlebar_btnLeft)
+    public void onTitleLeftClick() {
+        finish();
+    }
 
+    private void initView() {
+        tvTitle.setText("设置");
     }
 
     @OnClick(R.id.wsi_cpd_set)
@@ -80,7 +93,9 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                wsiNotify.setRightText(items[which]);
+                if (which>=0&&which<items.length) {
+                    wsiNotify.setRightText(items[which]);
+                }
             }
         });
         builder.create().show();

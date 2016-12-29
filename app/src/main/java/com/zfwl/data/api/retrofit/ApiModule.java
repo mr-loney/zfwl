@@ -10,6 +10,7 @@ import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
+import com.zfwl.data.api.WJApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -62,6 +63,9 @@ public class ApiModule {
     }
     public CPDApi cpdApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(CPDApi.class);
+    }
+    public WJApi wjApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(WJApi.class);
     }
     public AddLogisticsApi addLogisticsApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(AddLogisticsApi.class);
