@@ -6,7 +6,14 @@ import java.util.Collection;
  * Created by ZZB on 2016/12/16.
  */
 public class FP {
-
+    public static boolean eq(Object a, Object b){
+        if (a == null && b == null)
+            return true;
+        else if (a == null)
+            return false;
+        else
+            return a.equals(b);
+    }
     public static boolean empty(String str) {
         return isNull(str) || str.length() == 0;
     }
