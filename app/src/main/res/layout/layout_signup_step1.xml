@@ -83,7 +83,7 @@
             android:id="@+id/et_get_verifycode"
             android:layout_width="116dp"
             android:layout_height="fill_parent"
-            style="@style/button_Green_style"
+            style="@style/button_Gray_style"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="10dp"
             android:text="获取验证码"></Button>
@@ -100,7 +100,7 @@
 
     <Button
         android:id="@+id/btn_next"
-        style="@style/button_Green_style"
+        style="@style/button_Gray_style"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"

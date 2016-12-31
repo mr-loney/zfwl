@@ -34,6 +34,8 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
 
+    @BindView(R.id.titlebar_btnLeft)
+    Button titlebarBtnLeft;
     @BindView(R.id.btn_add_new)
     Button btnAddNew;
     @BindView(R.id.listview_step3)
@@ -71,6 +73,8 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
      */
     private void initView() {
         loadingDialog = new LoadingDialog(vThis);
+
+        titlebarBtnLeft.setVisibility(View.VISIBLE);
 
         TextView tvTitle = (TextView) findViewById(R.id.tv_title);
         tvTitle.setText("管理常跑地");
@@ -156,7 +160,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     }
     @Override
     public void onListLoadedFail(String msg) {
-        ViewHub.showLongToast(this, "注册成功");
+        ViewHub.showLongToast(this, msg);
     }
 
     @Override
@@ -165,7 +169,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     }
     @Override
     public void onAddedFail(String msg) {
-        ViewHub.showLongToast(this, "注册成功");
+        ViewHub.showLongToast(this, msg);
     }
 
     @Override
@@ -175,6 +179,6 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     }
     @Override
     public void onDelFail(String msg) {
-        ViewHub.showLongToast(this, "注册成功");
+        ViewHub.showLongToast(this, msg);
     }
 }

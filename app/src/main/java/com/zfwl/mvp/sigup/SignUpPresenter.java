@@ -1,5 +1,6 @@
 package com.zfwl.mvp.sigup;
 
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.SignUpApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
@@ -53,6 +54,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
             return;
         }
         mApi.register(phoneNo, pwd)
+                .doOnNext(this::saveUserInfo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(User -> {
                     getMvpView().onRegisterSuccess(User);
@@ -60,6 +62,11 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                     getMvpView().onRegisterFailed(throwable.toString());
                 });
     }
+
+    private void saveUserInfo(User user) {
+        UserInfoManager.INSTANCE.saveUserInfo(user);
+    }
+
     public void RegisterAddInfo(String userid,String phoneNo,String realName,int memberType){
 
         mApi.registerAddInfo(userid, phoneNo, realName, memberType+"")

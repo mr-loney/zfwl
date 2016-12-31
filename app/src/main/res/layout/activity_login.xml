@@ -89,14 +89,14 @@
 
     <Button
         android:id="@+id/login_btnLogin"
-        style="@style/button_Green_style"
+        style="@style/button_Gray_style"
         android:layout_width="match_parent"
         android:layout_marginTop="24dp"
         android:text="@string/login_btnLogin_text" />
 
     <Button
         android:id="@+id/login_btnWXLogin"
-        style="@style/button_Green_style"
+        style="@style/button_Gray_style"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:background="@color/white"

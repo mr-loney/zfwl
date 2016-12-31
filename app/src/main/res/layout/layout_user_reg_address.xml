@@ -2,7 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="115dp" >
+    android:background="@color/white"
+    android:layout_height="wrap_content" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:background="#EEE"
+        android:layout_height="20dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,45 +16,78 @@
         <TextView
             android:id="@+id/user_reg_address_txt"
             android:layout_width="50dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:text=""
-            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:padding="8dp" />
         <TextView
             android:id="@+id/user_reg_address_del"
             android:layout_width="50dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:text="删除"
-            android:gravity="right"
-            android:textColor="@color/red"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/lightgray"
             android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
             android:padding="8dp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/user_reg_address_from"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text=""
-        android:hint="从哪里"
-        android:drawableLeft="@drawable/see_pwd"
-        android:background="@color/white"
-        android:padding="8dp" />
     <View
         android:layout_width="fill_parent"
-        android:layout_marginLeft="10dp"
-        android:background="#aaaaaa"
+        android:background="#EEE"
         android:layout_height="0.5dp"/>
-    <TextView
-        android:id="@+id/user_reg_address_to"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/white"
-        android:drawableLeft="@drawable/see_pwd"
-        android:text=""
-        android:hint="到哪里去"
-        android:padding="8dp" />
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="#f2746a"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="装"/>
+        <TextView
+            android:id="@+id/user_reg_address_from"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+            android:text=""
+            android:hint="从哪里"
+            android:gravity="center_vertical"
+            android:padding="8dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="20dp"
+            android:background="#7ed321"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="卸"/>
+        <TextView
+            android:id="@+id/user_reg_address_to"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text=""
+            android:hint="到哪里去"
+            android:padding="8dp" />
+
+    </LinearLayout>
 </LinearLayout>

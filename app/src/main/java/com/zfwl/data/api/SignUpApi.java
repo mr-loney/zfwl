@@ -24,7 +24,7 @@ public interface SignUpApi {
                          @Field("password") String password);
     @FormUrlEncoded
     @POST("app/member/complete.do")
-    Observable<User> registerAddInfo(@Field("userid") String userid,
+    Observable<User> registerAddInfo(@Field("id") String userid,
                               @Field("phone") String phone,
                               @Field("realname") String realname,
                               @Field("memberType") String memberType);

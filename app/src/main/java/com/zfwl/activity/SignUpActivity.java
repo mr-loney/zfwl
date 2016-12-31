@@ -3,6 +3,7 @@ package com.zfwl.activity;
 import android.animation.LayoutTransition;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
@@ -22,6 +24,7 @@ import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.common.InputFilterHelper;
 import com.zfwl.controls.LoadingDialog;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.sigup.SignUpPresenter;
@@ -68,9 +71,17 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.btn_confirm)
      Button mBtnOK;
     @BindView(R.id.btn_im_sj)
-     Button mBtnSj;
+    RelativeLayout mBtnSj;
+    @BindView(R.id.btn_im_sj_img)
+    ImageView mBtnSj_img;
+    @BindView(R.id.btn_im_sj_txt)
+    TextView mBtnSj_txt;
     @BindView(R.id.btn_im_cz)
-     Button mBtnCZ;
+    RelativeLayout mBtnCZ;
+    @BindView(R.id.btn_im_cz_img)
+    ImageView mBtnCZ_img;
+    @BindView(R.id.btn_im_cz_txt)
+    TextView mBtnCZ_txt;
     @BindView(R.id.tv_error)
      TextView mTvStep2Error;
     @BindView(R.id.et_name)
@@ -118,8 +129,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
         mBtnSj.setOnClickListener(this);
         mBtnCZ.setOnClickListener(this);
-        mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
-        mBtnCZ.setBackgroundResource(R.drawable.bg_rect_white_stroke_gray_corner);
         mBtnOK.setOnClickListener(this);
         mImSeePWD.setOnClickListener(this);
 
@@ -217,7 +226,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             backBtn.setCompoundDrawables(img, null, null, null);
         }
         if (mViewStep2.getVisibility() == View.VISIBLE) {
-            tvTitle.setText("完善信息");
+            tvTitle.setText("");
 
             backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
             backBtn.setCompoundDrawables(null, null, null, null);
@@ -231,13 +240,22 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btn_im_sj:
                 selectSF = 1;
-                mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
-                mBtnCZ.setBackgroundResource(R.drawable.bg_rect_white_stroke_gray_corner);
+                mBtnSj.setBackgroundResource(R.drawable.signip_checked);
+                mBtnSj_img.setImageResource(R.drawable.signip_check_sj1);
+                mBtnSj_txt.setTextColor(getResources().getColor(R.color.white));
+                mBtnCZ.setBackgroundResource(R.drawable.transparent);
+                mBtnCZ_img.setImageResource(R.drawable.signip_check_cz);
+                mBtnCZ_txt.setTextColor(Color.parseColor("#77a1dd"));
                 break;
             case R.id.btn_im_cz:
                 selectSF = 2;
-                mBtnSj.setBackgroundResource(R.drawable.bg_rect_white_stroke_gray_corner);
-                mBtnCZ.setBackgroundResource(R.drawable.bg_rect_white_stroke_blue_corner);
+                mBtnSj.setBackgroundResource(R.drawable.transparent);
+                mBtnSj_img.setImageResource(R.drawable.signip_check_sj);
+                mBtnSj_txt.setTextColor(Color.parseColor("#77a1dd"));
+                mBtnCZ.setBackgroundResource(R.drawable.signip_checked);
+                mBtnCZ_img.setImageResource(R.drawable.signip_check_cz1);
+                mBtnCZ_txt.setTextColor(getResources().getColor(R.color.white));
+
                 break;
             case R.id.titlebar_btnLeft:
                 onBackPressed();
@@ -260,11 +278,9 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_next://提交验证码
                 if (validateStep1Input()) {
-//                    mPresenter.Register(mEtPhoneNum.getText().toString(),
-//                            mEtVerifyCode.getText().toString(),
-//                            mEtPWD.getText().toString());
-
-                    onGotoStep2(null);
+                    mPresenter.Register(mEtPhoneNum.getText().toString(),
+                            mEtVerifyCode.getText().toString(),
+                            mEtPWD.getText().toString());
                 }
                 break;
             case R.id.et_get_verifycode://重新获取验证码
@@ -280,10 +296,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_confirm: {
                 if (validateStep2Input()) {
-//                    mPresenter.RegisterAddInfo(SpManager.getUserId(mContext),
-//                            SpManager.getUserPhone(mContext),
-//                            mEtUserName.getText().toString(),
-//                            selectSF==1?2:1);
+                    mPresenter.RegisterAddInfo(UserInfoManager.INSTANCE.getUserInfo().getId()+"",
+                            UserInfoManager.INSTANCE.getUserInfo().getPhone(),
+                            mEtUserName.getText().toString(),
+                            selectSF==1?2:1);
                 }
                 break;
             }

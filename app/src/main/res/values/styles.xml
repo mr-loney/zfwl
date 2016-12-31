@@ -70,9 +70,9 @@
         <item name="android:paddingRight">16dp</item>
         <item name="android:singleLine">true</item>
     </style>
-    <style name="button_Green_style" parent="button_normal_base_style">
+    <style name="button_Gray_style" parent="button_normal_base_style">
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">#54cd93</item>
+        <item name="android:background">#b9c0c8</item>
         <item name="android:width">136dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>

@@ -77,7 +77,7 @@ public class CPDAdatper extends BaseAdapter {
         holder.to.setTag(position);
         holder.del.setTag(position);
         holder.del.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
-        holder.txt1.setText("常用"+(position+1));
+        holder.txt1.setText("常跑地"+(position+1));
         if (model != null) {
             holder.from.setText(model.getFromAddressName());
             holder.to.setText(model.getToAddressName());
