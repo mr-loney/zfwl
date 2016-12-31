@@ -12,6 +12,8 @@ import com.zfwl.adapter.MyOrdersPagerAdapter;
 import com.zfwl.util.DisplayUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 /**
  * 我的订单
@@ -21,6 +23,8 @@ public class MyOrdersActivity extends BaseActivity {
     PagerSlidingTabStrip mTabs;
     @BindView(R.id.pager)
     ViewPager mViewPager;
+    @BindView(R.id.title_bar)
+    BGATitleBar mTitleBar;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, MyOrdersActivity.class);
@@ -31,6 +35,12 @@ public class MyOrdersActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
+        ButterKnife.bind(this);
+        initViews();
+    }
+
+    private void initViews() {
+        initDefaultTitleBar(mTitleBar);
         initTabs();
     }
 

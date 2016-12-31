@@ -27,6 +27,9 @@ public class DefaultParametersInterceptor implements Interceptor {
             case "GET":
                 newRequest = interceptGet(originalRequest);
                 break;
+            case "POST":
+                newRequest = interceptPost(originalRequest);
+                break;
             default:
                 newRequest = chain.request();
                 break;

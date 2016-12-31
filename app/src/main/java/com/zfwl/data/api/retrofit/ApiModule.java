@@ -11,7 +11,7 @@ import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 import com.zfwl.data.api.WJApi;
-import com.zfwl.data.api.retrofit.interceptor.DefaultParamtersInterceptor;
+import com.zfwl.data.api.retrofit.interceptor.DefaultParametersInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -90,7 +90,7 @@ public class ApiModule {
         builder.retryOnConnectionFailure(true)
                 .addInterceptor(provideLoggingInterceptor())
                 .addInterceptor(provideOkLogInterceptor())
-                .addInterceptor(new DefaultParamtersInterceptor())
+                .addInterceptor(new DefaultParametersInterceptor())
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .build();
         mOkHttpClient = builder.build();

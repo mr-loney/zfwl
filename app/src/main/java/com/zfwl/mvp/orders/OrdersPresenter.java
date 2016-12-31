@@ -35,7 +35,7 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     public void refreshOrders(int status) {
         MyLog.i(TAG, "refreshOrders, status: %d", status);
         mPage = 0;
-        Call<OrderListResult> call = mOrderApi.getOrders(mMemberId, status, mPage, PAGE_SIZE);
+        Call<OrderListResult> call = mOrderApi.getOrders(status, mPage, PAGE_SIZE);
         addCall(call);
         call.enqueue(new CustomCallback<OrderListResult>() {
             @Override
@@ -53,7 +53,7 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     //加载更多订单
     public void loadMoreOrders(int status) {
         mPage++;
-        Call<OrderListResult> call = mOrderApi.getOrders(mMemberId, status, mPage, PAGE_SIZE);
+        Call<OrderListResult> call = mOrderApi.getOrders(status, mPage, PAGE_SIZE);
         addCall(call);
         call.enqueue(new CustomCallback<OrderListResult>() {
             @Override
