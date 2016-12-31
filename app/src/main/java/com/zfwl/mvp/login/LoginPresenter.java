@@ -52,7 +52,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
                 .subscribe(user -> {
                     getMvpView().onLoginSuccess(user);
                 }, throwable -> {
-                    getMvpView().onLoginFailed(throwable.toString());
+                    getMvpView().onLoginFailed(throwable.getMessage());
                 });
     }
 

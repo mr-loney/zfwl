@@ -12,7 +12,6 @@ import com.zfwl.entity.OrderDetails;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 
@@ -48,6 +47,8 @@ public class PaidOrderDetailActivity extends BaseActivity {
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
 
+    private OrderDetails mOrderDetails;
+
     public static void launch(Context context, OrderDetails orderDetails) {
         Intent intent = new Intent(context, PaidOrderDetailActivity.class);
         intent.putExtra(EXTRA_ORDER_DETAIL, orderDetails);
@@ -58,8 +59,17 @@ public class PaidOrderDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paid_order_detail);
-        ButterKnife.bind(this);
+        initExtras();
+        initViews();
+
+    }
+
+    private void initViews() {
         initDefaultTitleBar(mTitleBar);
+    }
+
+    private void initExtras() {
+        mOrderDetails = (OrderDetails) getIntent().getExtras().getSerializable(EXTRA_ORDER_DETAIL);
     }
 
     @OnClick(R.id.btn_contact_sales)
