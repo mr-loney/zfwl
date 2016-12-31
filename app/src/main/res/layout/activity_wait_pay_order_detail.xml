@@ -1,15 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity">
+    android:background="@color/bg_gray">
 
-    <cn.bingoogolapple.titlebar.BGATitleBar
-        android:id="@+id/title_bar"
-        style="@style/title_bar"
-        app:bgatitlebar_titleText="订单详情"
-        />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.zfwl.activity.QuotedPriceDetailActivity">
+
+        <cn.bingoogolapple.titlebar.BGATitleBar
+            android:id="@+id/title_bar"
+            style="@style/title_bar"
+            android:background="@color/white"
+            app:bgatitlebar_titleText="订单详情"
+            />
+
+        <View
+            style="@style/GrayDivider"
+            />
+
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="19dp"
+            android:paddingLeft="12dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="7dp"
+                android:background="#1373fa"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物流信息"
+                android:textColor="#030303"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <View
+            style="@style/GrayDivider"/>
+
+        <LinearLayout
+            android:id="@+id/layout_pack_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingTop="11dp">
+
+            <TextView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_pack_ic"
+                android:gravity="center"
+                android:text="装"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="山东省菏泽市牡丹区"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_pack_place"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_unpack_ic"
+                android:gravity="center"
+                android:text="卸"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="河北省石家庄市芒果区\n河北省石家庄市芒果区"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="21dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="7dp"
+                android:background="#1373fa"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详细信息"
+                android:textColor="#030303"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_begin_time"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:paddingLeft="12dp"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_big_car_passable"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:paddingLeft="12dp"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:paddingLeft="12dp"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_goods_weight"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:paddingLeft="12dp"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_goods_length"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:paddingLeft="12dp"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_need_car_number"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"/>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_remark"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="18dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="7dp"
+                android:background="#1373fa"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的报价"
+                android:textColor="#030303"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_my_quoted_price"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="18dp"
+            />
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_order_number"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            />
+
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_order_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="18dp"
+            />
+
+        <View
+            style="@style/GrayDivider"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_pay_order"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消订单"
+                android:textColor="#999999"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/btn_contact_sales"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_selector_read_and_dark_read"
+                android:gravity="center"
+                android:text="去支付"
+                android:textColor="@color/white"
+                android:textSize="17sp"/>
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/GrayDivider"
+            android:layout_marginBottom="21dp"
+            />
+    </LinearLayout>
+</ScrollView>
