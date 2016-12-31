@@ -67,8 +67,8 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
     }
 
     private void initPresenters() {
-        mOrdersPresenter = new OrdersPresenter(Type.ALL);
-        mOrdersPresenter.attachView(this);
+//        mOrdersPresenter = new OrdersPresenter(Type.ALL);
+//        mOrdersPresenter.attachView(this);
     }
 
     private void initViews() {
@@ -77,22 +77,22 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
 
 
     private void initRv() {
-        mOrdersAdapter = new OrdersAdapter();
-        mOrdersAdapter.setCallback(this);
-        mRvOrders.setAdapter(mOrdersAdapter);
-        mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        mRvOrders.setLoadingMoreEnabled(true);
-        mRvOrders.setLoadingListener(new LoadingListener() {
-            @Override
-            public void onRefresh() {
-                mOrdersPresenter.refreshOrders();
-            }
-
-            @Override
-            public void onLoadMore() {
-                mOrdersPresenter.loadMoreOrders();
-            }
-        });
+//        mOrdersAdapter = new OrdersAdapter();
+//        mOrdersAdapter.setCallback(this);
+//        mRvOrders.setAdapter(mOrdersAdapter);
+//        mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//        mRvOrders.setLoadingMoreEnabled(true);
+//        mRvOrders.setLoadingListener(new LoadingListener() {
+//            @Override
+//            public void onRefresh() {
+//                mOrdersPresenter.refreshOrders();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                mOrdersPresenter.loadMoreOrders();
+//            }
+//        });
     }
 
     @Override

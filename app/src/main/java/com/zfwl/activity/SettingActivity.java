@@ -12,6 +12,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.zfwl.R;
@@ -35,6 +36,8 @@ import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
 
+    @BindView(R.id.titlebar_btnLeft)
+    Button titlebarBtnLeft;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.wsi_cpd_set)
@@ -70,6 +73,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void initView() {
+        titlebarBtnLeft.setVisibility(View.VISIBLE);
         tvTitle.setText("设置");
     }
 

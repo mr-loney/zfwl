@@ -9,6 +9,7 @@
         layout="@layout/layout_title_bar" />
 
     <ScrollView
+        android:layout_marginTop="@dimen/titlebar_height"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ebebeb" >

@@ -107,6 +107,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
         <activity
+            android:name=".activity.MyCPDActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme"/>
+        <activity
             android:name=".activity.MyPublishEmptyCarDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme"/>
