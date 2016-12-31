@@ -1,9 +1,11 @@
 package com.zfwl.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by ZZB on 2016/12/31.
  */
-public class OrderComment {
+public class OrderComment implements Serializable {
     private long id;// 1,
     private long memberId;// 1,
     private long orderId;// 1,

@@ -3,12 +3,13 @@ package com.zfwl.entity;
 import com.zfwl.entity.AllzfwlModel.EmptyCarAddressListBean;
 import com.zfwl.entity.LogisticsInfo.ListBean.AddressInfoListBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ZZB on 2016/12/31.
  */
-public class OrderDetails {
+public class OrderDetails implements Serializable{
 
     private long id;
     private long memberId;
@@ -218,7 +219,7 @@ public class OrderDetails {
         this.logisticsAddressInfo = logisticsAddressInfo;
     }
 
-    public static class MemberPrice {
+    public static class MemberPrice implements Serializable{
         private long id;// 1,
         private long memberId;// 1,
         private int carNumber;// 8,
@@ -293,7 +294,7 @@ public class OrderDetails {
         }
     }
 
-    public static class OrderEmptyCar {
+    public static class OrderEmptyCar implements Serializable{
         private long id;
         private long memberId;
         private long fromProvinceId;// 110000,

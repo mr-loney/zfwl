@@ -1,11 +1,12 @@
 package com.zfwl.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ZZB on 2016/12/15.
  */
-public class LogisticsInfo {
+public class LogisticsInfo implements Serializable{
 
 
     /**
@@ -227,7 +228,7 @@ public class LogisticsInfo {
             this.addressInfoList = addressInfoList;
         }
 
-        public static class AddressInfoListBean {
+        public static class AddressInfoListBean implements Serializable {
             /**
              * id : 1
              * logisticsInfoId : 1
