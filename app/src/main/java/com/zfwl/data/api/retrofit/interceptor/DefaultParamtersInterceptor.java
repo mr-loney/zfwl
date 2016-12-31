@@ -1,10 +1,10 @@
 package com.zfwl.data.api.retrofit.interceptor;
 
 import com.zfwl.data.UserInfoManager;
-import com.zfwl.util.FP;
 
 import java.io.IOException;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -17,25 +17,39 @@ import okhttp3.Response;
 public class DefaultParamtersInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request newRequest = chain.request();
+
         Request originalRequest = chain.request();
         String method = originalRequest.method();
-        if(FP.eq("GET", method)){
-            newRequest = interceptGet(originalRequest);
+
+        Request newRequest;
+        switch (method) {
+            case "GET":
+                newRequest = interceptGet(originalRequest);
+                break;
+            default:
+                newRequest = chain.request();
+                break;
         }
         return chain.proceed(newRequest);
     }
-    private Request interceptGet(Request originalRequest){
+
+    private Request interceptGet(Request originalRequest) {
         HttpUrl originalHttpUrl = originalRequest.url();
         HttpUrl url = originalHttpUrl.newBuilder()
                 .addQueryParameter("memberId", UserInfoManager.INSTANCE.getMemberId() + "")
                 .build();
         Request.Builder requestBuilder = originalRequest.newBuilder()
                 .url(url);
-        Request request = requestBuilder.build();
-        return request;
+        return requestBuilder.build();
     }
-    private void interceptPost(){
 
+    private Request interceptPost(Request originalRequest) {
+        FormBody.Builder bodyBuilder = new FormBody.Builder();
+        FormBody b = (FormBody) originalRequest.body();
+        for (int i=0;i<b.size();i++) {
+            bodyBuilder.addEncoded(b.name(i),b.value(i));
+        }
+        bodyBuilder.addEncoded("account", "me").add("token", "123456");
+        return originalRequest.newBuilder().post(bodyBuilder.build()).build();
     }
 }
