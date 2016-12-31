@@ -46,7 +46,10 @@ public class KeyValueItem extends RelativeLayout {
     public void setValueText(String text) {
         mTvValue.setText(text);
     }
-
+    public void setText(String key, String value){
+        setKeyText(key);
+        setValueText(value);
+    }
     public void setValueTextColor(int color) {
         mTvValue.setTextColor(color);
     }

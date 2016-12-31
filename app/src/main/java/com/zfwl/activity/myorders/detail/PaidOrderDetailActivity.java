@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.activity.BaseActivity;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -18,8 +17,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 /**
  * 已支付
  */
-public class PaidOrderDetailActivity extends BaseActivity {
-    private static final String EXTRA_ORDER_DETAIL = "EXTRA_ORDER_DETAIL";
+public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
     @BindView(R.id.tv_from)
@@ -59,7 +57,6 @@ public class PaidOrderDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paid_order_detail);
-        initExtras();
         initViews();
 
     }
@@ -68,9 +65,7 @@ public class PaidOrderDetailActivity extends BaseActivity {
         initDefaultTitleBar(mTitleBar);
     }
 
-    private void initExtras() {
-        mOrderDetails = (OrderDetails) getIntent().getExtras().getSerializable(EXTRA_ORDER_DETAIL);
-    }
+
 
     @OnClick(R.id.btn_contact_sales)
     public void onContactClick() {

@@ -144,9 +144,18 @@ public class LogisticsInfo implements Serializable{
         private int carNum;
         private String departureTime;
         private int isLargeGo;
+        private String isLargeGoDesc;
         private String contactWay;
         private String remark;
         private List<AddressInfoListBean> addressInfoList;
+
+        public String getIsLargeGoDesc() {
+            return isLargeGoDesc;
+        }
+
+        public void setIsLargeGoDesc(String isLargeGoDesc) {
+            this.isLargeGoDesc = isLargeGoDesc;
+        }
 
         public int getId() {
             return id;

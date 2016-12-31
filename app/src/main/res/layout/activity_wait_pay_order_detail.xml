@@ -281,7 +281,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/btn_pay_order"
+                android:id="@+id/btn_cancel_order"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -291,7 +291,7 @@
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/btn_contact_sales"
+                android:id="@+id/btn_pay_order"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"

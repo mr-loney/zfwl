@@ -11,29 +11,30 @@ import java.util.List;
  */
 public class OrderDetails implements Serializable{
 
-    private long id;
-    private long memberId;
-    private int orderCode;
-    private long emptyCarId;
-    private long memberPriceId;
-    private long logisticsId;
-    private int payMethod;
-    private int status;
-    private long waitConfirmTime;
-    private long waitPayTime;
-    private long payTime;
-    private long transportTime;
-    private long endTime;
-    private double msgPrice;
-    private double unitPrice;
-    private int chargeMethod;
-    private int orderFrom;
-    private LogisticsInfo logisticsInfo;
-    private AddressInfoListBean logisticsAddressInfo;
-    private OrderEmptyCar memberEmptyCar;
-    private List<EmptyCarAddressListBean> emptyCarAddressList;
-    private MemberPrice memberPrice;
-    private OrderComment orderComment;
+    private long id;// 订单ID
+    private long memberId;// 会员ID
+    private int orderCode;//订单编号
+    private long emptyCarId;//空车ID
+    private long memberPriceId;//报价ID
+    private long logisticsId;//物流ID
+    private int payMethod;//  支付方式（0-微信支付,）
+    private int status;// 订单状态（0-待确认,1-待支付,2-已支付,3-运输中,4-已结束）
+    private long waitConfirmTime;//待确认时间
+    private long waitPayTime;// 待支付时间
+    private long payTime;//  已支付时间
+    private long transportTime;//   运输中时间
+    private long endTime;//已结束时间
+    private double msgPrice;//   信息费
+    private double unitPrice;//  单价
+    private int chargeMethod;//   收费方式(0-按车辆收费,1-按吨数收费)
+    private int orderFrom;//单据来源(0-空车生成,1-报价生成)
+    private LogisticsInfo.ListBean logisticsInfo;// 订单对应的物流信息的对象  （详细属性参考物流文档）
+    private List<AddressInfoListBean> addressInfoList;//物流地址信息
+    private AddressInfoListBean logisticsAddressInfo;// 物流地址信息
+    private OrderEmptyCar memberEmptyCar;//  -- 空车信息
+    private List<EmptyCarAddressListBean> emptyCarAddressList;//- 空车地址信息
+    private MemberPrice memberPrice;// 报价信息
+    private OrderComment orderComment;//订单评论信息
 
     public OrderEmptyCar getMemberEmptyCar() {
         return memberEmptyCar;
@@ -203,11 +204,11 @@ public class OrderDetails implements Serializable{
         this.orderFrom = orderFrom;
     }
 
-    public LogisticsInfo getLogisticsInfo() {
+    public LogisticsInfo.ListBean getLogisticsInfo() {
         return logisticsInfo;
     }
 
-    public void setLogisticsInfo(LogisticsInfo logisticsInfo) {
+    public void setLogisticsInfo(LogisticsInfo.ListBean logisticsInfo) {
         this.logisticsInfo = logisticsInfo;
     }
 
