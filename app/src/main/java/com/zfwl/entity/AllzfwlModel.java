@@ -153,7 +153,7 @@ public class AllzfwlModel implements Serializable {
 		this.emptyCarAddressList = emptyCarAddressList;
 	}
 
-	public class EmptyCarAddressListBean {
+	public class EmptyCarAddressListBean implements Serializable{
 
 		public Address toaddress = new Address();
 		/**

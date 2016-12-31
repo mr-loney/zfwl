@@ -42,5 +42,5 @@ public abstract class CustomCallback<T> implements Callback<T> {
 
     public abstract void onSuccess(T t);
 
-    public abstract void onFailure(ResponseException exceptoin);
+    public abstract void onFailure(ResponseException exception);
 }

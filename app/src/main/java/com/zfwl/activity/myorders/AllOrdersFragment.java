@@ -16,7 +16,6 @@ import com.zfwl.activity.BaseFragment;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.entity.Order;
-import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.widget.ToastUtils;
@@ -30,23 +29,34 @@ import butterknife.ButterKnife;
  * Created by ZZB on 2016/12/20.
  */
 public class AllOrdersFragment extends BaseFragment implements Callback, OrdersMvpView {
+    private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
     XRecyclerView mRvOrders;
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
-
+    private int mOrderType;
     public AllOrdersFragment() {
     }
 
-    public static AllOrdersFragment newInstance() {
-        return new AllOrdersFragment();
+    public static AllOrdersFragment newInstance(int orderType) {
+        AllOrdersFragment fragment = new AllOrdersFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_ORDER_TYPE, orderType);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mOrderType = getArguments().getInt(ARG_ORDER_TYPE);
     }
 
     @Nullable
@@ -67,8 +77,8 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
     }
 
     private void initPresenters() {
-//        mOrdersPresenter = new OrdersPresenter(Type.ALL);
-//        mOrdersPresenter.attachView(this);
+        mOrdersPresenter = new OrdersPresenter();
+        mOrdersPresenter.attachView(this);
     }
 
     private void initViews() {
@@ -77,22 +87,22 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
 
 
     private void initRv() {
-//        mOrdersAdapter = new OrdersAdapter();
-//        mOrdersAdapter.setCallback(this);
-//        mRvOrders.setAdapter(mOrdersAdapter);
-//        mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-//        mRvOrders.setLoadingMoreEnabled(true);
-//        mRvOrders.setLoadingListener(new LoadingListener() {
-//            @Override
-//            public void onRefresh() {
-//                mOrdersPresenter.refreshOrders();
-//            }
-//
-//            @Override
-//            public void onLoadMore() {
-//                mOrdersPresenter.loadMoreOrders();
-//            }
-//        });
+        mOrdersAdapter = new OrdersAdapter();
+        mOrdersAdapter.setCallback(this);
+        mRvOrders.setAdapter(mOrdersAdapter);
+        mRvOrders.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        mRvOrders.setLoadingMoreEnabled(true);
+        mRvOrders.setLoadingListener(new LoadingListener() {
+            @Override
+            public void onRefresh() {
+                mOrdersPresenter.refreshOrders(mOrderType);
+            }
+
+            @Override
+            public void onLoadMore() {
+                mOrdersPresenter.loadMoreOrders(mOrderType);
+            }
+        });
     }
 
     @Override

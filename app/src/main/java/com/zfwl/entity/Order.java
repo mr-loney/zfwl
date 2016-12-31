@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Order {
     public interface Type {
-        int ALL = -1;
+        int ALL = 9;
         int WAIT_CONFIRM = 0;
         int WAIT_PAY = 1;
         int PAID = 2;
