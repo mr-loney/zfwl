@@ -2,9 +2,11 @@ package com.zfwl.mvp.orders;
 
 import com.zfwl.Exception.ResponseException;
 import com.zfwl.common.MyLog;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.Order;
+import com.zfwl.entity.OrderListResult;
 import com.zfwl.mvp.BasePresenter;
 import com.zfwl.util.FP;
 
@@ -20,26 +22,25 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     private static final String TAG = "OrdersPresenter";
     private static final int PAGE_SIZE = 10;
     private OrderApi mOrderApi;
-    private int mOrderType;
     private int mPage;
-//    private List<Order> mOrders = new ArrayList<>();
+    private long mMemberId;
 
 
-    public OrdersPresenter(int orderType) {
-        mOrderType = orderType;
+    public OrdersPresenter() {
         mOrderApi = ApiModule.INSTANCE.provideOrderApi();
+        mMemberId = UserInfoManager.INSTANCE.getMemberId();
     }
 
     //刷新订单
-    public void refreshOrders() {
-        MyLog.i(TAG, "refreshOrders");
+    public void refreshOrders(int status) {
+        MyLog.i(TAG, "refreshOrders, status: %d", status);
         mPage = 0;
-        Call<List<Order>> call = mOrderApi.getOrders();
+        Call<OrderListResult> call = mOrderApi.getOrders(mMemberId, status, mPage, PAGE_SIZE);
         addCall(call);
-        call.enqueue(new CustomCallback<List<Order>>() {
+        call.enqueue(new CustomCallback<OrderListResult>() {
             @Override
-            public void onSuccess(List<Order> response) {
-                onRefreshOrdersSuccess(response);
+            public void onSuccess(OrderListResult response) {
+                onRefreshOrdersSuccess(response.list);
             }
 
             @Override
@@ -50,14 +51,14 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     }
 
     //加载更多订单
-    public void loadMoreOrders() {
+    public void loadMoreOrders(int status) {
         mPage++;
-        Call<List<Order>> call = mOrderApi.getOrders();
+        Call<OrderListResult> call = mOrderApi.getOrders(mMemberId, status, mPage, PAGE_SIZE);
         addCall(call);
-        call.enqueue(new CustomCallback<List<Order>>() {
+        call.enqueue(new CustomCallback<OrderListResult>() {
             @Override
-            public void onSuccess(List<Order> response) {
-                onLoadMoreOrdersSuccess(response);
+            public void onSuccess(OrderListResult response) {
+                onLoadMoreOrdersSuccess(response.list);
             }
 
             @Override

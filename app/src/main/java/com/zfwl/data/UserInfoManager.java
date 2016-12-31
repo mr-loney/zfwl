@@ -35,6 +35,9 @@ public class UserInfoManager {
         }
         return mUser;
     }
+    public long getMemberId(){
+        return getUserInfo().getId();
+    }
 
     public void clear() {
         INSTANCE = new UserInfoManager();

@@ -21,7 +21,6 @@ import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.widget.ToastUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,7 +56,7 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
         ButterKnife.bind(this, contentView);
         initViews();
         initPresenters();
-        loadData();
+        mRvOrders.refresh();
         return contentView;
     }
 
@@ -115,27 +114,6 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
     public void onCommentClick(Order order) {
         ToastUtils.show(mContext, "onCommentClick:" + order.toString());
     }
-
-    private void loadData() {
-        List<Order> orders = new ArrayList<>();
-        orders.add(getOrder("yt1", "from1", "to1", 1));
-        orders.add(getOrder("yt2", "from2", "to2", 2));
-        orders.add(getOrder("yt3", "from3", "to3", 3));
-        orders.add(getOrder("yt4", "from4", "to4", 4));
-        orders.add(getOrder("yt5", "from5", "to5", 5));
-        mOrdersAdapter.setItems(orders);
-
-    }
-
-    private Order getOrder(String name, String from, String to, int type) {
-        Order order = new Order();
-        order.setGoodsName(name);
-        order.setType(type);
-        order.setFrom(from);
-        order.setTo(to);
-        return order;
-    }
-
 
     @Override
     public void showOrderEmptyView() {

@@ -8,8 +8,13 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.OrdersAdapter.VH;
+import com.zfwl.entity.LogisticsInfo.ListBean;
+import com.zfwl.entity.LogisticsInfo.ListBean.AddressInfoListBean;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
+import com.zfwl.util.FP;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +43,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
 
     @Override
     public int getItemViewType(int position) {
-        return getItem(position).getType();
+        return getItem(position).getStatus();
     }
 
     @Override
@@ -65,11 +70,39 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
     @Override
     public void onBindViewHolder(VH holder, int position) {
         Order order = getItem(position);
-        holder.tvGoodsName.setText(order.getGoodsName());
-        holder.tvFrom.setText(order.getFrom());
-        holder.tvTo.setText(order.getTo());
+        ListBean logisticsInfo = order.getLogisticsInfo();
+        List<AddressInfoListBean> address = order.getLogisticsAddressInfo();
+        holder.tvGoodsName.setText(logisticsInfo.getGoodsName());
+        holder.tvFrom.setText(getFromAddressStr(address));
+        holder.tvTo.setText(getToAddressStr(address));
         holder.setOrder(order);
         holder.setCallback(mCallback);
+    }
+
+    private String getToAddressStr(List<AddressInfoListBean> address) {
+        if (FP.empty(address)) {
+            return "";
+        } else {
+            StringBuilder str = new StringBuilder();
+            int size = FP.size(address);
+            for (int i = 0; i < size; i++) {
+                AddressInfoListBean info = address.get(i);
+                str.append(info.getToProvinceName()).append(info.getToCityName()).append(info.getToCountyName());
+                if (i != size - 1) {
+                    str.append("\n");
+                }
+            }
+            return str.toString();
+        }
+    }
+
+    private String getFromAddressStr(List<AddressInfoListBean> address) {
+        if (FP.empty(address)) {
+            return "";
+        } else {
+            AddressInfoListBean info = address.get(0);
+            return info.getFromProvinceName() + info.getFromCityName() + info.getFromCountyName();
+        }
     }
 
     public static class VH extends ViewHolder {
@@ -123,6 +156,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
         @OnClick(R.id.btn_contact_sales)
         public void onContactSalesClick() {
             mCallback.onContactSalesClick(mOrder);
@@ -136,6 +170,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
         @OnClick(R.id.btn_contact_sales)
         public void onContactSalesClick() {
             mCallback.onContactSalesClick(mOrder);
