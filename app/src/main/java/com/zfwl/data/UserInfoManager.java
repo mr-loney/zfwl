@@ -18,7 +18,7 @@ public class UserInfoManager {
     private User mUser;
 
     private UserInfoManager() {
-
+        mUserPref = EasySPUserPref.create(mContext);
     }
 
     public void saveUserInfo(User user) {
