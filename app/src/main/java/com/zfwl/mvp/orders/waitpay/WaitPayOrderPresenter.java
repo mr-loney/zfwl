@@ -18,24 +18,27 @@ public class WaitPayOrderPresenter extends BasePresenter<WaitPayOrderMvpView> {
         mOrderApi = ApiModule.INSTANCE.provideOrderApi();
     }
 
-    public void acceptOrder(long orderId) {
-        Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.WAIT_PAY);
-        addCall(call);
-        call.enqueue(new CustomCallback<Object>() {
-            @Override
-            public void onSuccess(Object o) {
-                getMvpView().hideLoading();
-            }
-
-            @Override
-            public void onFailure(int code, String msg) {
-                getMvpView().hideLoading();
-                getMvpView().onAcceptOrderFailed(msg);
-            }
-        });
-    }
+//    public void acceptOrder(long orderId) {
+//        getMvpView().showLoading();
+//        Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.WAIT_PAY);
+//        addCall(call);
+//        call.enqueue(new CustomCallback<Object>() {
+//            @Override
+//            public void onSuccess(Object o) {
+//                getMvpView().hideLoading();
+//                getMvpView().onPayOrderSuccess();
+//            }
+//
+//            @Override
+//            public void onFailure(int code, String msg) {
+//                getMvpView().hideLoading();
+//                getMvpView().onPayOrderFailed(msg);
+//            }
+//        });
+//    }
 
     public void cancelOrder(long orderId) {
+        getMvpView().showLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.CANCEL);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {

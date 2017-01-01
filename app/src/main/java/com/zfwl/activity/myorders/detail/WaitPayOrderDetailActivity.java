@@ -132,7 +132,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     }
 
     private void onPayOrderClick() {
-        mWaitPayOrderPresenter.acceptOrder(mOrderId);
+//        mWaitPayOrderPresenter.acceptOrder(mOrderId);
     }
 
 
@@ -147,13 +147,13 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     }
 
     @Override
-    public void onAcceptOrderSuccess() {
-        ToastUtils.show(this, "接单成功");
+    public void onPayOrderSuccess() {
+//        ToastUtils.show(this, "接单成功");
     }
 
     @Override
-    public void onAcceptOrderFailed(String msg) {
-        ToastUtils.show(this, "接单失败");
+    public void onPayOrderFailed(String msg) {
+//        ToastUtils.show(this, "接单失败");
     }
 
     @Override
