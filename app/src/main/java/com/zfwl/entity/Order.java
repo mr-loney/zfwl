@@ -16,6 +16,7 @@ public class Order {
         int PAID = 2;
         int CARRYING = 3;
         int FINISHED = 4;
+        int CANCEL = 5;//拒绝
     }
     //0-按车辆收费,1-按吨数收费
     public interface ChargeMethod{

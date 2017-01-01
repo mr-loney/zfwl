@@ -37,7 +37,7 @@ public abstract class CustomCallback<T> implements Callback<T> {
         if (call.isCanceled()) {
             return;
         }
-        onFailure(new ResponseException(t));
+        onFailure(new ResponseException(0, t.getMessage()));
     }
 
     public abstract void onSuccess(T t);

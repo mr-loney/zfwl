@@ -23,6 +23,7 @@ public class OrderDetailsPresenter extends BasePresenter<OrderDetailsMvpView> {
     public void loadOrderDetails(long orderId) {
         getMvpView().showLoadOrderDetailsLoading();
         Call<OrderDetails> call = mOrderApi.getOrderDetails(orderId);
+        addCall(call);
         call.enqueue(new CustomCallback<OrderDetails>() {
             @Override
             public void onSuccess(OrderDetails orderDetails) {
