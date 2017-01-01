@@ -11,9 +11,9 @@ public interface WaitConfirmOrderMvpView extends MvpView {
 
     void hideLoading();
 
-    void onAcceptOrderSuccess();
+    void onConfirmOrderSuccess();
 
-    void onAcceptOrderFailed(String msg);
+    void onConfirmOrderFailed(String msg);
 
     void onCancelOrderSuccess();
 

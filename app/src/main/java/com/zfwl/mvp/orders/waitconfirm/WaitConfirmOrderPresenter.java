@@ -18,24 +18,27 @@ public class WaitConfirmOrderPresenter extends BasePresenter<WaitConfirmOrderMvp
         mOrderApi = ApiModule.INSTANCE.provideOrderApi();
     }
 
-    public void acceptOrder(long orderId) {
+    public void confirmOrder(long orderId) {
+        getMvpView().showLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.WAIT_PAY);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {
             @Override
             public void onSuccess(Object o) {
                 getMvpView().hideLoading();
+                getMvpView().onConfirmOrderSuccess();
             }
 
             @Override
             public void onFailure(int code, String msg) {
                 getMvpView().hideLoading();
-                getMvpView().onAcceptOrderFailed(msg);
+                getMvpView().onConfirmOrderFailed(msg);
             }
         });
     }
 
     public void cancelOrder(long orderId) {
+        getMvpView().showLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.CANCEL);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {

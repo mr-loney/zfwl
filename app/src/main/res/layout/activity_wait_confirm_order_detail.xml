@@ -316,13 +316,13 @@
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/btn_pay_order"
+                android:id="@+id/btn_confirm_order"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_selector_read_and_dark_read"
                 android:gravity="center"
-                android:text="去支付"
+                android:text="确认订单"
                 android:textColor="@color/white"
                 android:textSize="17sp"/>
 

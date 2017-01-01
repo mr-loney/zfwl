@@ -56,10 +56,6 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
     KeyValueItem mItemOrderNumber;
     @BindView(R.id.item_order_create_time)
     KeyValueItem mItemOrderCreateTime;
-    @BindView(R.id.btn_pay_order)
-    TextView mBtnPayOrder;
-    @BindView(R.id.btn_cancel_order)
-    TextView mBtnCancelOrder;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
     private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
@@ -116,14 +112,14 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
     }
 
 
-    @OnClick({R.id.btn_cancel_order, R.id.btn_pay_order})
+    @OnClick({R.id.btn_cancel_order, R.id.btn_confirm_order})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_cancel_order:
                 onCancelOrderClick();
                 break;
-            case R.id.btn_pay_order:
-                onPayOrderClick();
+            case R.id.btn_confirm_order:
+                onConfirmOrderClick();
                 break;
         }
     }
@@ -132,8 +128,8 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
         mWaitConfirmOrderPresenter.cancelOrder(mOrderId);
     }
 
-    private void onPayOrderClick() {
-        mWaitConfirmOrderPresenter.acceptOrder(mOrderId);
+    private void onConfirmOrderClick() {
+        mWaitConfirmOrderPresenter.confirmOrder(mOrderId);
     }
 
 
@@ -148,13 +144,13 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
     }
 
     @Override
-    public void onAcceptOrderSuccess() {
-        ToastUtils.show(this, "接单成功");
+    public void onConfirmOrderSuccess() {
+        ToastUtils.show(this, "确认订单成功");
     }
 
     @Override
-    public void onAcceptOrderFailed(String msg) {
-        ToastUtils.show(this, "接单失败");
+    public void onConfirmOrderFailed(String msg) {
+        ToastUtils.show(this, "确认订单失败");
     }
 
     @Override
