@@ -30,7 +30,6 @@ public class OrderDetails implements Serializable{
     private int orderFrom;//单据来源(0-空车生成,1-报价生成)
     private LogisticsInfo.ListBean logisticsInfo;// 订单对应的物流信息的对象  （详细属性参考物流文档）
     private List<AddressInfoListBean> addressInfoList;//物流地址信息
-    private AddressInfoListBean logisticsAddressInfo;// 物流地址信息
     private OrderEmptyCar memberEmptyCar;//  -- 空车信息
     private List<EmptyCarAddressListBean> emptyCarAddressList;//- 空车地址信息
     private MemberPrice memberPrice;// 报价信息
@@ -212,12 +211,12 @@ public class OrderDetails implements Serializable{
         this.logisticsInfo = logisticsInfo;
     }
 
-    public AddressInfoListBean getLogisticsAddressInfo() {
-        return logisticsAddressInfo;
+    public List<AddressInfoListBean> getAddressInfoList() {
+        return addressInfoList;
     }
 
-    public void setLogisticsAddressInfo(AddressInfoListBean logisticsAddressInfo) {
-        this.logisticsAddressInfo = logisticsAddressInfo;
+    public void setAddressInfoList(List<AddressInfoListBean> addressInfoList) {
+        this.addressInfoList = addressInfoList;
     }
 
     public static class MemberPrice implements Serializable{
@@ -226,7 +225,7 @@ public class OrderDetails implements Serializable{
         private int carNumber;// 8,
         private int loadNumber;// 13,
         private int priceType;// 1,
-        private int price;// 23,
+        private double price;// 23,
         private int total;// 299,
         private int status;// 0,
 
@@ -270,11 +269,11 @@ public class OrderDetails implements Serializable{
             this.priceType = priceType;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

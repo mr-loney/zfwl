@@ -12,7 +12,7 @@ import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.LogisticsInfo.ListBean.AddressInfoListBean;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
-import com.zfwl.util.FP;
+import com.zfwl.util.AddressUtils;
 
 import java.util.List;
 
@@ -73,37 +73,13 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         ListBean logisticsInfo = order.getLogisticsInfo();
         List<AddressInfoListBean> address = order.getLogisticsAddressInfo();
         holder.tvGoodsName.setText(logisticsInfo.getGoodsName());
-        holder.tvFrom.setText(getFromAddressStr(address));
-        holder.tvTo.setText(getToAddressStr(address));
+        holder.tvFrom.setText(AddressUtils.getFromAddressStr(address));
+        holder.tvTo.setText(AddressUtils.getToAddressStr(address));
         holder.setOrder(order);
         holder.setCallback(mCallback);
     }
 
-    private String getToAddressStr(List<AddressInfoListBean> address) {
-        if (FP.empty(address)) {
-            return "";
-        } else {
-            StringBuilder str = new StringBuilder();
-            int size = FP.size(address);
-            for (int i = 0; i < size; i++) {
-                AddressInfoListBean info = address.get(i);
-                str.append(info.getToProvinceName()).append(info.getToCityName()).append(info.getToCountyName());
-                if (i != size - 1) {
-                    str.append("\n");
-                }
-            }
-            return str.toString();
-        }
-    }
 
-    private String getFromAddressStr(List<AddressInfoListBean> address) {
-        if (FP.empty(address)) {
-            return "";
-        } else {
-            AddressInfoListBean info = address.get(0);
-            return info.getFromProvinceName() + info.getFromCityName() + info.getFromCountyName();
-        }
-    }
 
     public static class VH extends ViewHolder {
         @BindView(R.id.tv_goods_name)

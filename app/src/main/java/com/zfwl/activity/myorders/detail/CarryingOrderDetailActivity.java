@@ -3,7 +3,7 @@ package com.zfwl.activity.myorders.detail;
 import android.os.Bundle;
 
 import com.zfwl.R;
-import com.zfwl.activity.BaseActivity;
+import com.zfwl.entity.OrderDetails;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,7 +12,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 /**
  * 运输中
  */
-public class CarryingOrderDetailActivity extends BaseActivity {
+public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
 
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
@@ -23,5 +23,10 @@ public class CarryingOrderDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_carrying_order_detail);
         ButterKnife.bind(this);
         initDefaultTitleBar(mTitleBar);
+    }
+
+    @Override
+    protected void populateDetails(OrderDetails orderDetails) {
+
     }
 }

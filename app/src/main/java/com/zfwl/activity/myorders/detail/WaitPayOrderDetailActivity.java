@@ -8,9 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.entity.OrderDetails.OrderEmptyCar;
+import com.zfwl.util.AddressUtils;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -45,8 +46,6 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
-    @BindView(R.id.item_remark)
-    KeyValueItem mItemRemark;
     @BindView(R.id.item_my_quoted_price)
     KeyValueItem mItemMyQuotedPrice;
     @BindView(R.id.item_order_number)
@@ -57,10 +56,12 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
     TextView mBtnPayOrder;
     @BindView(R.id.btn_cancel_order)
     TextView mBtnCancelOrder;
+    @BindView(R.id.tv_remark)
+    TextView mTvRemark;
 
-    public static void launch(Context context, OrderDetails orderDetails) {
+    public static void launch(Context context, long orderId) {
         Intent intent = new Intent(context, WaitPayOrderDetailActivity.class);
-        intent.putExtra(EXTRA_ORDER_DETAIL, orderDetails);
+        intent.putExtra(EXTRA_ORDER_ID, orderId);
         context.startActivity(intent);
     }
 
@@ -70,23 +71,31 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
         setContentView(R.layout.activity_wait_pay_order_detail);
         ButterKnife.bind(this);
         initViews();
-        populateViews();
+        loadDetails();
     }
 
-    private void populateViews() {
-        mItemOrderNumber.setText("订单编号", mOrderDetails.getOrderCode() + "");
-        mItemOrderCreateTime.setText("创建时间", "用哪个字段？");
-
-        LogisticsInfo.ListBean logisticsInfo = mOrderDetails.getLogisticsInfo();
+    @Override
+    protected void populateDetails(OrderDetails orderDetails) {
+        OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
+        ListBean logisticsInfo = orderDetails.getLogisticsInfo();
+        mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
+        mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
+        //详细信息
+        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
         mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
         mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
         mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
         mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+        mTvRemark.setText(carInfo.getRemark());
 
-        OrderEmptyCar carInfo = mOrderDetails.getMemberEmptyCar();
-        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
-        mItemRemark.setText("备注", carInfo.getRemark());
+        //我的报价
+        mItemMyQuotedPrice.setText("我的报价", orderDetails.getMemberPrice().getPrice() + "");
+
+        mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode() + "");
+        mItemOrderCreateTime.setText("创建时间", TimeUtils.getDefaultTimeStamp(orderDetails.getWaitConfirmTime()));
+
+
     }
 
     private void initViews() {
@@ -113,4 +122,6 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
     private void onPayOrderClick() {
 
     }
+
+    
 }

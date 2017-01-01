@@ -3,6 +3,7 @@ package com.zfwl.activity.myorders.detail;
 import android.os.Bundle;
 
 import com.zfwl.R;
+import com.zfwl.entity.OrderDetails;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,5 +23,10 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity {
         setContentView(R.layout.activity_wait_confirm_order_detail);
         ButterKnife.bind(this);
         initDefaultTitleBar(mTitleBar);
+    }
+
+    @Override
+    protected void populateDetails(OrderDetails orderDetails) {
+
     }
 }

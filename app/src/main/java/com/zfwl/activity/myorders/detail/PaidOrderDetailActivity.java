@@ -45,11 +45,10 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
 
-    private OrderDetails mOrderDetails;
 
-    public static void launch(Context context, OrderDetails orderDetails) {
+    public static void launch(Context context, long orderId) {
         Intent intent = new Intent(context, PaidOrderDetailActivity.class);
-        intent.putExtra(EXTRA_ORDER_DETAIL, orderDetails);
+        intent.putExtra(EXTRA_ORDER_ID, orderId);
         context.startActivity(intent);
     }
 
@@ -69,6 +68,11 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
 
     @OnClick(R.id.btn_contact_sales)
     public void onContactClick() {
+
+    }
+
+    @Override
+    protected void populateDetails(OrderDetails orderDetails) {
 
     }
 }
