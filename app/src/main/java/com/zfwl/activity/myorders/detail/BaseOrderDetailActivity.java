@@ -1,7 +1,7 @@
 package com.zfwl.activity.myorders.detail;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 
 import com.zfwl.activity.BaseActivity;
 import com.zfwl.controls.LoadingDialog;
@@ -20,8 +20,8 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     protected long mOrderId;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initExtras();
         mLoadingDialog = new LoadingDialog(this);
     }

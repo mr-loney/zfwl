@@ -9,8 +9,8 @@ public class OrderComment implements Serializable {
     private long id;// 1,
     private long memberId;// 1,
     private long orderId;// 1,
-    private long depotTime;// 1,
-    private long depotOutTime;// 2,
+    private int depotTime;// 1,
+    private int depotOutTime;// 2,
     private int depotServcie;// 3,
     private int serverLove;// 4,
     private long cdate;// 1483028681000,
@@ -40,19 +40,19 @@ public class OrderComment implements Serializable {
         this.orderId = orderId;
     }
 
-    public long getDepotTime() {
+    public int getDepotTime() {
         return depotTime;
     }
 
-    public void setDepotTime(long depotTime) {
+    public void setDepotTime(int depotTime) {
         this.depotTime = depotTime;
     }
 
-    public long getDepotOutTime() {
+    public int getDepotOutTime() {
         return depotOutTime;
     }
 
-    public void setDepotOutTime(long depotOutTime) {
+    public void setDepotOutTime(int depotOutTime) {
         this.depotOutTime = depotOutTime;
     }
 
