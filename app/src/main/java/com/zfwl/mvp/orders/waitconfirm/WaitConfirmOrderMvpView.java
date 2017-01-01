@@ -1,11 +1,11 @@
-package com.zfwl.mvp.orders.waitpay;
+package com.zfwl.mvp.orders.waitconfirm;
 
 import com.zfwl.mvp.MvpView;
 
 /**
  * Created by ZZB on 2017/1/1.
  */
-public interface WaitPayOrderMvpView extends MvpView {
+public interface WaitConfirmOrderMvpView extends MvpView {
 
     void showLoading();
 
