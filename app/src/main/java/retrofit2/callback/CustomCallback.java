@@ -1,6 +1,7 @@
 package retrofit2.callback;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +44,13 @@ public abstract class CustomCallback<T> implements Callback<T> {
         if (call.isCanceled()) {
             return;
         }
-        onFailure(0, t.getMessage());
+        String msg;
+        if(t instanceof SocketTimeoutException){
+            msg = "请求超时";
+        }else{
+            msg = t.getMessage();
+        }
+        onFailure(0, msg);
     }
 
     public abstract void onSuccess(T t);

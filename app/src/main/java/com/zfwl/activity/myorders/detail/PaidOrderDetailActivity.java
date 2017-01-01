@@ -7,10 +7,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
+import com.zfwl.entity.OrderDetails.OrderEmptyCar;
+import com.zfwl.util.AddressUtils;
+import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 
@@ -44,6 +49,8 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemRemark;
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
+    @BindView(R.id.tv_remark)
+    TextView mTvRemark;
 
 
     public static void launch(Context context, long orderId) {
@@ -56,14 +63,15 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paid_order_detail);
+        ButterKnife.bind(this);
         initViews();
+        loadDetails();
 
     }
 
     private void initViews() {
         initDefaultTitleBar(mTitleBar);
     }
-
 
 
     @OnClick(R.id.btn_contact_sales)
@@ -73,6 +81,18 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
 
     @Override
     protected void populateDetails(OrderDetails orderDetails) {
+        OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
+        ListBean logisticsInfo = orderDetails.getLogisticsInfo();
+        mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
+        mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
+        //详细信息
+        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
+        mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
+        mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
+        mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
+        mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
+        mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+        mTvRemark.setText(carInfo.getRemark());
 
     }
 }

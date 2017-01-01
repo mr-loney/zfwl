@@ -228,12 +228,36 @@
 
         <View
             style="@style/GrayDivider"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_remark"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="14dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注:"
+                android:textColor="#8f8e94"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black_333333"
+                tools:text="运费到付，电话13800138000"/>
+
+            <View
+                style="@style/GrayDivider"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/btn_contact_sales"
