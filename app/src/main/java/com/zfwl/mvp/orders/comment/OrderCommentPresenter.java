@@ -30,9 +30,9 @@ public class OrderCommentPresenter extends BasePresenter<OrderCommentMvpView> {
             }
 
             @Override
-            public void onFailure(ResponseException exception) {
+            public void onFailure(int code, String msg) {
                 getMvpView().hideLoading();
-                getMvpView().onCommentFailed(exception.getMessage());
+                getMvpView().onCommentFailed(msg);
             }
         });
     }

@@ -32,9 +32,9 @@ public class OrderDetailsPresenter extends BasePresenter<OrderDetailsMvpView> {
             }
 
             @Override
-            public void onFailure(ResponseException exception) {
+            public void onFailure(int code, String msg) {
                 getMvpView().hideLoadOrderDetailsLoading();
-                getMvpView().onLoadOrderDetailsFailed(exception.getMessage());
+                getMvpView().onLoadOrderDetailsFailed(msg);
             }
         });
     }

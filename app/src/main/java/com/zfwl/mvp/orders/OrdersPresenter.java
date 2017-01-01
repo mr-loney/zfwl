@@ -1,6 +1,5 @@
 package com.zfwl.mvp.orders;
 
-import com.zfwl.Exception.ResponseException;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.OrderApi;
@@ -44,8 +43,8 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
             }
 
             @Override
-            public void onFailure(ResponseException exception) {
-                onRefreshOrdersFailed(exception);
+            public void onFailure(int code, String msg) {
+                onRefreshOrdersFailed(code, msg);
             }
         });
     }
@@ -62,15 +61,14 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
             }
 
             @Override
-            public void onFailure(ResponseException exception) {
-                onLoadMoreOrdersFailed(exception);
+            public void onFailure(int code, String msg) {
+                onLoadMoreOrdersFailed(code, msg);
             }
         });
     }
 
-    private void onRefreshOrdersFailed(Throwable t) {
-        MyLog.e(TAG, t, "refreshOrders success");
-        String msg = t.getMessage();
+    private void onRefreshOrdersFailed(int code, String msg) {
+        MyLog.e(TAG, msg);
         getMvpView().showOrderErrorView(msg);
     }
 
@@ -83,8 +81,8 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
         }
     }
 
-    private void onLoadMoreOrdersFailed(Throwable t) {
-        getMvpView().onGetOrdersFailed(t.getMessage());
+    private void onLoadMoreOrdersFailed(int code, String msg) {
+        getMvpView().onGetOrdersFailed(msg);
     }
 
     private void onRefreshOrdersSuccess(List<Order> orders) {

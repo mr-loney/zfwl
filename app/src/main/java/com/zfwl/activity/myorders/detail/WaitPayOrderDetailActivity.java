@@ -11,8 +11,11 @@ import com.zfwl.R;
 import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.entity.OrderDetails.OrderEmptyCar;
+import com.zfwl.mvp.orders.waitpay.WaitPayOrderMvpView;
+import com.zfwl.mvp.orders.waitpay.WaitPayOrderPresenter;
 import com.zfwl.util.AddressUtils;
 import com.zfwl.util.TimeUtils;
+import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
@@ -23,7 +26,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 /**
  * 待支付
  */
-public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
+public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implements WaitPayOrderMvpView {
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
     @BindView(R.id.tv_from)
@@ -58,6 +61,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
     TextView mBtnCancelOrder;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
+    private WaitPayOrderPresenter mWaitPayOrderPresenter;
 
     public static void launch(Context context, long orderId) {
         Intent intent = new Intent(context, WaitPayOrderDetailActivity.class);
@@ -71,7 +75,15 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
         setContentView(R.layout.activity_wait_pay_order_detail);
         ButterKnife.bind(this);
         initViews();
+        mWaitPayOrderPresenter = new WaitPayOrderPresenter();
+        mWaitPayOrderPresenter.attachView(this);
         loadDetails();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mWaitPayOrderPresenter.detachView();
     }
 
     @Override
@@ -116,12 +128,41 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity {
     }
 
     private void onCancelOrderClick() {
-
+        mWaitPayOrderPresenter.cancelOrder(mOrderId);
     }
 
     private void onPayOrderClick() {
-
+        mWaitPayOrderPresenter.acceptOrder(mOrderId);
     }
 
-    
+
+    @Override
+    public void showLoading() {
+        mLoadingDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoadingDialog.hide();
+    }
+
+    @Override
+    public void onAcceptOrderSuccess() {
+        ToastUtils.show(this, "接单成功");
+    }
+
+    @Override
+    public void onAcceptOrderFailed(String msg) {
+        ToastUtils.show(this, "接单失败");
+    }
+
+    @Override
+    public void onCancelOrderSuccess() {
+        ToastUtils.show(this, "取消订单成功");
+    }
+
+    @Override
+    public void onCancelOrderFailed(String msg) {
+        ToastUtils.show(this, "取消订单失败");
+    }
 }

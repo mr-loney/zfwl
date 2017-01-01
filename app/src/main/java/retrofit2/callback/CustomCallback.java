@@ -1,7 +1,5 @@
 package retrofit2.callback;
 
-import com.zfwl.Exception.ResponseException;
-
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -22,12 +20,20 @@ public abstract class CustomCallback<T> implements Callback<T> {
             onSuccess(response.body());
         } else {
             try {
-                String msg = response.errorBody().string();
-
-                onFailure(new ResponseException(code, msg));
+                String msg;
+                switch (code) {
+                    case 404:
+                    case 500:
+                        msg = String.valueOf(code);
+                        break;
+                    default:
+                        msg = response.errorBody().string();
+                        break;
+                }
+                onFailure(code, msg);
             } catch (IOException e) {
                 e.printStackTrace();
-                onFailure(new ResponseException(e));
+                onFailure(0, e.getMessage());
             }
         }
     }
@@ -37,10 +43,10 @@ public abstract class CustomCallback<T> implements Callback<T> {
         if (call.isCanceled()) {
             return;
         }
-        onFailure(new ResponseException(0, t.getMessage()));
+        onFailure(0, t.getMessage());
     }
 
     public abstract void onSuccess(T t);
 
-    public abstract void onFailure(ResponseException exception);
+    public abstract void onFailure(int code, String msg);
 }
