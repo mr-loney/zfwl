@@ -18,6 +18,7 @@ import com.zfwl.activity.MyPublishEmptyCarActivity;
 import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
 import com.zfwl.activity.WJActivity;
+import com.zfwl.activity.myorders.MyOrdersActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,6 +104,7 @@ public class MeFragment extends Fragment {
             case R.id.my_order_4:
                 break;
             case R.id.item_myorder:
+                MyOrdersActivity.launch(getActivity());
                 break;
             case R.id.item_mykc:
                 MyPublishEmptyCarActivity.launch(mContext);

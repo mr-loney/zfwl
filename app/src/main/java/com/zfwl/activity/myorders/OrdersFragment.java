@@ -15,6 +15,7 @@ import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
+import com.zfwl.common.MyLog;
 import com.zfwl.entity.Order;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
@@ -28,7 +29,8 @@ import butterknife.ButterKnife;
 /**
  * Created by ZZB on 2016/12/20.
  */
-public class AllOrdersFragment extends BaseFragment implements Callback, OrdersMvpView {
+public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpView {
+    private static final String TAG = "OrdersFragment";
     private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
     XRecyclerView mRvOrders;
@@ -36,11 +38,12 @@ public class AllOrdersFragment extends BaseFragment implements Callback, OrdersM
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
     private int mOrderType;
-    public AllOrdersFragment() {
+    public OrdersFragment() {
     }
 
-    public static AllOrdersFragment newInstance(int orderType) {
-        AllOrdersFragment fragment = new AllOrdersFragment();
+    public static OrdersFragment newInstance(int orderType) {
+        MyLog.i(TAG, "new orders fragment, type: %b", orderType);
+        OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ORDER_TYPE, orderType);
         fragment.setArguments(args);

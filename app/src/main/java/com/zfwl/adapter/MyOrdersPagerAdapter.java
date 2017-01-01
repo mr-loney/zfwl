@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.zfwl.activity.myorders.AllOrdersFragment;
+import com.zfwl.activity.myorders.OrdersFragment;
 import com.zfwl.entity.Order.Type;
 
 /**
@@ -40,7 +40,7 @@ public class MyOrdersPagerAdapter extends FragmentPagerAdapter {
                 orderType = Type.FINISHED;
                 break;
         }
-        return AllOrdersFragment.newInstance(orderType);
+        return OrdersFragment.newInstance(orderType);
     }
 
     @Override
