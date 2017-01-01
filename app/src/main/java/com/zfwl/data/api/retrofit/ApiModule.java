@@ -8,6 +8,7 @@ import com.zfwl.data.api.AreaApi;
 import com.zfwl.data.api.CPDApi;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.LogisticsApi;
+import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 import com.zfwl.data.api.WJApi;
@@ -30,7 +31,7 @@ import rx.schedulers.Schedulers;
 public class ApiModule {
 
     public static ApiModule INSTANCE = new ApiModule();
-    private static final String BASE_URL = "http://112.126.93.160:9080/logistics/";
+    public static final String BASE_URL = "http://112.126.93.160:9080/logistics/";
     private static final int CONNECT_TIMEOUT = 15;
     private Retrofit mRetrofit;
     private OkHttpClient mOkHttpClient;
@@ -73,6 +74,9 @@ public class ApiModule {
     }
     public OrderApi provideOrderApi(){
         return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);
+    }
+    public MyQuotedApi quotedApi(){
+        return ApiModule.INSTANCE.provideRetrofit().create(MyQuotedApi.class);
     }
     public LogisticsApi provideLogisticsApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(LogisticsApi.class);

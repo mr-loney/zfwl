@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.AddLogisticsAdapter;
+import com.zfwl.controls.LineTextView;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.AllzfwlModel;
@@ -48,6 +49,14 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	 TextView tvTitle;
 	@BindView(R.id.view_select_area)
 	SelectAreaListView mSelectAreaView;
+	@BindView(R.id.detail_txt1)
+	LineTextView detailTxt1;
+	@BindView(R.id.detail_txt2)
+	LineTextView detailTxt2;
+	@BindView(R.id.detail_txt3)
+	LineTextView detailTxt3;
+	@BindView(R.id.detail_txt4)
+	LineTextView detailTxt4;
 
 	private AllzfwlModel data = new AllzfwlModel();
 	private int select_address_index;
@@ -106,7 +115,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		lBtn.setVisibility(View.VISIBLE);
 
 		rBtn.setVisibility(View.VISIBLE);
-		rBtn.setText("常跑地");
+		rBtn.setText("常跑路线");
 
 		List<AllzfwlModel.EmptyCarAddressListBean> list = new ArrayList<>();
 		AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
@@ -128,6 +137,10 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		});
 
 		mSelectAreaView.setCallback(this);
+		detailTxt1.setEditing(true);
+		detailTxt2.setEditing(true);
+		detailTxt3.setEditing(true);
+		detailTxt4.setEditing(true);
 	}
 
 	@OnClick(R.id.txt_from)
@@ -149,6 +162,10 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 			loadingDialog.show();
 		}
 		data.setEmptyCarAddressList(adapter.mList);
+		data.setGoDate(detailTxt1.getDetail());
+		data.setCarNumber(Integer.parseInt(detailTxt2.getDetail()));
+		data.setCarLength(Double.parseDouble(detailTxt3.getDetail()));
+		data.setLoadNumber(Double.parseDouble(detailTxt4.getDetail()));
 		mLogisticsPresenter.addLogistics(data);
 	}
 

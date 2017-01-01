@@ -12,15 +12,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.WJListAdapter;
+import com.zfwl.adapter.MyQuotedListAdapter;
+import com.zfwl.adapter.MyQuotedListAdapter;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.retrofit.ApiModule;
-import com.zfwl.entity.WJModel;
-import com.zfwl.mvp.wj.WJMvpView;
-import com.zfwl.mvp.wj.WJPresenter;
+import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.mvp.logistics.MyQuotedMvpView;
+import com.zfwl.mvp.logistics.MyQuotedPresenter;
 import com.zfwl.widget.ToastUtils;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshListView.OnLoadMoreListener, PullToRefreshListView.OnRefreshListener {
+public class MyQuotedListActivity extends BaseActivity implements MyQuotedMvpView,PullToRefreshListView.OnLoadMoreListener, PullToRefreshListView.OnRefreshListener {
 
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
@@ -42,20 +44,20 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
     PullToRefreshListViewEx pullRefreshListviewItems;
     @BindView(R.id.view_empty)
     LinearLayout viewEmpty;
-    private WJActivity vThis = this;
+    private MyQuotedListActivity vThis = this;
 
     private LoadingDialog mloadingDialog;
-    private WJListAdapter adapter;
-    private List<WJModel.ListBean> itemList = null;
+    private MyQuotedListAdapter adapter;
+    private List<MyQuotedModel.ListBean> itemList = null;
     private PullToRefreshListView pullRefreshListView;
     private int mPageIndex = 1;
     private int mPageSize = 20;
     private View emptyView;
-    private WJPresenter mPresenter;
+    private MyQuotedPresenter mPresenter;
     private boolean mIsRefresh = false;
 
     public static void launch(Context context){
-        Intent intent = new Intent(context, WJActivity.class);
+        Intent intent = new Intent(context, MyQuotedListActivity.class);
         context.startActivity(intent);
     }
     @Override
@@ -64,7 +66,7 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_wj_list);
         ButterKnife.bind(this);
-        mPresenter = new WJPresenter(this);
+        mPresenter = new MyQuotedPresenter(this);
         mPresenter.attachView(this);
 
         initView();
@@ -75,12 +77,12 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
      */
     private void initView() {
         titlebarBtnLeft.setVisibility(View.VISIBLE);
-        tvTitle.setText("问卷调查");
+        tvTitle.setText("我的报价信息");
 
         emptyView = findViewById(R.id.view_empty);
         mloadingDialog = new LoadingDialog(vThis);
 
-        itemList = new ArrayList<WJModel.ListBean>();
+        itemList = new ArrayList<MyQuotedModel.ListBean>();
         mloadingDialog = new LoadingDialog(vThis);
         pullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_listview_items);
         pullRefreshListView.setCanLoadMore(false);
@@ -91,12 +93,9 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
         pullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                WJModel.ListBean model = adapter.mList.get(i - 1);
+                MyQuotedModel.ListBean model = adapter.mList.get(i - 1);
 
-                Intent intent = new Intent(vThis, WebActivity.class);
-                intent.putExtra("url", ApiModule.BASE_URL+"app/questionnaire/questions.do?id="+model.getId()+"&phone="+UserInfoManager.INSTANCE.getUserInfo().getPhone());
-                intent.putExtra("name", "调查问卷");
-                startActivity(intent);
+                QuotedPriceDetailActivity.launch(vThis,model);
             }
         });
 
@@ -144,7 +143,7 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
     }
 
     @Override
-    public void onListLoaded(WJModel d) {
+    public void onGetListSuccess(MyQuotedModel d) {
         mloadingDialog.stop();
 
         if (mIsRefresh) {
@@ -163,7 +162,7 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
     }
 
     @Override
-    public void onListLoadedFail(String msg) {
+    public void onGetListFailed(String msg) {
         mloadingDialog.stop();
         ToastUtils.show(this, msg);
     }
@@ -178,9 +177,9 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
     // 初始化数据
     private void initItemAdapter() {
         if (itemList == null)
-            itemList = new ArrayList<WJModel.ListBean>();
+            itemList = new ArrayList<MyQuotedModel.ListBean>();
 
-        adapter = new WJListAdapter(vThis, itemList);
+        adapter = new MyQuotedListAdapter(vThis, itemList);
         pullRefreshListView.setAdapter(adapter);
 
     }

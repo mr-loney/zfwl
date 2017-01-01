@@ -8,17 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.entity.WJModel;
+import com.zfwl.entity.MyQuotedModel;
 
 import java.util.List;
 
-public class WJListAdapter extends BaseAdapter {
+public class MyQuotedListAdapter extends BaseAdapter {
 
 	public Context mContext;
-	public List<WJModel.ListBean> mList;
+	public List<MyQuotedModel.ListBean> mList;
 
 	// 构造函数
-	public WJListAdapter(Context Context, List<WJModel.ListBean> dataList) {
+	public MyQuotedListAdapter(Context Context, List<MyQuotedModel.ListBean> dataList) {
 		mContext = Context;
 
 		mList = dataList;
@@ -48,7 +48,7 @@ public class WJListAdapter extends BaseAdapter {
 		if (mList.size() > 0) {
 			if (view == null) {
 				view = LayoutInflater.from(mContext).inflate(
-						R.layout.layout_wj_item, arg2, false);
+						R.layout.layout_my_quoted_list_item, arg2, false);
 				holder = new ViewHolder();
 
 				holder.txt1 = (TextView) view
@@ -60,9 +60,10 @@ public class WJListAdapter extends BaseAdapter {
 				holder = (ViewHolder) view.getTag();
 			}
 			holder.position = arg0;
-			WJModel.ListBean data = mList.get(arg0);
-			holder.txt1.setText(data.getTitle());
-			holder.txt2.setText("创建时间："+data.getCreateTime()+"   参与人数："+data.getAnswerCount());
+			MyQuotedModel.ListBean data = mList.get(arg0);
+			holder.txt1.setText(data.getCdate()+" 装");
+			holder.txt1.setText("重量 "+data.getLoadNumber()+"吨  要"+data.getCarNumber()+"辆车");
+			holder.txt1.setText("总计："+data.getTotal()+"元");
 		}
 
 		return view;
@@ -70,7 +71,7 @@ public class WJListAdapter extends BaseAdapter {
 
 	class ViewHolder {
 		int position;
-		TextView txt1,txt2;
+		TextView txt1,txt2,txt3,from,to;
 	}
 	
 }

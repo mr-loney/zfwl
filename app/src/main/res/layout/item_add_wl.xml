@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="16dp">
+    android:orientation="vertical">
+
+    <View
+        style="@style/GrayDivider"
+        />
 
     <View
         style="@style/GrayDivider"
@@ -16,38 +19,36 @@
         android:orientation="horizontal"
         android:weightSum="1"
         >
-        <ImageView
-            android:layout_width="40dp"
-            android:padding="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="40dp"
-            android:src="@drawable/cb_false_big"/>
+        <TextView
+            android:layout_width="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="20dp"
+            android:background="#7ed321"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="卸"/>
 
             <TextView
                 android:id="@+id/to"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="到哪里去"
+                android:gravity="left|center_vertical"
+                android:text="卸货地址"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 />
 
-        <TextView
+        <ImageView
             android:id="@+id/btn"
             android:layout_width="40dp"
-            android:padding="5dp"
+            android:padding="6dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/cb_false_big"
-            android:gravity="center"
+            android:src="@drawable/zfwl_add"
+            android:layout_gravity="center"
             android:layout_marginRight="10dp"
-            android:textSize="12sp"
             />
         </LinearLayout>
-
-    <View
-        style="@style/GrayDivider"
-        />
 </LinearLayout>

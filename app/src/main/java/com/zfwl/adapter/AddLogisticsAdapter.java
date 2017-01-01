@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zfwl.R;
@@ -58,7 +59,7 @@ public class AddLogisticsAdapter extends BaseAdapter {
                     mListener.selectToAddress(Integer.parseInt(view.getTag().toString()));
                 }
             });
-            holder.btn = (TextView) view.findViewById(R.id.btn);
+            holder.btn = (ImageView) view.findViewById(R.id.btn);
             holder.btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -86,6 +87,11 @@ public class AddLogisticsAdapter extends BaseAdapter {
 
         holder.to.setTag(position);
         holder.btn.setTag(position);
+        if (position==0) {
+            holder.btn.setImageResource(R.drawable.zfwl_add);
+        } else {
+            holder.btn.setImageResource(R.drawable.zfwl_del);
+        }
         if (model != null) {
             holder.to.setText(model.getToAddressName());
         }
@@ -94,7 +100,8 @@ public class AddLogisticsAdapter extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView to,btn;
+        TextView to;
+        ImageView btn;
     }
 
     private AddLogisticsAdapter.OnAdapterListener mListener;

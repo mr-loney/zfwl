@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface WJMvpView extends MvpView {
 
-    void onListLoaded(List<WJModel> datas);
+    void onListLoaded(WJModel d);
     void onListLoadedFail(String msg);
 }

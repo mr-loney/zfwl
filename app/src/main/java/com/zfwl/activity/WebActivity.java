@@ -76,9 +76,8 @@ public class WebActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);// 设置自定义标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_web);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.layout_titlebar_default);// 更换自定义标题栏布局
 
         Intent intent = getIntent();
         if (intent.hasExtra("url") && !TextUtils.isEmpty(intent.getStringExtra("url"))) {

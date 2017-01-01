@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.activity.MyPublishEmptyCarActivity;
+import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
 import com.zfwl.activity.WJActivity;
 
@@ -107,6 +108,7 @@ public class MeFragment extends Fragment {
                 MyPublishEmptyCarActivity.launch(mContext);
                 break;
             case R.id.item_mybj:
+                MyQuotedListActivity.launch(mContext);
                 break;
         }
     }

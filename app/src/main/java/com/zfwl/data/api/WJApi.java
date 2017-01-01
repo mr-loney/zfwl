@@ -17,7 +17,9 @@ import rx.Observable;
 
 public interface WJApi {
     @FormUrlEncoded
-    @POST("app/member/getAdressOften.do")
-    Observable<List<WJModel>> getList(@Field("memberId") String memberId);
+    @POST("app/questionnaire/getQuestionnaire.do")
+    Observable<WJModel> getList(@Field("memberId") String memberId,
+                                      @Field("pageNo") int pageNo,
+                                      @Field("pageSize") int pageSize);
 
 }

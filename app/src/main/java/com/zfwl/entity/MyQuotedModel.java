@@ -1,15 +1,19 @@
 package com.zfwl.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class WJModel {
+public class MyQuotedModel implements Serializable {
+
+    private static final long serialVersionUID = -3718423961923385889L;
+
 
 	/**
 	 * totalCount : 1
 	 * pageSize : 10
 	 * pageNo : 1
 	 * filterNo : 0
-	 * list : [{"id":3,"title":"(╯\u2035□\u2032)╯︵┻━┻我跟你讲 我就这个表情","details":"へ~不开心 (#~～~#)","createTime":"2016-12-06 11:12:58","status":0,"lookCount":0,"answerCount":2}]
+	 * list : [{"id":1,"memberId":1,"carNumber":8,"loadNumber":13,"priceType":1,"price":23,"total":299,"status":0,"cdate":1481987874000,"mdate":1481987874000,"remark":""}]
 	 * firstResult : 0
 	 * totalPage : 1
 	 * firstPage : true
@@ -120,22 +124,30 @@ public class WJModel {
 
 	public static class ListBean {
 		/**
-		 * id : 3
-		 * title : (╯‵□′)╯︵┻━┻我跟你讲 我就这个表情
-		 * details : へ~不开心 (#~～~#)
-		 * createTime : 2016-12-06 11:12:58
+		 * id : 1
+		 * memberId : 1
+		 * carNumber : 8
+		 * loadNumber : 13
+		 * priceType : 1
+		 * price : 23
+		 * total : 299
 		 * status : 0
-		 * lookCount : 0
-		 * answerCount : 2
+		 * cdate : 1481987874000
+		 * mdate : 1481987874000
+		 * remark :
 		 */
 
 		private int id;
-		private String title;
-		private String details;
-		private String createTime;
+		private int memberId;
+		private int carNumber;
+		private int loadNumber;
+		private int priceType;
+		private double price;
+		private double total;
 		private int status;
-		private int lookCount;
-		private int answerCount;
+		private long cdate;
+		private long mdate;
+		private String remark;
 
 		public int getId() {
 			return id;
@@ -145,28 +157,52 @@ public class WJModel {
 			this.id = id;
 		}
 
-		public String getTitle() {
-			return title;
+		public int getMemberId() {
+			return memberId;
 		}
 
-		public void setTitle(String title) {
-			this.title = title;
+		public void setMemberId(int memberId) {
+			this.memberId = memberId;
 		}
 
-		public String getDetails() {
-			return details;
+		public int getCarNumber() {
+			return carNumber;
 		}
 
-		public void setDetails(String details) {
-			this.details = details;
+		public void setCarNumber(int carNumber) {
+			this.carNumber = carNumber;
 		}
 
-		public String getCreateTime() {
-			return createTime;
+		public int getLoadNumber() {
+			return loadNumber;
 		}
 
-		public void setCreateTime(String createTime) {
-			this.createTime = createTime;
+		public void setLoadNumber(int loadNumber) {
+			this.loadNumber = loadNumber;
+		}
+
+		public int getPriceType() {
+			return priceType;
+		}
+
+		public void setPriceType(int priceType) {
+			this.priceType = priceType;
+		}
+
+		public double getPrice() {
+			return price;
+		}
+
+		public void setPrice(double price) {
+			this.price = price;
+		}
+
+		public double getTotal() {
+			return total;
+		}
+
+		public void setTotal(double total) {
+			this.total = total;
 		}
 
 		public int getStatus() {
@@ -177,20 +213,28 @@ public class WJModel {
 			this.status = status;
 		}
 
-		public int getLookCount() {
-			return lookCount;
+		public long getCdate() {
+			return cdate;
 		}
 
-		public void setLookCount(int lookCount) {
-			this.lookCount = lookCount;
+		public void setCdate(long cdate) {
+			this.cdate = cdate;
 		}
 
-		public int getAnswerCount() {
-			return answerCount;
+		public long getMdate() {
+			return mdate;
 		}
 
-		public void setAnswerCount(int answerCount) {
-			this.answerCount = answerCount;
+		public void setMdate(long mdate) {
+			this.mdate = mdate;
+		}
+
+		public String getRemark() {
+			return remark;
+		}
+
+		public void setRemark(String remark) {
+			this.remark = remark;
 		}
 	}
 }
