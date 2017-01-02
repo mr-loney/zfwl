@@ -7,9 +7,12 @@ import java.util.List;
 
 public interface MyPublishEmptyCarMvpView extends MvpView {
 
-    void onGetListSuccess(List<MyPublishEmptyCarListModel> datas);
+    void onGetListSuccess(MyPublishEmptyCarListModel d);
 
     void onGetListFailed(String errorMsg);
 
+    void onDelSuccess(MyPublishEmptyCarListModel.ListBean d);
+
+    void onDelFail(String errorMsg);
 
 }

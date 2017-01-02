@@ -122,7 +122,17 @@ public class FromAndToView extends LinearLayout {
 
     public void setFromAddress(Address fromAddress) {
         mFromAddress = fromAddress;
-        mTvFrom.setText(fromAddress.getDistrict().getName());
+        String txt = "";
+        if (fromAddress.getProvince()!=null) {
+            txt = fromAddress.getProvince().getName();
+        }
+        if (fromAddress.getCity()!=null) {
+            txt = fromAddress.getCity().getName();
+        }
+        if (fromAddress.getDistrict()!=null) {
+            txt = fromAddress.getDistrict().getName();
+        }
+        mTvFrom.setText(txt);
     }
 
     public Address getToAddress() {
@@ -131,7 +141,17 @@ public class FromAndToView extends LinearLayout {
 
     public void setToAddress(Address toAddress) {
         mToAddress = toAddress;
-        mTvTo.setText(toAddress.getDistrict().getName());
+        String txt = "";
+        if (mToAddress.getProvince()!=null) {
+            txt = mToAddress.getProvince().getName();
+        }
+        if (mToAddress.getCity()!=null) {
+            txt = mToAddress.getCity().getName();
+        }
+        if (mToAddress.getDistrict()!=null) {
+            txt = mToAddress.getDistrict().getName();
+        }
+        mTvTo.setText(txt);
     }
 
     public FromAndToView(Context context) {

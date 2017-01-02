@@ -64,7 +64,7 @@ public class MyQuotedListActivity extends BaseActivity implements MyQuotedMvpVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_wj_list);
+        setContentView(R.layout.activity_my_quoted_list);
         ButterKnife.bind(this);
         mPresenter = new MyQuotedPresenter(this);
         mPresenter.attachView(this);

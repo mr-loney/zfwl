@@ -45,8 +45,8 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
-    @BindView(R.id.item_remark)
-    KeyValueItem mItemRemark;
+//    @BindView(R.id.item_remark)
+//    KeyValueItem mItemRemark;
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
     @BindView(R.id.tv_remark)

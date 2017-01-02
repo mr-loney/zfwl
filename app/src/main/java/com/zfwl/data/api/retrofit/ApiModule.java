@@ -8,6 +8,7 @@ import com.zfwl.data.api.AreaApi;
 import com.zfwl.data.api.CPDApi;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.LogisticsApi;
+import com.zfwl.data.api.MyPublishEmptyCarApi;
 import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
@@ -65,6 +66,9 @@ public class ApiModule {
     }
     public CPDApi cpdApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(CPDApi.class);
+    }
+    public MyPublishEmptyCarApi publishEmptyCarApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(MyPublishEmptyCarApi.class);
     }
     public WJApi wjApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(WJApi.class);

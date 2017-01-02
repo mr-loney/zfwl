@@ -6,37 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.AddLogisticsAdapter;
-import com.zfwl.controls.LineTextView;
-import com.zfwl.controls.LoadingDialog;
-import com.zfwl.entity.Address;
-import com.zfwl.entity.AllzfwlModel;
-import com.zfwl.mvp.logistics.AddLogisticsMvpView;
-import com.zfwl.mvp.logistics.AddLogisticsPresenter;
-import com.zfwl.widget.ToastUtils;
-import com.zfwl.widget.slsectarea.SelectAreaListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddzfwlSuccessActivity extends BaseActivity {
+public class DriverQuotedSuccessActivity extends BaseActivity {
 
 	@BindView(R.id.titlebar_btnLeft)
 	Button titlebarBtnLeft;
 
-	private static final String TAG = "AddzfwlSuccessActivity";
-	private AddzfwlSuccessActivity vThis = this;
+	private static final String TAG = "DriverQuotedSuccessActivity";
+	private DriverQuotedSuccessActivity vThis = this;
 
 	public static void launch(Context context) {
-		Intent intent = new Intent(context, AddzfwlSuccessActivity.class);
+		Intent intent = new Intent(context, DriverQuotedSuccessActivity.class);
 		context.startActivity(intent);
 	}
 

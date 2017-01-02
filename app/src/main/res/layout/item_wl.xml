@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="16dp">
+    android:orientation="vertical">
 
     <View
         style="@style/GrayDivider"
@@ -13,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="91dp"
+        android:paddingLeft="16dp"
         >
 
         <LinearLayout
@@ -91,6 +91,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
+        android:paddingLeft="16dp"
         >
 
         <LinearLayout
@@ -104,6 +105,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_book_date"
                 />
 
@@ -111,7 +113,7 @@
                 android:id="@+id/tv_send_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="#8f8e94"
                 android:textSize="14sp"
                 tools:text="2016-12-09"
@@ -129,6 +131,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_book_desc"
                 />
 
@@ -136,7 +139,7 @@
                 android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="#8f8e94"
                 android:textSize="14sp"
                 tools:text="门窗4.2米 要6辆车"
@@ -159,6 +162,8 @@
     </RelativeLayout>
 
     <View
-        style="@style/GrayDivider"
+        android:layout_width="match_parent"
+        android:background="#eee"
+        android:layout_height="20dp"
         />
 </LinearLayout>

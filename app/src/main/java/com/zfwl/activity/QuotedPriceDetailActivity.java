@@ -3,6 +3,7 @@ package com.zfwl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -94,8 +95,18 @@ public class QuotedPriceDetailActivity extends BaseActivity {
             mItemTotalPrice.setKeyText("共计");
             mItemTotalPrice.setValueText(data.getTotal()+"元");
 
-            mTvFrom.setText("");
-            mTvTo.setText("");
+            String fromStr = "";
+            String toStr = "";
+            for (MyQuotedModel.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
+                if (item.getFromDetail()!=null && item.getFromDetail().length()>0 && fromStr.indexOf(item.getFromDetail())<0) {
+                    fromStr+=item.getFromDetail()+"<br/>";
+                }
+                if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToDetail())<0) {
+                    toStr+=item.getToDetail()+"<br/>";
+                }
+            }
+            mTvFrom.setText(Html.fromHtml(fromStr));
+            mTvTo.setText(Html.fromHtml(toStr));
 
             mItemBeginTime.setKeyText("发车时间");
             mItemBeginTime.setValueText(data.getCarNumber()+"");

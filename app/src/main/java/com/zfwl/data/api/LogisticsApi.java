@@ -1,13 +1,18 @@
 package com.zfwl.data.api;
 
+import com.zfwl.entity.DriverQuotedModel;
 import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.User;
 
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -27,14 +32,23 @@ sendDate                  String        （暂未定义）        配送日期  
 pageNo                     Integer      （非必填）            当前页码 ，默认为1
 pageSize
 */
-    @GET("/app/logistics/getLogistics.do")
-    Observable<LogisticsInfo> getLogistics(@Field("fromProvince") String fromProvince,
-                                           @Field("fromCity") String fromCity,
-                                           @Field("fromCounty") String fromCounty,
-                                           @Field("toProvince") String toProvince,
-                                           @Field("toCity") String toCity,
-                                           @Field("toCounty") String toCounty,
-                                           @Field("sendDate") String sendDate,
-                                           @Field("pageNo") int pageNo,
-                                           @Field("pageSize") int pageSize);
+    @GET("app/logistics/getLogistics.do")
+    Observable<LogisticsInfo> getLogistics(@Query("fromProvince") String fromProvince,
+                                           @Query("fromCity") String fromCity,
+                                           @Query("fromCounty") String fromCounty,
+                                           @Query("toProvince") String toProvince,
+                                           @Query("toCity") String toCity,
+                                           @Query("toCounty") String toCounty,
+                                           @Query("sendDate") String sendDate,
+                                           @Query("pageNo") int pageNo,
+                                           @Query("pageSize") int pageSize);
+
+
+    @FormUrlEncoded
+    @POST("app/member/savePrice.do ")
+    Observable<DriverQuotedModel> add(@Field("logisticsId") String logisticsId,
+                                      @Field("carNumber") int carNumber,
+                                      @Field("loadNumber") double loadNumber,
+                                      @Field("priceType") int priceType,
+                                      @Field("price") double price);
 }

@@ -55,6 +55,7 @@
                     >
 
                     <ImageView
+                        android:id="@+id/del"
                         android:layout_width="50dp"
                         android:padding="8dp"
                         android:layout_height="match_parent"
@@ -67,10 +68,11 @@
                         android:background="@drawable/bg_quoted_price_rect"
                         android:gravity="center"
                         android:inputType="number"
-                        android:text="4"
+                        android:text="1"
                         android:textSize="16sp"/>
 
                     <ImageView
+                        android:id="@+id/add"
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:src="@drawable/plus"
@@ -102,13 +104,14 @@
                 android:textSize="14sp"/>
 
             <EditText
+                android:id="@+id/car_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:inputType="number"
                 android:textColor="#333333"
                 android:textColorHint="#cccccc"
-                tools:text="5"/>
+                tools:text="1"/>
         </LinearLayout>
 
         <View
@@ -184,6 +187,7 @@
                 android:textSize="14sp"/>
 
             <EditText
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -202,8 +206,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
+        android:background="#fafafa"
         android:layout_alignParentBottom="true"
-        android:background="#fafafa">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <View
             style="@style/GrayDivider"
@@ -220,6 +226,7 @@
             android:textSize="17sp"/>
 
         <Button
+            android:id="@+id/submit"
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

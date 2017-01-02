@@ -69,6 +69,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     private LogisticsAdapter adapter;
     private LogisticsPresenter mLogisticsPresenter;
 
+    private int selectindex = 0;
     private Address from;
     private Address to;
     private String sendData;
@@ -111,11 +112,11 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     public void onRefreshLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics) {
 
         pullRefreshListView.onRefreshComplete();
-        adapter.mList = logistics;
         if (adapter == null) {
             adapter = new LogisticsAdapter(mContext);
             pullRefreshListView.setAdapter(adapter);
         }
+        adapter.mList = logistics;
         adapter.notifyDataSetChanged();
         showEmptyView(logistics.size()==0);
     }
@@ -138,20 +139,34 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         tvAreaDistrict.setBackgroundResource(0);
         tvAreaCity.setBackgroundResource(0);
         tvAreaProvince.setBackgroundResource(0);
+        tvAreaAll.setTextColor(getResources().getColor(R.color.black));
+        tvAreaDistrict.setTextColor(getResources().getColor(R.color.black));
+        tvAreaCity.setTextColor(getResources().getColor(R.color.black));
+        tvAreaProvince.setTextColor(getResources().getColor(R.color.black));
         switch (viewId) {
             case R.id.tv_area_all:
+                selectindex = 0;
                 tvAreaAll.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+                tvAreaAll.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.tv_area_district:
+                selectindex = 1;
                 tvAreaDistrict.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+                tvAreaDistrict.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.tv_area_city:
+                selectindex = 2;
                 tvAreaCity.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+                tvAreaCity.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.tv_area_province:
+                selectindex = 3;
                 tvAreaProvince.setBackgroundResource(R.drawable.bg_rect_blue_corner);
+                tvAreaProvince.setTextColor(getResources().getColor(R.color.white));
                 break;
         }
+
+        onRefresh();
     }
 
     @OnClick({R.id.tv_area_all, R.id.tv_area_district, R.id.tv_area_city, R.id.tv_area_province})
@@ -242,8 +257,8 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
 
     @Override
     public void onRefresh() {
-//        showEmptyView(false);
-//        loadData(true);
+        showEmptyView(false);
+        loadData(true);
     }
 
     @Override

@@ -26,7 +26,7 @@
                 android:clickable="true"
                 android:onClick="onClick"
                 app:wsiLeftIcon="@null"
-                app:wsiLeftText="常跑地设置" />
+                app:wsiLeftText="常跑路线设置" />
 
             <com.zfwl.controls.WidgetSettingItem
                 android:id="@+id/wsi_notify"

@@ -15,7 +15,7 @@ public class LineTextView extends LinearLayout {
 
     private View mRootView,lineT,lineC,lineE,showmore;
     private TextView mtv,mtv2;
-    private EditText met;
+    public EditText met;
     private boolean   bt = false,bc = false,be = false,bMore = false;
     private String strTitle = "";
 

@@ -15,13 +15,6 @@
         android:weightSum="1"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:text="添加您的常跑地"
-            android:layout_marginLeft="10dp"
-            android:padding="8dp" />
-
         <ListView
             android:id="@+id/listview_step3"
             android:layout_width="match_parent"
@@ -31,8 +24,6 @@
         <Button
             android:id="@+id/btn_add_new"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             style="@style/button_Gray_style"
             android:layout_width="match_parent"
             android:layout_height="40dp"

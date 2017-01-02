@@ -11,6 +11,8 @@
         android:layout_height="40dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:drawableRight="@drawable/down"
+        android:drawablePadding="-20dp"
         android:text="出发地"/>
 
     <TextView
@@ -18,6 +20,8 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="1"
+        android:drawableRight="@drawable/down"
+        android:drawablePadding="-20dp"
         android:gravity="center"
         android:text="目的地"/>
 
@@ -26,6 +30,8 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="1"
+        android:drawableRight="@drawable/down"
+        android:drawablePadding="-20dp"
         android:gravity="center"
         android:text="发车时间"/>
 </LinearLayout>

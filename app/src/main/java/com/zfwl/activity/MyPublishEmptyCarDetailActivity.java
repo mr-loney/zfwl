@@ -2,6 +2,7 @@ package com.zfwl.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -14,12 +15,18 @@ import com.zfwl.R;
 import com.zfwl.controls.LineTextView;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.MyPublishEmptyCarListModel;
+import com.zfwl.event.MyPublishEmptyCarEvent;
+import com.zfwl.mvp.logistics.MyPublishEmptyCarMvpView;
+import com.zfwl.mvp.logistics.MyPublishEmptyCarPresenter;
+import com.zfwl.util.ViewHub;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyPublishEmptyCarDetailActivity extends BaseActivity {
+public class MyPublishEmptyCarDetailActivity extends BaseActivity implements MyPublishEmptyCarMvpView {
 
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
@@ -42,7 +49,9 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity {
 
     private MyPublishEmptyCarDetailActivity vThis = this;
     private LoadingDialog loadingDialog;
-    private MyPublishEmptyCarListModel data;
+    private MyPublishEmptyCarListModel.ListBean data;
+
+    private MyPublishEmptyCarPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +59,11 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_publish_empty_car_detail);
         ButterKnife.bind(this);
+        mPresenter = new MyPublishEmptyCarPresenter(this);
+        mPresenter.attachView(this);
 
         Intent intent = getIntent();
-        data = (MyPublishEmptyCarListModel) getIntent().getSerializableExtra("data");
+        data = (MyPublishEmptyCarListModel.ListBean) getIntent().getSerializableExtra("data");
         initView();
     }
 
@@ -74,11 +85,12 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
     }
 
     @OnClick(R.id.titlebar_btnRight)
     public void onTitleRightClick() {
-
+    mPresenter.del(data.getId());
     }
 
     @OnClick(R.id.titlebar_btnLeft)
@@ -87,11 +99,37 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity {
     }
 
     private void loadedData() {
-        txtFrom.setText(data.getFrom());
-        txtTo.setText(data.getTo());
-        detailTxt1.setDetail(data.getCreateTime());
-        detailTxt2.setDetail(data.getCarCount());
-        detailTxt3.setDetail(data.getLength());
-        detailTxt4.setDetail(data.getWeight());
+        txtFrom.setText(data.getFromAddressName());
+        String toStr = "";
+        for (MyPublishEmptyCarListModel.ListBean.EmptyCarAddressListBean item : data.getEmptyCarAddressList()) {
+            if (item.getToAddressName()!=null && item.getToAddressName().length()>0) {
+                toStr+=item.getToAddressName()+"<br/>";
+            }
+        }
+        txtTo.setText(Html.fromHtml(toStr));
+
+        detailTxt1.setDetail(data.getCdate()+"");
+        detailTxt2.setDetail(data.getCarNumber()+"");
+        detailTxt3.setDetail(data.getCarLength()+"");
+        detailTxt4.setDetail(data.getLoadNumber()+"");
+    }
+
+    @Override
+    public void onGetListSuccess(MyPublishEmptyCarListModel d) {}
+
+    @Override
+    public void onGetListFailed(String errorMsg) {}
+
+    @Override
+    public void onDelSuccess(MyPublishEmptyCarListModel.ListBean d) {
+        ViewHub.showLongToast(this,"删除成功");
+        EventBus.getDefault().post(new MyPublishEmptyCarEvent("reload"));
+        finish();
+    }
+
+    @Override
+    public void onDelFail(String errorMsg) {
+        ViewHub.showLongToast(this,errorMsg);
+        finish();
     }
 }

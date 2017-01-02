@@ -193,7 +193,7 @@
         android:layout_alignParentBottom="true"
         android:background="#fa5547"
         android:gravity="center"
-        android:text="报价"
+        android:text="我要报价"
         android:textColor="@color/white"
         android:textSize="17sp"/>
 </RelativeLayout>

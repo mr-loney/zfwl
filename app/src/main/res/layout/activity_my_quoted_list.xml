@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="还没有发布空车"
+                    android:text="还没有报价信息"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/fontsize_content_normal" />
             </LinearLayout>

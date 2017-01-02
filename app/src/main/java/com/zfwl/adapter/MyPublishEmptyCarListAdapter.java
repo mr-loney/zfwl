@@ -1,6 +1,7 @@
 package com.zfwl.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +10,19 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.entity.MyPublishEmptyCarListModel;
+import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.util.Utils;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class MyPublishEmptyCarListAdapter extends BaseAdapter {
 
 	public Context mContext;
-	public List<MyPublishEmptyCarListModel> mList;
+	public List<MyPublishEmptyCarListModel.ListBean> mList;
 
 	// 构造函数
-	public MyPublishEmptyCarListAdapter(Context Context, List<MyPublishEmptyCarListModel> dataList) {
+	public MyPublishEmptyCarListAdapter(Context Context, List<MyPublishEmptyCarListModel.ListBean> dataList) {
 		mContext = Context;
 
 		mList = dataList;
@@ -64,11 +68,21 @@ public class MyPublishEmptyCarListAdapter extends BaseAdapter {
 				holder = (ViewHolder) view.getTag();
 			}
 			holder.position = arg0;
-			MyPublishEmptyCarListModel data = mList.get(arg0);
-			holder.txt_from.setText(data.getFrom());
-			holder.txt_to.setText(data.getTo());
-			holder.txt_detail.setText("有辆"+data.getCarCount()+"车 "+data.getLength()+"米 "+data.getWeight()+"吨");
-			holder.txt_detail1.setText("预计发车 "+data.getCreateTime());
+			MyPublishEmptyCarListModel.ListBean data = mList.get(arg0);
+			holder.txt_from.setText(data.getFromAddressName());
+			String toStr = "";
+			for (MyPublishEmptyCarListModel.ListBean.EmptyCarAddressListBean item : data.getEmptyCarAddressList()) {
+				if (item.getToAddressName()!=null && item.getToAddressName().length()>0) {
+					toStr+=item.getToAddressName()+"<br/>";
+				}
+			}
+			holder.txt_to.setText(Html.fromHtml(toStr));
+			holder.txt_detail.setText("有"+data.getCarNumber()+"辆车 "+data.getCarLength()+"米 "+data.getLoadNumber()+"吨");
+			try {
+				holder.txt_detail1.setText("预计发车 "+ Utils.longToString(data.getCdate(),"yyy-MM-dd HH:mm:ss"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return view;

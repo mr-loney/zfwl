@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * Created by ZZB on 2016/12/15.
  */
-public class LogisticsInfo implements Serializable{
+public class LogisticsInfo implements Serializable {
 
-
+    private static final long serialVersionUID = -3718423961923385891L;
     /**
      * totalCount : 1
      * pageSize : 10
@@ -123,7 +123,9 @@ public class LogisticsInfo implements Serializable{
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable {
+
+        private static final long serialVersionUID = -3718423961923385892L;
         /**
          * id : 1
          * goodsName : 物流信息
@@ -142,12 +144,21 @@ public class LogisticsInfo implements Serializable{
         private int weight;
         private int length;
         private int carNum;
-        private String departureTime;
+        private long departureTime;
+        private long createTime;
         private int isLargeGo;
         private String isLargeGoDesc;
         private String contactWay;
         private String remark;
         private List<AddressInfoListBean> addressInfoList;
+
+        public long getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(long createTime) {
+            this.createTime = createTime;
+        }
 
         public String getIsLargeGoDesc() {
             return isLargeGoDesc;
@@ -197,11 +208,11 @@ public class LogisticsInfo implements Serializable{
             this.carNum = carNum;
         }
 
-        public String getDepartureTime() {
+        public long getDepartureTime() {
             return departureTime;
         }
 
-        public void setDepartureTime(String departureTime) {
+        public void setDepartureTime(long departureTime) {
             this.departureTime = departureTime;
         }
 
@@ -238,6 +249,8 @@ public class LogisticsInfo implements Serializable{
         }
 
         public static class AddressInfoListBean implements Serializable {
+
+            private static final long serialVersionUID = -3718423961923385894L;
             /**
              * id : 1
              * logisticsInfoId : 1

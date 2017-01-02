@@ -91,6 +91,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         CPDModel m = new CPDModel();
         adapter.mList.add(m);
         adapter.notifyDataSetChanged();
+        select_address_index = adapter.mList.size()-1;
     }
     @OnClick(R.id.titlebar_btnLeft)
     public void onLeftClick() {
@@ -98,7 +99,8 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     }
     @OnClick(R.id.titlebar_btnRight)
     public void onSaveClick() {
-
+        CPDModel m = ((CPDModel)adapter.getItem(select_address_index));
+        mPresenter.add(m);
     }
 
     private boolean validateInput() {
@@ -119,14 +121,28 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
 
     @Override
     public void onAddressSelected(int idWhoSelect, Address address) {
+        CPDModel m = (CPDModel)adapter.getItem(select_address_index);
         switch (idWhoSelect) {
             case ID_WHO_SELECT_FROM:
-                ((CPDModel)adapter.getItem(select_address_index)).fromaddress = address;
+                m.fromaddress = address;
+                m.setFromProvinceId(address.getProvince().getId());
+                m.setFromCityId(address.getCity().getId());
+                m.setFromCountyId(address.getDistrict().getId());
+                m.setFromAddressName(address.getProvince().getName()+" "+
+                        address.getCity().getName()+" "+
+                        address.getDistrict().getName()+" ");
                 break;
             case ID_WHO_SELECT_TO:
-                ((CPDModel)adapter.getItem(select_address_index)).toaddress = address;
+                m.toaddress = address;
+                m.setToProvinceId(address.getProvince().getId());
+                m.setToCityId(address.getCity().getId());
+                m.setToCountyId(address.getDistrict().getId());
+                m.setToAddressName(address.getProvince().getName()+" "+
+                        address.getCity().getName()+" "+
+                        address.getDistrict().getName()+" ");
                 break;
         }
+        adapter.notifyDataSetChanged();
     }
     @Override
     public void onAreaReset() {
@@ -156,6 +172,12 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
                 select_address_index = index;
                 mSelectAreaView.show(ID_WHO_SELECT_FROM, ((CPDModel)adapter.getItem(index)).fromaddress);
             }
+
+            @Override
+            public void del(int index) {
+                select_address_index = index;
+                mPresenter.del(((CPDModel)adapter.getItem(index)));
+            }
         });
     }
     @Override
@@ -165,7 +187,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
 
     @Override
     public void onAdded(CPDModel data) {
-
+        mPresenter.getList();
     }
     @Override
     public void onAddedFail(String msg) {

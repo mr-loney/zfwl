@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @OnClick(R.id.login_btnLogin)
     public void onLoginClick() {
-
+        showLoginLoading();
 //        HomeActivity.launch(this);
         mLoginPresenter.phoneLogin(mEtPhone.getText().toString(), mEtPsw.getText().toString());
     }

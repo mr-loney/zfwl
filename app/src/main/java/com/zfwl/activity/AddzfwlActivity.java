@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -148,10 +149,15 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		});
 
 		mSelectAreaView.setCallback(this);
+		mSelectCPDView.setCallback(this);
 		detailTxt1.setEditing(true);
+		detailTxt1.met.setInputType(EditorInfo.TYPE_CLASS_DATETIME);
 		detailTxt2.setEditing(true);
+		detailTxt2.met.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 		detailTxt3.setEditing(true);
+		detailTxt3.met.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 		detailTxt4.setEditing(true);
+		detailTxt4.met.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 	}
 
 	@OnClick(R.id.txt_from)
@@ -213,16 +219,24 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		data.setFromProvinceId(model.getFromProvinceId());
 		data.setFromCityId(model.getFromCityId());
 		data.setFromCountyId(model.getFromCountyId());
+		data.setFromAddressName(model.getFromAddressName());
+		txtFrom.setText(data.getFromAddressName());
 
-		AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
-		addModel.setToCityId(model.getToCityId());
-		addModel.setToCityName("");
-		addModel.setToProvinceId(model.getToProvinceId());
-		addModel.setToProvinceName("");
-		addModel.setToCountyId(model.getToCountyId());
-		addModel.setToCountyName("");
-		adapter.mList.add(addModel);
+		AllzfwlModel.EmptyCarAddressListBean lastItem = adapter.mList.get(adapter.mList.size()-1);
+		if (lastItem.getToProvinceId().length()<=0) {
+			AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
+			adapter.mList.add(addModel);
+		}
+		lastItem.setToCityId(model.getToCityId());
+		lastItem.setToCityName("");
+		lastItem.setToProvinceId(model.getToProvinceId());
+		lastItem.setToProvinceName("");
+		lastItem.setToCountyId(model.getToCountyId());
+		lastItem.setToCountyName("");
+		lastItem.setToAddressName(model.getToAddressName());
 		adapter.notifyDataSetChanged();
+
+		mSelectCPDView.setVisibility(View.GONE);
 	}
 
 }

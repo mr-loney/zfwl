@@ -126,6 +126,5 @@
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        tools:visibility="visible"
         />
 </RelativeLayout>

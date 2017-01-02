@@ -50,8 +50,7 @@ public class CPDAdatper extends BaseAdapter {
             holder.del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mList.remove((int)view.getTag());
-                    vThis.notifyDataSetChanged();
+                    mListener.del(Integer.parseInt(view.getTag().toString()));
                 }
             });
             holder.from = (TextView) view.findViewById(R.id.user_reg_address_from);
@@ -94,6 +93,7 @@ public class CPDAdatper extends BaseAdapter {
     public static interface OnUserRegAddressAdapterListener {
         public void selectToAddress(int index);
         public void selectFromAddress(int index);
+        public void del(int index);
     }
     public void setListener(OnUserRegAddressAdapterListener listener) {
         mListener = listener;

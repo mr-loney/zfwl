@@ -41,10 +41,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <com.zfwl.widget.slsectarea.FromAndToView
                 android:id="@+id/view_from_n_to"
+                android:background="#f3f7fa"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
 

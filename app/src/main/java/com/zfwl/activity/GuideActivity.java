@@ -38,10 +38,10 @@ public class GuideActivity extends Activity implements OnClickListener {
 	 * 加载分页视图
 	 * */
 	private void initViewPager() {
-		View guideView1 = LayoutInflater.from(vThis).inflate(
-				R.layout.layout_guide_item_1, null);
-		View guideView2 = LayoutInflater.from(vThis).inflate(
-				R.layout.layout_guide_item_2, null);
+//		View guideView1 = LayoutInflater.from(vThis).inflate(
+//				R.layout.layout_guide_item_1, null);
+//		View guideView2 = LayoutInflater.from(vThis).inflate(
+//				R.layout.layout_guide_item_2, null);
 		View guideViewEnd = LayoutInflater.from(vThis).inflate(
 				R.layout.layout_guide_item_end, null);
 
@@ -49,8 +49,8 @@ public class GuideActivity extends Activity implements OnClickListener {
 		btnReg.setOnClickListener(this);
 
 		pageViews = new ArrayList<View>();
-		pageViews.add(guideView1);
-		pageViews.add(guideView2);
+//		pageViews.add(guideView1);
+//		pageViews.add(guideView2);
 		pageViews.add(guideViewEnd);
 
 		viewPager = (ViewPager) findViewById(R.id.guide_viewPager);

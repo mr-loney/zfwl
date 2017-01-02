@@ -21,10 +21,16 @@ import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.entity.MyPublishEmptyCarListModel;
 import com.zfwl.entity.User;
+import com.zfwl.event.MyPublishEmptyCarEvent;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarMvpView;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarPresenter;
+import com.zfwl.util.ViewHub;
 import com.zfwl.widget.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +54,7 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
 
     private LoadingDialog mloadingDialog;
     private MyPublishEmptyCarListAdapter adapter;
-    private List<MyPublishEmptyCarListModel> itemList = null;
+    private List<MyPublishEmptyCarListModel.ListBean> itemList = null;
     private PullToRefreshListView pullRefreshListView;
     private int mPageIndex = 1;
     private int mPageSize = 20;
@@ -66,10 +72,26 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_publish_empty_car_list);
         ButterKnife.bind(this);
-        mPresenter = new MyPublishEmptyCarPresenter();
+        EventBus.getDefault().register(this);
+        mPresenter = new MyPublishEmptyCarPresenter(this);
         mPresenter.attachView(this);
 
         initView();
+        loadData();
+    }
+
+    @Subscribe
+    public void onEvent(MyPublishEmptyCarEvent event) {
+if (event.isReloadCore("reload")) {
+    onRefresh();
+}
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        mPresenter.detachView();
     }
 
     /**
@@ -82,7 +104,7 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
         emptyView = findViewById(R.id.view_empty);
         mloadingDialog = new LoadingDialog(vThis);
 
-        itemList = new ArrayList<MyPublishEmptyCarListModel>();
+        itemList = new ArrayList<MyPublishEmptyCarListModel.ListBean>();
         mloadingDialog = new LoadingDialog(vThis);
         pullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_listview_items);
         pullRefreshListView.setCanLoadMore(true);
@@ -93,10 +115,10 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
         pullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                MyPublishEmptyCarListModel model = adapter.mList.get(i - 1);
+                MyPublishEmptyCarListModel.ListBean model = adapter.mList.get(i - 1);
 
                 Intent intent = new Intent(vThis, MyPublishEmptyCarDetailActivity.class);
-                intent.putExtra("data", model);
+                intent.putExtra("data", (Serializable) model);
                 startActivity(intent);
             }
         });
@@ -140,19 +162,14 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onGetListSuccess(List<MyPublishEmptyCarListModel> datas) {
+    public void onGetListSuccess(MyPublishEmptyCarListModel d) {
         mloadingDialog.stop();
 
         if (mIsRefresh) {
-            itemList = datas;
+            itemList = d.getList();
             pullRefreshListView.onRefreshComplete();
         } else {
-            itemList.addAll(datas);
+            itemList.addAll(d.getList());
             pullRefreshListView.onLoadMoreComplete();
         }
 
@@ -169,6 +186,14 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
         ToastUtils.show(this, msg);
     }
 
+    @Override
+    public void onDelSuccess(MyPublishEmptyCarListModel.ListBean d) {
+    }
+
+    @Override
+    public void onDelFail(String errorMsg) {
+    }
+
     /**
      * 获取商品分类数据
      */
@@ -176,13 +201,13 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
         mIsRefresh = true;
         mloadingDialog.start("正在获取数据");
 
-        mPresenter.getList(mPageIndex);
+        mPresenter.getList(mPageIndex,mPageSize);
     }
 
     // 初始化数据
     private void initItemAdapter() {
         if (itemList == null)
-            itemList = new ArrayList<MyPublishEmptyCarListModel>();
+            itemList = new ArrayList<MyPublishEmptyCarListModel.ListBean>();
 
         adapter = new MyPublishEmptyCarListAdapter(vThis, itemList);
         pullRefreshListView.setAdapter(adapter);
@@ -209,7 +234,7 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
     public void onLoadMore() {
         mPageIndex++;
         mIsRefresh = false;
-        mPresenter.getList(mPageIndex);
+        mPresenter.getList(mPageIndex,mPageSize);
     }
 
 

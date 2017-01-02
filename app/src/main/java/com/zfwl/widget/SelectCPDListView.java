@@ -12,7 +12,6 @@ import com.zfwl.R;
 import com.zfwl.activity.MyCPDActivity;
 import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.adapter.QuickCPDAdatper;
-import com.zfwl.adapter.SelectAreaAdapter;
 import com.zfwl.controls.wheel.widget.adapters.ListWheelAdapter;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.Area;
@@ -41,7 +40,7 @@ public class SelectCPDListView extends FrameLayout implements CPDMvpView {
 
     private Context mContext;
     private SelectCPDListView.SelectCallback mCallback;
-    private CPDAdatper cpdAdatper;
+    private QuickCPDAdatper cpdAdatper;
     private CPDPresenter mCPDPresenter;
 
     public interface SelectCallback {
@@ -61,12 +60,12 @@ public class SelectCPDListView extends FrameLayout implements CPDMvpView {
     @Override
     public void onListLoaded(List<CPDModel> datas) {
 
-		cpdAdatper = new CPDAdatper(mContext, datas);
+		cpdAdatper = new QuickCPDAdatper(mContext, datas);
         listview.setAdapter(cpdAdatper);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CPDModel model = cpdAdatper.mList.get(position - 1);
+                CPDModel model = cpdAdatper.mList.get(position);
                 mCallback.onSelectedCPD(model);
             }
         });
@@ -121,6 +120,11 @@ public class SelectCPDListView extends FrameLayout implements CPDMvpView {
     public SelectCPDListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    @OnClick(R.id.root_view)
+    public void onRootViewClick() {
+        setVisibility(GONE);
     }
 
     @Override

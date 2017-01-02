@@ -103,7 +103,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         }
         provinceAdapter.setDatas(provinces);
         provinceAdapter.setSelectArea(mCurrentProvince.getId());
-        mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
+//        mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
         provinceAdapter.notifyDataSetChanged();
     }
 
@@ -116,7 +116,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         }
         cityAdapter.setDatas(citys);
         cityAdapter.setSelectArea(mCurrentCity.getId());
-        mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
+//        mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
         cityAdapter.notifyDataSetChanged();
     }
 

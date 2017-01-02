@@ -4,18 +4,27 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/bg_gray"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="1"
         android:layout_height="40dp" >
-        <ImageView
+        <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/cb_false_big"/>
+            android:background="@drawable/bg_pack_ic"
+            android:gravity="center"
+            android:text="装"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/txt_from"
@@ -34,12 +43,15 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:layout_height="40dp" >
-        <ImageView
+        <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/cb_false_big"/>
+            android:background="@drawable/bg_unpack_ic"
+            android:gravity="center"
+            android:text="卸"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/txt_to"
@@ -64,18 +76,17 @@
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_height="40dp" >
+        android:weightSum="1"
+        android:layout_height="30dp" >
         <ImageView
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/cb_false_big"/>
+            android:src="@drawable/empty_cay_icon"/>
         <TextView
             android:id="@+id/txt_detail"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

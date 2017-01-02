@@ -65,7 +65,7 @@ public class LogisticsPresenter extends BasePresenter<LogisticsMvpView> {
                                  String toCounty,
                                  String sendDate) {
         if (isrefresh) {
-            mPage = 0;
+            mPage = 1;
         } else {
             mPage++;
         }

@@ -9,9 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.GoodsDetailActivity;
 import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.entity.MyPublishEmptyCarListModel;
+import com.zfwl.util.Utils;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +28,7 @@ public class LogisticsAdapter  extends BaseAdapter {
 
 
     public Context mContext;
-    public List<LogisticsInfo.ListBean> mList;
+    public List<LogisticsInfo.ListBean> mList = new ArrayList<>();
 
     // 构造函数
     public LogisticsAdapter(Context Context) {
@@ -61,7 +65,7 @@ public class LogisticsAdapter  extends BaseAdapter {
                 holder.tvFrom = (TextView) view
                         .findViewById(R.id.tv_from);
                 holder.tvTo = (TextView) view
-                        .findViewById(R.id.txt_to);
+                        .findViewById(R.id.tv_to);
                 holder.tvSendTime = (TextView) view
                         .findViewById(R.id.tv_send_date);
                 holder.tvDesc = (TextView) view
@@ -75,15 +79,22 @@ public class LogisticsAdapter  extends BaseAdapter {
                 holder = (LogisticsAdapter.ViewHolder) view.getTag();
             }
             holder.position = arg0;
-            LogisticsInfo.ListBean data = mList.get(arg0);
+            final  LogisticsInfo.ListBean data = mList.get(arg0);
             holder.tvFrom.setText(data.getAddressInfoList().get(0).getFromDetail());
             holder.tvTo.setText(data.getAddressInfoList().get(0).getToDetail());
-            holder.tvPublishTime.setText(data.getDepartureTime());
-            holder.tvDesc.setText(data.getRemark());
-            holder.tvSendTime.setText(data.getDepartureTime());
-//            holder.btnRob.setOnClickListener(view -> {
-//                // TODO: 2016/12/17
-//            });
+            try {
+                holder.tvPublishTime.setText(Utils.longToString(data.getDepartureTime(),"yyyy-MM-dd HH:mm:ss"));
+                holder.tvSendTime.setText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            holder.tvDesc.setText("门窗"+data.getLength()+"米  要"+data.getCarNum()+"辆车");
+            holder.btnRob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GoodsDetailActivity.launch(mContext,data);
+                }
+            });
         }
 
         return view;
