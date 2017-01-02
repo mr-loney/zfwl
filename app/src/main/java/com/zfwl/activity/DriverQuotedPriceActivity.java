@@ -110,7 +110,12 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
 
         etCarWeight.addTextChangedListener(watcher);
         tvPrice.addTextChangedListener(watcher);
-
+        titleBar.setDelegate(new BGATitleBar.SimpleDelegate() {
+            @Override
+            public void onClickLeftCtv() {
+                onBackPressed();
+            }
+        });
         initView();
     }
     private TextWatcher watcher = new TextWatcher() {
@@ -140,6 +145,7 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
     @Override
     public void onAddSuccess(DriverQuotedModel d) {
         DriverQuotedSuccessActivity.launch(this);
+        finish();
     }
 
     @Override
