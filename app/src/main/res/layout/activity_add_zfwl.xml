@@ -40,6 +40,8 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="50dp"
                 android:hint="从哪里出发"
+                android:textColorHint="@color/lightgray"
+                android:textColor="@color/black"
                 android:text=""/>
 
             <View
@@ -113,6 +115,15 @@
         android:id="@+id/view_select_area"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
+    <com.zfwl.widget.SelectCPDListView
+        android:id="@+id/view_select_cpd"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         tools:visibility="visible"

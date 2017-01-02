@@ -11,13 +11,19 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.AddLogisticsAdapter;
+import com.zfwl.adapter.CPDAdatper;
+import com.zfwl.adapter.QuickCPDAdatper;
 import com.zfwl.controls.LineTextView;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.entity.CPDModel;
+import com.zfwl.mvp.cpd.CPDMvpView;
+import com.zfwl.mvp.cpd.CPDPresenter;
 import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
+import com.zfwl.util.ViewHub;
+import com.zfwl.widget.SelectCPDListView;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 
@@ -28,7 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.SelectAreaCallback,AddLogisticsMvpView {
+public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.SelectAreaCallback,
+		SelectCPDListView.SelectCallback,AddLogisticsMvpView {
 
 	private static final int ID_WHO_SELECT_FROM = 1;
 	private static final int ID_WHO_SELECT_TO = 2;
@@ -49,6 +56,9 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	 TextView tvTitle;
 	@BindView(R.id.view_select_area)
 	SelectAreaListView mSelectAreaView;
+	@BindView(R.id.view_select_cpd)
+	SelectCPDListView mSelectCPDView;
+
 	@BindView(R.id.detail_txt1)
 	LineTextView detailTxt1;
 	@BindView(R.id.detail_txt2)
@@ -62,6 +72,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	private int select_address_index;
 	private AddLogisticsAdapter adapter;
 	private AddLogisticsPresenter mLogisticsPresenter;
+
 
 	public static void launch(Context context) {
 		Intent intent = new Intent(context, AddzfwlActivity.class);
@@ -94,7 +105,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	@Override
 	public void onAddLogisticsSuccess(AllzfwlModel d) {
 		loadingDialog.stop();
-		ToastUtils.show(this, "添加成功");
+		AddzfwlSuccessActivity.launch(vThis);
 		finish();
 	}
 
@@ -149,7 +160,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	}
 	@OnClick(R.id.titlebar_btnRight)
 	public void onTitleRightClick() {
-
+		mSelectCPDView.show();
 	}
 	@OnClick(R.id.titlebar_btnLeft)
 	public void onTitleLeftClick() {
@@ -195,6 +206,23 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	}
 	@Override
 	public void onAreaReset() {
+	}
+
+	@Override
+	public void onSelectedCPD(CPDModel model){
+		data.setFromProvinceId(model.getFromProvinceId());
+		data.setFromCityId(model.getFromCityId());
+		data.setFromCountyId(model.getFromCountyId());
+
+		AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
+		addModel.setToCityId(model.getToCityId());
+		addModel.setToCityName("");
+		addModel.setToProvinceId(model.getToProvinceId());
+		addModel.setToProvinceName("");
+		addModel.setToCountyId(model.getToCountyId());
+		addModel.setToCountyName("");
+		adapter.mList.add(addModel);
+		adapter.notifyDataSetChanged();
 	}
 
 }

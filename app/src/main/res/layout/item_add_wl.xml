@@ -32,12 +32,11 @@
                 android:id="@+id/to"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_height="match_parent"
                 android:gravity="left|center_vertical"
                 android:text="卸货地址"
                 android:textColor="@color/black"
-                android:textSize="12sp"
                 />
 
         <ImageView

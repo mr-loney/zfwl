@@ -7,13 +7,16 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public interface AddLogisticsApi {
 
-    @GET("/app/empty/saveEmptyCar.do")
+    @FormUrlEncoded
+    @POST("app/empty/saveEmptyCar.do")
     Observable<AllzfwlModel> add(@Field("memberId") String memberId,
                                  @Field("fromProvinceId") String fromProvinceId,
                                  @Field("fromCityId") String fromCityId,
