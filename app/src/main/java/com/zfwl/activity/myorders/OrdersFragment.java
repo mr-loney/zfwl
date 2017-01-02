@@ -135,7 +135,6 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void showOrderErrorView(String msg) {
-        hideRvLoading();
         ToastUtils.show(mContext, msg);
     }
 
@@ -156,9 +155,14 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onGetOrdersFailed(String msg) {
-        hideRvLoading();
         ToastUtils.show(mContext, msg);
     }
+
+    @Override
+    public void hideLoading() {
+        hideRvLoading();
+    }
+
     private void hideRvLoading(){
         mRvOrders.loadMoreComplete();
         mRvOrders.refreshComplete();

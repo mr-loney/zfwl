@@ -22,4 +22,6 @@ public interface OrdersMvpView extends MvpView {
 
     void onGetOrdersFailed(String msg);
 
+    void hideLoading();
+
 }

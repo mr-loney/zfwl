@@ -71,7 +71,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
     public void onBindViewHolder(VH holder, int position) {
         Order order = getItem(position);
         ListBean logisticsInfo = order.getLogisticsInfo();
-        List<AddressInfoListBean> address = order.getLogisticsAddressInfo();
+        List<AddressInfoListBean> address = order.getAddressInfoList();
         holder.tvGoodsName.setText(order.getGoodsName());
         holder.tvFrom.setText(AddressUtils.getFromAddressStr(address));
         holder.tvTo.setText(AddressUtils.getToAddressStr(address));
