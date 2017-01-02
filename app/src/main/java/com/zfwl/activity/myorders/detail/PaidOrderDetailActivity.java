@@ -11,7 +11,6 @@ import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.entity.OrderDetails.OrderEmptyCar;
 import com.zfwl.util.AddressUtils;
-import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
@@ -45,8 +44,6 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
-//    @BindView(R.id.item_remark)
-//    KeyValueItem mItemRemark;
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
     @BindView(R.id.tv_remark)
@@ -86,7 +83,7 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
         mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
         mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
         //详细信息
-        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
+        mItemBeginTime.setText("发车时间", carInfo.getGoDate());
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
         mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
         mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");

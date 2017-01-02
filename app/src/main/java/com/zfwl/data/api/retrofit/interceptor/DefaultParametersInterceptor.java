@@ -53,8 +53,8 @@ public class DefaultParametersInterceptor implements Interceptor {
         for (int i = 0; i < b.size(); i++) {
             bodyBuilder.addEncoded(b.name(i), b.value(i));
         }
-        bodyBuilder.add("memberId", getMemberIdStr());
-//        bodyBuilder.addEncoded("memberId", getMemberIdStr());
+//        bodyBuilder.add("memberId", getMemberIdStr());
+        bodyBuilder.addEncoded("memberId", getMemberIdStr());
         return originalRequest.newBuilder().post(bodyBuilder.build()).build();
     }
 

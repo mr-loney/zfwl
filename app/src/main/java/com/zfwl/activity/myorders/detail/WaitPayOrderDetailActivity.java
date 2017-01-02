@@ -93,7 +93,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
         mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
         mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
         //详细信息
-        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
+        mItemBeginTime.setText("发车时间", carInfo.getGoDate());
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
         mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
         mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
@@ -102,9 +102,9 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
         mTvRemark.setText(carInfo.getRemark());
 
         //我的报价
-        mItemMyQuotedPrice.setText("我的报价", orderDetails.getMemberPrice().getPrice() + "");
+        mItemMyQuotedPrice.setText("我的报价", getQuotedPrice(orderDetails));
 
-        mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode() + "");
+        mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());
         mItemOrderCreateTime.setText("创建时间", TimeUtils.getDefaultTimeStamp(orderDetails.getWaitConfirmTime()));
 
 

@@ -39,8 +39,9 @@ public class Order {
     private double unitPrice;//单价
     private int chargeMethod;//0-按车辆收费,1-按吨数收费
     private int orderFrom;//单据来源(0-空车生成,1-报价生成)
+    private String goodsName;
     private ListBean logisticsInfo;//订单对应的物流信息的对象
-    private List<AddressInfoListBean> logisticsAddressInfo;// 订单对应物流信息地址的对象
+    private List<AddressInfoListBean> addressInfoList;// 订单对应物流信息地址的对象
 
     public int getId() {
         return id;
@@ -48,6 +49,14 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
     public int getMemberId() {
@@ -179,11 +188,11 @@ public class Order {
         this.logisticsInfo = logisticsInfo;
     }
 
-    public List<AddressInfoListBean> getLogisticsAddressInfo() {
-        return logisticsAddressInfo;
+    public List<AddressInfoListBean> getAddressInfoList() {
+        return addressInfoList;
     }
 
-    public void setLogisticsAddressInfo(List<AddressInfoListBean> logisticsAddressInfo) {
-        this.logisticsAddressInfo = logisticsAddressInfo;
+    public void setAddressInfoList(List<AddressInfoListBean> addressInfoList) {
+        this.addressInfoList = addressInfoList;
     }
 }

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.OrdersAdapter.VH;
-import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.LogisticsInfo.ListBean.AddressInfoListBean;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
@@ -35,6 +34,8 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         void onContactSalesClick(Order order);
 
         void onCommentClick(Order order);
+
+        void onOrderClick(Order order);
     }
 
     public void setCallback(Callback callback) {
@@ -70,13 +71,13 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
     @Override
     public void onBindViewHolder(VH holder, int position) {
         Order order = getItem(position);
-        ListBean logisticsInfo = order.getLogisticsInfo();
-        List<AddressInfoListBean> address = order.getLogisticsAddressInfo();
-        holder.tvGoodsName.setText(logisticsInfo.getGoodsName());
+        List<AddressInfoListBean> address = order.getAddressInfoList();
+        holder.tvGoodsName.setText(order.getGoodsName());
         holder.tvFrom.setText(AddressUtils.getFromAddressStr(address));
         holder.tvTo.setText(AddressUtils.getToAddressStr(address));
         holder.setOrder(order);
         holder.setCallback(mCallback);
+        holder.itemView.setOnClickListener(view -> mCallback.onOrderClick(order));
     }
 
 
@@ -202,6 +203,11 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
 
         @Override
         public void onCommentClick(Order order) {
+        }
+
+        @Override
+        public void onOrderClick(Order order) {
+
         }
     }
 }

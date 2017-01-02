@@ -13,7 +13,7 @@ public class OrderDetails implements Serializable{
 
     private long id;// 订单ID
     private long memberId;// 会员ID
-    private int orderCode;//订单编号
+    private String orderCode;//订单编号
     private long emptyCarId;//空车ID
     private long memberPriceId;//报价ID
     private long logisticsId;//物流ID
@@ -83,11 +83,11 @@ public class OrderDetails implements Serializable{
         this.memberId = memberId;
     }
 
-    public int getOrderCode() {
+    public String getOrderCode() {
         return orderCode;
     }
 
-    public void setOrderCode(int orderCode) {
+    public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
 
@@ -301,7 +301,7 @@ public class OrderDetails implements Serializable{
         private long fromCityId;// 110100,
         private long fromCountyId;// 110101,
         private String fromAddressName;// 北京市-市辖区-东城区 aaaa,
-        private long goDate;// 2016-12-29 10;//00;//00.0,
+        private String goDate;// 2016-12-29 10;//00;//00.0,
         private int carNumber;// 5,
         private int loadNumber;// 10,
         private int carLength;// 15,
@@ -369,11 +369,11 @@ public class OrderDetails implements Serializable{
             this.fromAddressName = fromAddressName;
         }
 
-        public long getGoDate() {
+        public String getGoDate() {
             return goDate;
         }
 
-        public void setGoDate(long goDate) {
+        public void setGoDate(String goDate) {
             this.goDate = goDate;
         }
 

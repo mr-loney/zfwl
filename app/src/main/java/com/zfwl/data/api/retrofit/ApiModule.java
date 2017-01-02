@@ -96,9 +96,9 @@ public class ApiModule {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.retryOnConnectionFailure(true)
+                .addInterceptor(new DefaultParametersInterceptor())
                 .addInterceptor(provideLoggingInterceptor())
                 .addInterceptor(provideOkLogInterceptor())
-                .addInterceptor(new DefaultParametersInterceptor())
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .build();
         mOkHttpClient = builder.build();

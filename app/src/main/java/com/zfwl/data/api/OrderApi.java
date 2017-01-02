@@ -17,7 +17,7 @@ public interface OrderApi {
     @GET("app/order/getOrders.do")
     Call<OrderListResult> getOrders(@Query("status") int status, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
-    @GET("app/member/getOrdersDetail.do")
+    @GET("app/order/getOrdersDetail.do")
     Call<OrderDetails> getOrderDetails(@Query("id") long orderId);
 
     @FormUrlEncoded

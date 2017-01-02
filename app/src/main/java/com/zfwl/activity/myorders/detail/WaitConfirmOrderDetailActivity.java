@@ -87,24 +87,28 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
     protected void populateDetails(OrderDetails orderDetails) {
         OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
-        mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
-        mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
+
         //详细信息
-        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
-        mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
-        mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
-        mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
-        mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
-        mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
-        mTvRemark.setText(carInfo.getRemark());
+        if(logisticsInfo != null){
+            mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
+            mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
+            mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
+            mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
+            mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
+            mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
+            mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+        }
+
+        if(carInfo != null){
+            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
+            mTvRemark.setText(carInfo.getRemark());
+        }
 
         //我的报价
-        mItemMyQuotedPrice.setText("我的报价", orderDetails.getMemberPrice().getPrice() + "");
+        mItemMyQuotedPrice.setText("我的报价", getQuotedPrice(orderDetails));
 
-        mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode() + "");
+        mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());
         mItemOrderCreateTime.setText("创建时间", TimeUtils.getDefaultTimeStamp(orderDetails.getWaitConfirmTime()));
-
-
     }
 
     private void initViews() {

@@ -22,18 +22,16 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     private static final int PAGE_SIZE = 10;
     private OrderApi mOrderApi;
     private int mPage;
-    private long mMemberId;
 
 
     public OrdersPresenter() {
         mOrderApi = ApiModule.INSTANCE.provideOrderApi();
-        mMemberId = UserInfoManager.INSTANCE.getMemberId();
     }
 
     //刷新订单
     public void refreshOrders(int status) {
         MyLog.i(TAG, "refreshOrders, status: %d", status);
-        mPage = 0;
+        mPage = 1;
         Call<OrderListResult> call = mOrderApi.getOrders(status, mPage, PAGE_SIZE);
         addCall(call);
         call.enqueue(new CustomCallback<OrderListResult>() {
@@ -69,11 +67,13 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
 
     private void onRefreshOrdersFailed(int code, String msg) {
         MyLog.e(TAG, msg);
+        getMvpView().hideLoading();
         getMvpView().showOrderErrorView(msg);
     }
 
 
     private void onLoadMoreOrdersSuccess(List<Order> orders) {
+        getMvpView().hideLoading();
         if (FP.size(orders) < PAGE_SIZE) {
             getMvpView().showNoMoreOrdersView();
         } else {
@@ -82,10 +82,12 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     }
 
     private void onLoadMoreOrdersFailed(int code, String msg) {
+        getMvpView().hideLoading();
         getMvpView().onGetOrdersFailed(msg);
     }
 
     private void onRefreshOrdersSuccess(List<Order> orders) {
+        getMvpView().hideLoading();
         MyLog.i(TAG, "refreshOrders success");
         if (FP.empty(orders)) {
             getMvpView().showOrderEmptyView();

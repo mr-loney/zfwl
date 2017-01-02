@@ -36,7 +36,8 @@ public class UserInfoManager {
         return mUser;
     }
     public long getMemberId(){
-        return getUserInfo().getId();
+//        return getUserInfo().getId();
+        return 1;
     }
 
     public void clear() {

@@ -25,7 +25,7 @@
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:textSize="15sp"
-            android:text="15510056863"
+            android:text="18500226297"
             android:maxLength="11"
             android:paddingLeft="70dp"
             android:singleLine="true" />
@@ -59,7 +59,7 @@
             style="@style/edit_text_white_corner"
             android:layout_width="match_parent"
             android:hint="密码"
-            android:text="111111"
+            android:text="123456"
             android:imeActionLabel="登录"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
