@@ -59,7 +59,7 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
         mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
         mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
         //详细信息
-        mItemBeginTime.setText("发车时间", TimeUtils.getDefaultTimeStamp(carInfo.getGoDate()));
+        mItemBeginTime.setText("发车时间", carInfo.getGoDate());
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
         mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
         mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");

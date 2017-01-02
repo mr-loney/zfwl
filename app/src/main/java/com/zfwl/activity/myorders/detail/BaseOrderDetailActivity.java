@@ -60,5 +60,14 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     public void onLoadOrderDetailsFailed(String msg) {
         ToastUtils.show(this, msg);
     }
+
     protected abstract void populateDetails(OrderDetails orderDetails);
+
+    public String getQuotedPrice(OrderDetails details) {
+        if (details == null || details.getMemberPrice() == null) {
+            return "0";
+        } else {
+            return details.getMemberPrice().getTotal() + "";
+        }
+    }
 }
