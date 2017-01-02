@@ -89,7 +89,7 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
 
         //详细信息
-        if(logisticsInfo != null){
+        if (logisticsInfo != null) {
             mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
             mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
             mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
@@ -99,7 +99,7 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
         }
 
-        if(carInfo != null){
+        if (carInfo != null) {
             mItemBeginTime.setText("发车时间", carInfo.getGoDate());
             mTvRemark.setText(carInfo.getRemark());
         }
