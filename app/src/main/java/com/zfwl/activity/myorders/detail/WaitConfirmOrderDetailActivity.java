@@ -139,12 +139,12 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
 
 
     @Override
-    public void showLoading() {
+    public void showWaitConfirmLoading() {
         mLoadingDialog.show();
     }
 
     @Override
-    public void hideLoading() {
+    public void hideWaitConfirmLoading() {
         mLoadingDialog.hide();
     }
 
