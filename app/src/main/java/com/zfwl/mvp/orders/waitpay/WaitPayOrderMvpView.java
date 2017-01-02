@@ -7,9 +7,9 @@ import com.zfwl.mvp.MvpView;
  */
 public interface WaitPayOrderMvpView extends MvpView {
 
-    void showLoading();
+    void showWaitPayOrderLoading();
 
-    void hideLoading();
+    void hideWaitPayOrderLoading();
 
     void onPayOrderSuccess();
 

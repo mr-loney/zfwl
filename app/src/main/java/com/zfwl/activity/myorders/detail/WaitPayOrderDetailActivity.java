@@ -137,12 +137,12 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
 
 
     @Override
-    public void showLoading() {
+    public void showWaitPayOrderLoading() {
         mLoadingDialog.show();
     }
 
     @Override
-    public void hideLoading() {
+    public void hideWaitPayOrderLoading() {
         mLoadingDialog.hide();
     }
 

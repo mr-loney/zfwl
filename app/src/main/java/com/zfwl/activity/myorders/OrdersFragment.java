@@ -21,6 +21,7 @@ import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.common.MyLog;
+import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.orders.OrdersMvpView;
@@ -40,6 +41,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
     XRecyclerView mRvOrders;
+    private LoadingDialog mLoadingDialog;
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
@@ -93,6 +95,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     private void initViews() {
         initRv();
+        mLoadingDialog = new LoadingDialog(mContext);
     }
 
 
