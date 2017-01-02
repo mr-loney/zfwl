@@ -72,7 +72,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         Order order = getItem(position);
         ListBean logisticsInfo = order.getLogisticsInfo();
         List<AddressInfoListBean> address = order.getLogisticsAddressInfo();
-        holder.tvGoodsName.setText(logisticsInfo.getGoodsName());
+        holder.tvGoodsName.setText(order.getGoodsName());
         holder.tvFrom.setText(AddressUtils.getFromAddressStr(address));
         holder.tvTo.setText(AddressUtils.getToAddressStr(address));
         holder.setOrder(order);

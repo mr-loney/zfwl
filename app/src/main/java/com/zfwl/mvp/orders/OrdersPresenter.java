@@ -33,7 +33,7 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     //刷新订单
     public void refreshOrders(int status) {
         MyLog.i(TAG, "refreshOrders, status: %d", status);
-        mPage = 0;
+        mPage = 1;
         Call<OrderListResult> call = mOrderApi.getOrders(status, mPage, PAGE_SIZE);
         addCall(call);
         call.enqueue(new CustomCallback<OrderListResult>() {
