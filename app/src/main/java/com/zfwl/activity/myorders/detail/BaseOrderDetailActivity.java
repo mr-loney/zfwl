@@ -65,9 +65,9 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
 
     public String getQuotedPrice(OrderDetails details) {
         if (details == null || details.getMemberPrice() == null) {
-            return "0";
+            return "￥0";
         } else {
-            return details.getMemberPrice().getTotal() + "";
+            return "￥" + details.getMemberPrice().getTotal();
         }
     }
 }

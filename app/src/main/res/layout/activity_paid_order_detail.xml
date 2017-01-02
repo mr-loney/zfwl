@@ -26,6 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="19dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
             android:layout_marginTop="10dp"
@@ -47,12 +48,6 @@
                 android:textColor="#66ae18"
                 android:textSize="14sp"/>
         </LinearLayout>
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="19dp"
-            android:paddingLeft="12dp"/>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,16 +164,15 @@
                 android:textColor="#030303"
                 android:textSize="17sp"/>
         </LinearLayout>
-
+        <View
+            style="@style/GrayDivider"
+            />
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_begin_time"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
 
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_big_car_passable"
@@ -186,9 +180,6 @@
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
 
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_goods_name"
@@ -196,9 +187,6 @@
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
 
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_goods_weight"
@@ -206,9 +194,6 @@
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
 
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_goods_length"
@@ -216,18 +201,12 @@
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
         <com.zfwl.widget.goodsdetail.KeyValueItem
             android:id="@+id/item_need_car_number"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"/>
 
-        <View
-            style="@style/GrayDivider"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

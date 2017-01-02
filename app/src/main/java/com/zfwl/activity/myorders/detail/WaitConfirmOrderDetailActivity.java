@@ -105,6 +105,7 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
         }
 
         //我的报价
+        mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
         mItemMyQuotedPrice.setText("我的报价", getQuotedPrice(orderDetails));
 
         mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());

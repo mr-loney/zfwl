@@ -13,8 +13,11 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
+import com.zfwl.activity.myorders.detail.CarryingOrderDetailActivity;
+import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.PaidOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.WaitConfirmOrderDetailActivity;
+import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.common.MyLog;
@@ -134,14 +137,26 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onOrderClick(Order order) {
+        int orderId = order.getId();
         switch (order.getStatus()) {
             case Type.WAIT_CONFIRM:
-                WaitConfirmOrderDetailActivity.launch(getActivity(), order.getId());
+                WaitConfirmOrderDetailActivity.launch(getActivity(), orderId);
                 break;
             case Type.PAID:
-                PaidOrderDetailActivity.launch(getActivity(), order.getId());
+                PaidOrderDetailActivity.launch(getActivity(), orderId);
                 break;
-
+            case Type.WAIT_PAY:
+                WaitPayOrderDetailActivity.launch(getActivity(), orderId);
+                break;
+            case Type.CARRYING:
+                CarryingOrderDetailActivity.launch(getActivity(), orderId);
+                break;
+            case Type.FINISHED:
+                FinishedOrderDetailActivity.launch(getActivity(), orderId);
+                break;
+            default:
+                ToastUtils.show(getActivity(), "未知订单：" + orderId);
+                break;
         }
     }
 

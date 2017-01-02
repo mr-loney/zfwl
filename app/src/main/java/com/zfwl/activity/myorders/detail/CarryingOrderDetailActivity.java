@@ -1,5 +1,7 @@
 package com.zfwl.activity.myorders.detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +11,6 @@ import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.entity.OrderDetails.OrderEmptyCar;
 import com.zfwl.util.AddressUtils;
-import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import butterknife.BindView;
@@ -42,7 +43,11 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemNeedCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
-
+    public static void launch(Context context, long orderId) {
+        Intent intent = new Intent(context, CarryingOrderDetailActivity.class);
+        intent.putExtra(EXTRA_ORDER_ID, orderId);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +61,8 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
     protected void populateDetails(OrderDetails orderDetails) {
         OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
-        mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
-        mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
+        mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
+        mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
         //详细信息
         mItemBeginTime.setText("发车时间", carInfo.getGoDate());
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());

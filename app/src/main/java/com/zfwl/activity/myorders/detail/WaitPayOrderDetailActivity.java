@@ -90,8 +90,8 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     protected void populateDetails(OrderDetails orderDetails) {
         OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
-        mTvFrom.setText(AddressUtils.getFromAddressStr(orderDetails.getAddressInfoList()));
-        mTvTo.setText(AddressUtils.getToAddressStr(orderDetails.getAddressInfoList()));
+        mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
+        mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
         //详细信息
         mItemBeginTime.setText("发车时间", carInfo.getGoDate());
         mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
