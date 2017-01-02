@@ -23,7 +23,14 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initExtras();
+        mOrderDetailsPresenter.attachView(this);
         mLoadingDialog = new LoadingDialog(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mOrderDetailsPresenter.detachView();
     }
 
     protected void initExtras() {

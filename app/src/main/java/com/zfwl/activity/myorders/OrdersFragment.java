@@ -13,10 +13,13 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
+import com.zfwl.activity.myorders.detail.PaidOrderDetailActivity;
+import com.zfwl.activity.myorders.detail.WaitConfirmOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.common.MyLog;
 import com.zfwl.entity.Order;
+import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.widget.ToastUtils;
@@ -38,6 +41,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
     private int mOrderType;
+
     public OrdersFragment() {
     }
 
@@ -129,6 +133,19 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     }
 
     @Override
+    public void onOrderClick(Order order) {
+        switch (order.getStatus()) {
+            case Type.WAIT_CONFIRM:
+                WaitConfirmOrderDetailActivity.launch(getActivity(), order.getId());
+                break;
+            case Type.PAID:
+                PaidOrderDetailActivity.launch(getActivity(), order.getId());
+                break;
+
+        }
+    }
+
+    @Override
     public void showOrderEmptyView() {
         // TODO: 2016/12/26
     }
@@ -163,7 +180,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         hideRvLoading();
     }
 
-    private void hideRvLoading(){
+    private void hideRvLoading() {
         mRvOrders.loadMoreComplete();
         mRvOrders.refreshComplete();
     }
