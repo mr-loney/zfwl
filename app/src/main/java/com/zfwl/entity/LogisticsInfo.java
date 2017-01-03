@@ -145,12 +145,21 @@ public class LogisticsInfo implements Serializable {
         private int length;
         private int carNum;
         private long departureTime;
+        private String departureTimeStr;
         private long createTime;
         private int isLargeGo;
         private String isLargeGoDesc;
         private String contactWay;
         private String remark;
         private List<AddressInfoListBean> addressInfoList;
+
+        public String getDepartureTimeStr() {
+            return departureTimeStr;
+        }
+
+        public void setDepartureTimeStr(String departureTimeStr) {
+            this.departureTimeStr = departureTimeStr;
+        }
 
         public long getCreateTime() {
             return createTime;

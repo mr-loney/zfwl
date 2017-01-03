@@ -97,12 +97,10 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemBeginTime.setText("发车时间", logisticsInfo.getDepartureTimeStr());
+            mTvRemark.setText(logisticsInfo.getRemark());
         }
 
-        if (carInfo != null) {
-            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-            mTvRemark.setText(carInfo.getRemark());
-        }
 
         //我的报价
         mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
