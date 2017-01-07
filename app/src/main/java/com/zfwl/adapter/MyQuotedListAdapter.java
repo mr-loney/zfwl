@@ -56,6 +56,12 @@ public class MyQuotedListAdapter extends BaseAdapter {
 						.findViewById(R.id.txt1);
 				holder.txt2 = (TextView) view
 						.findViewById(R.id.txt2);
+				holder.from = (TextView) view
+						.findViewById(R.id.from);
+				holder.to = (TextView) view
+						.findViewById(R.id.to);
+				holder.txt3 = (TextView) view
+						.findViewById(R.id.txt3);
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();
@@ -76,8 +82,8 @@ public class MyQuotedListAdapter extends BaseAdapter {
 			holder.from.setText(Html.fromHtml(fromStr));
 			holder.to.setText(Html.fromHtml(toStr));
 			holder.txt1.setText(data.getCdate()+" 装");
-			holder.txt1.setText("重量 "+data.getLoadNumber()+"吨  要"+data.getCarNumber()+"辆车");
-			holder.txt1.setText("总计："+data.getTotal()+"元");
+			holder.txt2.setText("重量 "+data.getLoadNumber()+"吨  要"+data.getCarNumber()+"辆车");
+			holder.txt3.setText("总计："+data.getTotal()+"元");
 		}
 
 		return view;

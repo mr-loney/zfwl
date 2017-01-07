@@ -25,6 +25,7 @@ import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
+import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.widget.ToastUtils;
 
 import java.util.List;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ZZB on 2016/12/20.
  */
-public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpView {
+public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpView, WaitConfirmOrderMvpView {
     private static final String TAG = "OrdersFragment";
     private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
@@ -43,6 +44,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
+    private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
     private int mOrderType;
 
     public OrdersFragment() {
@@ -83,12 +85,15 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mWaitConfirmOrderPresenter.detachView();
         mOrdersPresenter.detachView();
     }
 
     private void initPresenters() {
         mOrdersPresenter = new OrdersPresenter();
         mOrdersPresenter.attachView(this);
+        mWaitConfirmOrderPresenter = new WaitConfirmOrderPresenter();
+        mWaitConfirmOrderPresenter.attachView(this);
     }
 
     private void initViews() {
@@ -117,12 +122,12 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onCancelOrderClick(Order order) {
-        ToastUtils.show(mContext, "onCancelOrderClick:" + order.toString());
+        mWaitConfirmOrderPresenter.cancelOrder(order.getId());
     }
 
     @Override
     public void onConfirmOrderClick(Order order) {
-        ToastUtils.show(mContext, "onConfirmOrderClick:" + order.toString());
+        mWaitConfirmOrderPresenter.confirmOrder(order.getId());
     }
 
     @Override

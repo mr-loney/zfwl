@@ -125,6 +125,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         initLayoutTransition(mViewStep2);
         mViewStep1.setVisibility(View.VISIBLE);
         mBtnGetVerifyCode.setOnClickListener(this);
+        mBtnGetVerifyCode.setTextColor(Color.WHITE);
+        mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#AAAAAA"));
         mBtnGotoStep2.setOnClickListener(this);
 
         mBtnSj.setOnClickListener(this);

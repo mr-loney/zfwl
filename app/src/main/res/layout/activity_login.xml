@@ -59,7 +59,7 @@
             style="@style/edit_text_white_corner"
             android:layout_width="match_parent"
             android:hint="密码"
-            android:text="123456"
+            android:text="111111"
             android:imeActionLabel="登录"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
