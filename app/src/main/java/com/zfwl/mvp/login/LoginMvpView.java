@@ -16,4 +16,7 @@ public interface LoginMvpView extends MvpView {
     void onLoginFailed(String msg);
 
     void hideLoginLoading();
+
+
+    void autoLoginFailed();
 }

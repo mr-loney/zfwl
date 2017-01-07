@@ -1,5 +1,6 @@
 package com.zfwl.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity implements LoginMvpView {
     private static final String TAG = "LoginActivity";
+    private static final String EXTRA_NEED_AUTO_LOGIN = "EXTRA_NEED_AUTO_LOGIN";
     @BindView(R.id.login_edtPassword)
     EditText mEtPsw;
     @BindView(R.id.login_edtAccount)
@@ -51,25 +53,45 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     private LoadingDialog mLoadingDialog;
     private IWXAPI mWxApi;
 
+    public static void launch(Context context) {
+        launch(context, true);
+    }
+
+    public static void launch(Context context, boolean needAutoLogin) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(EXTRA_NEED_AUTO_LOGIN, needAutoLogin);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        mLoadingDialog = new LoadingDialog(this);
         mLoginPresenter = new LoginPresenter(this);
         mLoginPresenter.attachView(this);
         mWxApi = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
 
         initView();
+
+        tryAutoLogin();
+    }
+
+    private void tryAutoLogin() {
+        boolean needAutoLogin = getIntent().getBooleanExtra(EXTRA_NEED_AUTO_LOGIN, true);
+        if (needAutoLogin) {
+            mLoginPresenter.autoLogin();
+        }
     }
 
     private void initView() {
+        mLoadingDialog = new LoadingDialog(this);
         tvTitle.setText("登录");
         sigupBtn.setText("注册");
         sigupBtn.setVisibility(View.VISIBLE);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -149,10 +171,18 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         //hide loading
     }
 
+    @Override
+    public void autoLoginFailed() {
+
+        HomeActivity.launch(this);
+    }
+
     @Subscribe
     public void onWeChatAuthSuccess(WeChatAuthEvent event) {
         MyLog.i(TAG, "wechat auth success, code is %s", event.getCode());
         //event.getCode() then get token
         mLoginPresenter.wechatLogin(event.getCode());
     }
+
+
 }

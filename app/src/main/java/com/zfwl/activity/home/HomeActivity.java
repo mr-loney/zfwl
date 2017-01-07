@@ -12,10 +12,11 @@ import android.widget.Toast;
 
 import com.zfwl.R;
 import com.zfwl.activity.AddzfwlActivity;
+import com.zfwl.activity.LoginActivity;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
 import com.zfwl.common.MyLog;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.widget.BottomNavBtn;
-import com.zfwl.widget.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     View mBtnFc;
     @BindView(R.id.btn_me)
     BottomNavBtn mBtnMe;
-    private List<BottomNavBtn> mNavBtns = new ArrayList<>();
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -61,12 +61,20 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_fc)
     public void onBtnFcClick() {
-        AddzfwlActivity.launch(this);
+        if (UserInfoManager.INSTANCE.hasLogin()) {
+            AddzfwlActivity.launch(this);
+        } else {
+            LoginActivity.launch(this, false);
+        }
     }
 
     @OnClick(R.id.btn_me)
     public void onBtnMeClick() {
-        mViewPager.setCurrentItem(1);
+        if (UserInfoManager.INSTANCE.hasLogin()) {
+            mViewPager.setCurrentItem(1);
+        } else {
+            LoginActivity.launch(this, false);
+        }
     }
 
     private void initViews() {
@@ -91,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 MyLog.i(TAG, "onPageSelected, " + position);
                 mCurrentPosition = position;
-                switch (position){
+                switch (position) {
                     case 0:
                         mBtnWl.enable();
                         mBtnMe.disable();
@@ -107,9 +115,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private long exitTime = 0;
+
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis() - exitTime > 2000) {
+        if (System.currentTimeMillis() - exitTime > 2000) {
             Toast.makeText(mContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
         } else {
