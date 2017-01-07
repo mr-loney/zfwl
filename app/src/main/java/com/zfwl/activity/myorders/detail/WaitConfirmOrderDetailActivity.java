@@ -89,7 +89,7 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
 
         //详细信息
-        if(logisticsInfo != null){
+        if (logisticsInfo != null) {
             mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
             mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
             mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
@@ -97,12 +97,10 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemBeginTime.setText("发车时间", logisticsInfo.getDepartureTimeStr());
+            mTvRemark.setText(logisticsInfo.getRemark());
         }
 
-        if(carInfo != null){
-            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-            mTvRemark.setText(carInfo.getRemark());
-        }
 
         //我的报价
         mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
@@ -139,12 +137,12 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
 
 
     @Override
-    public void showLoading() {
+    public void showWaitConfirmLoading() {
         mLoadingDialog.show();
     }
 
     @Override
-    public void hideLoading() {
+    public void hideWaitConfirmLoading() {
         mLoadingDialog.hide();
     }
 

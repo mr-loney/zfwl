@@ -43,11 +43,13 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemNeedCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
+
     public static void launch(Context context, long orderId) {
         Intent intent = new Intent(context, CarryingOrderDetailActivity.class);
         intent.putExtra(EXTRA_ORDER_ID, orderId);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +63,20 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
     protected void populateDetails(OrderDetails orderDetails) {
         OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
-        mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
-        mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
+        if (logisticsInfo != null) {
+            mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
+            mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
+            mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
+            mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
+            mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
+            mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
+            mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+        }
         //详细信息
-        mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-        mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
-        mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
-        mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
-        mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
-        mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
-        mTvRemark.setText(carInfo.getRemark());
+        if (carInfo != null) {
+            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
+            mTvRemark.setText(carInfo.getRemark());
+        }
     }
 
     @OnClick({R.id.btn_nav_from, R.id.btn_nav_to, R.id.btn_contact_sales})

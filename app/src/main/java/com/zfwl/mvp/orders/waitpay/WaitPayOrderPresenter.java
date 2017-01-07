@@ -38,19 +38,19 @@ public class WaitPayOrderPresenter extends BasePresenter<WaitPayOrderMvpView> {
 //    }
 
     public void cancelOrder(long orderId) {
-        getMvpView().showLoading();
+        getMvpView().showWaitPayOrderLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.CANCEL);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {
             @Override
             public void onSuccess(Object o) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitPayOrderLoading();
                 getMvpView().onCancelOrderSuccess();
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitPayOrderLoading();
                 getMvpView().onCancelOrderFailed(msg);
             }
         });

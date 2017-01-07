@@ -21,10 +21,12 @@ import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.common.MyLog;
+import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
+import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.widget.ToastUtils;
 
@@ -41,6 +43,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
     XRecyclerView mRvOrders;
+    private LoadingDialog mLoadingDialog;
     private OrdersAdapter mOrdersAdapter;
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
@@ -98,6 +101,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     private void initViews() {
         initRv();
+        mLoadingDialog = new LoadingDialog(mContext);
     }
 
 
@@ -203,5 +207,37 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private void hideRvLoading() {
         mRvOrders.loadMoreComplete();
         mRvOrders.refreshComplete();
+    }
+
+    @Override
+    public void showWaitConfirmLoading() {
+        mLoadingDialog.show();
+    }
+
+    @Override
+    public void hideWaitConfirmLoading() {
+        mLoadingDialog.hide();
+    }
+
+    @Override
+    public void onConfirmOrderSuccess() {
+        mRvOrders.refresh();
+        ToastUtils.show(mContext, "确认订单成功");
+    }
+
+    @Override
+    public void onConfirmOrderFailed(String msg) {
+        ToastUtils.show(mContext, "确认订单失败");
+    }
+
+    @Override
+    public void onCancelOrderSuccess() {
+        mRvOrders.refresh();
+        ToastUtils.show(mContext, "取消订单成功");
+    }
+
+    @Override
+    public void onCancelOrderFailed(String msg) {
+        ToastUtils.show(mContext, "取消订单失败");
     }
 }

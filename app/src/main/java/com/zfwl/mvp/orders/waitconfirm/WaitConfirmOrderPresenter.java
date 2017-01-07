@@ -19,38 +19,38 @@ public class WaitConfirmOrderPresenter extends BasePresenter<WaitConfirmOrderMvp
     }
 
     public void confirmOrder(long orderId) {
-        getMvpView().showLoading();
+        getMvpView().showWaitConfirmLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.WAIT_PAY);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {
             @Override
             public void onSuccess(Object o) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitConfirmLoading();
                 getMvpView().onConfirmOrderSuccess();
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitConfirmLoading();
                 getMvpView().onConfirmOrderFailed(msg);
             }
         });
     }
 
     public void cancelOrder(long orderId) {
-        getMvpView().showLoading();
+        getMvpView().showWaitConfirmLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.CANCEL);
         addCall(call);
         call.enqueue(new CustomCallback<Object>() {
             @Override
             public void onSuccess(Object o) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitConfirmLoading();
                 getMvpView().onCancelOrderSuccess();
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                getMvpView().hideLoading();
+                getMvpView().hideWaitConfirmLoading();
                 getMvpView().onCancelOrderFailed(msg);
             }
         });

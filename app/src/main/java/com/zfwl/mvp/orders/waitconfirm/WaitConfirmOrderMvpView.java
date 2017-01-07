@@ -7,9 +7,9 @@ import com.zfwl.mvp.MvpView;
  */
 public interface WaitConfirmOrderMvpView extends MvpView {
 
-    void showLoading();
+    void showWaitConfirmLoading();
 
-    void hideLoading();
+    void hideWaitConfirmLoading();
 
     void onConfirmOrderSuccess();
 
