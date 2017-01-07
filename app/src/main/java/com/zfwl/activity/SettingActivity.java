@@ -21,6 +21,7 @@ import com.zfwl.common.SDCardHelper;
 import com.zfwl.controls.LightPopDialog;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.WidgetSettingItem;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.util.ViewHub;
 
@@ -114,6 +115,7 @@ public class SettingActivity extends BaseActivity {
                 getString(R.string.shopset_exit_confirm), "取消", "退出登录", new LightPopDialog.PopDialogListener() {
                     @Override
                     public void onPopDialogButtonClick(int which) {
+                        UserInfoManager.INSTANCE.clearOnLogout();
                         Intent intent = new Intent(mContext, LoginActivity.class);
                         mContext.startActivity(intent);
                         finish();

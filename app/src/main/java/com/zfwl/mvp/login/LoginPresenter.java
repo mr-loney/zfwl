@@ -7,6 +7,7 @@ import com.zfwl.common.MyLog;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.LoginApi;
 import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.data.sp.GlobalPref;
 import com.zfwl.data.sp.WeChatPref;
 import com.zfwl.entity.User;
 import com.zfwl.entity.WeChatTokenResult;
@@ -39,6 +40,19 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     public LoginPresenter(LoginApi mLoginApi) {
         this.mLoginApi = mLoginApi;
+    }
+
+    public void autoLogin() {
+        MyLog.i(TAG, "autoLogin");
+        long lastMemberId = GlobalPref.get(mContext).getLastLoginMemberId();
+        if (lastMemberId > 0) {
+            MyLog.i(TAG, "autoLogin success");
+            UserInfoManager.INSTANCE.init(lastMemberId);
+            getMvpView().onLoginSuccess(UserInfoManager.INSTANCE.getUserInfo());
+        }else{
+            MyLog.i(TAG, "autoLogin Failed");
+            getMvpView().autoLoginFailed();
+        }
     }
 
     public void phoneLogin(String phone, String password) {
