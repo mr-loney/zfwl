@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
@@ -16,20 +15,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.common.FileUtils;
 import com.zfwl.common.SDCardHelper;
 import com.zfwl.controls.LightPopDialog;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.WidgetSettingItem;
 import com.zfwl.data.UserInfoManager;
-import com.zfwl.util.TimeUtils;
 import com.zfwl.util.ViewHub;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -116,8 +110,7 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void onPopDialogButtonClick(int which) {
                         UserInfoManager.INSTANCE.clearOnLogout();
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        mContext.startActivity(intent);
+                        LoginActivity.launch(mContext, false);
                         finish();
                     }
                 });
