@@ -80,15 +80,19 @@ public class LogisticsAdapter  extends BaseAdapter {
             }
             holder.position = arg0;
             final  LogisticsInfo.ListBean data = mList.get(arg0);
-            holder.tvFrom.setText(data.getAddressInfoList().get(0).getFromDetail());
-            holder.tvTo.setText(data.getAddressInfoList().get(0).getToDetail());
+            holder.tvFrom.setText(data.getAddressInfoList().get(0).getFromProvinceName()+""+
+                    data.getAddressInfoList().get(0).getFromCityName()+""+
+                    data.getAddressInfoList().get(0).getFromCountyName());
+            holder.tvTo.setText(data.getAddressInfoList().get(0).getToProvinceName()+""+
+                    data.getAddressInfoList().get(0).getToCityName()+""+
+                    data.getAddressInfoList().get(0).getToCountyName());
             try {
-                holder.tvPublishTime.setText(Utils.longToString(data.getDepartureTime(),"yyyy-MM-dd HH:mm:ss"));
-                holder.tvSendTime.setText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+                holder.tvSendTime.setText(Utils.longToStringFriendly(data.getDepartureTime()));
+                holder.tvPublishTime.setText(Utils.longToStringFriendly(data.getCreateTime()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            holder.tvDesc.setText("门窗"+data.getLength()+"米  要"+data.getCarNum()+"辆车");
+            holder.tvDesc.setText(data.getGoodsName()+" "+data.getLength()+"米  要"+data.getCarNum()+"辆车");
             holder.btnRob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

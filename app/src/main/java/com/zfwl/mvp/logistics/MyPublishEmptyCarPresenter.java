@@ -37,7 +37,7 @@ public class MyPublishEmptyCarPresenter extends BasePresenter<MyPublishEmptyCarM
                     getMvpView().onGetListSuccess(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onGetListFailed(throwable.toString());
+                    getMvpView().onGetListFailed(throwable.getMessage());
                     stoploading();
                 });
     }
@@ -50,7 +50,7 @@ public class MyPublishEmptyCarPresenter extends BasePresenter<MyPublishEmptyCarM
                     getMvpView().onDelSuccess(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onDelFail(throwable.toString());
+                    getMvpView().onDelFail(throwable.getMessage());
                     stoploading();
                 });
     }

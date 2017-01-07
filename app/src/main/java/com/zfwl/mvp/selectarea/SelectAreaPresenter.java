@@ -45,7 +45,7 @@ public class SelectAreaPresenter extends BasePresenter<SelectAreaMvpView> {
                     mProvinces = areas;
             getMvpView().onProvincesLoaded(areas);
         }, throwable -> {
-                    getMvpView().onFailed(throwable.toString());
+                    getMvpView().onFailed(throwable.getMessage());
         });
     }
 
@@ -58,7 +58,7 @@ public class SelectAreaPresenter extends BasePresenter<SelectAreaMvpView> {
                     getMvpView().onCityLoaded(areas);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onFailed(throwable.toString());
+                    getMvpView().onFailed(throwable.getMessage());
                     stoploading();
                 });
     }
@@ -72,7 +72,7 @@ public class SelectAreaPresenter extends BasePresenter<SelectAreaMvpView> {
                     getMvpView().onDistrictLoaded(areas);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onFailed(throwable.toString());
+                    getMvpView().onFailed(throwable.getMessage());
                     stoploading();
                 });
     }

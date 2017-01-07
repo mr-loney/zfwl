@@ -141,8 +141,8 @@ public class LogisticsInfo implements Serializable {
 
         private int id;
         private String goodsName;
-        private int weight;
-        private int length;
+        private double weight;
+        private double length;
         private int carNum;
         private long departureTime;
         private String departureTimeStr;
@@ -193,19 +193,19 @@ public class LogisticsInfo implements Serializable {
             this.goodsName = goodsName;
         }
 
-        public int getWeight() {
+        public double getWeight() {
             return weight;
         }
 
-        public void setWeight(int weight) {
+        public void setWeight(double weight) {
             this.weight = weight;
         }
 
-        public int getLength() {
+        public double getLength() {
             return length;
         }
 
-        public void setLength(int length) {
+        public void setLength(double length) {
             this.length = length;
         }
 

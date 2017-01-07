@@ -2,6 +2,8 @@ package com.zfwl.activity.myorders;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -136,12 +138,13 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onContactSalesClick(Order order) {
-        ToastUtils.show(mContext, "onContactSalesClick:" + order.toString());
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+order.getRelationPhone()));
+        startActivity(intent);
     }
 
     @Override
     public void onCommentClick(Order order) {
-        ToastUtils.show(mContext, "onCommentClick:" + order.toString());
+        OrderCommentActivity.launch(mContext,order.getId());
     }
 
     @Override

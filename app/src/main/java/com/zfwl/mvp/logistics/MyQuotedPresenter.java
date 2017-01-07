@@ -40,7 +40,7 @@ public class MyQuotedPresenter extends BasePresenter<MyQuotedMvpView> {
                     getMvpView().onGetListSuccess(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onGetListFailed(throwable.toString());
+                    getMvpView().onGetListFailed(throwable.getMessage());
                     stoploading();
                 });
     }

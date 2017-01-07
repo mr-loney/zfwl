@@ -109,7 +109,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
         mItemStartTime.setKeyText("发车时间");
         try {
-            mItemStartTime.setValueText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+            mItemStartTime.setValueText(Utils.longToStringFriendly(data.getCreateTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

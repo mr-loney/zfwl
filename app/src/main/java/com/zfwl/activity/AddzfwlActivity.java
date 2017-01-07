@@ -211,6 +211,8 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		}
 	}
 	@Override
+	public void onAreaClose(){}
+	@Override
 	public void onAreaReset() {
 	}
 

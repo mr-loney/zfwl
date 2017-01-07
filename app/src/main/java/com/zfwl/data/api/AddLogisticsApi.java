@@ -26,5 +26,5 @@ public interface AddLogisticsApi {
                                  @Field("carNumber") int carNumber,
                                  @Field("loadNumber") double loadNumber,
                                  @Field("carLength") double carLength,
-                                 @Field("goDate") String goDate);
+                                 @Field("goDateStr") String goDate);
 }

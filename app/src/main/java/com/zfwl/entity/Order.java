@@ -40,6 +40,16 @@ public class Order {
     private int chargeMethod;//0-按车辆收费,1-按吨数收费
     private int orderFrom;//单据来源(0-空车生成,1-报价生成)
     private String goodsName;
+    private String relationPhone;
+
+    public String getRelationPhone() {
+        return relationPhone;
+    }
+
+    public void setRelationPhone(String relationPhone) {
+        this.relationPhone = relationPhone;
+    }
+
     private ListBean logisticsInfo;//订单对应的物流信息的对象
     private List<AddressInfoListBean> addressInfoList;// 订单对应物流信息地址的对象
 

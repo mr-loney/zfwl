@@ -2,6 +2,7 @@ package com.zfwl.activity.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.GoodsDetailActivity;
 import com.zfwl.activity.MyPublishEmptyCarDetailActivity;
 import com.zfwl.adapter.LogisticsAdapter;
 import com.zfwl.adapter.MyPublishEmptyCarListAdapter;
@@ -179,6 +181,10 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     public void onFromAddressClick(Address address) {
         mSelectAreaView.show(ID_WHO_SELECT_FROM, address);
     }
+    @Override
+    public void onCloseView(){
+        mSelectAreaView.setVisibility(View.GONE);
+    }
 
     @Override
     public void onToAddressClick(Address address) {
@@ -204,6 +210,14 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     }
 
     @Override
+    public void onAreaClose() {
+        mFromAndToView.setNormalStat();
+        mFromAndToView.mTvFrom.setTag("0");
+        mFromAndToView.mTvTo.setTag("0");
+        mFromAndToView.mTvStartTime.setTag("0");
+    }
+
+    @Override
     public void onAreaReset() {
         mFromAndToView.resetArea();
         tvAreaCondition.setVisibility(View.GONE);
@@ -221,7 +235,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         pullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                GoodsDetailActivity.launch(mContext, adapter.mList.get(i-1));
             }
         });
 
@@ -288,13 +302,13 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         String toD = "";
         if (to!=null) {
             if (to.getProvince()!=null) {
-                toP = from.getProvince().getId();
+                toP = to.getProvince().getId();
             }
             if (to.getCity()!=null) {
-                toC = from.getCity().getId();
+                toC = to.getCity().getId();
             }
             if (to.getDistrict()!=null) {
-                toD = from.getDistrict().getId();
+                toD = to.getDistrict().getId();
             }
         }
         String time = mFromAndToView.mTvStartTime.getText().toString();

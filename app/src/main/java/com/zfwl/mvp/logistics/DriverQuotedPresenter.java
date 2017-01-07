@@ -52,7 +52,7 @@ public class DriverQuotedPresenter extends BasePresenter<DriverQuotedMvpView> {
                     getMvpView().onAddSuccess(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onAddFailed(throwable.toString());
+                    getMvpView().onAddFailed(throwable.getMessage());
                     stoploading();
                 });
     }

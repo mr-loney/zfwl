@@ -2,7 +2,9 @@ package com.zfwl.widget.slsectarea;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,11 +28,17 @@ public class FromAndToView extends LinearLayout {
     private static final String DEFAULT_FROM = "出发地";
     private static final String DEFAULT_TO = "目的地";
     @BindView(R.id.tv_from)
-    TextView mTvFrom;
+    public TextView mTvFrom;
     @BindView(R.id.tv_to)
-    TextView mTvTo;
+    public TextView mTvTo;
     @BindView(R.id.tv_begin_time)
     public TextView mTvStartTime;
+    @BindView(R.id.tv_from_img)
+    public ImageView mTvFromImg;
+    @BindView(R.id.tv_to_img)
+    public ImageView mTvToImg;
+    @BindView(R.id.tv_begin_time_img)
+    public ImageView mTvStartTimeImg;
     private Callback mCallback;
     private Address mFromAddress, mToAddress;
 
@@ -39,21 +47,60 @@ public class FromAndToView extends LinearLayout {
 
         void onToAddressClick(Address address);
 
+        void onCloseView();
+
         void onStartTimeSelected(long timeInMillis);
     }
 
     @OnClick(R.id.tv_from)
     public void onFromAreaClick() {
-        mCallback.onFromAddressClick(mFromAddress);
+        setNormalStat();
+        mTvTo.setTag("0");
+        mTvStartTime.setTag("0");
+        if (mTvFrom.getTag()=="0") {
+            mTvFrom.setTextColor(Color.parseColor("#2060fe"));
+            mTvFromImg.setImageResource(R.drawable.up);
+            mTvFrom.setTag("1");
+
+            mCallback.onFromAddressClick(mFromAddress);
+        } else {
+            mTvFrom.setTag("0");
+
+            mCallback.onCloseView();
+        }
     }
 
     @OnClick(R.id.tv_to)
     public void onToAreaClick() {
-        mCallback.onToAddressClick(mToAddress);
+        setNormalStat();
+        mTvFrom.setTag("0");
+        mTvStartTime.setTag("0");
+        if (mTvTo.getTag()=="0") {
+            mTvTo.setTextColor(Color.parseColor("#2060fe"));
+            mTvToImg.setImageResource(R.drawable.up);
+            mTvTo.setTag("1");
+
+            mCallback.onToAddressClick(mToAddress);
+        } else {
+            mTvTo.setTag("0");
+
+            mCallback.onCloseView();
+        }
     }
 
     @OnClick(R.id.tv_begin_time)
     public void onStartTimeClick() {
+        setNormalStat();
+        mTvFrom.setTag("0");
+        mTvTo.setTag("0");
+        if (mTvStartTime.getTag()=="0") {
+            mTvStartTime.setTextColor(Color.parseColor("#2060fe"));
+            mTvStartTimeImg.setImageResource(R.drawable.up);
+            mTvStartTime.setTag("1");
+        } else {
+            mTvStartTime.setTag("0");
+        }
+        mCallback.onCloseView();
 //        mCallback.onStartTimeSelected(0);
         String nowText = mTvStartTime.getText().toString();
         int checkIndex = 0;
@@ -95,8 +142,18 @@ public class FromAndToView extends LinearLayout {
                 String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
                 mTvStartTime.setText(t);
             }
+            setNormalStat();
         });
         builder.create().show();
+    }
+
+    public void setNormalStat(){
+        mTvFrom.setTextColor(Color.parseColor("#000000"));
+        mTvFromImg.setImageResource(R.drawable.down);
+        mTvTo.setTextColor(Color.parseColor("#000000"));
+        mTvToImg.setImageResource(R.drawable.down);
+        mTvStartTime.setTextColor(Color.parseColor("#000000"));
+        mTvStartTimeImg.setImageResource(R.drawable.down);
     }
 
     public void resetArea() {
@@ -114,6 +171,9 @@ public class FromAndToView extends LinearLayout {
         inflate(context, R.layout.layout_from_n_to, this);
         ButterKnife.bind(this, this);
         resetArea();
+        mTvFrom.setTag("0");
+        mTvTo.setTag("0");
+        mTvStartTime.setTag("0");
     }
 
     public Address getFromAddress() {

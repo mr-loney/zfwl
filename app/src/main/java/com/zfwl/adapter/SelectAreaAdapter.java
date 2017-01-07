@@ -71,9 +71,11 @@ public class SelectAreaAdapter extends BaseAdapter {
         holder.name.setTag(position);
         holder.name.setText(model.getName());
         if (selectAreaID.equals(model.getId())) {
-            holder.name.setBackgroundColor(Color.parseColor("#eeeeee"));
+            holder.name.setBackgroundColor(Color.parseColor("#cccccc"));
+            holder.name.setTextColor(Color.parseColor("#0060c5"));
         } else {
             holder.name.setBackgroundColor(Color.parseColor("#ffffff"));
+            holder.name.setTextColor(Color.parseColor("#000000"));
         }
 
         return view;

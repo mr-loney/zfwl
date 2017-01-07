@@ -48,6 +48,8 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         void onAddressSelected(int idWhoSelect, Address address);
 
         void onAreaReset();
+
+        void onAreaClose();
     }
 
     private void init(Context context) {
@@ -140,12 +142,14 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
     @OnClick(R.id.tv_reset_address)
     public void onResetClick() {
         setVisibility(GONE);
+        mCallback.onAreaClose();
         mCallback.onAreaReset();
     }
 
     @OnClick(R.id.tv_select_address)
     public void onSelectClick() {
         setVisibility(GONE);
+        mCallback.onAreaClose();
         mAddress = new Address(mCurrentProvince, mCurrentCity, mCurrentDistrict);
         mCallback.onAddressSelected(mIdWhoSelect, mAddress);
     }
@@ -153,6 +157,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
     @OnClick(R.id.root_view)
     public void onRootViewClick() {
         setVisibility(GONE);
+        mCallback.onAreaClose();
     }
 
     public void setCallback(SelectAreaCallback callback) {

@@ -40,7 +40,7 @@ public class WJPresenter extends BasePresenter<WJMvpView> {
                     getMvpView().onListLoaded(d);
                     stoploading();
         }, throwable -> {
-                    getMvpView().onListLoadedFail(throwable.toString());
+                    getMvpView().onListLoadedFail(throwable.getMessage());
                     stoploading();
         });
     }

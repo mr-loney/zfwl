@@ -1,18 +1,45 @@
 <com.zfwl.widget.TouchLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/layout_title_bar" />
-
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="#fafafb" >
+
+        <TextView
+            android:id="@+id/reg_btn"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="注册"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/gray"/>
+    </RelativeLayout>
+    <View android:layout_height="0.5dp"
+        android:layout_width="match_parent"
+        android:background="@color/lightgray">
+    </View>
+
+    <TextView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:focusable="true"
+        android:layout_gravity="center"
         android:focusableInTouchMode="true" >
 
         <com.zfwl.controls.AutoCompleteTextViewEx
@@ -20,78 +47,99 @@
             style="@style/mAutoCompleteStyle"
             android:layout_width="match_parent"
             android:completionThreshold="1"
+            android:layout_height="30dp"
+            android:paddingLeft="4dp"
             android:drawableRight="@drawable/txt_clear_bg"
-            android:hint="手机号"
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:textSize="15sp"
-            android:text="18500226297"
+            android:layout_marginTop="20dp"
+            android:text="123123"
             android:maxLength="11"
-            android:paddingLeft="70dp"
             android:singleLine="true" />
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:paddingLeft="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/login_username_left" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:textSize="13sp" />
+
     </RelativeLayout>
 
-    <RelativeLayout android:layout_height="0.5dp"
-        android:layout_width="fill_parent"
-        android:background="@color/white">
-        <View android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
+        <View android:layout_height="0.5dp"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
             android:background="@color/lightgray">
         </View>
-    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content" >
 
         <EditText
             android:id="@+id/login_edtPassword"
             style="@style/edit_text_white_corner"
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
             android:hint="密码"
-            android:text="111111"
+            android:text="123"
             android:imeActionLabel="登录"
+            android:paddingLeft="4dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:paddingLeft="70dp"
             android:singleLine="true" />
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:paddingLeft="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/login_pwd_left" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/img_see_pwd"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:padding="5dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/activity_margin"
             android:paddingRight="@dimen/activity_margin"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/see_pwd" />
 
     </RelativeLayout>
 
+    <View android:layout_height="0.5dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:background="@color/lightgray">
+    </View>
+
     <Button
         android:id="@+id/login_btnLogin"
         style="@style/button_Gray_style"
-        android:layout_width="match_parent"
-        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_zfwl_gray_bg"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:text="@string/login_btnLogin_text" />
 
     <Button

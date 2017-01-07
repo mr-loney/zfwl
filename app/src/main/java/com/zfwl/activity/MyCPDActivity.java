@@ -145,6 +145,8 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         adapter.notifyDataSetChanged();
     }
     @Override
+    public void onAreaClose(){}
+    @Override
     public void onAreaReset() {
     }
 

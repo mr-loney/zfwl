@@ -81,7 +81,7 @@ public class LogisticsPresenter extends BasePresenter<LogisticsMvpView> {
                     }
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onLoadLogisticsListFailed(throwable.toString());
+                    getMvpView().onLoadLogisticsListFailed(throwable.getMessage());
                     stoploading();
                 });
     }

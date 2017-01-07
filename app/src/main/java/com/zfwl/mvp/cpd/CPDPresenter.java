@@ -43,7 +43,7 @@ public class CPDPresenter extends BasePresenter<CPDMvpView> {
                     getMvpView().onListLoaded(datas);
                     stoploading();
         }, throwable -> {
-                    getMvpView().onListLoadedFail(throwable.toString());
+                    getMvpView().onListLoadedFail(throwable.getMessage());
                     stoploading();
         });
     }
@@ -62,7 +62,7 @@ public class CPDPresenter extends BasePresenter<CPDMvpView> {
                     getMvpView().onAdded(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onAddedFail(throwable.toString());
+                    getMvpView().onAddedFail(throwable.getMessage());
                     stoploading();
                 });
     }
@@ -76,7 +76,7 @@ public class CPDPresenter extends BasePresenter<CPDMvpView> {
                     getMvpView().onDel();
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onDelFail(throwable.toString());
+                    getMvpView().onDelFail(throwable.getMessage());
                     stoploading();
                 });
     }

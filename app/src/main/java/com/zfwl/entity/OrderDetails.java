@@ -14,6 +14,7 @@ public class OrderDetails implements Serializable{
     private long id;// 订单ID
     private long memberId;// 会员ID
     private String orderCode;//订单编号
+    private String relationPhone;
     private long emptyCarId;//空车ID
     private long memberPriceId;//报价ID
     private long logisticsId;//物流ID
@@ -49,6 +50,14 @@ public class OrderDetails implements Serializable{
 
     public void setEmptyCarAddressList(List<EmptyCarAddressListBean> emptyCarAddressList) {
         this.emptyCarAddressList = emptyCarAddressList;
+    }
+
+    public String getRelationPhone() {
+        return relationPhone;
+    }
+
+    public void setRelationPhone(String relationPhone) {
+        this.relationPhone = relationPhone;
     }
 
     public MemberPrice getMemberPrice() {

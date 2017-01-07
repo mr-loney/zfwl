@@ -122,7 +122,9 @@ public class MyQuotedModel implements Serializable {
 		this.list = list;
 	}
 
-	public static class ListBean {
+	public static class ListBean implements Serializable {
+
+		private static final long serialVersionUID = -3718423961923385899L;
 		/**
 		 * id : 1
 		 * memberId : 1

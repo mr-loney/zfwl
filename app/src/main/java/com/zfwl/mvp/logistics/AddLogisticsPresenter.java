@@ -60,7 +60,7 @@ public class AddLogisticsPresenter extends BasePresenter<AddLogisticsMvpView> {
                     getMvpView().onAddLogisticsSuccess(d);
                     stoploading();
                 }, throwable -> {
-                    getMvpView().onAddLogisticsFailed(throwable.toString());
+                    getMvpView().onAddLogisticsFailed(throwable.getMessage());
                     stoploading();
                 });
     }

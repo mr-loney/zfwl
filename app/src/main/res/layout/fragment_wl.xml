@@ -26,12 +26,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="物流服务平台"
+                android:text="正丰物流"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 />
         </LinearLayout>
     </FrameLayout>
+
+    <com.zfwl.widget.slsectarea.FromAndToView
+        android:id="@+id/view_from_n_to"
+        android:background="#f3f7fa"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,12 +49,6 @@
             android:weightSum="1"
             android:background="@color/white"
             android:orientation="vertical">
-
-            <com.zfwl.widget.slsectarea.FromAndToView
-                android:id="@+id/view_from_n_to"
-                android:background="#f3f7fa"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"/>
 
             <LinearLayout
                 android:id="@+id/tv_area_condition"
@@ -100,6 +100,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:background="#eee"
                 android:layout_weight="1">
 
                 <com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx
@@ -111,6 +112,8 @@
                     android:columnWidth="140dp"
                     android:listSelector="@android:color/transparent"
                     android:numColumns="2"
+                    android:divider="@color/transparent"
+                    android:dividerHeight="0dp"
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollingCache="true"
                     android:stretchMode="columnWidth" />

@@ -6,6 +6,8 @@ import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.BasePresenter;
 
+import java.util.Random;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,7 +16,7 @@ import rx.functions.Action1;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
     private SignUpApi mApi;
-    private int randVeriftCode = 1234;
+    private int randVeriftCode = -1;
 
     public SignUpPresenter() {
         mApi = ApiModule.INSTANCE.provideSignUpApi();
@@ -29,6 +31,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
      *created at 2015/8/10 14:54
      */
     public void getVerifyCode(String phoneNo){
+        randVeriftCode = new Random().nextInt(8999) + 1000;
 
         if (phoneNo.length()!=11) {
             getMvpView().onGetVerifyCodeFailed("手机号码错误");
@@ -39,7 +42,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                 .subscribe(str -> {
                     getMvpView().onGetVerifyCodeSuccess();
                 }, throwable -> {
-                    getMvpView().onGetVerifyCodeFailed(throwable.toString());
+                    getMvpView().onGetVerifyCodeFailed(throwable.getMessage());
                 });
     }
 
@@ -59,7 +62,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                 .subscribe(User -> {
                     getMvpView().onRegisterSuccess(User);
                 }, throwable -> {
-                    getMvpView().onRegisterFailed(throwable.toString());
+                    getMvpView().onRegisterFailed(throwable.getMessage());
                 });
     }
 
@@ -74,7 +77,7 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                 .subscribe(User -> {
                     getMvpView().onRegisterAddInfoSuccess(User);
                 }, throwable -> {
-                    getMvpView().onGetVerifyCodeFailed(throwable.toString());
+                    getMvpView().onGetVerifyCodeFailed(throwable.getMessage());
                 });
     }
 

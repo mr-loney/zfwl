@@ -1,9 +1,12 @@
 package com.zfwl.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,10 +46,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     AutoCompleteTextViewEx mEtPhone;
     @BindView(R.id.img_see_pwd)
     ImageView mImSeePWD;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.titlebar_btnRight)
-    Button sigupBtn;
+    @BindView(R.id.login_btnLogin)
+    Button btnLogin;
     private LoginPresenter mLoginPresenter;
     private LoadingDialog mLoadingDialog;
     private IWXAPI mWxApi;
@@ -66,9 +67,33 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     }
 
     private void initView() {
-        tvTitle.setText("登录");
-        sigupBtn.setText("注册");
-        sigupBtn.setVisibility(View.VISIBLE);
+
+        mEtPsw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (mEtPsw.getText().toString().length()>0 &&
+                        mEtPhone.getText().toString().length()>0) {
+                    btnLogin.setEnabled(true);
+                    btnLogin.setBackgroundResource(R.drawable.btn_zfwl_blue_bg1);
+                } else {
+                    btnLogin.setEnabled(false);
+                    btnLogin.setBackgroundResource(R.drawable.btn_zfwl_gray_bg);
+                }
+            }
+        });
+
+        mEtPhone.setText("18500226297");
+        mEtPsw.setText("111111");
     }
     @Override
     protected void onDestroy() {
@@ -77,7 +102,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick(R.id.titlebar_btnRight)
+    @OnClick(R.id.reg_btn)
     public void onTitleRightClick() {
         Intent intent1 = new Intent(this, SignUpActivity.class);
         startActivity(intent1);

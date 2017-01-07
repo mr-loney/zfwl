@@ -79,7 +79,7 @@ public class MyPublishEmptyCarListAdapter extends BaseAdapter {
 			holder.txt_to.setText(Html.fromHtml(toStr));
 			holder.txt_detail.setText("有"+data.getCarNumber()+"辆车 "+data.getCarLength()+"米 "+data.getLoadNumber()+"吨");
 			try {
-				holder.txt_detail1.setText("预计发车 "+ Utils.longToString(data.getCdate(),"yyy-MM-dd HH:mm:ss"));
+				holder.txt_detail1.setText("预计发车 "+ Utils.longToStringFriendly(data.getCdate()));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
