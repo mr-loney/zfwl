@@ -37,7 +37,7 @@ public class MyOrdersPagerAdapter extends FragmentPagerAdapter {
                 orderType = Type.CARRYING;
                 break;
             case 5:
-                orderType = Type.FINISHED;
+                orderType = Type.WAIT_COMMENT;
                 break;
         }
         return OrdersFragment.newInstance(orderType);

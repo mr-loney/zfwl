@@ -15,8 +15,9 @@ public class Order {
         int WAIT_PAY = 1;
         int PAID = 2;
         int CARRYING = 3;
-        int FINISHED = 4;
-        int CANCEL = 5;//拒绝
+        int WAIT_COMMENT = 4;
+        int NOT_ACCEPTED_ORDER = 5;//未接单
+        int COMMENTED = 6;
     }
     //0-按车辆收费,1-按吨数收费
     public interface ChargeMethod{
