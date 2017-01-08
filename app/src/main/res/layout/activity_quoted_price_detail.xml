@@ -18,6 +18,7 @@
             android:layout_marginBottom="21dp"
             android:background="@color/white"
             app:bgatitlebar_rightText="删除"
+            app:bgatitlebar_isTitleTextBold="false"
             app:bgatitlebar_titleText="报价详情"/>
 
         <LinearLayout

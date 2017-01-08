@@ -111,8 +111,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             }
         });
 
-        mEtPhone.setText("18500226297");
-        mEtPsw.setText("111111");
+//        mEtPhone.setText("18500226297");
+//        mEtPsw.setText("111111");
         mLoadingDialog = new LoadingDialog(this);
     }
 
@@ -121,6 +121,11 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         super.onDestroy();
         mLoginPresenter.detachView();
         EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R.id.close_btn)
+    public void onCloseClick() {
+        finish();
     }
 
     @OnClick(R.id.reg_btn)

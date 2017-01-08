@@ -109,7 +109,8 @@ public class FromAndToView extends LinearLayout {
         Date lastMonth = ca.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<String> dateArr = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        dateArr.add("全部时间");
+        for (int i = 1; i < 11; i++) {
             ca.add(Calendar.DAY_OF_YEAR, 1);
             String t = sdf.format(ca.getTime());
             if (i == 0) {
@@ -134,6 +135,7 @@ public class FromAndToView extends LinearLayout {
             if (which >= 0 && which < items.length) {
                 String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
                 mTvStartTime.setText(t);
+                dialog.dismiss();
             }
         });
         builder.setPositiveButton("确定", (dialog, which) -> {

@@ -12,6 +12,7 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
+        app:bgatitlebar_isTitleTextBold="false"
         app:bgatitlebar_leftDrawable="@drawable/back"
         app:bgatitlebar_rightDrawable="@drawable/ic_share_gray"
         app:bgatitlebar_titleText="货源详情"/>
@@ -39,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
-                android:paddingTop="21dp"
+                android:paddingTop="11dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -57,7 +58,7 @@
                     android:id="@+id/tv_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="13dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="#333333"
                     android:textSize="16sp"
                     tools:text="山东省菏泽市牡丹区"

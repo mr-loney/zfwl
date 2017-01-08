@@ -96,7 +96,7 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
             tvPriceByCar.setTextColor(Color.parseColor("#333333"));
             total = carWeight*price;
         }
-        tvPriceTotal.setText(total+"");
+        tvPriceTotal.setText("共计："+total+"元");
     }
 
     @Override

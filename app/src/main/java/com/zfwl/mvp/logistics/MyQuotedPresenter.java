@@ -8,6 +8,7 @@ import com.zfwl.data.api.AddLogisticsApi;
 import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.AllzfwlModel;
+import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.mvp.BasePresenter;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -41,6 +42,18 @@ public class MyQuotedPresenter extends BasePresenter<MyQuotedMvpView> {
                     stoploading();
                 }, throwable -> {
                     getMvpView().onGetListFailed(throwable.getMessage());
+                    stoploading();
+                });
+    }
+
+   public void del(MyQuotedModel.ListBean d) {
+        api.del(d.getId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(str -> {
+                    getMvpView().onDel();
+                    stoploading();
+                }, throwable -> {
+                    getMvpView().onDelFail(throwable.getMessage());
                     stoploading();
                 });
     }

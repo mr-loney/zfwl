@@ -9,6 +9,16 @@
         android:layout_height="@dimen/titlebar_height"
         android:background="#fafafb" >
 
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:gravity="center_vertical|right"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/x"/>
+
         <TextView
             android:id="@+id/reg_btn"
             android:layout_width="100dp"
@@ -54,7 +64,7 @@
             android:inputType="phone"
             android:textSize="15sp"
             android:layout_marginTop="20dp"
-            android:text="123123"
+            android:text=""
             android:maxLength="11"
             android:singleLine="true" />
 
@@ -93,7 +103,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
             android:hint="密码"
-            android:text="123"
+            android:text=""
             android:imeActionLabel="登录"
             android:paddingLeft="4dp"
             android:imeOptions="actionDone"

@@ -1,14 +1,20 @@
 package com.zfwl.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.zfwl.R;
 import com.zfwl.adapter.AddLogisticsAdapter;
@@ -23,17 +29,20 @@ import com.zfwl.mvp.cpd.CPDMvpView;
 import com.zfwl.mvp.cpd.CPDPresenter;
 import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
+import com.zfwl.util.DisplayUtil;
 import com.zfwl.util.ViewHub;
 import com.zfwl.widget.SelectCPDListView;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.SelectAreaCallback,
 		SelectCPDListView.SelectCallback,AddLogisticsMvpView {
@@ -49,12 +58,6 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	TextView txtFrom;
 	@BindView(R.id.listview_step3)
 	 ListView listView;
-	@BindView(R.id.titlebar_btnRight)
-	 Button rBtn;
-	@BindView(R.id.titlebar_btnLeft)
-	 Button lBtn;
-	@BindView(R.id.tv_title)
-	 TextView tvTitle;
 	@BindView(R.id.view_select_area)
 	SelectAreaListView mSelectAreaView;
 	@BindView(R.id.view_select_cpd)
@@ -68,6 +71,8 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	LineTextView detailTxt3;
 	@BindView(R.id.detail_txt4)
 	LineTextView detailTxt4;
+	@BindView(R.id.title_bar)
+	BGATitleBar mTitleBar;
 
 	private AllzfwlModel data = new AllzfwlModel();
 	private int select_address_index;
@@ -90,6 +95,12 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		loadingDialog = new LoadingDialog(this);
 
 		initView();
+
+		data.setFromProvinceId("130000");
+			data.setFromCityId("130200");
+			data.setFromCountyId("130208");
+		data.setFromAddressName("河北省唐山市丰润区 ");
+		txtFrom.setText(data.getFromAddressName());
 	}
 
 	private void initPresenters() {
@@ -122,12 +133,22 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 	private void initView() {
 		loadingDialog = new LoadingDialog(vThis);
 		// 标题栏
-		tvTitle.setText("发布信息");
+		TextView rightTv = mTitleBar.getRightCtv();
+		rightTv.setTextSize(DisplayUtil.spToPx(8));
+		rightTv.setTextColor(0xff666666);
+		rightTv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mSelectCPDView.show();
+			}
+		});
 
-		lBtn.setVisibility(View.VISIBLE);
-
-		rBtn.setVisibility(View.VISIBLE);
-		rBtn.setText("常跑路线");
+		mTitleBar.getLeftCtv().setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 
 		List<AllzfwlModel.EmptyCarAddressListBean> list = new ArrayList<>();
 		AllzfwlModel.EmptyCarAddressListBean addModel = new AllzfwlModel().new EmptyCarAddressListBean();
@@ -150,8 +171,33 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 
 		mSelectAreaView.setCallback(this);
 		mSelectCPDView.setCallback(this);
-		detailTxt1.setEditing(true);
-		detailTxt1.met.setInputType(EditorInfo.TYPE_CLASS_DATETIME);
+		detailTxt1.setEditing(false);
+		detailTxt1.mtv2.setGravity(Gravity.LEFT);
+		detailTxt1.mtv2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Calendar c= Calendar.getInstance();
+				Dialog dateDialog=new DatePickerDialog(vThis, new DatePickerDialog.OnDateSetListener() {
+					@Override
+					public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+						detailTxt1.met.setText(year+"-"+(month+1)+"-"+dayOfMonth+" ");
+						detailTxt1.mtv2.setText(year+"-"+(month+1)+"-"+dayOfMonth+" ");
+						Calendar time=Calendar.getInstance();
+						Dialog timeDialog=new TimePickerDialog(vThis, new TimePickerDialog.OnTimeSetListener() {
+							@Override
+							public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+								detailTxt1.met.setText(detailTxt1.met.getText().toString()+" "+hourOfDay+":"+minute);
+								detailTxt1.mtv2.setText(detailTxt1.mtv2.getText().toString()+" "+hourOfDay+":"+minute);
+							}
+						}, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), true);
+						timeDialog.setTitle("请选择时间");
+						timeDialog.show();
+					}
+				}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+				dateDialog.setTitle("请选择日期");
+				dateDialog.show();
+			}
+		});
 		detailTxt2.setEditing(true);
 		detailTxt2.met.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 		detailTxt3.setEditing(true);
@@ -160,17 +206,28 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		detailTxt4.met.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 	}
 
+	private static final int TIME_PICKER_INTERVAL=5;
+	private boolean mIgnoreEvent=false;
+	private TimePicker.OnTimeChangedListener mTimePickerListener=new TimePicker.OnTimeChangedListener(){
+		public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute){
+			if (mIgnoreEvent)
+				return;
+			if (minute%TIME_PICKER_INTERVAL!=0){
+				int minuteFloor=minute-(minute%TIME_PICKER_INTERVAL);
+				minute=minuteFloor + (minute==minuteFloor+1 ? TIME_PICKER_INTERVAL : 0);
+				if (minute==60)
+					minute=0;
+				mIgnoreEvent=true;
+				timePicker.setCurrentMinute(minute);
+				mIgnoreEvent=false;
+			}
+
+		}
+	};
+
 	@OnClick(R.id.txt_from)
 	public void onFromClick() {
 		mSelectAreaView.show(ID_WHO_SELECT_FROM, data.fromaddress);
-	}
-	@OnClick(R.id.titlebar_btnRight)
-	public void onTitleRightClick() {
-		mSelectCPDView.show();
-	}
-	@OnClick(R.id.titlebar_btnLeft)
-	public void onTitleLeftClick() {
-		finish();
 	}
 
 	@OnClick(R.id.submit)
@@ -191,9 +248,15 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		switch (idWhoSelect) {
 			case ID_WHO_SELECT_FROM:
 				data.setFromProvinceId(address.getProvince().getId());
-				data.setFromCityId(address.getCity().getId());
-				data.setFromCountyId(address.getDistrict().getId());
-				data.setFromAddressName(address.getProvince().getName()+" "+address.getCity().getName()+" "+ address.getDistrict().getName());
+				if (address.getCity()!=null) {
+					data.setFromCityId(address.getCity().getId());
+				}
+				if (address.getDistrict()!=null) {
+					data.setFromCountyId(address.getDistrict().getId());
+				}
+				data.setFromAddressName(address.getProvince().getName()+" "+
+						(address.getCity()==null?"":address.getCity().getName())+" "+
+						(address.getDistrict()==null?"":address.getDistrict().getName()));
 				txtFrom.setText(data.getFromAddressName());
 				break;
 			case ID_WHO_SELECT_TO:
@@ -201,11 +264,17 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 				item.toaddress = address;
 				item.setToProvinceId(address.getProvince().getId());
 				item.setToProvinceName(address.getProvince().getName());
-				item.setToCityId(address.getCity().getId());
-				item.setToCityName(address.getCity().getName());
-				item.setToCountyId(address.getDistrict().getId());
-				item.setToCountyName(address.getDistrict().getName());
-				item.setToAddressName(address.getProvince().getName()+" "+address.getCity().getName()+" "+ address.getDistrict().getName());
+				if (address.getCity()!=null) {
+					item.setToCityId(address.getCity().getId());
+					item.setToCityName(address.getCity().getName());
+				}
+				if (address.getDistrict()!=null) {
+					item.setToCountyId(address.getDistrict().getId());
+					item.setToCountyName(address.getDistrict().getName());
+				}
+				item.setToAddressName(address.getProvince().getName()+" "+
+						(address.getCity()==null?"":address.getCity().getName())+" "+
+						(address.getDistrict()==null?"":address.getDistrict().getName()));
 				adapter.notifyDataSetChanged();
 				break;
 		}

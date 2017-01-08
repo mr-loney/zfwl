@@ -93,6 +93,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         setVisibility(VISIBLE);
         mAddress = address;
         if (address != null) {
+            onProvincesLoaded(null);
         }
     }
 
@@ -100,12 +101,22 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
     public void onProvincesLoaded(List<Area> provinces) {
         if (mAddress!=null && mAddress.getProvince()!=null) {
             mCurrentProvince = mAddress.getProvince();
+        mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
         } else {
             mCurrentProvince = mSelectAreaPresenter.getProvinceWithIndex(0);
+            mCurrentCity = null;
+            cityAdapter.setDatas(new ArrayList<>());
+            cityAdapter.setSelectArea(null);
+            cityAdapter.notifyDataSetChanged();
+            mCurrentDistrict = null;
+            districtAdapter.setDatas(new ArrayList<>());
+            districtAdapter.setSelectArea(null);
+            districtAdapter.notifyDataSetChanged();
         }
-        provinceAdapter.setDatas(provinces);
+        if (provinces!=null) {
+            provinceAdapter.setDatas(provinces);
+        }
         provinceAdapter.setSelectArea(mCurrentProvince.getId());
-//        mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
         provinceAdapter.notifyDataSetChanged();
     }
 
@@ -113,12 +124,12 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
     public void onCityLoaded(List<Area> citys) {
         if (mAddress!=null && mAddress.getCity()!=null) {
             mCurrentCity = mAddress.getCity();
+        mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
         } else {
             mCurrentCity = mSelectAreaPresenter.getCitysWithIndex(0);
         }
         cityAdapter.setDatas(citys);
         cityAdapter.setSelectArea(mCurrentCity.getId());
-//        mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
         cityAdapter.notifyDataSetChanged();
     }
 

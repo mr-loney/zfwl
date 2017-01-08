@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:onClick="onClick"
+                app:wsiRightIcon="@drawable/transparent"
                 app:wsiLeftIcon="@null"
                 app:wsiLeftText="清空缓存" />
 
@@ -56,6 +57,7 @@
                 android:clickable="true"
                 android:onClick="onClick"
                 app:wsiLeftIcon="@null"
+                app:wsiRightIcon="@drawable/transparent"
                 app:wsiLeftText="退出账号"
                 app:wsiShowbottomLine="false" />
         </LinearLayout>

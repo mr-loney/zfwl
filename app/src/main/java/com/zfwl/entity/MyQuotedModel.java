@@ -9,11 +9,11 @@ public class MyQuotedModel implements Serializable {
 
 
 	/**
-	 * totalCount : 1
+	 * totalCount : 7
 	 * pageSize : 10
 	 * pageNo : 1
 	 * filterNo : 0
-	 * list : [{"id":1,"memberId":1,"carNumber":8,"loadNumber":13,"priceType":1,"price":23,"total":299,"status":0,"cdate":1481987874000,"mdate":1481987874000,"remark":"","goodsName":"物流测试","addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"某某大街","toDetail":"某某大街","fromProvinceName":"天津市","fromCityName":"县","fromCountyName":"宁河县","toProvinceName":"山西省","toCityName":"阳泉市","toCountyName":"矿区"}]}]
+	 * list : [{"id":5,"memberId":1,"carNumber":1,"loadNumber":1,"priceType":0,"price":1,"total":0,"status":1,"cdate":1483834303000,"mdate":1483834303000,"remark":"","logisticsId":4,"breachNum":null,"successOfferNum":null,"offerNum":null,"account":null,"goodsName":"兔子","length":null,"departureTime":null,"address":null,"succAndTotal":null,"weight":null,"isLargeGo":null,"carNum":null,"fromAddress":null,"toAddress":null,"logisticsInfo":null,"addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"你说呢","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"山西省","toCityName":"长治市","toCountyName":"长治县"},{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"哈哈","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"上海市","toCityName":"市辖区","toCountyName":"闸北区"}]},{"id":4,"memberId":1,"carNumber":4,"loadNumber":1,"priceType":0,"price":1,"total":0,"status":1,"cdate":1483833303000,"mdate":1483833303000,"remark":"","logisticsId":4,"breachNum":null,"successOfferNum":null,"offerNum":null,"account":null,"goodsName":"兔子","length":null,"departureTime":null,"address":null,"succAndTotal":null,"weight":null,"isLargeGo":null,"carNum":null,"fromAddress":null,"toAddress":null,"logisticsInfo":null,"addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"你说呢","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"山西省","toCityName":"长治市","toCountyName":"长治县"},{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"哈哈","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"上海市","toCityName":"市辖区","toCountyName":"闸北区"}]},{"id":3,"memberId":2,"carNumber":3,"loadNumber":9,"priceType":1,"price":89,"total":801,"status":1,"cdate":1483799042000,"mdate":1483799042000,"remark":"","logisticsId":3,"breachNum":null,"successOfferNum":null,"offerNum":null,"account":null,"goodsName":"一车美女","length":null,"departureTime":null,"address":null,"succAndTotal":null,"weight":null,"isLargeGo":null,"carNum":null,"fromAddress":null,"toAddress":null,"logisticsInfo":null,"addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"万商大厦","toDetail":"黄焖鸡米饭街道","fromProvinceName":"北京市","fromCityName":"市辖区","fromCountyName":"石景山区","toProvinceName":"山西省","toCityName":"太原市","toCountyName":"杏花岭区"}]},{"id":2,"memberId":1,"carNumber":1,"loadNumber":1,"priceType":0,"price":1,"total":0,"status":1,"cdate":1483797655000,"mdate":1483797655000,"remark":"","logisticsId":3,"breachNum":null,"successOfferNum":null,"offerNum":null,"account":null,"goodsName":"一车美女","length":null,"departureTime":null,"address":null,"succAndTotal":null,"weight":null,"isLargeGo":null,"carNum":null,"fromAddress":null,"toAddress":null,"logisticsInfo":null,"addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"万商大厦","toDetail":"黄焖鸡米饭街道","fromProvinceName":"北京市","fromCityName":"市辖区","fromCountyName":"石景山区","toProvinceName":"山西省","toCityName":"太原市","toCountyName":"杏花岭区"}]},{"id":1,"memberId":1,"carNumber":6,"loadNumber":15,"priceType":0,"price":15,"total":0,"status":1,"cdate":1483758747000,"mdate":1483758747000,"remark":"","logisticsId":1,"breachNum":null,"successOfferNum":null,"offerNum":null,"account":null,"goodsName":"大米","length":null,"departureTime":null,"address":null,"succAndTotal":null,"weight":null,"isLargeGo":null,"carNum":null,"fromAddress":null,"toAddress":null,"logisticsInfo":null,"addressInfoList":[{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"高碑店","toDetail":"某某大街","fromProvinceName":"北京市","fromCityName":"市辖区","fromCountyName":"朝阳区","toProvinceName":"天津市","toCityName":"市辖区","toCountyName":"和平区"}]}]
 	 * firstResult : 0
 	 * totalPage : 1
 	 * firstPage : true
@@ -124,35 +124,66 @@ public class MyQuotedModel implements Serializable {
 
 	public static class ListBean implements Serializable {
 
-		private static final long serialVersionUID = -3718423961923385899L;
+		private static final long serialVersionUID = -3718423961923385894L;
+
 		/**
-		 * id : 1
+		 * id : 5
 		 * memberId : 1
-		 * carNumber : 8
-		 * loadNumber : 13
-		 * priceType : 1
-		 * price : 23
-		 * total : 299
-		 * status : 0
-		 * cdate : 1481987874000
-		 * mdate : 1481987874000
+		 * carNumber : 1
+		 * loadNumber : 1
+		 * priceType : 0
+		 * price : 1
+		 * total : 0
+		 * status : 1
+		 * cdate : 1483834303000
+		 * mdate : 1483834303000
 		 * remark :
-		 * goodsName : 物流测试
-		 * addressInfoList : [{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"某某大街","toDetail":"某某大街","fromProvinceName":"天津市","fromCityName":"县","fromCountyName":"宁河县","toProvinceName":"山西省","toCityName":"阳泉市","toCountyName":"矿区"}]
+		 * logisticsId : 4
+		 * breachNum : null
+		 * successOfferNum : null
+		 * offerNum : null
+		 * account : null
+		 * goodsName : 兔子
+		 * length : null
+		 * departureTime : null
+		 * address : null
+		 * succAndTotal : null
+		 * weight : null
+		 * isLargeGo : null
+		 * carNum : null
+		 * fromAddress : null
+		 * toAddress : null
+		 * logisticsInfo : null
+		 * addressInfoList : [{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"你说呢","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"山西省","toCityName":"长治市","toCountyName":"长治县"},{"id":null,"logisticsInfoId":null,"fromProvinceId":null,"fromCityId":null,"fromCountyId":null,"toProvinceId":null,"toCityId":null,"toCountyId":null,"fromDetail":"不知道","toDetail":"哈哈","fromProvinceName":"内蒙古自治区","fromCityName":"乌海市","fromCountyName":"乌达区","toProvinceName":"上海市","toCityName":"市辖区","toCountyName":"闸北区"}]
 		 */
 
 		private int id;
 		private int memberId;
-		private int carNumber;
-		private int loadNumber;
+		private double carNumber;
+		private double loadNumber;
 		private int priceType;
-		private int price;
-		private int total;
+		private double price;
+		private double total;
 		private int status;
 		private long cdate;
 		private long mdate;
 		private String remark;
+		private int logisticsId;
+		private Object breachNum;
+		private Object successOfferNum;
+		private Object offerNum;
+		private Object account;
 		private String goodsName;
+		private Object length;
+		private Object departureTime;
+		private Object address;
+		private Object succAndTotal;
+		private Object weight;
+		private boolean isLargeGo;
+		private Object carNum;
+		private Object fromAddress;
+		private Object toAddress;
+		private Object logisticsInfo;
 		private List<AddressInfoListBean> addressInfoList;
 
 		public int getId() {
@@ -171,19 +202,19 @@ public class MyQuotedModel implements Serializable {
 			this.memberId = memberId;
 		}
 
-		public int getCarNumber() {
+		public double getCarNumber() {
 			return carNumber;
 		}
 
-		public void setCarNumber(int carNumber) {
+		public void setCarNumber(double carNumber) {
 			this.carNumber = carNumber;
 		}
 
-		public int getLoadNumber() {
+		public double getLoadNumber() {
 			return loadNumber;
 		}
 
-		public void setLoadNumber(int loadNumber) {
+		public void setLoadNumber(double loadNumber) {
 			this.loadNumber = loadNumber;
 		}
 
@@ -195,19 +226,19 @@ public class MyQuotedModel implements Serializable {
 			this.priceType = priceType;
 		}
 
-		public int getPrice() {
+		public double getPrice() {
 			return price;
 		}
 
-		public void setPrice(int price) {
+		public void setPrice(double price) {
 			this.price = price;
 		}
 
-		public int getTotal() {
+		public double getTotal() {
 			return total;
 		}
 
-		public void setTotal(int total) {
+		public void setTotal(double total) {
 			this.total = total;
 		}
 
@@ -243,12 +274,132 @@ public class MyQuotedModel implements Serializable {
 			this.remark = remark;
 		}
 
+		public int getLogisticsId() {
+			return logisticsId;
+		}
+
+		public void setLogisticsId(int logisticsId) {
+			this.logisticsId = logisticsId;
+		}
+
+		public Object getBreachNum() {
+			return breachNum;
+		}
+
+		public void setBreachNum(Object breachNum) {
+			this.breachNum = breachNum;
+		}
+
+		public Object getSuccessOfferNum() {
+			return successOfferNum;
+		}
+
+		public void setSuccessOfferNum(Object successOfferNum) {
+			this.successOfferNum = successOfferNum;
+		}
+
+		public Object getOfferNum() {
+			return offerNum;
+		}
+
+		public void setOfferNum(Object offerNum) {
+			this.offerNum = offerNum;
+		}
+
+		public Object getAccount() {
+			return account;
+		}
+
+		public void setAccount(Object account) {
+			this.account = account;
+		}
+
 		public String getGoodsName() {
 			return goodsName;
 		}
 
 		public void setGoodsName(String goodsName) {
 			this.goodsName = goodsName;
+		}
+
+		public Object getLength() {
+			return length;
+		}
+
+		public void setLength(Object length) {
+			this.length = length;
+		}
+
+		public Object getDepartureTime() {
+			return departureTime;
+		}
+
+		public void setDepartureTime(Object departureTime) {
+			this.departureTime = departureTime;
+		}
+
+		public Object getAddress() {
+			return address;
+		}
+
+		public void setAddress(Object address) {
+			this.address = address;
+		}
+
+		public Object getSuccAndTotal() {
+			return succAndTotal;
+		}
+
+		public void setSuccAndTotal(Object succAndTotal) {
+			this.succAndTotal = succAndTotal;
+		}
+
+		public Object getWeight() {
+			return weight;
+		}
+
+		public void setWeight(Object weight) {
+			this.weight = weight;
+		}
+
+		public boolean getIsLargeGo() {
+			return isLargeGo;
+		}
+
+		public void setIsLargeGo(boolean isLargeGo) {
+			this.isLargeGo = isLargeGo;
+		}
+
+		public Object getCarNum() {
+			return carNum;
+		}
+
+		public void setCarNum(Object carNum) {
+			this.carNum = carNum;
+		}
+
+		public Object getFromAddress() {
+			return fromAddress;
+		}
+
+		public void setFromAddress(Object fromAddress) {
+			this.fromAddress = fromAddress;
+		}
+
+		public Object getToAddress() {
+			return toAddress;
+		}
+
+		public void setToAddress(Object toAddress) {
+			this.toAddress = toAddress;
+		}
+
+		public Object getLogisticsInfo() {
+			return logisticsInfo;
+		}
+
+		public void setLogisticsInfo(Object logisticsInfo) {
+			this.logisticsInfo = logisticsInfo;
 		}
 
 		public List<AddressInfoListBean> getAddressInfoList() {
@@ -259,7 +410,10 @@ public class MyQuotedModel implements Serializable {
 			this.addressInfoList = addressInfoList;
 		}
 
-		public static class AddressInfoListBean {
+		public static class AddressInfoListBean implements Serializable {
+
+			private static final long serialVersionUID = -3718423961923385896L;
+
 			/**
 			 * id : null
 			 * logisticsInfoId : null
@@ -269,14 +423,14 @@ public class MyQuotedModel implements Serializable {
 			 * toProvinceId : null
 			 * toCityId : null
 			 * toCountyId : null
-			 * fromDetail : 某某大街
-			 * toDetail : 某某大街
-			 * fromProvinceName : 天津市
-			 * fromCityName : 县
-			 * fromCountyName : 宁河县
+			 * fromDetail : 不知道
+			 * toDetail : 你说呢
+			 * fromProvinceName : 内蒙古自治区
+			 * fromCityName : 乌海市
+			 * fromCountyName : 乌达区
 			 * toProvinceName : 山西省
-			 * toCityName : 阳泉市
-			 * toCountyName : 矿区
+			 * toCityName : 长治市
+			 * toCountyName : 长治县
 			 */
 
 			private Object id;

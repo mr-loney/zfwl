@@ -140,6 +140,7 @@ public class MyQuotedListActivity extends BaseActivity implements MyQuotedMvpVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Override
@@ -166,6 +167,12 @@ public class MyQuotedListActivity extends BaseActivity implements MyQuotedMvpVie
         mloadingDialog.stop();
         ToastUtils.show(this, msg);
     }
+
+    @Override
+    public void onDel() {}
+
+    @Override
+    public void onDelFail(String msg) {}
 
     private void loadData() {
         mIsRefresh = true;

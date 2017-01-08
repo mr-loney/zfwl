@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.util.Utils;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class MyQuotedListAdapter extends BaseAdapter {
@@ -72,17 +74,30 @@ public class MyQuotedListAdapter extends BaseAdapter {
 			String fromStr = "";
 			String toStr = "";
 			for (MyQuotedModel.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
-				if (item.getFromDetail()!=null && item.getFromDetail().length()>0 && fromStr.indexOf(item.getFromDetail())<0) {
-					fromStr+=item.getFromDetail()+"<br/>";
+				if (item.getFromDetail()!=null && item.getFromDetail().length()>0 &&
+						fromStr.indexOf(item.getFromProvinceName()+""+
+						item.getFromCityName()+""+
+						item.getFromCountyName())<0) {
+					fromStr+=item.getFromProvinceName()+""+
+							item.getFromCityName()+""+
+							item.getFromCountyName()+"<br/>";
 				}
-				if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToDetail())<0) {
-					toStr+=item.getToDetail()+"<br/>";
+				if (item.getToDetail()!=null && item.getToDetail().length()>0) {
+					toStr+=item.getToProvinceName()+""+
+							item.getToCityName()+""+
+							item.getToCountyName()+"<br/>";
 				}
 			}
+			if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
+			if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
 			holder.from.setText(Html.fromHtml(fromStr));
 			holder.to.setText(Html.fromHtml(toStr));
-			holder.txt1.setText(data.getCdate()+" 装");
-			holder.txt2.setText("重量 "+data.getLoadNumber()+"吨  要"+data.getCarNumber()+"辆车");
+			try {
+				holder.txt1.setText(Utils.longToStringFriendly(data.getCdate())+" 装");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			holder.txt2.setText(data.getGoodsName()+" "+data.getLength()+"米 要"+data.getCarNumber()+"辆车");
 			holder.txt3.setText("总计："+data.getTotal()+"元");
 		}
 

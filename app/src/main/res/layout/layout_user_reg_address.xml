@@ -87,7 +87,7 @@
             android:textSize="16sp"
             android:text=""
             android:hint="到哪里去"
-            android:padding="8dp" />
+            android:paddingLeft="8dp" />
 
     </LinearLayout>
 </LinearLayout>
