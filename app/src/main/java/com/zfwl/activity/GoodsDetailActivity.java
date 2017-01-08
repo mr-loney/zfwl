@@ -10,13 +10,12 @@ import android.widget.TextView;
 import com.bilibili.socialize.share.core.SocializeMedia;
 import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.LogisticsInfo;
-import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.share.ShareHelper;
 import com.zfwl.util.Utils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
-import java.io.Serializable;
 import java.text.ParseException;
 
 import butterknife.BindView;
@@ -55,9 +54,14 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     private LogisticsInfo.ListBean data;
 
     public static void launch(Context context, LogisticsInfo.ListBean d) {
-        Intent intent = new Intent(context, GoodsDetailActivity.class);
-        intent.putExtra("data",(Serializable)d);
-        context.startActivity(intent);
+        if (UserInfoManager.INSTANCE.hasLogin()) {
+            Intent intent = new Intent(context, GoodsDetailActivity.class);
+            intent.putExtra("data", d);
+            context.startActivity(intent);
+        } else {
+            LoginActivity.launch(context, false);
+        }
+
     }
 
     @Override
@@ -65,13 +69,13 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_activity);
         ButterKnife.bind(this);
-        data = (LogisticsInfo.ListBean)getIntent().getSerializableExtra("data");
+        data = (LogisticsInfo.ListBean) getIntent().getSerializableExtra("data");
         initViews();
     }
 
     @OnClick(R.id.tv_quoted_price)
     public void onSubmitClick() {
-        DriverQuotedPriceActivity.launch(this,data.getId()+"");
+        DriverQuotedPriceActivity.launch(this, data.getId() + "");
     }
 
     private void initTitleBar() {
@@ -98,11 +102,11 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         String fromStr = "";
         String toStr = "";
         for (LogisticsInfo.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
-            if (item.getFromDetail()!=null && item.getFromDetail().length()>0 && fromStr.indexOf(item.getFromDetail())<0) {
-                fromStr+=item.getFromDetail()+"<br/>";
+            if (item.getFromDetail() != null && item.getFromDetail().length() > 0 && fromStr.indexOf(item.getFromDetail()) < 0) {
+                fromStr += item.getFromDetail() + "<br/>";
             }
-            if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToDetail())<0) {
-                toStr+=item.getToDetail()+"<br/>";
+            if (item.getToDetail() != null && item.getToDetail().length() > 0 && fromStr.indexOf(item.getToDetail()) < 0) {
+                toStr += item.getToDetail() + "<br/>";
             }
         }
         if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
@@ -121,13 +125,13 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemBigCarPassable.setValueTextColor(Color.RED);
          mItemGoodsName.setKeyText("物品名称");
         mItemGoodsName.setValueText(data.getGoodsName());
-         mItemGoodsWeight.setKeyText("货物重量（吨）");
-        mItemGoodsWeight.setValueText(data.getWeight()+"");
-         mItemGoodsLength.setKeyText("货物长度（米）");
-        mItemGoodsLength.setValueText(data.getLength()+"");
-         mItemCarNumber.setKeyText("需要车辆");
-        mItemCarNumber.setValueText(data.getCarNum()+"");
-         mTvRemark.setText(data.getRemark());
+        mItemGoodsWeight.setKeyText("货物重量（吨）");
+        mItemGoodsWeight.setValueText(data.getWeight() + "");
+        mItemGoodsLength.setKeyText("货物长度（米）");
+        mItemGoodsLength.setValueText(data.getLength() + "");
+        mItemCarNumber.setKeyText("需要车辆");
+        mItemCarNumber.setValueText(data.getCarNum() + "");
+        mTvRemark.setText(data.getRemark());
     }
 
     @Override

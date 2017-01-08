@@ -1,39 +1,35 @@
 package com.zfwl.activity.home;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.activity.GoodsDetailActivity;
-import com.zfwl.activity.MyPublishEmptyCarDetailActivity;
 import com.zfwl.adapter.LogisticsAdapter;
-import com.zfwl.adapter.MyPublishEmptyCarListAdapter;
-import com.zfwl.controls.LoadingDialog;
-import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
+import com.zfwl.adapter.SelectTimeAdapter;
+import com.zfwl.controls.pulltorefresh.PullToRefreshListView.OnLoadMoreListener;
+import com.zfwl.controls.pulltorefresh.PullToRefreshListView.OnRefreshListener;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.entity.Address;
-import com.zfwl.entity.LogisticsInfo;
-import com.zfwl.entity.MyPublishEmptyCarListModel;
+import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.mvp.logistics.LogisticsMvpView;
 import com.zfwl.mvp.logistics.LogisticsPresenter;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.FromAndToView;
+import com.zfwl.widget.slsectarea.FromAndToView.Callback;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
-import com.zfwl.widget.slsectarea.SelectAreaView;
 import com.zfwl.widget.slsectarea.SelectAreaListView.SelectAreaCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,10 +38,12 @@ import butterknife.OnClick;
 
 
 public class WLFragment extends Fragment implements SelectAreaCallback,
-        LogisticsMvpView, FromAndToView.Callback,PullToRefreshListView.OnLoadMoreListener, PullToRefreshListView.OnRefreshListener {
+        LogisticsMvpView, Callback, OnLoadMoreListener, OnRefreshListener {
     private static final String TAG = "WLFragment";
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
+    @BindView(R.id.rv_select_time)
+    RecyclerView mRvSelectTime;
     private Activity mContext;
     @BindView(R.id.tv_area_condition)
     View tvAreaCondition;
@@ -57,17 +55,19 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     TextView tvAreaCity;
     @BindView(R.id.tv_area_province)
     TextView tvAreaProvince;
-//    @BindView(R.id.rv_logistics)
+    //    @BindView(R.id.rv_logistics)
 //    RecyclerView mRvLogistics;
     @BindView(R.id.pull_refresh_listview_items)
-    PullToRefreshListViewEx pullRefreshListView;;
+    PullToRefreshListViewEx pullRefreshListView;
+    ;
     @BindView(R.id.view_empty)
     View emptyView;
     @BindView(R.id.view_from_n_to)
     FromAndToView mFromAndToView;
     @BindView(R.id.view_select_area)
     SelectAreaListView mSelectAreaView;
-
+    @BindView(R.id.layout_select_time)
+    View mSelectTimeView;
     private LogisticsAdapter adapter;
     private LogisticsPresenter mLogisticsPresenter;
 
@@ -111,7 +111,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     }
 
     @Override
-    public void onRefreshLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics) {
+    public void onRefreshLogisticsListSuccess(List<ListBean> logistics) {
 
         pullRefreshListView.onRefreshComplete();
         if (adapter == null) {
@@ -120,11 +120,11 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         }
         adapter.mList = logistics;
         adapter.notifyDataSetChanged();
-        showEmptyView(logistics.size()==0);
+        showEmptyView(logistics.size() == 0);
     }
 
     @Override
-    public void onLoadMoreLogisticsListSuccess(List<LogisticsInfo.ListBean> logistics) {
+    public void onLoadMoreLogisticsListSuccess(List<ListBean> logistics) {
 
         pullRefreshListView.onLoadMoreComplete();
         adapter.mList.addAll(logistics);
@@ -181,8 +181,9 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     public void onFromAddressClick(Address address) {
         mSelectAreaView.show(ID_WHO_SELECT_FROM, address);
     }
+
     @Override
-    public void onCloseView(){
+    public void onCloseView() {
         mSelectAreaView.setVisibility(View.GONE);
     }
 
@@ -224,7 +225,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     }
 
     private void initView() {
-//        initRv();
+        initRv();
         mFromAndToView.setCallback(this);
         mSelectAreaView.setCallback(this);
         pullRefreshListView.setCanLoadMore(true);
@@ -232,16 +233,16 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         pullRefreshListView.setMoveToFirstItemAfterRefresh(true);
         pullRefreshListView.setOnRefreshListener(this);
         pullRefreshListView.setOnLoadListener(this);
-        pullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GoodsDetailActivity.launch(mContext, adapter.mList.get(i-1));
+                GoodsDetailActivity.launch(mContext, adapter.mList.get(i - 1));
             }
         });
 
         // 刷新数据
         showEmptyView(false);
-        emptyView.setOnClickListener(new View.OnClickListener() {
+        emptyView.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -286,28 +287,28 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         String fromP = "";
         String fromC = "";
         String fromD = "";
-        if (from!=null) {
-            if (from.getProvince()!=null) {
+        if (from != null) {
+            if (from.getProvince() != null) {
                 fromP = from.getProvince().getId();
             }
-            if (from.getCity()!=null) {
+            if (from.getCity() != null) {
                 fromC = from.getCity().getId();
             }
-            if (from.getDistrict()!=null) {
+            if (from.getDistrict() != null) {
                 fromD = from.getDistrict().getId();
             }
         }
         String toP = "";
         String toC = "";
         String toD = "";
-        if (to!=null) {
-            if (to.getProvince()!=null) {
+        if (to != null) {
+            if (to.getProvince() != null) {
                 toP = to.getProvince().getId();
             }
-            if (to.getCity()!=null) {
+            if (to.getCity() != null) {
                 toC = to.getCity().getId();
             }
-            if (to.getDistrict()!=null) {
+            if (to.getDistrict() != null) {
                 toD = to.getDistrict().getId();
             }
         }
@@ -315,14 +316,15 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         if (time.equals("发车时间") || time.equals("全部时间")) {
             time = "";
         }
-        mLogisticsPresenter.getLogisticsList(isRefresh,fromP,fromC,fromD,toP,toC,toD,time);
+        mLogisticsPresenter.getLogisticsList(isRefresh, fromP, fromC, fromD, toP, toC, toD, time);
     }
 
-//    private void initRv() {
-//        mRvAdapter = new LogisticsAdapter();
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-//        mRvLogistics.setLayoutManager(layoutManager);
-//        mRvLogistics.setAdapter(mRvAdapter);
-//    }
+    private void initRv() {
+        SelectTimeAdapter selectTimeAdapter = new SelectTimeAdapter();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        mRvSelectTime.setLayoutManager(layoutManager);
+        mRvSelectTime.setAdapter(selectTimeAdapter);
+        mFromAndToView.setSelectTime(mSelectTimeView, selectTimeAdapter);
+    }
 
 }

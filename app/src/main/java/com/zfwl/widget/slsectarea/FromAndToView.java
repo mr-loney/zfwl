@@ -1,21 +1,24 @@
 package com.zfwl.widget.slsectarea;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.adapter.SelectTimeAdapter;
 import com.zfwl.common.Const;
 import com.zfwl.entity.Address;
+import com.zfwl.entity.SelectTimeItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +42,12 @@ public class FromAndToView extends LinearLayout {
     public ImageView mTvToImg;
     @BindView(R.id.tv_begin_time_img)
     public ImageView mTvStartTimeImg;
+    private SelectTimeAdapter mRvSelectTimeAdapter;
+    private View mSelectTimeView;
+
     private Callback mCallback;
     private Address mFromAddress, mToAddress;
+
 
     public interface Callback {
         void onFromAddressClick(Address address);
@@ -57,7 +64,7 @@ public class FromAndToView extends LinearLayout {
         setNormalStat();
         mTvTo.setTag("0");
         mTvStartTime.setTag("0");
-        if (mTvFrom.getTag()=="0") {
+        if (mTvFrom.getTag() == "0") {
             mTvFrom.setTextColor(Color.parseColor("#2060fe"));
             mTvFromImg.setImageResource(R.drawable.up);
             mTvFrom.setTag("1");
@@ -75,7 +82,7 @@ public class FromAndToView extends LinearLayout {
         setNormalStat();
         mTvFrom.setTag("0");
         mTvStartTime.setTag("0");
-        if (mTvTo.getTag()=="0") {
+        if (mTvTo.getTag() == "0") {
             mTvTo.setTextColor(Color.parseColor("#2060fe"));
             mTvToImg.setImageResource(R.drawable.up);
             mTvTo.setTag("1");
@@ -93,26 +100,35 @@ public class FromAndToView extends LinearLayout {
         setNormalStat();
         mTvFrom.setTag("0");
         mTvTo.setTag("0");
-        if (mTvStartTime.getTag()=="0") {
+        if (mTvStartTime.getTag() == "0") {
             mTvStartTime.setTextColor(Color.parseColor("#2060fe"));
             mTvStartTimeImg.setImageResource(R.drawable.up);
             mTvStartTime.setTag("1");
+            showSelectTimeView();
         } else {
             mTvStartTime.setTag("0");
+            setNormalStat();
         }
         mCallback.onCloseView();
-//        mCallback.onStartTimeSelected(0);
+    }
+
+    private void showSelectTimeView() {
         String nowText = mTvStartTime.getText().toString();
-        int checkIndex = 0;
         Calendar ca = Calendar.getInstance();
         ca.setTime(new Date());
         Date lastMonth = ca.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<String> dateArr = new ArrayList<>();
-        dateArr.add("全部时间");
-        for (int i = 1; i < 11; i++) {
+        List<SelectTimeItem> items = new ArrayList<>();
+            SelectTimeItem tmp = new SelectTimeItem();
+            tmp.realDate = "";
+            tmp.displayDate = "全部时间";
+            tmp.selected = tmp.realDate.equals(nowText);
+            items.add(tmp);
+        for (int i = 0; i < 11; i++) {
             ca.add(Calendar.DAY_OF_YEAR, 1);
             String t = sdf.format(ca.getTime());
+            SelectTimeItem item = new SelectTimeItem();
+            item.realDate = t;
             if (i == 0) {
                 t += " 今天";
             }
@@ -122,40 +138,28 @@ public class FromAndToView extends LinearLayout {
             if (i == 2) {
                 t += " 后天";
             }
-            if (t.equals(nowText)) {
-                checkIndex = i;
-            }
-            dateArr.add(t);
+            item.displayDate = t;
+            item.selected = item.realDate.equals(nowText);
+            items.add(item);
         }
-        final int checkedItem = checkIndex;
-        final String[] items = dateArr.toArray(new String[dateArr.size()]);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("选择发车时间");
-        builder.setSingleChoiceItems(items, checkedItem, (dialog, which) -> {
-            if (which >= 0 && which < items.length) {
-                String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
-                mTvStartTime.setText(t);
-                dialog.dismiss();
-            }
+        mSelectTimeView.setOnClickListener(view -> {
         });
-        builder.setPositiveButton("确定", (dialog, which) -> {
-            dialog.dismiss();
-            if (which >= 0 && which < items.length) {
-                String t = items[which].replace(" 今天","").replace(" 明天","").replace(" 后天","");
-                mTvStartTime.setText(t);
-            }
+        mRvSelectTimeAdapter.setItems(items);
+        mSelectTimeView.setVisibility(VISIBLE);
+        mRvSelectTimeAdapter.setCallback(item -> {
+            mTvStartTime.setText(item.realDate);
             setNormalStat();
         });
-        builder.create().show();
     }
 
-    public void setNormalStat(){
+    public void setNormalStat() {
         mTvFrom.setTextColor(Color.parseColor("#000000"));
         mTvFromImg.setImageResource(R.drawable.down);
         mTvTo.setTextColor(Color.parseColor("#000000"));
         mTvToImg.setImageResource(R.drawable.down);
         mTvStartTime.setTextColor(Color.parseColor("#000000"));
         mTvStartTimeImg.setImageResource(R.drawable.down);
+        mSelectTimeView.setVisibility(GONE);
     }
 
     public void resetArea() {
@@ -167,6 +171,11 @@ public class FromAndToView extends LinearLayout {
 
     public void setCallback(Callback callback) {
         mCallback = callback;
+    }
+
+    public void setSelectTime(View selectTimeView, SelectTimeAdapter adapter) {
+        mRvSelectTimeAdapter = adapter;
+        mSelectTimeView = selectTimeView;
     }
 
     private void init(Context context) {
@@ -185,13 +194,13 @@ public class FromAndToView extends LinearLayout {
     public void setFromAddress(Address fromAddress) {
         mFromAddress = fromAddress;
         String txt = "";
-        if (fromAddress.getProvince()!=null) {
+        if (fromAddress.getProvince() != null) {
             txt = fromAddress.getProvince().getName();
         }
-        if (fromAddress.getCity()!=null) {
+        if (fromAddress.getCity() != null) {
             txt = fromAddress.getCity().getName();
         }
-        if (fromAddress.getDistrict()!=null) {
+        if (fromAddress.getDistrict() != null) {
             txt = fromAddress.getDistrict().getName();
         }
         mTvFrom.setText(txt);
@@ -204,13 +213,13 @@ public class FromAndToView extends LinearLayout {
     public void setToAddress(Address toAddress) {
         mToAddress = toAddress;
         String txt = "";
-        if (mToAddress.getProvince()!=null) {
+        if (mToAddress.getProvince() != null) {
             txt = mToAddress.getProvince().getName();
         }
-        if (mToAddress.getCity()!=null) {
+        if (mToAddress.getCity() != null) {
             txt = mToAddress.getCity().getName();
         }
-        if (mToAddress.getDistrict()!=null) {
+        if (mToAddress.getDistrict() != null) {
             txt = mToAddress.getDistrict().getName();
         }
         mTvTo.setText(txt);
