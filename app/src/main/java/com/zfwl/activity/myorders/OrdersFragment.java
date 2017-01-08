@@ -51,6 +51,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private OrdersPresenter mOrdersPresenter;
     private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
     private int mOrderType;
+    private boolean mInited;
 
     public OrdersFragment() {
     }
@@ -71,6 +72,13 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     }
 
     @Override
+    protected void onVisible() {
+        if (mInited) {
+            mRvOrders.refresh();
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mOrderType = getArguments().getInt(ARG_ORDER_TYPE);
@@ -84,6 +92,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         initViews();
         initPresenters();
         mRvOrders.refresh();
+        mInited = true;
         return contentView;
     }
 
