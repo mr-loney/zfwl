@@ -39,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView {
 
@@ -101,22 +102,15 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         initViews();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mViewStep1.getVisibility() == View.VISIBLE) {
-            super.onBackPressed();
-        } else if (mViewStep2.getVisibility() == View.VISIBLE) {
-            HomeActivity.launch(mContext);
+    @OnClick(R.id.close_btn)
+    public void onCloseClick() {
             finish();
-        }
     }
 
-    private void backToStep1() {
-        mViewStep1.setVisibility(View.VISIBLE);
-        mViewStep2.setVisibility(View.GONE);
-        mEtVerifyCode.setText("");
-        mTvStep2Error.setVisibility(View.GONE);
-        initToolbar();
+    @OnClick(R.id.close_btn1)
+    public void onClose1Click() {
+            HomeActivity.launch(mContext);
+            finish();
     }
 
     private void initViews() {
@@ -125,8 +119,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         initLayoutTransition(mViewStep2);
         mViewStep1.setVisibility(View.VISIBLE);
         mBtnGetVerifyCode.setOnClickListener(this);
-        mBtnGetVerifyCode.setTextColor(Color.WHITE);
-        mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#AAAAAA"));
         mBtnGotoStep2.setOnClickListener(this);
 
         mBtnSj.setOnClickListener(this);
@@ -155,6 +147,18 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mEtUserName.getText().toString().length() > 0) {
+                mBtnOK.setBackgroundResource(R.drawable.btn_zfwl_blue_bg1);
+            } else {
+                mBtnOK.setBackgroundResource(R.drawable.btn_zfwl_gray_bg);
+            }
+            if (mEtPhoneNum.getText().toString().length() > 0 &&
+                    mEtPWD.getText().toString().length() > 0 &&
+                    mEtVerifyCode.getText().toString().length() > 0) {
+                mBtnGotoStep2.setBackgroundResource(R.drawable.btn_zfwl_blue_bg1);
+            } else {
+                mBtnGotoStep2.setBackgroundResource(R.drawable.btn_zfwl_gray_bg);
+            }
         }
 
         @Override
@@ -180,15 +184,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onTick(long millisUntilFinished) {
             mBtnGetVerifyCode.setEnabled(false);
-            mBtnGetVerifyCode.setTextColor(Color.WHITE);
-            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#AAAAAA"));
+            mBtnGetVerifyCode.setBackgroundResource(R.drawable.btn_zfwl_gray_bg_40);
             mBtnGetVerifyCode.setText("重新获取(" + (millisUntilFinished / 1000) + ")");
         }
 
         @Override
         public void onFinish() {
             mBtnGetVerifyCode.setEnabled(true);
-            mBtnGetVerifyCode.setBackgroundColor(Color.parseColor("#54cd93"));
+            mBtnGetVerifyCode.setBackgroundResource(R.drawable.btn_zfwl_green_bg);
             mBtnGetVerifyCode.setText("重新获取");
         }
     }
@@ -212,28 +215,13 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     private void initToolbar() {
         FunctionHelper.hideSoftInput(mContext);
 
-        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
-
-        Button backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
-        backBtn.setOnClickListener(this);
-
         if (mViewStep1.getVisibility() == View.VISIBLE) {
-            tvTitle.setText("注册");
-
-            backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
-            backBtn.setText("");
-            backBtn.setVisibility(View.VISIBLE);
-            Drawable img = getResources().getDrawable(R.drawable.back);
-            img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
-            backBtn.setCompoundDrawables(img, null, null, null);
+            findViewById(R.id.close_btn).setVisibility(View.VISIBLE);
+            findViewById(R.id.close_btn1).setVisibility(View.GONE);
         }
         if (mViewStep2.getVisibility() == View.VISIBLE) {
-            tvTitle.setText("");
-
-            backBtn = (Button) findViewById(R.id.titlebar_btnLeft);
-            backBtn.setCompoundDrawables(null, null, null, null);
-            backBtn.setText("以后再说");
-            backBtn.setVisibility(View.VISIBLE);
+            findViewById(R.id.close_btn1).setVisibility(View.VISIBLE);
+            findViewById(R.id.close_btn).setVisibility(View.GONE);
         }
     }
 
@@ -258,9 +246,6 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 mBtnCZ_img.setImageResource(R.drawable.signip_check_cz1);
                 mBtnCZ_txt.setTextColor(getResources().getColor(R.color.white));
 
-                break;
-            case R.id.titlebar_btnLeft:
-                onBackPressed();
                 break;
             case R.id.btn_see_pwd:
                 int length = mEtPWD.getText().length();

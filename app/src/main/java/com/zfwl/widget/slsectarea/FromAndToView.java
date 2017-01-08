@@ -120,7 +120,7 @@ public class FromAndToView extends LinearLayout {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List<SelectTimeItem> items = new ArrayList<>();
             SelectTimeItem tmp = new SelectTimeItem();
-            tmp.realDate = "";
+            tmp.realDate = "全部时间";
             tmp.displayDate = "全部时间";
             tmp.selected = tmp.realDate.equals(nowText);
             items.add(tmp);
