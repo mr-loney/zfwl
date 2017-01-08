@@ -2,26 +2,35 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.mvp.logistics.MyQuotedMvpView;
+import com.zfwl.mvp.logistics.MyQuotedPresenter;
 import com.zfwl.util.DisplayUtil;
+import com.zfwl.util.Utils;
+import com.zfwl.util.ViewHub;
+import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import java.io.Serializable;
+import java.text.ParseException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 
 /**
  * 报价列表
  */
-public class QuotedPriceDetailActivity extends BaseActivity {
+public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedMvpView {
 
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
@@ -58,10 +67,11 @@ public class QuotedPriceDetailActivity extends BaseActivity {
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
 
+    private MyQuotedPresenter mPresenter;
     private MyQuotedModel.ListBean data;
 
     public static void launch(Context context, MyQuotedModel.ListBean item){
-        Intent intent = new Intent(context, MyQuotedListActivity.class);
+        Intent intent = new Intent(context, QuotedPriceDetailActivity.class);
         intent.putExtra("data",(Serializable)item);
         context.startActivity(intent);
     }
@@ -72,14 +82,35 @@ public class QuotedPriceDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_quoted_price_detail);
         ButterKnife.bind(this);
         data = (MyQuotedModel.ListBean)getIntent().getSerializableExtra("data");
+        mPresenter = new MyQuotedPresenter(this);
+        mPresenter.attachView(this);
         initTitleBar();
         loadData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     private void initTitleBar() {
         TextView rightTv = mTitleBar.getRightCtv();
-        rightTv.setTextSize(DisplayUtil.spToPx(17));
+        rightTv.setTextSize(DisplayUtil.spToPx(8));
         rightTv.setTextColor(0xff666666);
+        rightTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.del(data);
+            }
+        });
+
+        mTitleBar.getLeftCtv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            finish();
+            }
+        });
     }
 
     private void loadData(){
@@ -105,23 +136,50 @@ public class QuotedPriceDetailActivity extends BaseActivity {
                     toStr+=item.getToDetail()+"<br/>";
                 }
             }
+            if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
+            if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
             mTvFrom.setText(Html.fromHtml(fromStr));
             mTvTo.setText(Html.fromHtml(toStr));
 
             mItemBeginTime.setKeyText("发车时间");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
-            mItemBeginTime.setKeyText("大货通行");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
-            mItemBeginTime.setKeyText("物品名称");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
-            mItemBeginTime.setKeyText("货物重量（吨）");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
-            mItemBeginTime.setKeyText("货物长度（米）");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
-            mItemBeginTime.setKeyText("需要车辆");
-            mItemBeginTime.setValueText(data.getCarNumber()+"");
+            try {
+                mItemBeginTime.setValueText(Utils.longToStringFriendly(data.getCdate())+"");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            mItemBigCarPassable.setKeyText("大货通行");
+            mItemBigCarPassable.setValueText(data.getIsLargeGo()?"允许":"不允许");
+            mItemBigCarPassable.setValueTextColor(Color.RED);
+            mItemGoodsName.setKeyText("物品名称");
+            mItemGoodsName.setValueText(data.getGoodsName()+"");
+            mItemGoodsWeight.setKeyText("货物重量（吨）");
+            mItemGoodsWeight.setValueText(data.getWeight()+"");
+            mItemGoodsLength.setKeyText("货物长度（米）");
+            mItemGoodsLength.setValueText(data.getLength()+"");
+            mItemNeedCarNumber.setKeyText("需要车辆");
+            mItemNeedCarNumber.setValueText(data.getCarNumber()+"");
 
             mTvRemark.setText(data.getRemark());
         }
     }
+
+
+    @Override
+    public void onGetListSuccess(MyQuotedModel d) {
+    }
+
+    @Override
+    public void onGetListFailed(String msg) {
+    }
+    @Override
+    public void onDel() {
+        ViewHub.showLongToast(this,"删除成功");
+        finish();
+    }
+
+    @Override
+    public void onDelFail(String msg) {
+        ViewHub.showLongToast(this,msg);
+    }
+
 }

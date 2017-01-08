@@ -2,92 +2,173 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
+    android:background="@color/white"
     android:orientation="vertical">
 
-
-    <EditText
-        android:id="@+id/et_phone_num"
-        style="@style/edit_text_white_corner"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:hint="请输入手机号"
-        android:imeOptions="actionNext"
-        android:layout_marginTop="5dp"
-        android:inputType="phone" />
-    <RelativeLayout android:layout_height="0.5dp"
-        android:layout_width="fill_parent"
-        android:background="@color/white">
-        <View android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/lightgray">
-        </View>
-    </RelativeLayout>
-    <RelativeLayout
+    <TextView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_gravity="center"
+        android:focusableInTouchMode="true" >
+
+        <EditText
+            android:id="@+id/et_phone_num"
+            style="@style/mAutoCompleteStyle"
+            android:layout_width="match_parent"
+            android:completionThreshold="1"
+            android:layout_height="30dp"
+            android:paddingLeft="4dp"
+            android:drawableRight="@drawable/txt_clear_bg"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:maxLength="11"
+            android:singleLine="true" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_username_left" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <View android:layout_height="0.5dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:background="@color/lightgray">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content" >
 
         <EditText
             android:id="@+id/et_password"
             style="@style/edit_text_white_corner"
             android:layout_width="match_parent"
-            android:hint="@string/login_edtPassword_hint"
-            android:imeActionLabel="@string/login_btnLogin_text"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:hint=""
+            android:text=""
+            android:imeActionLabel="登录"
+            android:paddingLeft="4dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:maxLength="12"
             android:singleLine="true" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/login_pwd_left" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/btn_see_pwd"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:padding="5dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/activity_margin"
             android:paddingRight="@dimen/activity_margin"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/see_pwd" />
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_height="0.5dp"
-        android:layout_width="fill_parent"
-        android:background="@color/white">
-        <View android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/lightgray">
-        </View>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+    <View android:layout_height="0.5dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:background="@color/lightgray">
+    </View>
+
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:focusable="true"
+        android:layout_gravity="center"
+        android:focusableInTouchMode="true" >
 
         <EditText
             android:id="@+id/et_verifycode"
-            style="@style/edit_text_white_corner"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="输入验证码"
             android:inputType="numberSigned"
-            android:imeOptions="actionNext" />
+            style="@style/mAutoCompleteStyle"
+            android:layout_width="match_parent"
+            android:completionThreshold="1"
+            android:layout_height="30dp"
+            android:paddingLeft="4dp"
+            android:imeOptions="actionNext"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:maxLength="11"
+            android:singleLine="true" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/verify_code" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/et_get_verifycode"
             android:layout_width="116dp"
-            android:layout_height="fill_parent"
-            style="@style/button_Gray_style"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_zfwl_green_bg"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:text="获取验证码"></Button>
-    </LinearLayout>
+
+    </RelativeLayout>
+
+    <View android:layout_height="0.5dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:background="@color/lightgray">
+    </View>
 
 
     <TextView
@@ -100,11 +181,14 @@
 
     <Button
         android:id="@+id/btn_next"
-        style="@style/button_Gray_style"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_zfwl_gray_bg"
+        android:layout_width="300dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:onClick="onClick"
+        style="@style/button_Gray_style"
         android:text="下一步" />
 
 </LinearLayout>

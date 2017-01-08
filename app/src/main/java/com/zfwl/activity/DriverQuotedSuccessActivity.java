@@ -31,7 +31,7 @@ public class DriverQuotedSuccessActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_add_zfwl_success);
+		setContentView(R.layout.activity_driver_quoted_success);
 		ButterKnife.bind(this);
 
 		titlebarBtnLeft.setVisibility(View.VISIBLE);

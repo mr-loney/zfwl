@@ -14,7 +14,7 @@ import com.zfwl.R;
 public class LineTextView extends LinearLayout {
 
     private View mRootView,lineT,lineC,lineE,showmore;
-    private TextView mtv,mtv2;
+    public TextView mtv,mtv2;
     public EditText met;
     private boolean   bt = false,bc = false,be = false,bMore = false;
     private String strTitle = "";

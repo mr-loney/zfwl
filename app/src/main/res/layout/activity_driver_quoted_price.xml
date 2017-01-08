@@ -18,11 +18,12 @@
             android:id="@+id/title_bar"
             style="@style/title_bar"
             android:background="@color/white"
+            app:bgatitlebar_isTitleTextBold="false"
             app:bgatitlebar_titleText="司机报价"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="6dp"
             android:background="@drawable/banner_driver_quoted_price_repeat"/>
 
         <LinearLayout
@@ -110,6 +111,7 @@
                 android:background="@null"
                 android:inputType="number"
                 android:textColor="#333333"
+                android:hint="输入吨数"
                 android:textColorHint="#cccccc"
                 tools:text="1"/>
         </LinearLayout>
@@ -191,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="如200"
+                android:hint="输入单价"
                 android:inputType="number"
                 android:textColor="#333333"
                 android:textColorHint="#cccccc"/>

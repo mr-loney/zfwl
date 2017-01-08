@@ -2,6 +2,7 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
@@ -108,19 +109,21 @@ public class GoodsDetailActivity extends BaseShareableActivity {
                 toStr += item.getToDetail() + "<br/>";
             }
         }
+        if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
+        if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
         mTvFrom.setText(Html.fromHtml(fromStr));
         mTvTo.setText(Html.fromHtml(toStr));
 
         mItemStartTime.setKeyText("发车时间");
         try {
-            mItemStartTime.setValueText(Utils.longToStringFriendly(data.getCreateTime()));
+            mItemStartTime.setValueText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mItemBigCarPassable.setKeyText("大货通行");
-        mItemBigCarPassable.setValueText(data.getIsLargeGo() == 0 ? "允许" : "禁止");
-        mItemBigCarPassable.setValueTextColor(R.color.red);
-        mItemGoodsName.setKeyText("物品名称");
+         mItemBigCarPassable.setKeyText("大货通行");
+        mItemBigCarPassable.setValueText(data.getIsLargeGo()==0?"允许":"禁止");
+        mItemBigCarPassable.setValueTextColor(Color.RED);
+         mItemGoodsName.setKeyText("物品名称");
         mItemGoodsName.setValueText(data.getGoodsName());
         mItemGoodsWeight.setKeyText("货物重量（吨）");
         mItemGoodsWeight.setValueText(data.getWeight() + "");

@@ -14,4 +14,7 @@ public interface MyQuotedApi {
     @GET("app/member/getPrice.do")
     Observable<MyQuotedModel> getList(@Query("pageNo") int pageNo,
             @Query("pageSize") int pageSize);
+
+    @GET("app/member/delPrice.do ")
+    Observable<String> del(@Query("id") int id);
 }

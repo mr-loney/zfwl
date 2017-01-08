@@ -76,6 +76,7 @@ public class MyPublishEmptyCarListAdapter extends BaseAdapter {
 					toStr+=item.getToAddressName()+"<br/>";
 				}
 			}
+			if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
 			holder.txt_to.setText(Html.fromHtml(toStr));
 			holder.txt_detail.setText("有"+data.getCarNumber()+"辆车 "+data.getCarLength()+"米 "+data.getLoadNumber()+"吨");
 			try {

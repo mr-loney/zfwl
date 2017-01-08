@@ -277,7 +277,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_selector_white_and_gray"
                 android:gravity="center"
-                android:text="取消订单"
+                android:text="不接单"
                 android:textColor="#999999"
                 android:textSize="17sp"/>
 
@@ -288,7 +288,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_selector_read_and_dark_read"
                 android:gravity="center"
-                android:text="确认订单"
+                android:text="确认接单"
                 android:textColor="@color/white"
                 android:textSize="17sp"/>
 

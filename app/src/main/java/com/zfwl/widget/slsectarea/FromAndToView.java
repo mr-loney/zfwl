@@ -119,7 +119,12 @@ public class FromAndToView extends LinearLayout {
         Date lastMonth = ca.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List<SelectTimeItem> items = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+            SelectTimeItem tmp = new SelectTimeItem();
+            tmp.realDate = "全部时间";
+            tmp.displayDate = "全部时间";
+            tmp.selected = tmp.realDate.equals(nowText);
+            items.add(tmp);
+        for (int i = 0; i < 11; i++) {
             ca.add(Calendar.DAY_OF_YEAR, 1);
             String t = sdf.format(ca.getTime());
             SelectTimeItem item = new SelectTimeItem();

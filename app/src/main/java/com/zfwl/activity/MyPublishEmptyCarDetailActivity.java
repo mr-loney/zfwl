@@ -106,6 +106,7 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity implements MyP
                 toStr+=item.getToAddressName()+"<br/>";
             }
         }
+        if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
         txtTo.setText(Html.fromHtml(toStr));
 
         detailTxt1.setDetail(data.getCdate()+"");

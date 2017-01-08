@@ -12,9 +12,22 @@
         android:weightSum="1"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/title"
-            layout="@layout/layout_title_bar" />
+        <cn.bingoogolapple.titlebar.BGATitleBar
+            android:id="@+id/title_bar"
+            style="@style/title_bar"
+            android:background="#fafafb"
+            app:bgatitlebar_rightText="常跑路线"
+            app:bgatitlebar_isTitleTextBold="false"
+            app:bgatitlebar_titleText="发布信息"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#aaaaaa"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#eeeeee"></View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,6 +35,10 @@
             android:focusable ="true"
             android:focusableInTouchMode="true"
             android:layout_height="50dp" >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#CCCCCC"></View>
 
             <TextView
                 android:layout_width="20dp"
@@ -43,19 +60,13 @@
                 android:textColorHint="@color/lightgray"
                 android:textColor="@color/black"
                 android:text=""/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="0.5dp"
-                android:background="#eeeeee"
-                android:layout_alignParentBottom="true"></View>
         </RelativeLayout>
 
         <ListView
             android:id="@+id/listview_step3"
             android:layout_weight="1"
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"></ListView>
 
@@ -71,6 +82,7 @@
             app:linet="true"
             app:normaltitle="预计发车时间"
             />
+
         <com.zfwl.controls.LineTextView
             android:id="@+id/detail_txt2"
             android:layout_width="match_parent"
@@ -100,20 +112,24 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical"
             android:text="您的信息将提交给系统，由系统为您分配配送服务"
-            android:textSize="15sp"/>
+            android:textSize="14sp"/>
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#32b0ed"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_zfwl_blue_bg1"
             android:textColor="@color/white"
             android:textSize="16dp"
+            android:layout_marginBottom="5dp"
             android:text="发布"/>
     </LinearLayout>
 
     <com.zfwl.widget.slsectarea.SelectAreaListView
         android:id="@+id/view_select_area"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/titlebar_height"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:visibility="gone"

@@ -8,7 +8,7 @@
     <dimen name="fontsize_content_normal">12sp</dimen>
     <dimen name="fontsize_content_default">12sp</dimen>
     <dimen name="fontsize_content_middle">14sp</dimen>
-    <dimen name="fontsize_button_Large">20sp</dimen>
+    <dimen name="fontsize_button_Large">18sp</dimen>
     <dimen name="fontsize_button_normal">18sp</dimen>
     <dimen name="fontsize_button_min">16sp</dimen>
     <dimen name="fontsize_title_max">20sp</dimen>

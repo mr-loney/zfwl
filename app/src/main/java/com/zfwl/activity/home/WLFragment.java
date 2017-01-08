@@ -313,7 +313,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
             }
         }
         String time = mFromAndToView.mTvStartTime.getText().toString();
-        if (time.equals("发车时间")) {
+        if (time.equals("发车时间") || time.equals("全部时间")) {
             time = "";
         }
         mLogisticsPresenter.getLogisticsList(isRefresh, fromP, fromC, fromD, toP, toC, toD, time);
