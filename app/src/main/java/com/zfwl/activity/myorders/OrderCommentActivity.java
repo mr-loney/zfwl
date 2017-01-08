@@ -3,6 +3,7 @@ package com.zfwl.activity.myorders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.zfwl.R;
 import com.zfwl.activity.BaseActivity;
@@ -31,6 +32,8 @@ public class OrderCommentActivity extends BaseActivity implements OnRatingChange
     MaterialRatingBar mRbService;
     @BindView(R.id.rb_sales_attitude)
     MaterialRatingBar mRbSalesAttitude;
+    @BindView(R.id.et_remark)
+    EditText mEtRemark;
     private LoadingDialog mLoadingDialog;
     private OrderCommentPresenter mOrderCommentPresenter;
     private int mRateDepotTime, mRateOutTime, mRateService, mRateAttitude;
@@ -46,8 +49,9 @@ public class OrderCommentActivity extends BaseActivity implements OnRatingChange
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_comment);
+        ButterKnife.bind(this);
         initViews();
-        mOrderId = getIntent().getIntExtra(EXTRA_ORDER_ID, 0);
+        mOrderId = getIntent().getLongExtra(EXTRA_ORDER_ID, 0);
         mOrderCommentPresenter = new OrderCommentPresenter();
         mOrderCommentPresenter.attachView(this);
     }
@@ -82,12 +86,15 @@ public class OrderCommentActivity extends BaseActivity implements OnRatingChange
 
     private void submitComment() {
         if (isAllRated()) {
-            mOrderCommentPresenter.submitComment(mOrderId, mRateDepotTime, mRateOutTime, mRateService, mRateAttitude, "");
+            mOrderCommentPresenter.submitComment(mOrderId, mRateDepotTime, mRateOutTime, mRateService, mRateAttitude, getRemark());
         } else {
             ToastUtils.show(this, "请全部评分再提交哦");
         }
     }
 
+    private String getRemark() {
+        return mEtRemark.getText() == null ? "" : mEtRemark.getText().toString();
+    }
     private void initRatingBars() {
         mRbCreateTime.setOnRatingChangeListener(this);
         mRbOutTime.setOnRatingChangeListener(this);
