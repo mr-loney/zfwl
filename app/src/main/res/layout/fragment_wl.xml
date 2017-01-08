@@ -35,9 +35,9 @@
 
     <com.zfwl.widget.slsectarea.FromAndToView
         android:id="@+id/view_from_n_to"
-        android:background="#f3f7fa"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="40dp"
+        android:background="#f3f7fa"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,9 +46,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <LinearLayout
                 android:id="@+id/tv_area_condition"
@@ -100,38 +100,37 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="#eee"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#eee">
 
                 <com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx
-                    xmlns:ptr="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/pull_refresh_listview_items"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:cacheColorHint="@android:color/transparent"
                     android:columnWidth="140dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="2"
                     android:divider="@color/transparent"
                     android:dividerHeight="0dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="2"
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollingCache="true"
-                    android:stretchMode="columnWidth" />
+                    android:stretchMode="columnWidth"/>
 
 
                 <LinearLayout
                     android:id="@+id/view_empty"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/search_nodata" />
+                        android:src="@drawable/search_nodata"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -139,12 +138,13 @@
                         android:layout_marginTop="10dp"
                         android:text="还没有发布空车"
                         android:textColor="@color/gray"
-                        android:textSize="@dimen/fontsize_content_normal" />
+                        android:textSize="@dimen/fontsize_content_normal"/>
                 </LinearLayout>
 
             </RelativeLayout>
 
         </LinearLayout>
+
         <com.zfwl.widget.slsectarea.SelectAreaListView
             android:id="@+id/view_select_area"
             android:layout_width="match_parent"
@@ -152,10 +152,48 @@
             android:visibility="gone"
             tools:visibility="visible"
             />
+
+        <LinearLayout
+            android:id="@+id/layout_select_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#a5000000"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_select_time"
+                android:layout_width="match_parent"
+                android:layout_height="424dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    style="@style/GrayDivider"/>
+
+                <View
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="7dp"
+                    android:background="#d8d8d8"/>
+                <View
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="9dp"
+                    android:background="#d8d8d8"/>
+                <View
+                    style="@style/GrayDivider"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_logistics"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
+
 </LinearLayout>
