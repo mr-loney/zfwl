@@ -16,8 +16,8 @@ public class Order {
         int PAID = 2;
         int CARRYING = 3;
         int WAIT_COMMENT = 4;
-        int NOT_ACCEPTED_ORDER = 5;//未接单
-        int COMMENTED = 6;
+        int NOT_ACCEPTED_ORDER = 5;//未接单(取消订单传这个)
+        int COMMENTED = 6;//已评价，已完成
     }
     //0-按车辆收费,1-按吨数收费
     public interface ChargeMethod{
