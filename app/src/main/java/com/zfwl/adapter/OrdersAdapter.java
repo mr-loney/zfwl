@@ -52,7 +52,7 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         switch (viewType) {
             case Type.CARRYING:
                 return new CarryingVH(inflate(parent, R.layout.item_order_carrying));
-            case Type.FINISHED:
+            case Type.WAIT_COMMENT:
                 return new FinishedVH(inflate(parent, R.layout.item_order_finished));
             case Type.PAID:
                 return new PaidVH(inflate(parent, R.layout.item_order_paid));
