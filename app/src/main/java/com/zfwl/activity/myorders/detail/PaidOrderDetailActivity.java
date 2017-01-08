@@ -88,11 +88,8 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
-        }
-        //详细信息
-        if (carInfo != null) {
-            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-            mTvRemark.setText(carInfo.getRemark());
+            mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
+            mTvRemark.setText(logisticsInfo.getRemark());
         }
 
     }

@@ -1,12 +1,12 @@
 package com.zfwl.util;
 
+import android.support.v4.util.LruCache;
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import android.support.v4.util.LruCache;
-import android.util.Log;
 
 public class TimeUtils {
 
@@ -16,7 +16,10 @@ public class TimeUtils {
     public static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
     public static final long DAY_MILLIS = 24 * HOUR_MILLIS;
     private static LruCache<String, SimpleDateFormat> sCachedFormats = new LruCache<String, SimpleDateFormat>(10);
-    
+
+    public static String toYYYYMMDD(long millis){
+        return millisToTimestamp(millis, "yyyy-MM-dd");
+    }
     /**
      * @description 获取当天默认格式的日期字符串
      * @created 2015-4-2 下午2:12:39
