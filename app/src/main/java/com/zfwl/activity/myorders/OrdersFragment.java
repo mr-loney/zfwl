@@ -164,6 +164,9 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
                 CarryingOrderDetailActivity.launch(getActivity(), orderId);
                 break;
             case Type.WAIT_COMMENT:
+                OrderCommentActivity.launch(getActivity(), orderId);
+                break;
+            case Type.COMMENTED:
                 FinishedOrderDetailActivity.launch(getActivity(), orderId);
                 break;
             default:

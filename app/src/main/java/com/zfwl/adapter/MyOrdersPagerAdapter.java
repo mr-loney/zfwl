@@ -11,7 +11,7 @@ import com.zfwl.entity.Order.Type;
  * Created by ZZB on 2016/12/20.
  */
 public class MyOrdersPagerAdapter extends FragmentPagerAdapter {
-    private final String[] TITLES = {"全部", "待确认", "待付款", "已付款", "运输中", "已完成"};
+    private final String[] TITLES = {"全部", "待确认", "待付款", "已付款", "运输中", "待评价", "已完成"};
 
     public MyOrdersPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -39,6 +39,11 @@ public class MyOrdersPagerAdapter extends FragmentPagerAdapter {
             case 5:
                 orderType = Type.WAIT_COMMENT;
                 break;
+            case 6:
+                orderType = Type.COMMENTED;
+                break;
+
+
         }
         return OrdersFragment.newInstance(orderType);
     }
