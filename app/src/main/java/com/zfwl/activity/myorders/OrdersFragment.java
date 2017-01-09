@@ -26,11 +26,14 @@ import com.zfwl.common.MyLog;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
+import com.zfwl.event.ClearOrderReadPointEvent;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.widget.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -74,6 +77,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     protected void onVisible() {
         if (mInited) {
+            EventBus.getDefault().post(new ClearOrderReadPointEvent(mOrderType));
             mRvOrders.refresh();
         }
     }

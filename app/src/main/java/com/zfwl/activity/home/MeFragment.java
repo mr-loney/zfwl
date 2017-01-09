@@ -3,6 +3,7 @@ package com.zfwl.activity.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -19,6 +20,14 @@ import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
 import com.zfwl.activity.WJActivity;
 import com.zfwl.activity.myorders.MyOrdersActivity;
+import com.zfwl.common.MyLog;
+import com.zfwl.controls.CircleImageView2;
+import com.zfwl.controls.CircleTextView;
+import com.zfwl.entity.Order.Type;
+import com.zfwl.event.ClearOrderReadPointEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +35,12 @@ import butterknife.OnClick;
 
 
 public class MeFragment extends Fragment {
-
+    private static final String TAG = "MeFragment";
 
     @BindView(R.id.iv_logobg)
     ImageView ivLogobg;
     @BindView(R.id.iv_userhead)
-    com.zfwl.controls.CircleImageView2 ivUserhead;
+    CircleImageView2 ivUserhead;
     @BindView(R.id.txt_name)
     TextView txtName;
     @BindView(R.id.my_dcwj)
@@ -39,18 +48,18 @@ public class MeFragment extends Fragment {
     @BindView(R.id.my_setting)
     TextView mySetting;
     @BindView(R.id.circle_order_text)
-    com.zfwl.controls.CircleTextView circleOrderText;
-    @BindView(R.id.my_order_1)
+    CircleTextView circleOrderText;
+    @BindView(R.id.btn_order_wait_confirm)
     RelativeLayout myOrder1;
     @BindView(R.id.circle_order_text1)
-    com.zfwl.controls.CircleTextView circleOrderText1;
-    @BindView(R.id.my_order_2)
+    CircleTextView circleOrderText1;
+    @BindView(R.id.btn_order_wait_pay)
     RelativeLayout myOrder2;
     @BindView(R.id.circle_order_text2)
-    com.zfwl.controls.CircleTextView circleOrderText2;
-    @BindView(R.id.my_order_3)
+    CircleTextView circleOrderText2;
+    @BindView(R.id.btn_order_paid)
     RelativeLayout myOrder3;
-    @BindView(R.id.my_order_4)
+    @BindView(R.id.btn_order_carrying)
     LinearLayout myOrder4;
     @BindView(R.id.item_myorder)
     View itemOrder;
@@ -58,6 +67,14 @@ public class MeFragment extends Fragment {
     View itemBJ;
     @BindView(R.id.item_mykc)
     View itemKC;
+    @BindView(R.id.read_wait_confirm)
+    View mReadWaitConfirm;
+    @BindView(R.id.read_wait_pay)
+    View mReadWaitPay;
+    @BindView(R.id.read_wait_paid)
+    View mReadWaitPaid;
+    @BindView(R.id.read_wait_carrying)
+    View mReadWaitCarrying;
 
     private Activity mContext;
 
@@ -69,8 +86,7 @@ public class MeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ButterKnife.bind(this, view);
         mContext = this.getActivity();
@@ -78,14 +94,26 @@ public class MeFragment extends Fragment {
         return view;
     }
 
-    private void initView(){
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void initView() {
         initItem(itemOrder, "我的订单", false);
         setItemRightText(itemOrder, "查看全部订单");
         initItem(itemBJ, "我的报价", false);
         initItem(itemKC, "我发布的空车", false);
     }
 
-    @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.my_order_1, R.id.my_order_2, R.id.my_order_3, R.id.my_order_4,
+    @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.btn_order_wait_confirm, R.id.btn_order_wait_pay, R.id.btn_order_paid, R.id.btn_order_carrying,
             R.id.item_myorder, R.id.item_mykc, R.id.item_mybj})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -95,13 +123,17 @@ public class MeFragment extends Fragment {
             case R.id.my_setting:
                 SettingActivity.launch(mContext);
                 break;
-            case R.id.my_order_1:
+            case R.id.btn_order_wait_confirm:
+                MyOrdersActivity.launch(mContext, Type.WAIT_CONFIRM);
                 break;
-            case R.id.my_order_2:
+            case R.id.btn_order_wait_pay:
+                MyOrdersActivity.launch(mContext, Type.WAIT_PAY);
                 break;
-            case R.id.my_order_3:
+            case R.id.btn_order_paid:
+                MyOrdersActivity.launch(mContext, Type.PAID);
                 break;
-            case R.id.my_order_4:
+            case R.id.btn_order_carrying:
+                MyOrdersActivity.launch(mContext, Type.CARRYING);
                 break;
             case R.id.item_myorder:
                 MyOrdersActivity.launch(getActivity());
@@ -111,6 +143,21 @@ public class MeFragment extends Fragment {
                 break;
             case R.id.item_mybj:
                 MyQuotedListActivity.launch(mContext);
+                break;
+        }
+    }
+
+    @Subscribe
+    public void onClearOrderReadPoint(ClearOrderReadPointEvent event) {
+        MyLog.i(TAG, "onClearOrderReadPoint: %d", event.orderType);
+        switch (event.orderType) {
+            case Type.WAIT_CONFIRM:
+                break;
+            case Type.WAIT_PAY:
+                break;
+            case Type.PAID:
+                break;
+            case Type.CARRYING:
                 break;
         }
     }
