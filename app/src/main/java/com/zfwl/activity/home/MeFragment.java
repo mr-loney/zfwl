@@ -124,15 +124,19 @@ public class MeFragment extends Fragment {
                 SettingActivity.launch(mContext);
                 break;
             case R.id.btn_order_wait_confirm:
+                mReadWaitConfirm.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.WAIT_CONFIRM);
                 break;
             case R.id.btn_order_wait_pay:
+                mReadWaitPay.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.WAIT_PAY);
                 break;
             case R.id.btn_order_paid:
+                mReadWaitPaid.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.PAID);
                 break;
             case R.id.btn_order_carrying:
+                mReadWaitCarrying.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.CARRYING);
                 break;
             case R.id.item_myorder:
@@ -152,12 +156,16 @@ public class MeFragment extends Fragment {
         MyLog.i(TAG, "onClearOrderReadPoint: %d", event.orderType);
         switch (event.orderType) {
             case Type.WAIT_CONFIRM:
+                mReadWaitConfirm.setVisibility(View.GONE);
                 break;
             case Type.WAIT_PAY:
+                mReadWaitPay.setVisibility(View.GONE);
                 break;
             case Type.PAID:
+                mReadWaitPaid.setVisibility(View.GONE);
                 break;
             case Type.CARRYING:
+                mReadWaitCarrying.setVisibility(View.GONE);
                 break;
         }
     }
