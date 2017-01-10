@@ -116,7 +116,6 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
                 onBackPressed();
             }
         });
-        initView();
     }
     private TextWatcher watcher = new TextWatcher() {
 

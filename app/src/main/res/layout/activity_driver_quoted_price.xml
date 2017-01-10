@@ -113,7 +113,7 @@
                 android:textColor="#333333"
                 android:hint="输入吨数"
                 android:textColorHint="#cccccc"
-                tools:text="1"/>
+                tools:text=""/>
         </LinearLayout>
 
         <View
