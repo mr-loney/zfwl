@@ -18,7 +18,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="200dp"
                 android:background="#89858c">
 
                 <ImageView
@@ -57,6 +57,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="调查问卷"/>
 
@@ -68,6 +69,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:gravity="right"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="设置"/>
 
@@ -103,6 +105,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:padding="5dp"
                             android:layout_gravity="center"
                             android:src="@drawable/order_1"></ImageView>
 
@@ -111,6 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="8dp"
+                            android:textColor="@color/black"
                             android:text="待确认"
                             android:textSize="@dimen/text_size_medium"></TextView>
                     </LinearLayout>
@@ -143,6 +147,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:padding="5dp"
                             android:layout_gravity="center"
                             android:src="@drawable/order_2"></ImageView>
 
@@ -151,6 +156,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="8dp"
+                            android:textColor="@color/black"
                             android:text="待付款"
                             android:textSize="@dimen/text_size_medium"></TextView>
                     </LinearLayout>
@@ -183,6 +189,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:padding="5dp"
                             android:layout_gravity="center"
                             android:src="@drawable/order_3"></ImageView>
 
@@ -190,6 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:textColor="@color/black"
                             android:layout_marginTop="8dp"
                             android:text="已付款"
                             android:textSize="@dimen/text_size_medium"></TextView>
@@ -219,6 +227,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:padding="5dp"
                         android:layout_gravity="center"
                         android:src="@drawable/order_4"></ImageView>
 
@@ -226,6 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginTop="8dp"
                         android:text="运输中"
                         android:textSize="@dimen/text_size_medium"></TextView>

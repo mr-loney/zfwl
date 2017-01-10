@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:weightSum="3"
             android:orientation="horizontal">
 
@@ -27,6 +27,8 @@
                 android:cacheColorHint="@android:color/transparent"
                 android:listSelector="@android:color/transparent"
                 android:layout_height="match_parent"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp"
                 android:layout_weight="1"/>
 
 
@@ -36,6 +38,8 @@
                 android:cacheColorHint="@android:color/transparent"
                 android:listSelector="@android:color/transparent"
                 android:layout_height="match_parent"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp"
                 android:layout_weight="1"/>
 
             <ListView
@@ -44,6 +48,8 @@
                 android:cacheColorHint="@android:color/transparent"
                 android:listSelector="@android:color/transparent"
                 android:layout_height="match_parent"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp"
                 android:layout_weight="1"/>
         </LinearLayout>
 
@@ -64,6 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:background="@drawable/btn_zfwl_gray_bg_40"
                 android:text="重置"/>
 
@@ -75,8 +82,35 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:background="@drawable/btn_zfwl_blue_bg1_40"
                 android:text="完成"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View
+                style="@style/GrayDivider"/>
+
+            <View
+                android:layout_gravity="center_horizontal"
+                android:layout_width="25dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="7dp"
+                android:background="#d8d8d8"/>
+            <View
+                android:layout_gravity="center_horizontal"
+                android:layout_width="25dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="9dp"
+                android:background="#d8d8d8"/>
+            <View
+                style="@style/GrayDivider"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

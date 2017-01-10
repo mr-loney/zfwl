@@ -132,7 +132,7 @@
         <item name="android:textSize">12sp</item>
     </style>
     <style name="GrayDivider">
-        <item name="android:layout_height">1px</item>
+        <item name="android:layout_height">0.5px</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/divider</item>
     </style>

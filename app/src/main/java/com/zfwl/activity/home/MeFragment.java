@@ -19,6 +19,7 @@ import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
 import com.zfwl.activity.WJActivity;
 import com.zfwl.activity.myorders.MyOrdersActivity;
+import com.zfwl.data.UserInfoManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,6 +84,8 @@ public class MeFragment extends Fragment {
         setItemRightText(itemOrder, "查看全部订单");
         initItem(itemBJ, "我的报价", false);
         initItem(itemKC, "我发布的空车", false);
+
+        txtName.setText(UserInfoManager.INSTANCE.getUserInfo().getNickname());
     }
 
     @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.my_order_1, R.id.my_order_2, R.id.my_order_3, R.id.my_order_4,

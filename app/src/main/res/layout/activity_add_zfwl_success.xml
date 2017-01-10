@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/layout_title_bar" />
-
     <ImageView
         android:layout_width="123dp"
         android:layout_height="97dp"
@@ -23,12 +19,13 @@
         android:text="发布成功！"
         android:layout_marginTop="30dp"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="如果有配送需求客服将与您联系"
-        android:textSize="18sp"
+        android:textSize="13sp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"/>
 
@@ -38,7 +35,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_height="50dp"
-        android:background="@drawable/draw_gray_corner_btn"
+        android:background="@drawable/btn_zfwl_blue_bg1"
         android:text="我知道了"
         android:textSize="18sp"
         android:gravity="center"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bilibili.socialize.share.core.SocializeMedia;
@@ -116,7 +117,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
         mItemStartTime.setKeyText("发车时间");
         try {
-            mItemStartTime.setValueText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd"));
+            mItemStartTime.setValueText(Utils.longToStringFriendly(data.getCreateTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -131,7 +132,11 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemGoodsLength.setValueText(data.getLength() + "");
         mItemCarNumber.setKeyText("需要车辆");
         mItemCarNumber.setValueText(data.getCarNum() + "");
-        mTvRemark.setText(data.getRemark());
+        if (data.getRemark()==null || data.getRemark().length()==0) {
+            findViewById(R.id.tv_remark_bg).setVisibility(View.GONE);
+        } else {
+            mTvRemark.setText(data.getRemark());
+        }
     }
 
     @Override
