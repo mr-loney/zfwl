@@ -60,8 +60,12 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
                 return new WaitConfirmVH(inflate(parent, R.layout.item_order_wait_confirm));
             case Type.WAIT_PAY:
                 return new WaitPayVH(inflate(parent, R.layout.item_order_wait_pay));
+            case Type.COMMENTED:
+                return new FinishedVH(inflate(parent, R.layout.item_order_finished));
+            default:
+                throw new RuntimeException("unknown view type: " + viewType);
         }
-        return null;
+
     }
 
     private View inflate(ViewGroup parent, int layoutId) {
@@ -79,7 +83,6 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         holder.setCallback(mCallback);
         holder.itemView.setOnClickListener(view -> mCallback.onOrderClick(order));
     }
-
 
 
     public static class VH extends ViewHolder {

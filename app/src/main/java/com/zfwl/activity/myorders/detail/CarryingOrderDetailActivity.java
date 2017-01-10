@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.common.Nav;
 import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
-import com.zfwl.entity.OrderDetails.OrderEmptyCar;
 import com.zfwl.util.AddressUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -61,7 +61,6 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
 
     @Override
     protected void populateDetails(OrderDetails orderDetails) {
-        OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
         if (logisticsInfo != null) {
             mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
@@ -85,6 +84,9 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
             case R.id.btn_nav_to:
                 break;
             case R.id.btn_contact_sales:
+                if (mOrderDetails != null) {
+                    Nav.toDialPhonePage(this, mOrderDetails.getRelationPhone());
+                }
                 break;
         }
     }

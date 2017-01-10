@@ -1,286 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray">
+    >
 
-    <LinearLayout
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:id="@+id/title_bar"
+        style="@style/title_bar"
+        android:background="@color/white"
+        app:bgatitlebar_titleText="订单详情"
+        />
+
+    <View
+        android:id="@+id/tb_divider"
+        style="@style/GrayDivider"
+        android:layout_below="@+id/title_bar"
+        />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.zfwl.activity.QuotedPriceDetailActivity">
-
-        <cn.bingoogolapple.titlebar.BGATitleBar
-            android:id="@+id/title_bar"
-            style="@style/title_bar"
-            android:background="@color/white"
-            app:bgatitlebar_titleText="订单详情"
-            />
-
-        <View
-            style="@style/GrayDivider"
-            />
+        android:layout_below="@+id/tb_divider"
+        android:background="@color/bg_gray">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_msg_price_paid"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="4dp"
-                android:src="@drawable/ic_msg_price_paid"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已支付信息费用"
-                android:textColor="#66ae18"
-                android:textSize="14sp"/>
-        </LinearLayout>
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="19dp"
-            android:paddingLeft="12dp"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="物流信息"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
-        </LinearLayout>
-
-        <View
-            style="@style/GrayDivider"/>
-
-        <RelativeLayout
-            android:id="@+id/layout_pack_place"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingTop="11dp">
+            android:orientation="vertical"
+            tools:context="com.zfwl.activity.QuotedPriceDetailActivity">
 
-            <TextView
-                android:id="@+id/tv_from_key"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bg_pack_ic"
-                android:gravity="center"
-                android:text="装"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:layout_toRightOf="@+id/tv_from_key"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                tools:text="山东省菏泽市牡丹区"
-                />
-
-            <TextView
-                android:id="@+id/btn_nav_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="11dp"
-                android:drawableLeft="@drawable/ic_navigate"
-                android:text="导航"
-                android:textColor="#1373fa"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_pack_place">
 
             <LinearLayout
-                android:id="@+id/layout_to"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="19dp"
+                android:background="@drawable/bg_msg_price_paid"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@drawable/ic_msg_price_paid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已支付信息费用"
+                    android:textColor="#66ae18"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="物流信息"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+
+            <View
+                style="@style/GrayDivider"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_pack_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+                android:paddingLeft="16dp"
+                android:paddingTop="11dp">
 
                 <TextView
+                    android:id="@+id/tv_from_key"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/bg_unpack_ic"
+                    android:background="@drawable/bg_pack_ic"
                     android:gravity="center"
-                    android:text="卸"
+                    android:text="装"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     />
 
                 <TextView
-                    android:id="@+id/tv_to"
+                    android:id="@+id/tv_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="13dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/tv_from_key"
                     android:textColor="#333333"
                     android:textSize="16sp"
-                    tools:text="河北省石家庄市芒果区\n河北省石家庄市芒果区"
+                    tools:text="山东省菏泽市牡丹区"
                     />
+
+                <TextView
+                    android:id="@+id/btn_nav_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="11dp"
+                    android:drawableLeft="@drawable/ic_navigate"
+                    android:text="导航"
+                    android:textColor="#1373fa"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_pack_place">
+
+                <LinearLayout
+                    android:id="@+id/layout_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp">
+
+                    <TextView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/bg_unpack_ic"
+                        android:gravity="center"
+                        android:text="卸"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="13dp"
+                        android:layout_marginTop="2dp"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        tools:text="河北省石家庄市芒果区\n河北省石家庄市芒果区"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btn_nav_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="2dp"
+                    android:drawableLeft="@drawable/ic_navigate"
+                    android:text="导航"
+                    android:textColor="#1373fa"/>
+            </RelativeLayout>
+
+
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="21dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细信息"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/btn_nav_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="2dp"
-                android:drawableLeft="@drawable/ic_navigate"
-                android:text="导航"
-                android:textColor="#1373fa"/>
-        </RelativeLayout>
-
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="21dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
-
             <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
+                style="@style/GrayDivider"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_begin_time"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_big_car_passable"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_name"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_weight"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_length"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_need_car_number"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="详细信息"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
-        </LinearLayout>
-        <View
-            style="@style/GrayDivider"
-            />
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_begin_time"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="14dp"
+                >
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_big_car_passable"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注:"
+                    android:textColor="#8f8e94"
+                    android:textSize="14sp"
+                    />
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_name"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black_333333"
+                    tools:text="运费到付，电话13800138000"/>
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_weight"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+                <View
+                    style="@style/GrayDivider"/>
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_length"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+            </LinearLayout>
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_need_car_number"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="14dp"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="备注:"
-                android:textColor="#8f8e94"
-                android:textSize="14sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_remark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/black_333333"
-                tools:text="运费到付，电话13800138000"/>
 
             <View
-                style="@style/GrayDivider"/>
-
+                style="@style/GrayDivider"
+                android:layout_marginBottom="21dp"
+                android:layout_marginTop="48dp"
+                />
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/btn_contact_sales"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_selector_read_and_dark_read"
-            android:gravity="center"
-            android:text="联系物流人员"
-            android:textColor="@color/white"
-            android:textSize="17sp"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="21dp"
-            />
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/btn_contact_sales"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_selector_read_and_dark_read"
+        android:gravity="center"
+        android:text="联系物流人员"
+        android:textColor="@color/white"
+        android:textSize="17sp"/>
+</RelativeLayout>

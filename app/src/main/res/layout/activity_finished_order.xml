@@ -1,440 +1,445 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray">
-
-    <LinearLayout
+    >
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:id="@+id/title_bar"
+        style="@style/title_bar"
+        android:background="@color/white"
+        app:bgatitlebar_titleText="订单详情"
+        />
+    <View
+        android:id="@+id/tb_divider"
+        android:layout_below="@+id/title_bar"
+        style="@style/GrayDivider"
+        />
+    <ScrollView
+        android:layout_below="@+id/tb_divider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.zfwl.activity.QuotedPriceDetailActivity">
-
-        <cn.bingoogolapple.titlebar.BGATitleBar
-            android:id="@+id/title_bar"
-            style="@style/title_bar"
-            android:background="@color/white"
-            app:bgatitlebar_titleText="订单详情"
-            />
-
-        <View
-            style="@style/GrayDivider"
-            />
-
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="19dp"
-            android:paddingLeft="12dp"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="物流信息"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
-        </LinearLayout>
-
-        <View
-            style="@style/GrayDivider"/>
-
-        <LinearLayout
-            android:id="@+id/layout_pack_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingTop="11dp">
-
-            <TextView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bg_pack_ic"
-                android:gravity="center"
-                android:text="装"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                tools:text="山东省菏泽市牡丹区"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_to"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_pack_place"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp">
-
-            <TextView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bg_unpack_ic"
-                android:gravity="center"
-                android:text="卸"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                tools:text="河北省石家庄市芒果区\n河北省石家庄市芒果区"
-                />
-        </LinearLayout>
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="21dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="详细信息"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
-        </LinearLayout>
-
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_begin_time"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_big_car_passable"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_name"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_weight"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_goods_length"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:paddingLeft="12dp"/>
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_need_car_number"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"/>
+        android:background="@color/bg_gray">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="14dp"
-            >
+            tools:context="com.zfwl.activity.QuotedPriceDetailActivity">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="备注:"
-                android:textColor="#8f8e94"
-                android:textSize="14sp"
-                />
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="19dp"
+                android:paddingLeft="12dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
-            <TextView
-                android:id="@+id/tv_remark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/black_333333"
-                tools:text="运费到付，电话13800138000"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="物流信息"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
+            </LinearLayout>
 
             <View
                 style="@style/GrayDivider"/>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_pack_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingTop="11dp">
 
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="18dp"
-            />
+                <TextView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/bg_pack_ic"
+                    android:gravity="center"
+                    android:text="装"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
+                <TextView
+                    android:id="@+id/tv_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="13dp"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    tools:text="山东省菏泽市牡丹区"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_pack_place"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp">
+
+                <TextView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/bg_unpack_ic"
+                    android:gravity="center"
+                    android:text="卸"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="13dp"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    tools:text="河北省石家庄市芒果区\n河北省石家庄市芒果区"
+                    />
+            </LinearLayout>
 
             <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
+                style="@style/GrayDivider"
+                android:layout_marginBottom="21dp"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的报价"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_my_quoted_price"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
 
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="18dp"
-            />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细信息"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp">
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_begin_time"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
 
             <View
-                android:layout_width="2dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="7dp"
-                android:background="#1373fa"
+                style="@style/GrayDivider"
+                android:paddingLeft="12dp"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_big_car_passable"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:paddingLeft="12dp"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_name"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:paddingLeft="12dp"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_weight"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:paddingLeft="12dp"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_goods_length"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:paddingLeft="12dp"/>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_need_car_number"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="14dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注:"
+                    android:textColor="#8f8e94"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black_333333"
+                    tools:text="运费到付，电话13800138000"/>
+
+                <View
+                    style="@style/GrayDivider"/>
+
+            </LinearLayout>
+
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="18dp"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的报价"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_my_quoted_price"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="18dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#1373fa"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的评价"
+                    android:textColor="#030303"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="我的评价"
-                android:textColor="#030303"
-                android:textSize="17sp"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="21dp"
+                android:paddingTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="创建时间"
+                        android:textColor="#030303"
+                        android:textSize="14sp"/>
+
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/rb_create_time"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="136dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:stepSize="1"
+                        app:mrb_progressTint="#fa5547"
+                        app:mrb_secondaryProgressTint="#fa5547"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="出库时间"
+                        android:textColor="#030303"
+                        android:textSize="14sp"/>
+
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/rb_out_time"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="136dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:stepSize="1"
+                        app:mrb_progressTint="#fa5547"
+                        app:mrb_secondaryProgressTint="#fa5547"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="创库服务水平"
+                        android:textColor="#030303"
+                        android:textSize="14sp"/>
+
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/rb_service"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="136dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:stepSize="1"
+                        app:mrb_progressTint="#fa5547"
+                        app:mrb_secondaryProgressTint="#fa5547"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="服务人员服务太度"
+                        android:textColor="#030303"
+                        android:textSize="14sp"/>
+
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/rb_sales_attitude"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="136dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:stepSize="1"
+                        app:mrb_progressTint="#fa5547"
+                        app:mrb_secondaryProgressTint="#fa5547"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="21dp"
+                />
+
+            <View
+                style="@style/GrayDivider"
+                />
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_order_number"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                />
+
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:id="@+id/item_order_create_time"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"/>
+
+            <View
+                style="@style/GrayDivider"
+                android:layout_marginBottom="18dp"
+                />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:paddingLeft="21dp"
-            android:paddingTop="8dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="创建时间"
-                    android:textColor="#030303"
-                    android:textSize="14sp"/>
-
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/rb_create_time"
-                    style="@style/Widget.MaterialRatingBar.RatingBar"
-                    android:layout_width="136dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:stepSize="1"
-                    app:mrb_progressTint="#fa5547"
-                    app:mrb_secondaryProgressTint="#fa5547"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="出库时间"
-                    android:textColor="#030303"
-                    android:textSize="14sp"/>
-
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/rb_out_time"
-                    style="@style/Widget.MaterialRatingBar.RatingBar"
-                    android:layout_width="136dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:stepSize="1"
-                    app:mrb_progressTint="#fa5547"
-                    app:mrb_secondaryProgressTint="#fa5547"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="创库服务水平"
-                    android:textColor="#030303"
-                    android:textSize="14sp"/>
-
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/rb_service"
-                    style="@style/Widget.MaterialRatingBar.RatingBar"
-                    android:layout_width="136dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:stepSize="1"
-                    app:mrb_progressTint="#fa5547"
-                    app:mrb_secondaryProgressTint="#fa5547"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="服务人员服务太度"
-                    android:textColor="#030303"
-                    android:textSize="14sp"/>
-
-                <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                    android:id="@+id/rb_sales_attitude"
-                    style="@style/Widget.MaterialRatingBar.RatingBar"
-                    android:layout_width="136dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:stepSize="1"
-                    app:mrb_progressTint="#fa5547"
-                    app:mrb_secondaryProgressTint="#fa5547"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="21dp"
-            />
-        <View
-            style="@style/GrayDivider"
-            />
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_order_number"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            />
-
-        <com.zfwl.widget.goodsdetail.KeyValueItem
-            android:id="@+id/item_order_create_time"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"/>
-
-        <View
-            style="@style/GrayDivider"
-            android:layout_marginBottom="18dp"
-            />
-
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>

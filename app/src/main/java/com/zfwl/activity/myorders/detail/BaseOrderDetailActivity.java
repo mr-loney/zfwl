@@ -19,6 +19,7 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     protected OrderDetailsPresenter mOrderDetailsPresenter = new OrderDetailsPresenter();
     protected LoadingDialog mLoadingDialog;
     protected long mOrderId;
+    protected OrderDetails mOrderDetails;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
 
     @Override
     public void onLoadOrderDetailsSuccess(OrderDetails orderDetails) {
+        mOrderDetails = orderDetails;
         populateDetails(orderDetails);
     }
 
