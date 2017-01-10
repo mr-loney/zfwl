@@ -36,6 +36,8 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         void onCommentClick(Order order);
 
         void onOrderClick(Order order);
+
+        void onPayOrderClick(Order order);
     }
 
     public void setCallback(Callback callback) {
@@ -151,9 +153,13 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.btn_contact_sales)
-        public void onContactSalesClick() {
-            mCallback.onContactSalesClick(mOrder);
+        @OnClick(R.id.btn_cancel_order)
+        public void onCancelOrderClick() {
+            mCallback.onCancelOrderClick(mOrder);
+        }
+        @OnClick(R.id.btn_pay_order)
+        public void onPayOrderClick() {
+            mCallback.onPayOrderClick(mOrder);
         }
 
     }
@@ -190,27 +196,5 @@ public class OrdersAdapter extends BaseRvAdapter<Order, VH> {
         }
     }
 
-    public static class SimpleCallback implements Callback {
 
-        @Override
-        public void onCancelOrderClick(Order order) {
-        }
-
-        @Override
-        public void onConfirmOrderClick(Order order) {
-        }
-
-        @Override
-        public void onContactSalesClick(Order order) {
-        }
-
-        @Override
-        public void onCommentClick(Order order) {
-        }
-
-        @Override
-        public void onOrderClick(Order order) {
-
-        }
-    }
 }

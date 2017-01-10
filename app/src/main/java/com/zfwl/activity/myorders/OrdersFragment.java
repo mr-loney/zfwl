@@ -13,6 +13,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
+import com.zfwl.activity.PaySuccessActivity;
 import com.zfwl.activity.myorders.detail.CarryingOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.PaidOrderDetailActivity;
@@ -187,6 +188,11 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     }
 
     @Override
+    public void onPayOrderClick(Order order) {
+        ToastUtils.show(mContext, "click pay");
+    }
+
+    @Override
     public void showOrderEmptyView() {
         // TODO: 2016/12/26
     }
@@ -240,6 +246,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     public void onConfirmOrderSuccess() {
         mRvOrders.refresh();
         ToastUtils.show(mContext, "确认订单成功");
+        PaySuccessActivity.launch(mContext, 0, "00");
     }
 
     @Override

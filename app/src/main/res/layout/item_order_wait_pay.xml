@@ -107,19 +107,30 @@
         android:layout_height="44dp">
 
         <TextView
-            android:id="@+id/btn_contact_sales"
+            android:id="@+id/btn_cancel_order"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="110dp"
+            android:background="@drawable/btn_white_solid_black_stroke"
+            android:gravity="center"
+            android:text="取消订单"
+            android:textColor="#666666"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/btn_pay_order"
             android:layout_width="90dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_white_solid_black_stroke"
+            android:background="@drawable/btn_red_corner"
             android:gravity="center"
-            android:text="联系业务员"
-            android:textColor="#666666"
+            android:text="去支付"
+            android:textColor="@color/white"
             android:textSize="14sp"/>
-
-
     </RelativeLayout>
 
     <View
