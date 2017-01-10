@@ -8,6 +8,7 @@ import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.mvp.orders.detail.OrderDetailsMvpView;
 import com.zfwl.mvp.orders.detail.OrderDetailsPresenter;
+import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.ToastUtils;
 
 /**
@@ -69,5 +70,8 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
         } else {
             return "￥" + details.getMemberPrice().getTotal();
         }
+    }
+    public String getTimeStr(long millis){
+        return TimeUtils.toYYYYMMDD(millis);
     }
 }

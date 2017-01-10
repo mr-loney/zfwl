@@ -163,6 +163,8 @@
         </activity>
         <activity android:name=".wxapi.WXPayEntryActivity">
         </activity>
+        <activity android:name=".activity.PaySuccessActivity">
+        </activity>
     </application>
 
 </manifest>

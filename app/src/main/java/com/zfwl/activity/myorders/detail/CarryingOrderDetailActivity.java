@@ -71,12 +71,10 @@ public class CarryingOrderDetailActivity extends BaseOrderDetailActivity {
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
+            mTvRemark.setText(logisticsInfo.getRemark());
         }
-        //详细信息
-        if (carInfo != null) {
-            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-            mTvRemark.setText(carInfo.getRemark());
-        }
+
     }
 
     @OnClick({R.id.btn_nav_from, R.id.btn_nav_to, R.id.btn_contact_sales})

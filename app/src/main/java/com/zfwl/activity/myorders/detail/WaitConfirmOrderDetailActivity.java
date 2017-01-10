@@ -97,7 +97,7 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
-            mItemBeginTime.setText("发车时间", logisticsInfo.getDepartureTimeStr());
+            mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
         }
 

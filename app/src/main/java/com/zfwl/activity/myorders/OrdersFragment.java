@@ -2,8 +2,6 @@ package com.zfwl.activity.myorders;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,14 +21,18 @@ import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
 import com.zfwl.common.MyLog;
+import com.zfwl.common.Nav;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
+import com.zfwl.event.ClearOrderReadPointEvent;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.widget.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private OrdersPresenter mOrdersPresenter;
     private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
     private int mOrderType;
+    private boolean mInited;
 
     public OrdersFragment() {
     }
@@ -71,6 +74,14 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     }
 
     @Override
+    protected void onVisible() {
+        if (mInited) {
+            EventBus.getDefault().post(new ClearOrderReadPointEvent(mOrderType));
+            mRvOrders.refresh();
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mOrderType = getArguments().getInt(ARG_ORDER_TYPE);
@@ -84,6 +95,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         initViews();
         initPresenters();
         mRvOrders.refresh();
+        mInited = true;
         return contentView;
     }
 
@@ -138,8 +150,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onContactSalesClick(Order order) {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+order.getRelationPhone()));
-        startActivity(intent);
+        Nav.toDialPhonePage(mContext, order.getRelationPhone());
     }
 
     @Override
