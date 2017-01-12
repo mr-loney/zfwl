@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:weightSum="1">
 
         <TextView
@@ -27,7 +28,7 @@
         <TextView
             android:id="@+id/from"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:textColor="@color/black"
@@ -41,6 +42,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:weightSum="1">
 
         <TextView
@@ -55,7 +58,7 @@
         <TextView
             android:id="@+id/to"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:textColor="@color/black"
@@ -110,7 +113,8 @@
             android:textColor="@color/red"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:textSize="16sp" />
     </RelativeLayout>
 

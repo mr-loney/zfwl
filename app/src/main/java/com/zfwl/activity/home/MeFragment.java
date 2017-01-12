@@ -111,9 +111,15 @@ public class MeFragment extends Fragment {
         initItem(itemOrder, "我的订单", false);
         setItemRightText(itemOrder, "查看全部订单");
         initItem(itemBJ, "我的报价", false);
+        itemBJ.findViewById(R.id.view_btm_line).setVisibility(View.GONE);
         initItem(itemKC, "我发布的空车", false);
 
-        txtName.setText(UserInfoManager.INSTANCE.getUserInfo().getNickname());
+        String name = UserInfoManager.INSTANCE.getUserInfo().getNickname();
+        if (name==null) { name = ""; }
+        if (name.length()<0) {
+            name = UserInfoManager.INSTANCE.getUserInfo().getPhone();
+        }
+        txtName.setText(name);
     }
 
     @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.btn_order_wait_confirm, R.id.btn_order_wait_pay, R.id.btn_order_paid, R.id.btn_order_carrying,

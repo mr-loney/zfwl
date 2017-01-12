@@ -277,6 +277,7 @@
             android:layout_marginBottom="21dp"/>
 
         <LinearLayout
+            android:id="@+id/tv_remark_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

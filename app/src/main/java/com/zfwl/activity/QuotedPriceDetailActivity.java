@@ -125,15 +125,16 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemUnitPrice.setValueText(data.getPrice()+"元");
             mItemTotalPrice.setKeyText("共计");
             mItemTotalPrice.setValueText(data.getTotal()+"元");
+            mItemTotalPrice.setValueTextColor(R.color.red);
 
             String fromStr = "";
             String toStr = "";
             for (MyQuotedModel.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
-                if (item.getFromDetail()!=null && item.getFromDetail().length()>0 && fromStr.indexOf(item.getFromDetail())<0) {
-                    fromStr+=item.getFromDetail()+"<br/>";
+                if (fromStr.indexOf(item.getFromProvinceName()+item.getFromCityName()+item.getFromCountyName()+item.getFromDetail())<0) {
+                    fromStr+=item.getFromProvinceName()+item.getFromCityName()+item.getFromCountyName()+item.getFromDetail()+"<br/>";
                 }
-                if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToDetail())<0) {
-                    toStr+=item.getToDetail()+"<br/>";
+                if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToProvinceName()+item.getToCityName()+item.getToCountyName()+item.getToDetail())<0) {
+                    toStr+=item.getToProvinceName()+item.getToCityName()+item.getToCountyName()+item.getToDetail()+"<br/>";
                 }
             }
             if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
@@ -159,7 +160,11 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemNeedCarNumber.setKeyText("需要车辆");
             mItemNeedCarNumber.setValueText(data.getCarNumber()+"");
 
-            mTvRemark.setText(data.getRemark());
+            if (data.getRemark().length()>0) {
+                mTvRemark.setText(data.getRemark());
+            } else {
+                findViewById(R.id.tv_remark_bg).setVisibility(View.GONE);
+            }
         }
     }
 

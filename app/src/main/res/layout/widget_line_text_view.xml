@@ -28,7 +28,7 @@
             android:id="@+id/txt1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text=""
             android:layout_weight="3"

@@ -159,7 +159,7 @@ public class MyQuotedModel implements Serializable {
 
 		private int id;
 		private int memberId;
-		private double carNumber;
+		private int carNumber;
 		private double loadNumber;
 		private int priceType;
 		private double price;
@@ -202,11 +202,11 @@ public class MyQuotedModel implements Serializable {
 			this.memberId = memberId;
 		}
 
-		public double getCarNumber() {
+		public int getCarNumber() {
 			return carNumber;
 		}
 
-		public void setCarNumber(double carNumber) {
+		public void setCarNumber(int carNumber) {
 			this.carNumber = carNumber;
 		}
 

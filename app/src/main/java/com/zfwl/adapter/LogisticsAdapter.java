@@ -88,7 +88,7 @@ public class LogisticsAdapter  extends BaseAdapter {
                     data.getAddressInfoList().get(0).getToCountyName());
             try {
                 holder.tvSendTime.setText(Utils.longToStringFriendly(data.getDepartureTime()));
-                holder.tvPublishTime.setText(Utils.longToStringFriendly(data.getCreateTime()));
+                holder.tvPublishTime.setText(Utils.longToStringFriendly1(data.getCreateTime()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

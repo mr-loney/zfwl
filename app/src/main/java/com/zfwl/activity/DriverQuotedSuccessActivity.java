@@ -16,9 +16,6 @@ import butterknife.OnClick;
 
 public class DriverQuotedSuccessActivity extends BaseActivity {
 
-	@BindView(R.id.titlebar_btnLeft)
-	Button titlebarBtnLeft;
-
 	private static final String TAG = "DriverQuotedSuccessActivity";
 	private DriverQuotedSuccessActivity vThis = this;
 
@@ -34,20 +31,12 @@ public class DriverQuotedSuccessActivity extends BaseActivity {
 		setContentView(R.layout.activity_driver_quoted_success);
 		ButterKnife.bind(this);
 
-		titlebarBtnLeft.setVisibility(View.VISIBLE);
-
-		((TextView)findViewById(R.id.tv_title)).setText("");
 		findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-	}
-
-	@OnClick(R.id.titlebar_btnLeft)
-	public void onTitleLeftClick() {
-		finish();
 	}
 
 	@Override

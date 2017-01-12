@@ -55,6 +55,8 @@ public class WJListAdapter extends BaseAdapter {
 						.findViewById(R.id.txt1);
 				holder.txt2 = (TextView) view
 						.findViewById(R.id.txt2);
+				holder.txt3 = (TextView) view
+						.findViewById(R.id.txt3);
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();
@@ -62,7 +64,8 @@ public class WJListAdapter extends BaseAdapter {
 			holder.position = arg0;
 			WJModel.ListBean data = mList.get(arg0);
 			holder.txt1.setText(data.getTitle());
-			holder.txt2.setText("创建时间："+data.getCreateTime()+"   参与人数："+data.getAnswerCount());
+			holder.txt2.setText("创建时间："+data.getCreateTime());
+			holder.txt2.setText("参与人数："+data.getAnswerCount());
 		}
 
 		return view;
@@ -70,7 +73,7 @@ public class WJListAdapter extends BaseAdapter {
 
 	class ViewHolder {
 		int position;
-		TextView txt1,txt2;
+		TextView txt1,txt2,txt3;
 	}
 	
 }

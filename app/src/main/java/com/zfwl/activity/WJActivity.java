@@ -95,7 +95,7 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
 
                 Intent intent = new Intent(vThis, WebActivity.class);
                 intent.putExtra("url", ApiModule.BASE_URL+"app/questionnaire/questions.do?id="+model.getId()+"&phone="+UserInfoManager.INSTANCE.getUserInfo().getPhone());
-                intent.putExtra("name", "调查问卷");
+                intent.putExtra("name", "问卷调查");
                 startActivity(intent);
             }
         });

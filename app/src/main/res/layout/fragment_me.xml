@@ -25,6 +25,7 @@
                     android:id="@+id/iv_logobg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:src="@drawable/me_bg"
                     android:scaleType="fitXY"/>
 
                 <LinearLayout
@@ -59,7 +60,7 @@
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:text="调查问卷"/>
+                    android:text="问卷调查"/>
 
                 <TextView
                     android:id="@+id/my_setting"

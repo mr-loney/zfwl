@@ -29,9 +29,6 @@ import butterknife.OnClick;
 
 public class AddzfwlSuccessActivity extends BaseActivity {
 
-	@BindView(R.id.titlebar_btnLeft)
-	Button titlebarBtnLeft;
-
 	private static final String TAG = "AddzfwlSuccessActivity";
 	private AddzfwlSuccessActivity vThis = this;
 
@@ -47,20 +44,12 @@ public class AddzfwlSuccessActivity extends BaseActivity {
 		setContentView(R.layout.activity_add_zfwl_success);
 		ButterKnife.bind(this);
 
-		titlebarBtnLeft.setVisibility(View.VISIBLE);
-
-		((TextView)findViewById(R.id.tv_title)).setText("");
 		findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-	}
-
-	@OnClick(R.id.titlebar_btnLeft)
-	public void onTitleLeftClick() {
-		finish();
 	}
 
 	@Override

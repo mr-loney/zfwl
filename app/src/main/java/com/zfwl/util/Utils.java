@@ -21,6 +21,23 @@ public class Utils {
         String strTime = dateToString(date, formatType); // date类型转成String
         return strTime;
     }
+    public static String longToStringFriendly1(long currentTime)
+            throws ParseException {
+        String formatType = "yyyy-MM-dd HH:mm";
+        Date date = longToDate(currentTime, formatType); // long类型转成Date类型
+        String strTime = dateToString(date, formatType); // date类型转成String
+
+        Date nowDate = new Date(System.currentTimeMillis());
+        if (date.getYear() == nowDate.getYear() &&
+                date.getMonth() == nowDate.getMonth() &&
+                (nowDate.getDay() - date.getDay())<3)
+        {
+            strTime = strTime.substring(11,16);
+        } else {
+            strTime = strTime.substring(5,10);
+        }
+        return strTime;
+    }
     public static String longToStringFriendly(long currentTime)
             throws ParseException {
         String formatType = "yyyy-MM-dd HH:mm";

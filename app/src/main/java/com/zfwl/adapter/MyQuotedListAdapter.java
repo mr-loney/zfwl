@@ -93,7 +93,7 @@ public class MyQuotedListAdapter extends BaseAdapter {
 			holder.from.setText(Html.fromHtml(fromStr));
 			holder.to.setText(Html.fromHtml(toStr));
 			try {
-				holder.txt1.setText(Utils.longToStringFriendly(data.getCdate())+" 装");
+				holder.txt1.setText(Utils.longToStringFriendly(data.getCdate()));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

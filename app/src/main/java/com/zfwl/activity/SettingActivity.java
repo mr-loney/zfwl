@@ -129,21 +129,25 @@ public class SettingActivity extends BaseActivity {
 
             long gcCountBefore = 0;
             long gcCountEnd = 0;
-            //清除cachedir
-            File cacheFile = getApplicationContext().getCacheDir();
-            gcCountBefore = getFileSize(cacheFile, 0);
-            delFileSize(cacheFile);
-            gcCountEnd = getFileSize(cacheFile, 0);
-            //清除external cache
-            cacheFile = mContext.getExternalCacheDir();
-            gcCountBefore += getFileSize(cacheFile, 0);
-            delFileSize(cacheFile);
-            gcCountEnd += getFileSize(cacheFile, 0);
-            //清除sd cache
-            File cacheFile5 = new File(SDCardHelper.getSDCardRootDirectory()+"/zfwl");
-            gcCountBefore += getFileSize(cacheFile5, 0);
-            delFileSize(cacheFile5);delImg2Media(cacheFile5);
-            gcCountEnd += getFileSize(cacheFile5, 0);
+            try {
+                //清除cachedir
+                File cacheFile = getApplicationContext().getCacheDir();
+                gcCountBefore = getFileSize(cacheFile, 0);
+                delFileSize(cacheFile);
+                gcCountEnd = getFileSize(cacheFile, 0);
+                //清除external cache
+                cacheFile = mContext.getExternalCacheDir();
+                gcCountBefore += getFileSize(cacheFile, 0);
+                delFileSize(cacheFile);
+                gcCountEnd += getFileSize(cacheFile, 0);
+                //清除sd cache
+                File cacheFile5 = new File(SDCardHelper.getSDCardRootDirectory()+"/zfwl");
+                gcCountBefore += getFileSize(cacheFile5, 0);
+                delFileSize(cacheFile5);delImg2Media(cacheFile5);
+                gcCountEnd += getFileSize(cacheFile5, 0);
+            }
+            catch (Exception ex) {
+            }
             //toast
             String showText = Formatter.formatFileSize(mContext, gcCountBefore - gcCountEnd);
             return showText;

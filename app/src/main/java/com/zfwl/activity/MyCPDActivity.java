@@ -19,6 +19,7 @@ import com.zfwl.entity.Address;
 import com.zfwl.entity.CPDModel;
 import com.zfwl.mvp.cpd.CPDMvpView;
 import com.zfwl.mvp.cpd.CPDPresenter;
+import com.zfwl.util.DisplayUtil;
 import com.zfwl.util.ViewHub;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 
@@ -28,16 +29,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class MyCPDActivity extends BaseActivity implements SelectAreaListView.SelectAreaCallback,CPDMvpView {
 
     private static final int ID_WHO_SELECT_FROM = 1;
     private static final int ID_WHO_SELECT_TO = 2;
 
-    @BindView(R.id.titlebar_btnLeft)
-    Button titlebarBtnLeft;
+    @BindView(R.id.title_bar)
+    BGATitleBar mTitleBar;
     @BindView(R.id.btn_add_new)
-    Button btnAddNew;
+    TextView btnAddNew;
     @BindView(R.id.listview_step3)
     ListView mListAddress;
     @BindView(R.id.view_select_area)
@@ -74,14 +76,24 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     private void initView() {
         loadingDialog = new LoadingDialog(vThis);
 
-        titlebarBtnLeft.setVisibility(View.VISIBLE);
+        // 标题栏
+        TextView rightTv = mTitleBar.getRightCtv();
+        rightTv.setTextSize(DisplayUtil.spToPx(8));
+        rightTv.setTextColor(0xff666666);
+        rightTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CPDModel m = ((CPDModel)adapter.getItem(select_address_index));
+                mPresenter.add(m);
+            }
+        });
 
-        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvTitle.setText("管理常跑地");
-
-        Button sigupBtn = (Button) findViewById(R.id.titlebar_btnRight);
-        sigupBtn.setText("完成");
-        sigupBtn.setVisibility(View.VISIBLE);
+        mTitleBar.getLeftCtv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mSelectAreaView.setCallback(this);
     }
@@ -92,15 +104,6 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         adapter.mList.add(m);
         adapter.notifyDataSetChanged();
         select_address_index = adapter.mList.size()-1;
-    }
-    @OnClick(R.id.titlebar_btnLeft)
-    public void onLeftClick() {
-        finish();
-    }
-    @OnClick(R.id.titlebar_btnRight)
-    public void onSaveClick() {
-        CPDModel m = ((CPDModel)adapter.getItem(select_address_index));
-        mPresenter.add(m);
     }
 
     private boolean validateInput() {

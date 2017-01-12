@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:onClick="onClick"
+                app:wsiShowbottomLine="false"
                 app:wsiLeftIcon="@null"
                 app:wsiLeftText="常跑路线设置" />
 
@@ -47,6 +48,7 @@
                 android:onClick="onClick"
                 app:wsiRightIcon="@drawable/transparent"
                 app:wsiLeftIcon="@null"
+                app:wsiShowbottomLine="false"
                 app:wsiLeftText="清空缓存" />
 
             <com.zfwl.controls.WidgetSettingItem
