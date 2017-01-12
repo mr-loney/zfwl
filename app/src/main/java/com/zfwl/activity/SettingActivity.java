@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.common.SDCardHelper;
 import com.zfwl.controls.LightPopDialog;
 import com.zfwl.controls.LoadingDialog;
@@ -110,7 +111,7 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void onPopDialogButtonClick(int which) {
                         UserInfoManager.INSTANCE.clearOnLogout();
-                        LoginActivity.launch(mContext, false);
+                        HomeActivity.launch(mContext);
                         finish();
                     }
                 });
