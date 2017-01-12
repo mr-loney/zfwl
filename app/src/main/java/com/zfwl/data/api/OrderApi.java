@@ -35,6 +35,6 @@ public interface OrderApi {
      */
     @FormUrlEncoded
     @POST("app/order/saveOrderComment.do")
-    Call<Object> commentOrder(@Field("id") long orderId, @Field("depotTime") int depotTime, @Field("depotOutTime") int depotOutTime,
+    Call<Object> commentOrder(@Field("orderId") long orderId, @Field("depotTime") int depotTime, @Field("depotOutTime") int depotOutTime,
                               @Field("depotService") int depotService, @Field("serverLove") int serverLove, @Field("remark") String remark);
 }
