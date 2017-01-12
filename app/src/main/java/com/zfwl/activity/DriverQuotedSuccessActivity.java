@@ -3,16 +3,12 @@ package com.zfwl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DriverQuotedSuccessActivity extends BaseActivity {
 
@@ -31,12 +27,7 @@ public class DriverQuotedSuccessActivity extends BaseActivity {
 		setContentView(R.layout.activity_driver_quoted_success);
 		ButterKnife.bind(this);
 
-		findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		findViewById(R.id.btn).setOnClickListener(v -> HomeActivity.launch(DriverQuotedSuccessActivity.this));
 	}
 
 	@Override
