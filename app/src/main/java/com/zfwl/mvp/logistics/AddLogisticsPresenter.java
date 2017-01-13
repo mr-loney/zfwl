@@ -37,11 +37,14 @@ public class AddLogisticsPresenter extends BasePresenter<AddLogisticsMvpView> {
         String toStr = "{";
         int index=1;
         for (AllzfwlModel.EmptyCarAddressListBean to : data.getEmptyCarAddressList()) {
-            toStr += "'emptyCarAddress_"+index+"':"+
+            toStr += "\"emptyCarAddress_"+index+"\":"+
                     "{\"provinceId\":\""+to.getToProvinceId()+"\","+
                     "\"cityId\":\""+to.getToCityId()+"\","+
                     "\"countyId\":\""+to.getToCountyId()+"\","+
-                    "\"addressDetail\":\""+to.getToProvinceName()+" "+to.getToCityName()+" "+to.getToCountyName()+"\"}";
+                    "\"addressDetail\":\""+to.getToProvinceName()+" "+to.getToCityName()+" "+to.getToCountyName()+"\"},";
+        }
+        if(toStr.length()>4) {
+            toStr = toStr.substring(0,toStr.length()-1);
         }
         toStr+="}";
 
