@@ -129,7 +129,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		loadingDialog = new LoadingDialog(vThis);
 		// 标题栏
 		TextView rightTv = mTitleBar.getRightCtv();
-		rightTv.setTextSize(DisplayUtil.spToPx(8));
+		rightTv.setTextSize(DisplayUtil.spToPx(6));
 		rightTv.setTextColor(0xff666666);
 		rightTv.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -167,7 +167,7 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 		mSelectAreaView.setCallback(this);
 		mSelectCPDView.setCallback(this);
 		detailTxt1.setEditing(false);
-		detailTxt1.mtv2.setGravity(Gravity.LEFT);
+		detailTxt1.mtv2.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
 		detailTxt1.mtv2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
