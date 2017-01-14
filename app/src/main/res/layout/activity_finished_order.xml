@@ -148,7 +148,8 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
-
+            <View
+                style="@style/GrayDivider"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_begin_time"
@@ -267,7 +268,8 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
-
+            <View
+                style="@style/GrayDivider"/>
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_my_quoted_price"
                 android:layout_width="match_parent"
@@ -301,7 +303,8 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
-
+            <View
+                style="@style/GrayDivider"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

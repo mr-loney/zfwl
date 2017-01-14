@@ -110,7 +110,9 @@ public class FinishedOrderDetailActivity extends BaseOrderDetailActivity {
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
             mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());
-            mItemMyQuotedPrice.setText("我的报价", "");
+            mItemMyQuotedPrice.setText("我的报价", "￥" + orderDetails.getMsgPrice());
+            mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
+            mItemOrderCreateTime.setText("创建时间", getTimeStr(logisticsInfo.getCreateTime()));
         }
 
         OrderComment comment = orderDetails.getOrderComment();
