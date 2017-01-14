@@ -104,7 +104,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="44dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/btn_comment"
