@@ -16,14 +16,19 @@ import com.zfwl.activity.LoginActivity;
 import com.zfwl.adapter.SimpleFragmentPagerAdapter;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.UserInfoManager;
+import com.zfwl.log.LogsDialog;
 import com.zfwl.widget.BottomNavBtn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
 public class HomeActivity extends AppCompatActivity {
     private Activity mContext = this;
@@ -39,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
     View mBtnFc;
     @BindView(R.id.btn_me)
     BottomNavBtn mBtnMe;
+    private int logCounter;
+    private Subject<Integer, Integer> mLogSubject = PublishSubject.create();
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -52,11 +59,24 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initFragments();
         initViews();
+        initLog();
+    }
+
+    private void initLog() {
+        mLogSubject.throttleLast(2, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(integer -> {
+                    if (logCounter > 6) {
+                        new LogsDialog(HomeActivity.this).show();
+                    }
+                    logCounter = 0;
+                });
     }
 
     @OnClick(R.id.btn_wl)
     public void onBtnWlClick() {
         mViewPager.setCurrentItem(0);
+        mLogSubject.onNext(logCounter++);
     }
 
     @OnClick(R.id.btn_fc)

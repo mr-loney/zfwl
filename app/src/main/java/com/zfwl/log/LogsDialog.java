@@ -21,9 +21,9 @@ public final class LogsDialog extends AlertDialog {
 
     private CompositeSubscription subscriptions;
 
-    public LogsDialog(Context context, LumberYard lumberYard) {
+    public LogsDialog(Context context) {
         super(context);
-        this.lumberYard = lumberYard;
+        this.lumberYard = LumberYard.getInstance();
 
         adapter = new LogAdapter(context);
 

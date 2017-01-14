@@ -6,6 +6,8 @@ import com.zfwl.BuildConfig;
 import com.zfwl.log.LumberYard;
 
 import timber.log.Timber;
+import timber.log.Timber.DebugTree;
+import timber.log.Timber.Tree;
 
 /**
  * Created by ZZB on 2016/12/7.
@@ -13,11 +15,15 @@ import timber.log.Timber;
 
 public class MyLog {
     public static void init(Context context) {
+        Tree tree;
         if (BuildConfig.DEBUG) {
+            tree = new DebugTree();
+        } else {
             LumberYard lumberYard = LumberYard.getInstance();
             lumberYard.cleanUp();
-            Timber.plant(lumberYard.tree());
+            tree = lumberYard.tree();
         }
+        Timber.plant(tree);
     }
 
     public static void i(String tag, String msg, Object... args) {

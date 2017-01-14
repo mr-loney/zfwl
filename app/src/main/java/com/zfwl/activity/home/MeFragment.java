@@ -163,7 +163,6 @@ public class MeFragment extends Fragment {
                 MyQuotedListActivity.launch(mContext);
                 break;
             case R.id.iv_userhead:
-                new LogsDialog(getContext(), LumberYard.getInstance()).show();
                 break;
         }
     }
