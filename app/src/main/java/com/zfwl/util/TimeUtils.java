@@ -18,7 +18,7 @@ public class TimeUtils {
     private static LruCache<String, SimpleDateFormat> sCachedFormats = new LruCache<String, SimpleDateFormat>(10);
 
     public static String toYYYYMMDD(long millis){
-        return millisToTimestamp(millis, "yyyy-MM-dd");
+        return millisToTimestamp(millis, "yyyy-MM-dd hh:mm");
     }
     /**
      * @description 获取当天默认格式的日期字符串
