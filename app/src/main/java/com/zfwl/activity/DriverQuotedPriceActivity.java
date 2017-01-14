@@ -19,6 +19,7 @@ import com.zfwl.R;
 import com.zfwl.entity.DriverQuotedModel;
 import com.zfwl.mvp.logistics.DriverQuotedMvpView;
 import com.zfwl.mvp.logistics.DriverQuotedPresenter;
+import com.zfwl.util.FP;
 import com.zfwl.util.ViewHub;
 
 import butterknife.BindView;
@@ -65,14 +66,10 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
 
     private void initView() {
         tvCarNum.setText(carCount+"");
-        if (etCarWeight.getText().toString().length()==0){
-            etCarWeight.setText("1");
-        }
-        carWeight = Double.parseDouble(etCarWeight.getText().toString());
-        if (tvPrice.getText().toString().length()==0){
-            tvPrice.setText("1");
-        }
-        price = Double.parseDouble(tvPrice.getText().toString());
+        String weightStr = etCarWeight.getText().toString();
+        carWeight = FP.empty(weightStr) ? 0 :Double.parseDouble(weightStr);
+        String priceStr = tvPrice.getText().toString();
+        price = FP.empty(priceStr) ? 0 : Double.parseDouble(priceStr);
 //        etCarWeight.setText(carWeight+"");
 //        tvPrice.setText(price+"");
         double total = 0;

@@ -2,18 +2,14 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.CPDAdatper;
-import com.zfwl.controls.LineTextView;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.CPDModel;
@@ -21,6 +17,7 @@ import com.zfwl.mvp.cpd.CPDMvpView;
 import com.zfwl.mvp.cpd.CPDPresenter;
 import com.zfwl.util.DisplayUtil;
 import com.zfwl.util.ViewHub;
+import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
 
 import java.util.ArrayList;
@@ -124,6 +121,10 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
 
     @Override
     public void onAddressSelected(int idWhoSelect, Address address) {
+        if(address == null || address.getProvince() == null || address.getCity() == null || address.getDistrict() == null){
+            ToastUtils.show(this, "请把信息填完整");
+            return;
+        }
         CPDModel m = (CPDModel)adapter.getItem(select_address_index);
         switch (idWhoSelect) {
             case ID_WHO_SELECT_FROM:
@@ -193,6 +194,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     @Override
     public void onAdded(CPDModel data) {
         mPresenter.getList();
+        finish();
     }
     @Override
     public void onAddedFail(String msg) {
