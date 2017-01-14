@@ -26,6 +26,7 @@ import com.zfwl.controls.CircleTextView;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
+import com.zfwl.event.OrderPushEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -73,9 +74,9 @@ public class MeFragment extends Fragment {
     @BindView(R.id.read_wait_pay)
     View mReadWaitPay;
     @BindView(R.id.read_wait_paid)
-    View mReadWaitPaid;
+    View mReadPaid;
     @BindView(R.id.read_wait_carrying)
-    View mReadWaitCarrying;
+    View mReadCarrying;
 
     private Activity mContext;
 
@@ -143,11 +144,11 @@ public class MeFragment extends Fragment {
                 MyOrdersActivity.launch(mContext, Type.WAIT_PAY);
                 break;
             case R.id.btn_order_paid:
-                mReadWaitPaid.setVisibility(View.GONE);
+                mReadPaid.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.PAID);
                 break;
             case R.id.btn_order_carrying:
-                mReadWaitCarrying.setVisibility(View.GONE);
+                mReadCarrying.setVisibility(View.GONE);
                 MyOrdersActivity.launch(mContext, Type.CARRYING);
                 break;
             case R.id.item_myorder:
@@ -173,10 +174,10 @@ public class MeFragment extends Fragment {
                 mReadWaitPay.setVisibility(View.GONE);
                 break;
             case Type.PAID:
-                mReadWaitPaid.setVisibility(View.GONE);
+                mReadPaid.setVisibility(View.GONE);
                 break;
             case Type.CARRYING:
-                mReadWaitCarrying.setVisibility(View.GONE);
+                mReadCarrying.setVisibility(View.GONE);
                 break;
         }
     }
@@ -205,5 +206,22 @@ public class MeFragment extends Fragment {
         View v = mContext.findViewById(viewId);
         TextView tv = (TextView) v.findViewById(R.id.tv_right_text);
         tv.setText(spanned);
+    }
+    @Subscribe
+    public void onReceiveNewOrderPush(OrderPushEvent event){
+        switch (event.orderType) {
+            case Type.WAIT_CONFIRM:
+                mReadWaitConfirm.setVisibility(View.VISIBLE);
+                break;
+            case Type.WAIT_PAY:
+                mReadWaitPay.setVisibility(View.VISIBLE);
+                break;
+            case Type.PAID:
+                mReadWaitPay.setVisibility(View.VISIBLE);
+                break;
+            case Type.CARRYING:
+                mReadCarrying.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }

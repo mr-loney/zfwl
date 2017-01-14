@@ -69,7 +69,14 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
         intent.putExtra(EXTRA_ORDER_ID, orderId);
         context.startActivity(intent);
     }
-
+    public static void launch(Context context, long orderId, boolean newTaskAndClearTop){
+        Intent intent = new Intent(context, WaitPayOrderDetailActivity.class);
+        intent.putExtra(EXTRA_ORDER_ID, orderId);
+        if (newTaskAndClearTop) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
