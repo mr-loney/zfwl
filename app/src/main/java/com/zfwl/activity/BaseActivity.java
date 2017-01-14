@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.trello.rxlifecycle.components.support.RxFragmentActivity;
+import com.zfwl.event.EmptyEvent;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 import cn.bingoogolapple.titlebar.BGATitleBar;
@@ -32,5 +35,9 @@ public class BaseActivity extends RxFragmentActivity {
                 onBackPressed();
             }
         });
+    }
+    @Subscribe
+    public void emptySubscribe(EmptyEvent event) {
+
     }
 }
