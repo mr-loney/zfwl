@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,19 +17,15 @@ import android.widget.TimePicker;
 
 import com.zfwl.R;
 import com.zfwl.adapter.AddLogisticsAdapter;
-import com.zfwl.adapter.CPDAdatper;
-import com.zfwl.adapter.QuickCPDAdatper;
 import com.zfwl.controls.LineTextView;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.entity.CPDModel;
-import com.zfwl.mvp.cpd.CPDMvpView;
-import com.zfwl.mvp.cpd.CPDPresenter;
 import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
 import com.zfwl.util.DisplayUtil;
-import com.zfwl.util.ViewHub;
+import com.zfwl.util.FP;
 import com.zfwl.widget.SelectCPDListView;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
@@ -232,10 +227,15 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 
 	@OnClick(R.id.submit)
 	public void onSubmitClick() {
+		if(FP.empty(detailTxt1.getDetail()) || FP.empty(detailTxt2.getDetail()) || FP.empty(detailTxt3.getDetail()) || FP.empty(detailTxt4.getDetail())){
+			ToastUtils.show(this, "请输入完整信息");
+			return;
+		}
 		if (!loadingDialog.isShowing()) {
 			loadingDialog.show();
 		}
 		data.setEmptyCarAddressList(adapter.mList);
+
 		data.setGoDate(detailTxt1.getDetail());
 		data.setCarNumber(Integer.parseInt(detailTxt2.getDetail()));
 		data.setCarLength(Double.parseDouble(detailTxt3.getDetail()));
