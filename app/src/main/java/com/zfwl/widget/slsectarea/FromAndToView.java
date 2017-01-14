@@ -143,6 +143,7 @@ public class FromAndToView extends LinearLayout {
             items.add(item);
         }
         mSelectTimeView.setOnClickListener(view -> {
+            mSelectTimeView.setVisibility(GONE);
         });
         mRvSelectTimeAdapter.setItems(items);
         mSelectTimeView.setVisibility(VISIBLE);

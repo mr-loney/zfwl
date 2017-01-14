@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +13,7 @@ import com.zfwl.R;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.share.ShareHelper;
+import com.zfwl.util.AddressUtils;
 import com.zfwl.util.StringUtils;
 import com.zfwl.util.Utils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
@@ -101,31 +101,21 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     private void initViews() {
         initTitleBar();
 
-        String fromStr = "";
-        String toStr = "";
-        for (LogisticsInfo.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
-            if (item.getFromDetail() != null && item.getFromDetail().length() > 0 && fromStr.indexOf(item.getFromDetail()) < 0) {
-                fromStr += item.getFromProvinceName() + item.getFromCityName() + item.getFromCountyName() + item.getFromDetail() + "<br/>";
-            }
-            if (item.getToDetail() != null && item.getToDetail().length() > 0 && fromStr.indexOf(item.getToDetail()) < 0) {
-                toStr += item.getToProvinceName() + item.getToCityName() + item.getToCountyName() + item.getToDetail() + "<br/>";
-            }
-        }
-        if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
-        if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
-        mTvFrom.setText(Html.fromHtml(fromStr));
-        mTvTo.setText(Html.fromHtml(toStr));
+        String fromStr = AddressUtils.getFromAddressStr(data.getAddressInfoList());
+        String toStr = AddressUtils.getToAddressStr(data.getAddressInfoList());
+        mTvFrom.setText(fromStr);
+        mTvTo.setText(toStr);
 
         mItemStartTime.setKeyText("发车时间");
         try {
-            mItemStartTime.setValueText(Utils.longToString(data.getCreateTime(),"yyyy-MM-dd HH:mm"));
+            mItemStartTime.setValueText(Utils.longToString(data.getCreateTime(), "yyyy-MM-dd HH:mm"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-         mItemBigCarPassable.setKeyText("大货通行");
-        mItemBigCarPassable.setValueText(data.getIsLargeGo()==0?"允许":"禁止");
+        mItemBigCarPassable.setKeyText("大货通行");
+        mItemBigCarPassable.setValueText(data.getIsLargeGo() == 0 ? "允许" : "禁止");
         mItemBigCarPassable.setValueTextColor(Color.RED);
-         mItemGoodsName.setKeyText("物品名称");
+        mItemGoodsName.setKeyText("物品名称");
         mItemGoodsName.setValueText(data.getGoodsName());
         mItemGoodsWeight.setKeyText("货物重量（吨）");
         mItemGoodsWeight.setValueText(StringUtils.removeTrailingZero(data.getWeight() + ""));
@@ -133,7 +123,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemGoodsLength.setValueText(data.getLength() + "");
         mItemCarNumber.setKeyText("需要车辆");
         mItemCarNumber.setValueText(data.getCarNum() + "");
-        if (data.getRemark()==null || data.getRemark().length()==0) {
+        if (data.getRemark() == null || data.getRemark().length() == 0) {
             findViewById(R.id.tv_remark_bg).setVisibility(View.GONE);
         } else {
             mTvRemark.setText(data.getRemark());
