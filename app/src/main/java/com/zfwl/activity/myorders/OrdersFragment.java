@@ -17,6 +17,7 @@ import com.zfwl.activity.PaySuccessActivity;
 import com.zfwl.activity.myorders.detail.CarryingOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.PaidOrderDetailActivity;
+import com.zfwl.activity.myorders.detail.WaitCommentDetailActivity;
 import com.zfwl.activity.myorders.detail.WaitConfirmOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
@@ -27,6 +28,7 @@ import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
+import com.zfwl.event.RefreshOrderListEvent;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
@@ -34,6 +36,7 @@ import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -85,7 +88,9 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         mOrderType = getArguments().getInt(ARG_ORDER_TYPE);
+
     }
 
     @Nullable
@@ -103,6 +108,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mWaitConfirmOrderPresenter.detachView();
         mOrdersPresenter.detachView();
     }
@@ -156,7 +162,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onCommentClick(Order order) {
-        OrderCommentActivity.launch(mContext,order.getId());
+        WaitCommentDetailActivity.launch(mContext,order.getId());
     }
 
     @Override
@@ -176,7 +182,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
                 CarryingOrderDetailActivity.launch(getActivity(), orderId);
                 break;
             case Type.WAIT_COMMENT:
-                OrderCommentActivity.launch(getActivity(), orderId);
+                WaitCommentDetailActivity.launch(getActivity(), orderId);
                 break;
             case Type.COMMENTED:
                 FinishedOrderDetailActivity.launch(getActivity(), orderId);
@@ -263,5 +269,12 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     public void onCancelOrderFailed(String msg) {
         ToastUtils.show(mContext, "取消订单失败");
+    }
+
+    @Subscribe
+    public void refreshOrder(RefreshOrderListEvent event) {
+        if (mRvOrders != null) {
+            mRvOrders.refresh();
+        }
     }
 }

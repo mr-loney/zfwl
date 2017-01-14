@@ -1,7 +1,6 @@
 package com.zfwl.mvp.orders;
 
 import com.zfwl.common.MyLog;
-import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.Order;
@@ -89,10 +88,6 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
     private void onRefreshOrdersSuccess(List<Order> orders) {
         getMvpView().hideLoading();
         MyLog.i(TAG, "refreshOrders success");
-        if (FP.empty(orders)) {
-            getMvpView().showOrderEmptyView();
-        } else {
-            getMvpView().onRefreshOrdersSuccess(orders);
-        }
+        getMvpView().onRefreshOrdersSuccess(orders);
     }
 }

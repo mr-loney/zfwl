@@ -11,6 +11,8 @@ import com.zfwl.mvp.orders.detail.OrderDetailsPresenter;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by ZZB on 2016/12/31.
  */
@@ -24,6 +26,7 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         initExtras();
         mOrderDetailsPresenter.attachView(this);
         mLoadingDialog = new LoadingDialog(this);
@@ -32,6 +35,7 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mOrderDetailsPresenter.detachView();
     }
 

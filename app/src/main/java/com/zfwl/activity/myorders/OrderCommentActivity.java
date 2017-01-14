@@ -8,9 +8,13 @@ import android.widget.EditText;
 import com.zfwl.R;
 import com.zfwl.activity.BaseActivity;
 import com.zfwl.controls.LoadingDialog;
+import com.zfwl.event.CloseWaitCommentEvent;
+import com.zfwl.event.RefreshOrderListEvent;
 import com.zfwl.mvp.orders.comment.OrderCommentMvpView;
 import com.zfwl.mvp.orders.comment.OrderCommentPresenter;
 import com.zfwl.widget.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,6 +137,8 @@ public class OrderCommentActivity extends BaseActivity implements OnRatingChange
     @Override
     public void onCommentSuccess() {
         ToastUtils.show(this, "评价成功");
+        EventBus.getDefault().post(new RefreshOrderListEvent());
+        EventBus.getDefault().post(new CloseWaitCommentEvent());
         finish();
     }
 
