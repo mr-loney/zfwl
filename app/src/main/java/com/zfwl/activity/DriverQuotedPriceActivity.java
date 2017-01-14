@@ -178,7 +178,7 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
                 mPresenter.add(logisticsId,
                         carCount,
                         carWeight,
-                        isCarCountPrice?1:0,
+                        isCarCountPrice?2:1,
                         price);
                 break;
         }

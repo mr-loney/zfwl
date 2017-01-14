@@ -14,6 +14,7 @@ import com.zfwl.entity.OrderDetails.OrderEmptyCar;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
 import com.zfwl.util.AddressUtils;
+import com.zfwl.util.StringUtils;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
@@ -94,8 +95,8 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
             mTvTo.setText(AddressUtils.getToAddressStr(logisticsInfo.getAddressInfoList()));
             mItemBigCarPassable.setText("大货通行", logisticsInfo.getIsLargeGoDesc());
             mItemGoodsName.setText("物品名称", logisticsInfo.getGoodsName());
-            mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
-            mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
+            mItemGoodsWeight.setText("货物重量(吨)", StringUtils.removeTrailingZero(logisticsInfo.getWeight() + ""));
+            mItemGoodsLength.setText("货物长度(米)", StringUtils.removeTrailingZero(logisticsInfo.getLength() + ""));
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());

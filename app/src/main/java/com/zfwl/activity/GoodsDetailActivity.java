@@ -14,6 +14,7 @@ import com.zfwl.R;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.share.ShareHelper;
+import com.zfwl.util.StringUtils;
 import com.zfwl.util.Utils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -127,8 +128,8 @@ public class GoodsDetailActivity extends BaseShareableActivity {
          mItemGoodsName.setKeyText("物品名称");
         mItemGoodsName.setValueText(data.getGoodsName());
         mItemGoodsWeight.setKeyText("货物重量（吨）");
-        mItemGoodsWeight.setValueText(data.getWeight() + "");
-        mItemGoodsLength.setKeyText("货物长度（米）");
+        mItemGoodsWeight.setValueText(StringUtils.removeTrailingZero(data.getWeight() + ""));
+        mItemGoodsLength.setKeyText(StringUtils.removeTrailingZero("货物长度（米）"));
         mItemGoodsLength.setValueText(data.getLength() + "");
         mItemCarNumber.setKeyText("需要车辆");
         mItemCarNumber.setValueText(data.getCarNum() + "");

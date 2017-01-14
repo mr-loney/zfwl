@@ -14,6 +14,7 @@ import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.mvp.logistics.MyQuotedMvpView;
 import com.zfwl.mvp.logistics.MyQuotedPresenter;
 import com.zfwl.util.DisplayUtil;
+import com.zfwl.util.StringUtils;
 import com.zfwl.util.Utils;
 import com.zfwl.util.ViewHub;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
@@ -141,9 +142,9 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemGoodsName.setKeyText("物品名称");
             mItemGoodsName.setValueText(data.getGoodsName()+"");
             mItemGoodsWeight.setKeyText("货物重量（吨）");
-            mItemGoodsWeight.setValueText(data.getWeight()+"");
+            mItemGoodsWeight.setValueText(StringUtils.removeTrailingZero(data.getWeight()+""));
             mItemGoodsLength.setKeyText("货物长度（米）");
-            mItemGoodsLength.setValueText(data.getLength()+"");
+            mItemGoodsLength.setValueText(StringUtils.removeTrailingZero(data.getLength()+""));
             mItemNeedCarNumber.setKeyText("需要车辆");
             mItemNeedCarNumber.setValueText(data.getCarNumber()+"");
 
