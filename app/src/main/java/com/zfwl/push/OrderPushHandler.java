@@ -11,6 +11,7 @@ import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.common.MyLog;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.OrderPushEvent;
+import com.zfwl.util.GsonUtils;
 import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,12 +22,17 @@ import org.greenrobot.eventbus.EventBus;
 public class OrderPushHandler {
     private static final String TAG = "OrderPushHandler";
 
-    public static void onReceiveOrderPush(long orderId, int orderType) {
+    public static void onReceiveOrderPush(String extra) {
         MyLog.i(TAG, "onReceiveOrderPush");
+        OrderPushContent content = extraToOrder(extra);
+        int orderType = content.orderType;
         EventBus.getDefault().post(new OrderPushEvent(orderType));
     }
 
-    public static void onClickOrderPush(Context context, long orderId, int orderType) {
+    public static void onClickOrderPush(Context context, String extra) {
+        OrderPushContent content = extraToOrder(extra);
+        int orderType = content.orderType;
+        long orderId = content.orderId;
         switch (orderType) {
             case Type.WAIT_CONFIRM:
                 WaitConfirmOrderDetailActivity.launch(context, orderId, true);
@@ -49,7 +55,20 @@ public class OrderPushHandler {
             default:
                 ToastUtils.show(context, "未知订单：" + orderId);
                 break;
-
         }
+    }
+
+    private static OrderPushContent extraToOrder(String extra) {
+        OrderPushContent content = GsonUtils.jsonToObject(extra, OrderPushContent.class);
+        if (content == null) {
+            content = new OrderPushContent();
+        }
+        return content;
+    }
+
+    private static class OrderPushContent {
+        private long orderId;
+        private String orderCode;
+        private int orderType = Type.UNKNOWN;
     }
 }

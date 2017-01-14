@@ -24,6 +24,7 @@ public class PushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
+        String extraMsg = bundle.getString(JPushInterface.EXTRA_EXTRA);
         MyLog.d(TAG, "[PushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -38,11 +39,11 @@ public class PushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             MyLog.d(TAG, "[PushReceiver] 接收到推送下来的通知，id: %d", notificationId);
-            OrderPushHandler.onReceiveOrderPush(0, 0);
+            OrderPushHandler.onReceiveOrderPush(extraMsg);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             MyLog.d(TAG, "[PushReceiver] 用户点击打开了通知");
-            OrderPushHandler.onClickOrderPush(context, 0, 0);
+            OrderPushHandler.onClickOrderPush(context, extraMsg);
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             MyLog.d(TAG, "[PushReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
