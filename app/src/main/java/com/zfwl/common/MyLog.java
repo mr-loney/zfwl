@@ -1,6 +1,9 @@
 package com.zfwl.common;
 
+import android.content.Context;
+
 import com.zfwl.BuildConfig;
+import com.zfwl.log.LumberYard;
 
 import timber.log.Timber;
 
@@ -9,9 +12,11 @@ import timber.log.Timber;
  */
 
 public class MyLog {
-    public static void init() {
+    public static void init(Context context) {
         if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
+            LumberYard lumberYard = LumberYard.getInstance();
+            lumberYard.cleanUp();
+            Timber.plant(lumberYard.tree());
         }
     }
 

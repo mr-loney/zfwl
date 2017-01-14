@@ -27,6 +27,8 @@ import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
 import com.zfwl.event.OrderPushEvent;
+import com.zfwl.log.LogsDialog;
+import com.zfwl.log.LumberYard;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -126,7 +128,7 @@ public class MeFragment extends Fragment {
     }
 
     @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.btn_order_wait_confirm, R.id.btn_order_wait_pay, R.id.btn_order_paid, R.id.btn_order_carrying,
-            R.id.item_myorder, R.id.item_mykc, R.id.item_mybj})
+            R.id.item_myorder, R.id.item_mykc, R.id.item_mybj, R.id.iv_userhead})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_dcwj:
@@ -159,6 +161,9 @@ public class MeFragment extends Fragment {
                 break;
             case R.id.item_mybj:
                 MyQuotedListActivity.launch(mContext);
+                break;
+            case R.id.iv_userhead:
+                new LogsDialog(getContext(), LumberYard.getInstance()).show();
                 break;
         }
     }

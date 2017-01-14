@@ -20,7 +20,7 @@ public class ZfwlApplication extends Application {
     public void onCreate() {
         super.onCreate();
         APP_CONTEXT = this;
-        MyLog.init();
+        MyLog.init(this);
         initJpush();
         initBugly();
         initWeChat();
