@@ -13,13 +13,9 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.adapter.MyQuotedListAdapter;
-import com.zfwl.adapter.MyQuotedListAdapter;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
-import com.zfwl.data.UserInfoManager;
-import com.zfwl.data.api.retrofit.ApiModule;
-import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.mvp.logistics.MyQuotedMvpView;
 import com.zfwl.mvp.logistics.MyQuotedPresenter;
@@ -37,7 +33,7 @@ public class MyQuotedListActivity extends BaseActivity implements MyQuotedMvpVie
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
     @BindView(R.id.titlebar_btnRight)
-    Button titlebarBtnRight;
+    TextView titlebarBtnRight;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.pull_refresh_listview_items)

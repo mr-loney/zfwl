@@ -10,7 +10,6 @@ import com.zfwl.R;
 import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderComment;
 import com.zfwl.entity.OrderDetails;
-import com.zfwl.entity.OrderDetails.OrderEmptyCar;
 import com.zfwl.util.AddressUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -99,7 +98,6 @@ public class FinishedOrderDetailActivity extends BaseOrderDetailActivity {
 
     @Override
     protected void populateDetails(OrderDetails orderDetails) {
-        OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
         if (logisticsInfo != null) {
             mTvFrom.setText(AddressUtils.getFromAddressStr(logisticsInfo.getAddressInfoList()));
@@ -109,11 +107,10 @@ public class FinishedOrderDetailActivity extends BaseOrderDetailActivity {
             mItemGoodsWeight.setText("货物重量(吨)", logisticsInfo.getWeight() + "");
             mItemGoodsLength.setText("货物长度(米)", logisticsInfo.getLength() + "");
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
-        }
-        //详细信息
-        if (carInfo != null) {
-            mItemBeginTime.setText("发车时间", carInfo.getGoDate());
-            mTvRemark.setText(carInfo.getRemark());
+            mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
+            mTvRemark.setText(logisticsInfo.getRemark());
+            mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());
+            mItemMyQuotedPrice.setText("我的报价", "");
         }
 
         OrderComment comment = orderDetails.getOrderComment();

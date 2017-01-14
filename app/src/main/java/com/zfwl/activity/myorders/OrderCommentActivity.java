@@ -133,6 +133,7 @@ public class OrderCommentActivity extends BaseActivity implements OnRatingChange
     @Override
     public void onCommentSuccess() {
         ToastUtils.show(this, "评价成功");
+        finish();
     }
 
     @Override

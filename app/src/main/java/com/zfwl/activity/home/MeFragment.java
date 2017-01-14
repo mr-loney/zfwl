@@ -20,10 +20,10 @@ import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
 import com.zfwl.activity.WJActivity;
 import com.zfwl.activity.myorders.MyOrdersActivity;
-import com.zfwl.data.UserInfoManager;
 import com.zfwl.common.MyLog;
 import com.zfwl.controls.CircleImageView2;
 import com.zfwl.controls.CircleTextView;
+import com.zfwl.data.UserInfoManager;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
 
@@ -114,9 +114,11 @@ public class MeFragment extends Fragment {
         itemBJ.findViewById(R.id.view_btm_line).setVisibility(View.GONE);
         initItem(itemKC, "我发布的空车", false);
 
-        String name = UserInfoManager.INSTANCE.getUserInfo().getNickname();
-        if (name==null) { name = ""; }
-        if (name.length()<0) {
+        String name = UserInfoManager.INSTANCE.getUserInfo().getRealname();
+        if (name == null) {
+            name = "";
+        }
+        if (name.length() < 0) {
             name = UserInfoManager.INSTANCE.getUserInfo().getPhone();
         }
         txtName.setText(name);

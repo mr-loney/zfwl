@@ -35,7 +35,7 @@ public class WJActivity extends BaseActivity implements WJMvpView,PullToRefreshL
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
     @BindView(R.id.titlebar_btnRight)
-    Button titlebarBtnRight;
+    TextView titlebarBtnRight;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.pull_refresh_listview_items)

@@ -5,27 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.zfwl.R;
-import com.zfwl.adapter.AddLogisticsAdapter;
-import com.zfwl.controls.LineTextView;
-import com.zfwl.controls.LoadingDialog;
-import com.zfwl.entity.Address;
-import com.zfwl.entity.AllzfwlModel;
-import com.zfwl.mvp.logistics.AddLogisticsMvpView;
-import com.zfwl.mvp.logistics.AddLogisticsPresenter;
-import com.zfwl.widget.ToastUtils;
-import com.zfwl.widget.slsectarea.SelectAreaListView;
+import com.zfwl.activity.home.HomeActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AddzfwlSuccessActivity extends BaseActivity {
 
@@ -47,7 +31,7 @@ public class AddzfwlSuccessActivity extends BaseActivity {
 		findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
+				HomeActivity.launch(AddzfwlSuccessActivity.this);
 			}
 		});
 	}

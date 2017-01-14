@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
@@ -18,6 +15,7 @@ import com.zfwl.entity.MyPublishEmptyCarListModel;
 import com.zfwl.event.MyPublishEmptyCarEvent;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarMvpView;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarPresenter;
+import com.zfwl.util.TimeUtils;
 import com.zfwl.util.ViewHub;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,7 +29,7 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity implements MyP
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
     @BindView(R.id.titlebar_btnRight)
-    Button titlebarBtnRight;
+    TextView titlebarBtnRight;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.txt_from)
@@ -109,7 +107,7 @@ public class MyPublishEmptyCarDetailActivity extends BaseActivity implements MyP
         if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }
         txtTo.setText(Html.fromHtml(toStr));
 
-        detailTxt1.setDetail(data.getCdate()+"");
+        detailTxt1.setDetail(TimeUtils.toDefaultDateFormat(data.getCdate()));
         detailTxt2.setDetail(data.getCarNumber()+"");
         detailTxt3.setDetail(data.getCarLength()+"");
         detailTxt4.setDetail(data.getLoadNumber()+"");

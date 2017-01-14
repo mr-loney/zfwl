@@ -74,6 +74,6 @@ public abstract class BaseOrderDetailActivity extends BaseActivity implements Or
         }
     }
     public String getTimeStr(long millis){
-        return TimeUtils.toYYYYMMDD(millis);
+        return TimeUtils.toDefaultDateFormat(millis);
     }
 }

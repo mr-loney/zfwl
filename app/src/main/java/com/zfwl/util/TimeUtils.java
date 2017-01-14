@@ -17,7 +17,7 @@ public class TimeUtils {
     public static final long DAY_MILLIS = 24 * HOUR_MILLIS;
     private static LruCache<String, SimpleDateFormat> sCachedFormats = new LruCache<String, SimpleDateFormat>(10);
 
-    public static String toYYYYMMDD(long millis){
+    public static String toDefaultDateFormat(long millis){
         return millisToTimestamp(millis, "yyyy-MM-dd hh:mm");
     }
     /**

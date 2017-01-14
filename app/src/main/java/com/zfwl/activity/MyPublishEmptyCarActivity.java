@@ -2,7 +2,6 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,20 +10,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zfwl.R;
-import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.MyPublishEmptyCarListAdapter;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListView;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.entity.MyPublishEmptyCarListModel;
-import com.zfwl.entity.User;
 import com.zfwl.event.MyPublishEmptyCarEvent;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarMvpView;
 import com.zfwl.mvp.logistics.MyPublishEmptyCarPresenter;
-import com.zfwl.util.ViewHub;
 import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +38,7 @@ public class MyPublishEmptyCarActivity extends BaseActivity implements MyPublish
     @BindView(R.id.titlebar_btnLeft)
     Button titlebarBtnLeft;
     @BindView(R.id.titlebar_btnRight)
-    Button titlebarBtnRight;
+    TextView titlebarBtnRight;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.pull_refresh_listview_items)

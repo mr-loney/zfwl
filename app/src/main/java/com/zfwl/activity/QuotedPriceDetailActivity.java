@@ -16,15 +16,12 @@ import com.zfwl.mvp.logistics.MyQuotedPresenter;
 import com.zfwl.util.DisplayUtil;
 import com.zfwl.util.Utils;
 import com.zfwl.util.ViewHub;
-import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
-import java.io.Serializable;
 import java.text.ParseException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 
 /**
@@ -72,7 +69,7 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
 
     public static void launch(Context context, MyQuotedModel.ListBean item){
         Intent intent = new Intent(context, QuotedPriceDetailActivity.class);
-        intent.putExtra("data",(Serializable)item);
+        intent.putExtra("data", item);
         context.startActivity(intent);
     }
 

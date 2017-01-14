@@ -34,12 +34,17 @@
                 android:orientation="horizontal"
                 android:weightSum="1"
                 android:layout_height="50dp" >
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/cb_false_big"/>
+                <TextView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/bg_pack_ic"
+                    android:gravity="center"
+                    android:text="装"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    />
 
             <TextView
                 android:id="@+id/txt_from"
@@ -65,12 +70,18 @@
                 android:orientation="horizontal"
                 android:weightSum="1"
                 android:layout_height="50dp" >
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <TextView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/bg_unpack_ic"
+                    android:gravity="center"
+                    android:text="卸"
                     android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/cb_false_big"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    />
+
 
                 <TextView
                     android:id="@+id/txt_to"
