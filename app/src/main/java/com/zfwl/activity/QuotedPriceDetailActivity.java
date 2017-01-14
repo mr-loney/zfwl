@@ -93,21 +93,11 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
 
     private void initTitleBar() {
         TextView rightTv = mTitleBar.getRightCtv();
-        rightTv.setTextSize(DisplayUtil.spToPx(8));
+        rightTv.setTextSize(DisplayUtil.spToPx(6));
         rightTv.setTextColor(0xff666666);
-        rightTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.del(data);
-            }
-        });
+        rightTv.setOnClickListener(v -> mPresenter.del(data));
 
-        mTitleBar.getLeftCtv().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            finish();
-            }
-        });
+        mTitleBar.getLeftCtv().setOnClickListener(v -> finish());
     }
 
     private void loadData(){
@@ -146,7 +136,7 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
                 e.printStackTrace();
             }
             mItemBigCarPassable.setKeyText("大货通行");
-            mItemBigCarPassable.setValueText(data.getIsLargeGo()?"允许":"不允许");
+            mItemBigCarPassable.setValueText(data.getIsLargeGo() == 0?"允许":"不允许");
             mItemBigCarPassable.setValueTextColor(Color.RED);
             mItemGoodsName.setKeyText("物品名称");
             mItemGoodsName.setValueText(data.getGoodsName()+"");

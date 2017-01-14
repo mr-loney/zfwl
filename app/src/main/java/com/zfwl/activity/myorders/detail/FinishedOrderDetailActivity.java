@@ -10,6 +10,7 @@ import com.zfwl.R;
 import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderComment;
 import com.zfwl.entity.OrderDetails;
+import com.zfwl.entity.OrderDetails.MemberPrice;
 import com.zfwl.util.AddressUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
@@ -110,11 +111,13 @@ public class FinishedOrderDetailActivity extends BaseOrderDetailActivity {
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
             mItemOrderNumber.setText("订单编号", orderDetails.getOrderCode());
-            mItemMyQuotedPrice.setText("我的报价", "￥" + orderDetails.getMsgPrice());
-            mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
             mItemOrderCreateTime.setText("创建时间", getTimeStr(logisticsInfo.getCreateTime()));
         }
-
+        MemberPrice memberPrice = orderDetails.getMemberPrice();
+        if (memberPrice != null) {
+            mItemMyQuotedPrice.setText("我的报价", "￥" + memberPrice.getTotal());
+            mItemMyQuotedPrice.setValueTextColor(0xfffa5547);
+        }
         OrderComment comment = orderDetails.getOrderComment();
         if (comment != null) {
             mRbCreateTime.setProgress(comment.getDepotTime());

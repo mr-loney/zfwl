@@ -104,10 +104,10 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         String toStr = "";
         for (LogisticsInfo.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
             if (item.getFromDetail() != null && item.getFromDetail().length() > 0 && fromStr.indexOf(item.getFromDetail()) < 0) {
-                fromStr += item.getFromDetail() + "<br/>";
+                fromStr += item.getFromProvinceName() + item.getFromCityName() + item.getFromCountyName() + item.getFromDetail() + "<br/>";
             }
             if (item.getToDetail() != null && item.getToDetail().length() > 0 && fromStr.indexOf(item.getToDetail()) < 0) {
-                toStr += item.getToDetail() + "<br/>";
+                toStr += item.getToProvinceName() + item.getToCityName() + item.getToCountyName() + item.getToDetail() + "<br/>";
             }
         }
         if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }

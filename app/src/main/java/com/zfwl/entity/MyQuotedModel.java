@@ -179,7 +179,7 @@ public class MyQuotedModel implements Serializable {
 		private Object address;
 		private Object succAndTotal;
 		private Object weight;
-		private boolean isLargeGo;
+		private int isLargeGo;
 		private Object carNum;
 		private Object fromAddress;
 		private Object toAddress;
@@ -362,11 +362,11 @@ public class MyQuotedModel implements Serializable {
 			this.weight = weight;
 		}
 
-		public boolean getIsLargeGo() {
+		public int getIsLargeGo() {
 			return isLargeGo;
 		}
 
-		public void setIsLargeGo(boolean isLargeGo) {
+		public void setIsLargeGo(int isLargeGo) {
 			this.isLargeGo = isLargeGo;
 		}
 

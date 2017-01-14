@@ -6,21 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
     <cn.bingoogolapple.titlebar.BGATitleBar
         android:id="@+id/title_bar"
         style="@style/title_bar"
         android:background="@color/white"
         app:bgatitlebar_titleText="订单详情"
         />
+
     <View
         android:id="@+id/tb_divider"
-        android:layout_below="@+id/title_bar"
         style="@style/GrayDivider"
+        android:layout_below="@+id/title_bar"
         />
+
     <ScrollView
-        android:layout_below="@+id/tb_divider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tb_divider"
         android:background="@color/bg_gray">
 
         <LinearLayout
@@ -33,6 +36,7 @@
                 style="@style/GrayDivider"
                 android:layout_marginBottom="19dp"
                 android:paddingLeft="12dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -148,8 +152,11 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
+
             <View
                 style="@style/GrayDivider"/>
+
+
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_begin_time"
@@ -157,9 +164,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:paddingLeft="12dp"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_big_car_passable"
@@ -167,9 +171,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:paddingLeft="12dp"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_goods_name"
@@ -177,9 +178,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:paddingLeft="12dp"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_goods_weight"
@@ -187,9 +185,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:paddingLeft="12dp"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_goods_length"
@@ -197,9 +192,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:paddingLeft="12dp"/>
 
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_need_car_number"
@@ -207,8 +199,6 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -268,18 +258,17 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
+
             <View
                 style="@style/GrayDivider"/>
+
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_my_quoted_price"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginBottom="18dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:layout_marginBottom="18dp"
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -303,8 +292,10 @@
                     android:textColor="#030303"
                     android:textSize="17sp"/>
             </LinearLayout>
+
             <View
                 style="@style/GrayDivider"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -429,20 +420,13 @@
                 android:layout_height="45dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                />
-
             <com.zfwl.widget.goodsdetail.KeyValueItem
                 android:id="@+id/item_order_create_time"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginBottom="18dp"
                 android:background="@color/white"/>
 
-            <View
-                style="@style/GrayDivider"
-                android:layout_marginBottom="18dp"
-                />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
