@@ -6,6 +6,7 @@ import com.zfwl.ZfwlApplication;
 import com.zfwl.data.sp.GlobalPref;
 import com.zfwl.data.sp.UserPref;
 import com.zfwl.entity.User;
+import com.zfwl.push.PushConfig;
 import com.zfwl.util.GsonUtils;
 import com.zzb.easysp.generated.EasySPUserPref;
 
@@ -55,5 +56,6 @@ public class UserInfoManager {
         INSTANCE = new UserInfoManager();
         mUserPref = null;
         GlobalPref.get(mContext).setLastLoginMemberId(0);
+        PushConfig.clearTag(mContext);
     }
 }

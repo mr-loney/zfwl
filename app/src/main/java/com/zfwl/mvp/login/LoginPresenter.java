@@ -13,6 +13,7 @@ import com.zfwl.entity.User;
 import com.zfwl.entity.WeChatTokenResult;
 import com.zfwl.entity.WechatUser;
 import com.zfwl.mvp.BasePresenter;
+import com.zfwl.push.PushConfig;
 import com.zfwl.util.GsonUtils;
 import com.zfwl.util.StringUtils;
 import com.zzb.easysp.generated.EasySPWeChatPref;
@@ -48,7 +49,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         if (lastMemberId > 0) {
             MyLog.i(TAG, "autoLogin success");
             UserInfoManager.INSTANCE.init(lastMemberId);
-            getMvpView().onLoginSuccess(UserInfoManager.INSTANCE.getUserInfo());
+            onLoginSuccess(UserInfoManager.INSTANCE.getUserInfo());
         }else{
             MyLog.i(TAG, "autoLogin Failed");
             getMvpView().autoLoginFailed();
@@ -63,9 +64,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         mLoginApi.login(phone, password)
                 .doOnNext(this::saveUserInfo)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> {
-                    getMvpView().onLoginSuccess(user);
-                }, throwable -> {
+                .subscribe(this::onLoginSuccess, throwable -> {
                     getMvpView().onLoginFailed(throwable.getMessage());
                 });
     }
@@ -129,5 +128,10 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     private void saveUserInfo(User user) {
         UserInfoManager.INSTANCE.saveUserInfo(user);
+    }
+
+    private void onLoginSuccess(User user) {
+        getMvpView().onLoginSuccess(user);
+        PushConfig.setTag(mContext, user.getAccount());
     }
 }

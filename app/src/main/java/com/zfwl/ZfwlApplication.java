@@ -8,6 +8,8 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by ZZB on 2016/12/8.
  */
@@ -19,9 +21,15 @@ public class ZfwlApplication extends Application {
         super.onCreate();
         APP_CONTEXT = this;
         MyLog.init();
+        initJpush();
         initBugly();
         initWeChat();
 
+    }
+
+    private void initJpush() {
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);
+        JPushInterface.init(this);
     }
 
     private void initBugly() {
