@@ -19,7 +19,7 @@ public class SelectAreaAdapter extends BaseAdapter {
     public SelectAreaAdapter vThis = this;
     public Context mContext;
     public List<Area> mList;
-    private String selectAreaID;
+    private String selectAreaID = "";
 
     public SelectAreaAdapter(Context Context, List<Area> List){
         mContext=Context;
@@ -70,6 +70,7 @@ public class SelectAreaAdapter extends BaseAdapter {
 
         holder.name.setTag(position);
         holder.name.setText(model.getName());
+        if (selectAreaID==null) { selectAreaID = ""; }
         if (selectAreaID.equals(model.getId())) {
             holder.name.setBackgroundColor(Color.parseColor("#cccccc"));
             holder.name.setTextColor(Color.parseColor("#0060c5"));

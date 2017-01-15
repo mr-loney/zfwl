@@ -66,6 +66,13 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
             public void selected(Area area) {
                 mCurrentProvince = area;
                 mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
+                mCurrentCity = null;
+                mCurrentDistrict = null;
+                mAddress.setCity(null);
+                mAddress.setDistrict(null);
+                districtAdapter.setDatas(new ArrayList<>());
+                districtAdapter.setSelectArea(null);
+                districtAdapter.notifyDataSetChanged();
             }
         });
         cityAdapter = new SelectAreaAdapter(mContext,new ArrayList<>());
@@ -74,6 +81,8 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
             public void selected(Area area) {
                 mCurrentCity = area;
                 mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
+                mCurrentDistrict = null;
+                mAddress.setDistrict(null);
             }
         });
         districtAdapter = new SelectAreaAdapter(mContext,new ArrayList<>());
@@ -81,6 +90,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
             @Override
             public void selected(Area area) {
                 mCurrentDistrict = area;
+                onSelectClick();
             }
         });
         mViewProvince.setAdapter(provinceAdapter);
@@ -103,7 +113,7 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
             mCurrentProvince = mAddress.getProvince();
         mSelectAreaPresenter.loadNextCity(mCurrentProvince.getId());
         } else {
-            mCurrentProvince = mSelectAreaPresenter.getProvinceWithIndex(0);
+//            mCurrentProvince = mSelectAreaPresenter.getProvinceWithIndex(0);
             mCurrentCity = null;
             cityAdapter.setDatas(new ArrayList<>());
             cityAdapter.setSelectArea(null);
@@ -116,7 +126,9 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         if (provinces!=null) {
             provinceAdapter.setDatas(provinces);
         }
-        provinceAdapter.setSelectArea(mCurrentProvince.getId());
+        if (mCurrentProvince!=null) {
+            provinceAdapter.setSelectArea(mCurrentProvince.getId());
+        }
         provinceAdapter.notifyDataSetChanged();
     }
 
@@ -126,10 +138,12 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
             mCurrentCity = mAddress.getCity();
         mSelectAreaPresenter.loadNextDistrict(mCurrentCity.getId());
         } else {
-            mCurrentCity = mSelectAreaPresenter.getCitysWithIndex(0);
+//            mCurrentCity = mSelectAreaPresenter.getCitysWithIndex(0);
         }
         cityAdapter.setDatas(citys);
-        cityAdapter.setSelectArea(mCurrentCity.getId());
+        if (mCurrentCity!=null) {
+            cityAdapter.setSelectArea(mCurrentCity.getId());
+        }
         cityAdapter.notifyDataSetChanged();
     }
 
@@ -138,10 +152,12 @@ public class SelectAreaListView extends FrameLayout implements SelectAreaMvpView
         if (mAddress!=null && mAddress.getDistrict()!=null) {
             mCurrentDistrict = mAddress.getDistrict();
         } else {
-            mCurrentDistrict = mSelectAreaPresenter.getDistrictWithIndex(0);
+//            mCurrentDistrict = mSelectAreaPresenter.getDistrictWithIndex(0);
         }
         districtAdapter.setDatas(districts);
-        districtAdapter.setSelectArea(mCurrentDistrict.getId());
+        if (mCurrentDistrict!=null) {
+            districtAdapter.setSelectArea(mCurrentDistrict.getId());
+        }
         districtAdapter.notifyDataSetChanged();
     }
 
