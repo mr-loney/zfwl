@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="#333333"
                 android:hint="输入吨数"
                 android:textColorHint="#cccccc"
@@ -194,7 +194,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="输入单价"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="#333333"
                 android:textColorHint="#cccccc"/>
         </LinearLayout>
@@ -223,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:text="共计:1200元"
+            android:text="共计:0元"
             android:textColor="#fa5547"
             android:textSize="17sp"/>
 

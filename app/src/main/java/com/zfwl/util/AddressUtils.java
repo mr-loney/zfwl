@@ -17,7 +17,7 @@ public class AddressUtils {
             int size = FP.size(address);
             for (int i = 0; i < size; i++) {
                 AddressInfoListBean info = address.get(i);
-                str.append(info.getToProvinceName()).append(info.getToCityName()).append(info.getToCountyName());
+                str.append(info.getToProvinceName()).append(info.getToCityName()).append(info.getToCountyName()).append(info.getToDetail());
                 if (i != size - 1) {
                     str.append("\n");
                 }
@@ -31,7 +31,7 @@ public class AddressUtils {
             return "";
         } else {
             AddressInfoListBean info = address.get(0);
-            return info.getFromProvinceName() + info.getFromCityName() + info.getFromCountyName();
+            return info.getFromProvinceName() + info.getFromCityName() + info.getFromCountyName() + info.getFromDetail();
         }
     }
 }
