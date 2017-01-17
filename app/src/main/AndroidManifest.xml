@@ -155,9 +155,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".activity.myorders.OrderCommentActivity"
+        <activity
+            android:name=".activity.myorders.OrderCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme">
+        </activity>
+        <activity android:name=".wxapi.WXPayEntryActivity">
         </activity>
     </application>
 
