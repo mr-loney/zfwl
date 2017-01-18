@@ -8,7 +8,6 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.event.WeChatAuthEvent;
-import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,7 +55,7 @@ public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventH
                 result = "unknown:" + baseResp.errCode + ":" + baseResp.errStr;
                 break;
         }
-        ToastUtils.show(this, result);
+//        ToastUtils.show(this, result);
         finish();
     }
 
