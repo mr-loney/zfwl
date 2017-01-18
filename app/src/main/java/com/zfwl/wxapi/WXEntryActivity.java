@@ -39,6 +39,7 @@ public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventH
 
     @Override
     public void onResp(BaseResp baseResp) {
+        MyLog.i(TAG, "onResp, code: " + baseResp.errCode);
         String result = "";
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
