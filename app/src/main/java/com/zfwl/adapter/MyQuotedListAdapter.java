@@ -74,19 +74,26 @@ public class MyQuotedListAdapter extends BaseAdapter {
 			String fromStr = "";
 			String toStr = "";
 			for (MyQuotedModel.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
-				if (item.getFromDetail()!=null && item.getFromDetail().length()>0 &&
-						fromStr.indexOf(item.getFromProvinceName()+""+
+				if (fromStr.indexOf(item.getFromProvinceName()+""+
 						item.getFromCityName()+""+
 						item.getFromCountyName())<0) {
 					fromStr+=item.getFromProvinceName()+""+
 							item.getFromCityName()+""+
 							item.getFromCountyName()+"<br/>";
 				}
-				if (item.getToDetail()!=null && item.getToDetail().length()>0) {
-					toStr+=item.getToProvinceName()+""+
-							item.getToCityName()+""+
-							item.getToCountyName()+"<br/>";
+				if (item.getToProvinceName()!=null) {
+					toStr+=item.getToProvinceName();
 				}
+				if (item.getToCityName()!=null) {
+					toStr+=item.getToCityName();
+				}
+				if (item.getToCountyName()!=null) {
+					toStr+=item.getToCountyName();
+				}
+				if (item.getToDetail()!=null) {
+					toStr+=item.getToDetail();
+				}
+				toStr+="<br/>";
 			}
 			if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
 			if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }

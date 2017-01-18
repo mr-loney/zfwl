@@ -64,7 +64,7 @@
             android:inputType="phone"
             android:textSize="15sp"
             android:layout_marginTop="20dp"
-            android:text="18500226297"
+            android:text=""
             android:maxLength="11"
             android:singleLine="true" />
 
@@ -103,7 +103,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
             android:hint=""
-            android:text="111111"
+            android:text=""
             android:imeActionLabel="登录"
             android:paddingLeft="4dp"
             android:imeOptions="actionDone"

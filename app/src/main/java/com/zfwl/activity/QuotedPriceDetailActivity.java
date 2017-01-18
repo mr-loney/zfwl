@@ -94,7 +94,7 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
 
     private void initTitleBar() {
         TextView rightTv = mTitleBar.getRightCtv();
-        rightTv.setTextSize(DisplayUtil.spToPx(6));
+//        rightTv.setTextSize(DisplayUtil.spToPx(6));
         rightTv.setTextColor(0xff666666);
         rightTv.setOnClickListener(v -> mPresenter.del(data));
 
@@ -113,7 +113,7 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemUnitPrice.setValueText(data.getPrice()+"元");
             mItemTotalPrice.setKeyText("共计");
             mItemTotalPrice.setValueText(data.getTotal()+"元");
-            mItemTotalPrice.setValueTextColor(R.color.red);
+            mItemTotalPrice.setValueTextColor(Color.RED);
 
             String fromStr = "";
             String toStr = "";
@@ -121,9 +121,19 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
                 if (fromStr.indexOf(item.getFromProvinceName()+item.getFromCityName()+item.getFromCountyName()+item.getFromDetail())<0) {
                     fromStr+=item.getFromProvinceName()+item.getFromCityName()+item.getFromCountyName()+item.getFromDetail()+"<br/>";
                 }
-                if (item.getToDetail()!=null && item.getToDetail().length()>0 && fromStr.indexOf(item.getToProvinceName()+item.getToCityName()+item.getToCountyName()+item.getToDetail())<0) {
-                    toStr+=item.getToProvinceName()+item.getToCityName()+item.getToCountyName()+item.getToDetail()+"<br/>";
+                if (item.getToProvinceName()!=null) {
+                    toStr+=item.getToProvinceName();
                 }
+                if (item.getToCityName()!=null) {
+                    toStr+=item.getToCityName();
+                }
+                if (item.getToCountyName()!=null) {
+                    toStr+=item.getToCountyName();
+                }
+                if (item.getToDetail()!=null) {
+                    toStr+=item.getToDetail();
+                }
+                toStr+="<br/>";
             }
             if (fromStr.length()>3) { fromStr = fromStr.substring(0,fromStr.length()-5); }
             if (toStr.length()>3) { toStr = toStr.substring(0,toStr.length()-5); }

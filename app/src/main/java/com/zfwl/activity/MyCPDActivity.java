@@ -75,7 +75,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
 
         // 标题栏
         TextView rightTv = mTitleBar.getRightCtv();
-        rightTv.setTextSize(DisplayUtil.spToPx(8));
+//        rightTv.setTextSize(DisplayUtil.spToPx(8));
         rightTv.setTextColor(0xff666666);
         rightTv.setOnClickListener(new View.OnClickListener() {
             @Override
