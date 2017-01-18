@@ -1,12 +1,16 @@
 package com.zfwl.wxapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.bilibili.socialize.share.core.ui.BaseWXEntryActivity;
+import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
+import com.zfwl.activity.BaseActivity;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.event.WeChatAuthEvent;
@@ -14,35 +18,34 @@ import com.zfwl.widget.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
     private static final int RESP_CODE_LOGIN = 1;
     private static final int RESP_CODE_SHARE = 2;
-//    private IWXAPI mWxApi;
+    private IWXAPI mWxApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxentry);
-//        mWxApi = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
-//        mWxApi.handleIntent(getIntent(), this);
+        mWxApi = WXAPIFactory.createWXAPI(this, WeChat.APP_ID, false);
+        mWxApi.handleIntent(getIntent(), this);
     }
 
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        setIntent(intent);
-////        mWxApi.handleIntent(intent, this);
-//    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        mWxApi.handleIntent(intent, this);
+    }
 
-//    @Override
-//    public void onReq(BaseReq baseReq) {
-//
-//    }
+    @Override
+    public void onReq(BaseReq baseReq) {
+
+    }
 
     @Override
     public void onResp(BaseResp baseResp) {
-        super.onResp(baseResp);
         String result = "";
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
@@ -63,10 +66,10 @@ public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventH
         finish();
     }
 
-    @Override
-    protected String getAppId() {
-        return WeChat.APP_ID;
-    }
+//    @Override
+//    protected String getAppId() {
+//        return WeChat.APP_ID;
+//    }
 
     private void onAuthSuccess(BaseResp baseResp) {
         switch (baseResp.getType()) {

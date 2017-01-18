@@ -27,4 +27,6 @@ public interface LoginApi {
     @GET("https://api.weixin.qq.com/sns/sns/userinfo")
     Observable<String> getWechatUser(@Query("access_token") String accessToken, @Query("openid") String openId);
 
+    Observable checkIsAccountExist(String phoneNumber, String wxOpenId);
+
 }
