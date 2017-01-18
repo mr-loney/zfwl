@@ -152,14 +152,20 @@
         android:layout_marginTop="50dp"
         android:text="@string/login_btnLogin_text" />
 
-    <Button
+    <TextView
         android:id="@+id/login_btnWXLogin"
-        style="@style/button_Gray_style"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
         android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:textColor="@color/black"
-        android:text="微信账号登录" />
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:textSize="17sp"
+        android:background="@drawable/bg_wechat_login"
+        android:textColor="@color/white"
+        android:drawableLeft="@drawable/ic_wechat_login"
+        android:paddingLeft="98dp"
+        android:drawablePadding="4dp"
+        android:text="微信登录" />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
