@@ -13,4 +13,6 @@ public interface Presenter<V extends MvpView> {
     boolean isViewAttached();
 
     V getMvpView();
+
+
 }

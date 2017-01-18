@@ -50,10 +50,19 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
             MyLog.i(TAG, "autoLogin success");
             UserInfoManager.INSTANCE.init(lastMemberId);
             onLoginSuccess(UserInfoManager.INSTANCE.getUserInfo());
-        }else{
+        } else {
             MyLog.i(TAG, "autoLogin Failed");
             getMvpView().autoLoginFailed();
         }
+    }
+
+    public void wxOpenIdLogin(String wxOpenId) {
+        mLoginApi.login(wxOpenId)
+                .doOnNext(this::saveUserInfo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onLoginSuccess, throwable -> {
+                    getMvpView().onLoginFailed(throwable.getMessage());
+                });
     }
 
     public void phoneLogin(String phone, String password) {
@@ -71,17 +80,42 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
 
     public void wechatLogin(String code) {
+        MyLog.i(TAG, "wechatLogin, code:" + code);
+
         getWechatToken(code)
-                .flatMap(this::getWechatUser)
-                .subscribe(wechatUser -> {
-                    MyLog.i(TAG, "wechat login success, user: %s", wechatUser.toString());
-                }, throwable -> {
-                    MyLog.e(TAG, throwable, "wechat login failed");
+                .map(WeChatTokenResult::getOpenId)
+                .flatMap(this::checkIsWxAccountExist)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::wxOpenIdLogin, throwable -> {
+                    if (throwable.getMessage().contains("账号不存在")) {
+                        String openId = throwable.getMessage().split(",")[1];
+                        getMvpView().goToBindWx(openId);
+                    } else {
+                        getMvpView().onLoginFailed(throwable.getMessage());
+                    }
                 });
+//                .flatMap(this::getWechatUser)
+//                .subscribe(wechatUser -> {
+//                    MyLog.i(TAG, "wechat login success, user: %s", wechatUser.toString());
+//                }, throwable -> {
+//                    MyLog.e(TAG, throwable, "wechat login failed");
+//                });
+    }
+
+    private Observable<String> checkIsWxAccountExist(String openId) {
+        return mLoginApi.checkIsWxAccountExist(openId).flatMap(s -> {
+            if (s != null) {
+                if (s.contains("该帐号已存在")) {
+                    return Observable.just(openId);
+                }
+            }
+            return Observable.error(new RuntimeException("账号不存在," + openId));
+        });
     }
 
     //  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
     private Observable<WeChatTokenResult> getWechatToken(String code) {
+        MyLog.i(TAG, "getWechatToken, code：" + code);
         return mLoginApi.getWechatAccessToken(WeChat.APP_ID, WeChat.APP_SECRET, code, "authorization_code")
                 .map(this::parseWechatTokenResult);
     }
@@ -100,6 +134,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
     }
 
     private WechatUser parseWechatUser(String json) {
+        MyLog.i(TAG, "parseWechatUser:" + json);
         return GsonUtils.jsonToObject(json, WechatUser.class);
     }
 

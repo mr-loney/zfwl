@@ -19,4 +19,6 @@ public interface LoginMvpView extends MvpView {
 
 
     void autoLoginFailed();
+
+    void goToBindWx(String openId);
 }

@@ -1,9 +1,9 @@
 package com.zfwl.activity;
 
 import android.animation.LayoutTransition;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -21,20 +21,16 @@ import android.widget.TextView;
 
 import com.zfwl.R;
 import com.zfwl.activity.home.HomeActivity;
-import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.common.InputFilterHelper;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.data.UserInfoManager;
-import com.zfwl.entity.Address;
 import com.zfwl.entity.User;
 import com.zfwl.mvp.sigup.SignUpPresenter;
 import com.zfwl.mvp.sigup.SignUpView;
 import com.zfwl.util.AnimUtils;
 import com.zfwl.util.FunctionHelper;
 import com.zfwl.util.ViewHub;
-import com.zfwl.widget.slsectarea.SelectAreaListView;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -42,35 +38,35 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, SignUpView {
-
+    private static final String EXTRA_WX_OPEN_ID = "EXTRA_WX_OPEN_ID";
     @BindView(R.id.layout_step1)
     ViewGroup mViewStep1;
     @BindView(R.id.layout_step2)
     ViewGroup mViewStep2;
     private SignUpPresenter mPresenter;
-
+    private String mOpenId;
     private SignUpActivity mContext = this;
     private LoadingDialog mLoadingDialog;
 
     //step 1
     @BindView(R.id.et_phone_num)
-     EditText mEtPhoneNum;
+    EditText mEtPhoneNum;
     @BindView(R.id.et_verifycode)
-     EditText mEtVerifyCode;
+    EditText mEtVerifyCode;
     @BindView(R.id.et_password)
-     EditText mEtPWD;
+    EditText mEtPWD;
     @BindView(R.id.btn_see_pwd)
-     ImageView mImSeePWD;
+    ImageView mImSeePWD;
     @BindView(R.id.btn_next)
-     Button mBtnGotoStep2;
+    Button mBtnGotoStep2;
     @BindView(R.id.et_get_verifycode)
-     Button mBtnGetVerifyCode;
+    Button mBtnGetVerifyCode;
     @BindView(R.id.tv_error1)
-     TextView mTvError;
+    TextView mTvError;
 
     //step 2
     @BindView(R.id.btn_confirm)
-     Button mBtnOK;
+    Button mBtnOK;
     @BindView(R.id.btn_im_sj)
     RelativeLayout mBtnSj;
     @BindView(R.id.btn_im_sj_img)
@@ -84,19 +80,26 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.btn_im_cz_txt)
     TextView mBtnCZ_txt;
     @BindView(R.id.tv_error)
-     TextView mTvStep2Error;
+    TextView mTvStep2Error;
     @BindView(R.id.et_name)
-     EditText mEtUserName;
+    EditText mEtUserName;
 
     private WaitTimer mWaitTimer = new WaitTimer();
     private static final int REQUEST_OPEN_CAMERA = 1;
     private int selectSF = 1;
+
+    public static void launch(Context context, String openId) {
+        Intent intent1 = new Intent(context, SignUpActivity.class);
+        intent1.putExtra(EXTRA_WX_OPEN_ID, openId);
+        context.startActivity(intent1);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
+        mOpenId = getIntent().getStringExtra(EXTRA_WX_OPEN_ID);
         mPresenter = new SignUpPresenter();
         mPresenter.attachView(this);
         initViews();
@@ -104,18 +107,19 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @OnClick(R.id.close_btn)
     public void onCloseClick() {
-            finish();
+        finish();
     }
 
     @OnClick(R.id.close_btn1)
     public void onClose1Click() {
-            HomeActivity.launch(mContext);
-            finish();
+        HomeActivity.launch(mContext);
+        finish();
     }
 
     private void initViews() {
         mLoadingDialog = new LoadingDialog(this);
-        initLayoutTransition(mViewStep1);;
+        initLayoutTransition(mViewStep1);
+        ;
         initLayoutTransition(mViewStep2);
         mViewStep1.setVisibility(View.VISIBLE);
         mBtnGetVerifyCode.setOnClickListener(this);
@@ -265,9 +269,15 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_next://提交验证码
                 if (validateStep1Input()) {
-                    mPresenter.Register(mEtPhoneNum.getText().toString(),
-                            mEtVerifyCode.getText().toString(),
-                            mEtPWD.getText().toString());
+                    if (mOpenId == null) {
+                        mPresenter.Register(mEtPhoneNum.getText().toString(),
+                                mEtVerifyCode.getText().toString(),
+                                mEtPWD.getText().toString());
+                    }else{
+                        mPresenter.wxRegister(mEtPhoneNum.getText().toString(),
+                                mEtVerifyCode.getText().toString(),
+                                mEtPWD.getText().toString(), mOpenId);
+                    }
                 }
                 break;
             case R.id.et_get_verifycode://重新获取验证码
@@ -283,10 +293,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_confirm: {
                 if (validateStep2Input()) {
-                    mPresenter.RegisterAddInfo(UserInfoManager.INSTANCE.getUserInfo().getId()+"",
+                    mPresenter.RegisterAddInfo(UserInfoManager.INSTANCE.getUserInfo().getId() + "",
                             UserInfoManager.INSTANCE.getUserInfo().getPhone(),
                             mEtUserName.getText().toString(),
-                            selectSF==1?2:1);
+                            selectSF == 1 ? 2 : 1);
                 }
                 break;
             }
@@ -368,7 +378,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void showLoading() {
-                mLoadingDialog.start("处理中...");
+        mLoadingDialog.start("处理中...");
     }
 
     @Override
@@ -408,7 +418,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onRegisterAddInfoFailed(String msg) {
-            setStep2Error(msg);
+        setStep2Error(msg);
     }
 
     //    public void onAddressSelected(boolean isFrom, int index) {

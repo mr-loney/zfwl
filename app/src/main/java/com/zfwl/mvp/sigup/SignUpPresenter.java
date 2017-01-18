@@ -8,11 +8,7 @@ import com.zfwl.mvp.BasePresenter;
 
 import java.util.Random;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 public class SignUpPresenter extends BasePresenter<SignUpView> {
     private SignUpApi mApi;
@@ -81,4 +77,22 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
                 });
     }
 
+    public void wxRegister(String phoneNumber, String verifyCode, String psw, String openId) {
+        if ((verifyCode+"").equals(randVeriftCode)) {
+            getMvpView().onRegisterFailed("验证码错误");
+            return;
+        }
+        if (phoneNumber.length() != 11) {
+            getMvpView().onRegisterFailed("手机号码错误");
+            return;
+        }
+        mApi.wxRegister(phoneNumber, psw, openId)
+                .doOnNext(this::saveUserInfo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(User -> {
+                    getMvpView().onRegisterSuccess(User);
+                }, throwable -> {
+                    getMvpView().onRegisterFailed(throwable.getMessage());
+                });
+    }
 }

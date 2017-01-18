@@ -202,9 +202,14 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         HomeActivity.launch(this);
     }
 
+    @Override
+    public void goToBindWx(String openId) {
+        SignUpActivity.launch(this, openId);
+    }
+
     @Subscribe
     public void onWeChatAuthSuccess(WeChatAuthEvent event) {
-        MyLog.i(TAG, "wechat auth success, code is %s", event.getCode());
+        MyLog.i(TAG, "wechat auth success, code is %s", event.getCode() + ":" + this);
         //event.getCode() then get token
         mLoginPresenter.wechatLogin(event.getCode());
     }

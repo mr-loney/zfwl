@@ -17,7 +17,9 @@ public interface LoginApi {
     @FormUrlEncoded
     @POST("app/member/login.do")
     Observable<User> login(@Field("phone") String phone, @Field("password") String password);
-
+    @FormUrlEncoded
+    @POST("app/member/login.do")
+    Observable<User> login(@Field("wxOpenid")String openId);
     @GET("https://api.weixin.qq.com/sns/oauth2/access_token")
     Observable<String> getWechatAccessToken(@Query("appid") String appId,
                                             @Query("secret") String secret,
@@ -26,7 +28,7 @@ public interface LoginApi {
 
     @GET("https://api.weixin.qq.com/sns/sns/userinfo")
     Observable<String> getWechatUser(@Query("access_token") String accessToken, @Query("openid") String openId);
-
-    Observable checkIsAccountExist(String phoneNumber, String wxOpenId);
+    @GET("app/member/checkHasMember.do")
+    Observable<String> checkIsWxAccountExist(@Query("wxOpenid") String wxOpenId);
 
 }
