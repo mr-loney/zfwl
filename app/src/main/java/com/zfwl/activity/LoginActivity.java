@@ -2,23 +2,20 @@ package com.zfwl.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
 import com.zfwl.activity.home.HomeActivity;
-import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.controls.AutoCompleteTextViewEx;
@@ -149,14 +146,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @OnClick(R.id.login_btnWXLogin)
     public void onWxLoginClick() {
-//        final SendAuth.Req req = new SendAuth.Req();
-//        //弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
-//        req.scope = "snsapi_userinfo";
-//        req.state = "none";
-//        mWxApi.sendReq(req);
+        final SendAuth.Req req = new SendAuth.Req();
+        //弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
+        req.scope = "snsapi_userinfo";
+        req.state = "none";
+        mWxApi.sendReq(req);
 
 //        mLoginPresenter.wechatLogin("code");
-        FinishedOrderDetailActivity.launch(this, 0);
     }
 
     @OnClick(R.id.img_see_pwd)
