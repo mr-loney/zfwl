@@ -198,4 +198,64 @@
         android:text="我要报价"
         android:textColor="@color/white"
         android:textSize="17sp"/>
+
+    <RelativeLayout
+        android:id="@+id/share_v"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4c000000">
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="320dp"
+            android:layout_centerInParent="true"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享至"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:id="@+id/share_wx"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/share_wx"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"/>
+
+            <TextView
+                android:layout_below="@id/share_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:layout_below="@id/share_wx"
+                android:id="@+id/share_wx_friend"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/share_wx_frend"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_below="@id/share_wx_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="朋友圈"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

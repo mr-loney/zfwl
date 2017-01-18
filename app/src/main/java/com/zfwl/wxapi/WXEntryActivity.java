@@ -46,14 +46,14 @@ public class WXEntryActivity extends BaseWXEntryActivity implements IWXAPIEventH
         String result = "";
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                result = "success";
+                result = "分享成功";
                 onAuthSuccess(baseResp);
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                result = "cancel";
+                result = "分享取消";
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                result = "denied";
+                result = "分享失败";
                 break;
             default:
                 result = "unknown:" + baseResp.errCode + ":" + baseResp.errStr;

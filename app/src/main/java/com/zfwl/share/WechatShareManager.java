@@ -14,6 +14,9 @@ import com.tencent.mm.sdk.modelmsg.WXVideoObject;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.zfwl.common.Const;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * 实现微信分享功能的核心类
@@ -26,7 +29,6 @@ public class WechatShareManager {
     public static final int WECHAT_SHARE_WAY_TEXT = 1;   //文字
     public static final int WECHAT_SHARE_WAY_PICTURE = 2; //图片
     public static final int WECHAT_SHARE_WAY_WEBPAGE = 3;  //链接
-    public static final int WECHAT_SHARE_WAY_VIDEO = 4; //视频
     public static final int WECHAT_SHARE_TYPE_TALK = SendMessageToWX.Req.WXSceneSession;  //会话
     public static final int WECHAT_SHARE_TYPE_FRENDS = SendMessageToWX.Req.WXSceneTimeline; //朋友圈
 
@@ -56,14 +58,13 @@ public class WechatShareManager {
 
     private void initWechatShare(Context context){
         if (mWXApi == null) {
-            mWXApi = WXAPIFactory.createWXAPI(context, WechatShareUtil.WECHAT_APP_ID, true);
+            mWXApi = WXAPIFactory.createWXAPI(context, Const.WeChat.APP_ID, true);
         }
-        mWXApi.registerApp(WechatShareUtil.WECHAT_APP_ID);
+        mWXApi.registerApp(Const.WeChat.APP_ID);
     }
 
     /**
      * 通过微信分享
-     * @param shareWay 分享的方式（文本、图片、链接）
      * @param shareType 分享的类型（朋友圈，会话）
      */
     public void shareByWebchat(ShareContent shareContent, int shareType){
@@ -76,9 +77,6 @@ public class WechatShareManager {
                 break;
             case WECHAT_SHARE_WAY_WEBPAGE:
                 shareWebPage(shareContent, shareType);
-                break;
-            case WECHAT_SHARE_WAY_VIDEO:
-                shareVideo(shareContent, shareType);
                 break;
         }
     }
@@ -99,10 +97,6 @@ public class WechatShareManager {
     public class ShareContentText extends ShareContent {
         private String content;
 
-        /**
-         * 构造分享文字类
-         * @param text 分享的文字内容
-         */
         public ShareContentText(String content){
             this.content = content;
         }
@@ -243,53 +237,6 @@ public class WechatShareManager {
         return (ShareContentWebpage) mShareContentWebpag;
     }
 
-    /**
-     * 设置分享视频的内容
-     * @author chengcj1
-     *
-     */
-    public class ShareContentVideo extends ShareContent {
-        private String url;
-        public ShareContentVideo(String url) {
-            this.url = url;
-        }
-
-        @Override
-        protected int getShareWay() {
-            return WECHAT_SHARE_WAY_VIDEO;
-        }
-
-        @Override
-        protected String getContent() {
-            return null;
-        }
-
-        @Override
-        protected String getTitle() {
-            return null;
-        }
-
-        @Override
-        protected String getURL() {
-            return url;
-        }
-
-        @Override
-        protected int getPictureResource() {
-            return -1;
-        }
-    }
-
-    /*
-     * 获取视频分享内容
-     */
-    public ShareContent getShareContentVideo(String url) {
-        if (mShareContentVideo == null) {
-            mShareContentVideo = new ShareContentVideo(url);
-        }
-        return (ShareContentVideo) mShareContentVideo;
-    }
-
     /*
      * 分享文字
      */
@@ -324,13 +271,19 @@ public class WechatShareManager {
 
         Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, THUMB_SIZE, THUMB_SIZE, true);
         bitmap.recycle();
-        msg.thumbData = Util.bmpToByteArray(thumbBitmap, true);  //设置缩略图
+        msg.thumbData = Bitmap2Bytes(thumbBitmap);  //设置缩略图
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("imgshareappdata");
         req.message = msg;
         req.scene = shareType;
         mWXApi.sendReq(req);
+    }
+
+    public byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 
     /*
@@ -347,40 +300,13 @@ public class WechatShareManager {
         if(thumb == null) {
             Toast.makeText(mContext, "图片不能为空", Toast.LENGTH_SHORT).show();
         } else {
-            msg.thumbData = Util.bmpToByteArray(thumb, true);
+            msg.thumbData = Bitmap2Bytes(thumb);
         }
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
         req.message = msg;
         req.scene = shareType;
-        mWXApi.sendReq(req);
-    }
-
-    /*
-     * 分享视频
-     */
-    private void shareVideo(ShareContent shareContent, int shareType) {
-        WXVideoObject video = new WXVideoObject();
-        video.videoUrl = shareContent.getURL();
-
-        WXMediaMessage msg = new WXMediaMessage(video);
-        msg.title = shareContent.getTitle();
-        msg.description = shareContent.getContent();
-        Bitmap thumb = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.send_music_thumb);
-//		BitmapFactory.decodeStream(new URL(video.videoUrl).openStream());
-        /**
-         * 测试过程中会出现这种情况，会有个别手机会出现调不起微信客户端的情况。造成这种情况的原因是微信对缩略图的大小、title、description等参数的大小做了限制，所以有可能是大小超过了默认的范围。
-         * 一般情况下缩略图超出比较常见。Title、description都是文本，一般不会超过。
-         */
-        Bitmap thumbBitmap =  Bitmap.createScaledBitmap(thumb, THUMB_SIZE, THUMB_SIZE, true);
-        thumb.recycle();
-        msg.thumbData = Util.bmpToByteArray(thumbBitmap, true);
-
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("video");
-        req.message = msg;
-        req.scene =  shareType;
         mWXApi.sendReq(req);
     }
 

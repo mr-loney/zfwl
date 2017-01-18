@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.bilibili.socialize.share.core.SocializeMedia;
 import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
 import com.zfwl.data.UserInfoManager;
+import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.LogisticsInfo;
 import com.zfwl.share.ShareHelper;
 import com.zfwl.share.WechatShareManager;
@@ -35,6 +37,8 @@ import cn.bingoogolapple.titlebar.BGATitleBar.SimpleDelegate;
  */
 public class GoodsDetailActivity extends BaseShareableActivity {
 
+    @BindView(R.id.share_v)
+    View mShareView;
     @BindView(R.id.title_bar)
     BGATitleBar mTitleBar;
     @BindView(R.id.tv_from)
@@ -86,6 +90,47 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         DriverQuotedPriceActivity.launch(this, data.getId() + "");
     }
 
+    @OnClick(R.id.share_wx)
+    public void onShareWxClick() {
+        share( WechatShareManager.WECHAT_SHARE_TYPE_TALK);
+    }
+
+    @OnClick(R.id.share_wx_friend)
+    public void onShareWxFriendClick() {
+        share( WechatShareManager.WECHAT_SHARE_TYPE_FRENDS);
+    }
+
+    private void share(int t){
+        if (!isWebchatAvaliable()) {
+            Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (data==null) {
+            Toast.makeText(this, "请重新进入详情", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String fromStr = AddressUtils.getFromAddressStr(data.getAddressInfoList());
+        String toStr = AddressUtils.getToAddressStr(data.getAddressInfoList());
+        String time = data.getCreateTime()+"";
+        try {
+            time = Utils.longToString(data.getCreateTime(), "yyyy-MM-dd HH:mm");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String title = "需要"+data.getCarNum()+"辆"+data.getLength()+"米的车 从"+fromStr+"到"+toStr;
+        String content = "发车时间"+time;
+        String url = ApiModule.BASE_URL + "app/weixin/showDetail.do?logisticsId="+data.getId();
+
+        WechatShareManager.ShareContentWebpage s =
+                (WechatShareManager.ShareContentWebpage)mShareManager.getShareContentWebpag(
+                        title,
+                        content,
+                        url,
+                        R.mipmap.ic_launcher);
+        mShareManager.shareByWebchat(s, t);
+    }
+
     private void initTitleBar() {
         mTitleBar.setDelegate(new SimpleDelegate() {
             @Override
@@ -101,12 +146,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     }
 
     private void onShareClick() {
-        if (!isWebchatAvaliable()) {
-            Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
-            return;
-        }
-        WechatShareManager.ShareContentText mShareContentText = (WechatShareManager.ShareContentText) mShareManager.getShareContentText("微信文本分享");
-        mShareManager.shareByWebchat(mShareContentText, WechatShareManager.WECHAT_SHARE_TYPE_FRENDS);
+        mShareView.setVisibility(View.VISIBLE);
     }
 
     private void initViews() {
@@ -139,6 +179,14 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         } else {
             mTvRemark.setText(data.getRemark());
         }
+
+        mShareView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mShareView.setVisibility(View.GONE);
+                return false;
+            }
+        });
     }
 
     private boolean isWebchatAvaliable() {
@@ -153,19 +201,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
     @Override
     public BaseShareParam getShareContent(ShareHelper helper, SocializeMedia target) {
-        String fromStr = AddressUtils.getFromAddressStr(data.getAddressInfoList());
-        String toStr = AddressUtils.getToAddressStr(data.getAddressInfoList());
-        String time = data.getCreateTime()+"";
-        try {
-            time = Utils.longToString(data.getCreateTime(), "yyyy-MM-dd HH:mm");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        BaseShareParam p = new BaseShareParam();
-        p.setTitle("需要"+data.getCarNum()+"辆"+data.getLength()+"米的车 从"+fromStr+"到"+toStr);
-        p.setContent("发车时间"+time);
-        p.setTargetUrl("");
         return null;
     }
 }
