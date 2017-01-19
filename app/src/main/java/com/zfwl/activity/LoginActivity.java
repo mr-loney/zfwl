@@ -122,7 +122,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @OnClick(R.id.close_btn)
     public void onCloseClick() {
-        finish();
+//        finish();
+        HomeActivity.launch(this);
     }
 
     @OnClick(R.id.reg_btn)
