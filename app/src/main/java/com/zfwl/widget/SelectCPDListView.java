@@ -98,7 +98,7 @@ public class SelectCPDListView extends FrameLayout implements CPDMvpView {
     @OnClick(R.id.other)
     public void onOtherClick() {
         setVisibility(GONE);
-        MyCPDActivity.launch(mContext);
+        MyCPDActivity.launch(mContext,false);
     }
 
     public void setCallback(SelectCallback callback) {

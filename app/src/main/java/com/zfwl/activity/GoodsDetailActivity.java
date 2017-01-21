@@ -127,7 +127,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
                         title,
                         content,
                         url,
-                        R.mipmap.ic_launcher);
+                        R.drawable.share_icon);
         mShareManager.shareByWebchat(s, t);
     }
 
