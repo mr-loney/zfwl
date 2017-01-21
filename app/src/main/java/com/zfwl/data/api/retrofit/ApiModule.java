@@ -13,6 +13,7 @@ import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.SignUpApi;
 import com.zfwl.data.api.WJApi;
+import com.zfwl.data.api.pay.WxPayApi;
 import com.zfwl.data.api.retrofit.interceptor.DefaultParametersInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -60,31 +61,42 @@ public class ApiModule {
         return ApiModule.INSTANCE.provideRetrofit().create(SignUpApi.class);
     }
 
+    public WxPayApi provideWxPayApi() {
+        return ApiModule.INSTANCE.provideRetrofit().create(WxPayApi.class);
+    }
 
     public AreaApi provideAreaApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(AreaApi.class);
     }
+
     public CPDApi cpdApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(CPDApi.class);
     }
+
     public MyPublishEmptyCarApi publishEmptyCarApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(MyPublishEmptyCarApi.class);
     }
+
     public WJApi wjApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(WJApi.class);
     }
+
     public AddLogisticsApi addLogisticsApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(AddLogisticsApi.class);
     }
-    public OrderApi provideOrderApi(){
+
+    public OrderApi provideOrderApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(OrderApi.class);
     }
-    public MyQuotedApi quotedApi(){
+
+    public MyQuotedApi quotedApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(MyQuotedApi.class);
     }
+
     public LogisticsApi provideLogisticsApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(LogisticsApi.class);
     }
+
     private OkHttpClient provideOkHttpClient() {
         if (mOkHttpClient == null) {
             initOkHttpClient();
@@ -114,7 +126,8 @@ public class ApiModule {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
-    private Interceptor provideOkLogInterceptor(){
+
+    private Interceptor provideOkLogInterceptor() {
         OkLogInterceptor okLogInterceptor = OkLogInterceptor.builder().build();
         return okLogInterceptor;
     }

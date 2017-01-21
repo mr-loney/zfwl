@@ -175,7 +175,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatTheme">
         </activity>
-        <activity android:name=".wxapi.WXPayEntryActivity">
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Transparent"
+            android:launchMode="singleTop">
         </activity>
         <activity
             android:name=".activity.PaySuccessActivity"
