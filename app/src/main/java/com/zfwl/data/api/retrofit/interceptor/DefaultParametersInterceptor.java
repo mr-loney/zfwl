@@ -74,9 +74,9 @@ public class DefaultParametersInterceptor implements Interceptor {
     }
     private boolean ignoreMemberId(Request request){
         HttpUrl originalHttpUrl = request.url();
-        String orgUrl = originalHttpUrl.url().getPath();
+        String path = originalHttpUrl.url().getPath();
         for(String url : IGNORE_MEMBER_ID_URLS){
-            if(orgUrl.contains(url)){
+            if(url.contains(path)){
                 return true;
             }
         }
