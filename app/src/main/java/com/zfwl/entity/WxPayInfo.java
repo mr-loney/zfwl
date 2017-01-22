@@ -26,6 +26,8 @@ public class WxPayInfo {
     @SerializedName("timestamp")
     private long timeStamp;
     private String sign;
+    @SerializedName("return_code")
+    private String returnCode;//SUCCESS表示请求成功
 
     public String getAppId() {
         return appId;
