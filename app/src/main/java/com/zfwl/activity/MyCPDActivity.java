@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.adapter.CPDAdatper;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.entity.Address;
@@ -48,9 +49,11 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     private MyCPDActivity vThis = this;
     private LoadingDialog loadingDialog;
     private CPDPresenter mPresenter;
+    private boolean isFromSignup;
 
-    public static void launch(Context context) {
+    public static void launch(Context context,boolean _isFromSignup) {
         Intent intent = new Intent(context, MyCPDActivity.class);
+        intent.putExtra("isFromSignup",_isFromSignup);
         context.startActivity(intent);
     }
 
@@ -62,6 +65,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         ButterKnife.bind(this);
         mPresenter = new CPDPresenter(this);
         mPresenter.attachView(this);
+        isFromSignup = getIntent().getBooleanExtra("isFromSignup",false);
 
         initView();
         mPresenter.getList();
@@ -194,7 +198,11 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     @Override
     public void onAdded(CPDModel data) {
         mPresenter.getList();
-        finish();
+        if (isFromSignup) {
+            HomeActivity.launch(this);
+        } else {
+            finish();
+        }
     }
     @Override
     public void onAddedFail(String msg) {

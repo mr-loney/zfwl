@@ -413,7 +413,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onRegisterAddInfoSuccess(User usr) {
-        MyCPDActivity.launch(mContext);
+        MyCPDActivity.launch(mContext,true);
     }
 
     @Override
