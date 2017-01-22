@@ -38,6 +38,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
     @Override
     public void onReq(BaseReq req) {
+        MyLog.i(TAG, "onReq:" + req.checkArgs());
     }
 
     /**

@@ -206,7 +206,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
 
     @Override
     public void onPayOrderClick(Order order) {
-        mWxPayPresenter.wechatPay(mWxApi, "orderId", "goodsDesc", 1);
+        mWxPayPresenter.wechatPay(mWxApi, System.currentTimeMillis() + "", "goodsDesc", 1);
     }
 
     @Override
@@ -323,4 +323,6 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     public void onGetWxPayInfoFailed(String msg) {
         ToastUtils.show(mContext, "创建订单失败");
     }
+
+
 }

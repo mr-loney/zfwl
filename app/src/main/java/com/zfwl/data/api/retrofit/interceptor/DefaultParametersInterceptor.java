@@ -1,8 +1,11 @@
 package com.zfwl.data.api.retrofit.interceptor;
 
 import com.zfwl.data.UserInfoManager;
+import com.zfwl.data.api.retrofit.ApiModule;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -15,7 +18,9 @@ import okhttp3.Response;
  * Created by ZZB on 2016/12/31.
  */
 public class DefaultParametersInterceptor implements Interceptor {
-
+    public static final List<String> IGNORE_MEMBER_ID_URLS = new ArrayList<String>(){{
+        add(ApiModule.BASE_URL + "app/pay/pay4Weixin.do");
+    }};
     @Override
     public Response intercept(Chain chain) throws IOException {
 
@@ -39,6 +44,9 @@ public class DefaultParametersInterceptor implements Interceptor {
 
     private Request interceptGet(Request originalRequest) {
         HttpUrl originalHttpUrl = originalRequest.url();
+        if(ignoreMemberId(originalRequest)){
+            return originalRequest;
+        }
         HttpUrl url = originalHttpUrl.newBuilder()
                 .addQueryParameter("memberId", getMemberIdStr())
                 .build();
@@ -48,6 +56,9 @@ public class DefaultParametersInterceptor implements Interceptor {
     }
 
     private Request interceptPost(Request originalRequest) {
+        if(ignoreMemberId(originalRequest)){
+            return originalRequest;
+        }
         FormBody.Builder bodyBuilder = new FormBody.Builder();
         FormBody b = (FormBody) originalRequest.body();
         for (int i = 0; i < b.size(); i++) {
@@ -60,5 +71,15 @@ public class DefaultParametersInterceptor implements Interceptor {
 
     public String getMemberIdStr() {
         return String.valueOf(UserInfoManager.INSTANCE.getMemberId());
+    }
+    private boolean ignoreMemberId(Request request){
+        HttpUrl originalHttpUrl = request.url();
+        String orgUrl = originalHttpUrl.url().getPath();
+        for(String url : IGNORE_MEMBER_ID_URLS){
+            if(orgUrl.contains(url)){
+                return true;
+            }
+        }
+        return false;
     }
 }
