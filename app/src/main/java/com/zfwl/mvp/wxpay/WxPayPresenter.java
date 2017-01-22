@@ -8,8 +8,8 @@ import com.zfwl.data.api.pay.WxPayApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.WxPayInfo;
 import com.zfwl.mvp.BasePresenter;
-import com.zfwl.util.MD5Utils;
 
+import com.zfwl.util.Md5Utils;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -92,7 +92,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
             paramsStr.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
         }
         paramsStr.append("key").append("=").append(WeChat.PAY_SECRET);
-        String sign = MD5Utils.toMD5(paramsStr.toString()).toUpperCase();
+        String sign = Md5Utils.toMD5(paramsStr.toString()).toUpperCase();
         MyLog.i(TAG, "calculateSign, original params: %s, MD5: %s", paramsStr.toString(), sign);
         return sign;
     }
