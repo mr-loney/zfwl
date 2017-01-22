@@ -65,7 +65,7 @@ configurations.all {
     }
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -84,7 +84,7 @@ dependencies {
     compile "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
     compile "com.jakewharton:butterknife:${butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
-    testCompile "org.mockito:mockito-core:2.2.9"
+    testCompile 'org.mockito:mockito-core:2.2.9'
     compile "com.android.support:appcompat-v7:${supportVersion}"
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
@@ -103,4 +103,5 @@ dependencies {
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
     compile 'cn.jiguang.sdk:jpush:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.0.0'
+    compile files('libs/alipaySdk.jar')
 }
