@@ -23,7 +23,9 @@ public interface OrderApi {
     @FormUrlEncoded
     @POST("app/order/saveOrdersStatus.do")
     Call<Object> updateOrderStatus(@Field("id") long orderId, @Field("status") int status);
-
+    @FormUrlEncoded
+    @POST("app/order/saveOrdersStatus.do")
+    Call<Object> updateOrderStatus(@Field("id") long orderId, @Field("status") int status, @Field("payMethod") int payMethod);
     /**
      * @param orderId
      * @param depotTime    仓库时间                   ---评分最高5分

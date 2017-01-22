@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
 import com.zfwl.activity.BaseFragment;
 import com.zfwl.activity.PaySuccessActivity;
@@ -24,7 +22,6 @@ import com.zfwl.activity.myorders.detail.WaitConfirmOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.adapter.OrdersAdapter;
 import com.zfwl.adapter.OrdersAdapter.Callback;
-import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.common.Nav;
 import com.zfwl.controls.LoadingDialog;
@@ -32,16 +29,12 @@ import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
 import com.zfwl.event.RefreshOrderListEvent;
-import com.zfwl.event.WxPayEvent;
-import com.zfwl.mvp.alipay.AliPayMvpView;
-import com.zfwl.mvp.alipay.AliPayPresenter;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderPresenter;
-import com.zfwl.mvp.wxpay.WxPayMvpView;
-import com.zfwl.mvp.wxpay.WxPayPresenter;
 import com.zfwl.widget.ToastUtils;
+import com.zfwl.widget.pay.PayPopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,7 +47,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ZZB on 2016/12/20.
  */
-public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpView, WaitConfirmOrderMvpView, WxPayMvpView,AliPayMvpView {
+public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpView, WaitConfirmOrderMvpView {
     private static final String TAG = "OrdersFragment";
     private static final String ARG_ORDER_TYPE = "ARG_ORDER_TYPE";
     @BindView(R.id.rv_orders)
@@ -64,11 +57,8 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private Context mContext;
     private OrdersPresenter mOrdersPresenter;
     private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
-    private WxPayPresenter mWxPayPresenter;
-    private AliPayPresenter mAliPayPresenter;
     private int mOrderType;
     private boolean mInited;
-    private IWXAPI mWxApi;
 
     public OrdersFragment() {
     }
@@ -101,7 +91,6 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mOrderType = getArguments().getInt(ARG_ORDER_TYPE);
-        mWxApi = WXAPIFactory.createWXAPI(mContext, WeChat.APP_ID);
     }
 
     @Nullable
@@ -122,8 +111,6 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         EventBus.getDefault().unregister(this);
         mWaitConfirmOrderPresenter.detachView();
         mOrdersPresenter.detachView();
-        mWxPayPresenter.detachView();
-        mAliPayPresenter.detachView();
     }
 
     private void initPresenters() {
@@ -131,10 +118,6 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         mOrdersPresenter.attachView(this);
         mWaitConfirmOrderPresenter = new WaitConfirmOrderPresenter();
         mWaitConfirmOrderPresenter.attachView(this);
-        mWxPayPresenter = new WxPayPresenter();
-        mWxPayPresenter.attachView(this);
-        mAliPayPresenter = new AliPayPresenter();
-        mAliPayPresenter.attachView(this);
     }
 
     private void initViews() {
@@ -210,10 +193,8 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         }
     }
 
-    @Override
-    public void onPayOrderClick(Order order) {
-//        mWxPayPresenter.wechatPay(mWxApi, System.currentTimeMillis() + "", "goodsDesc", 1);
-        mAliPayPresenter.aliPay((Activity) mContext,order.getId()+"", order.getGoodsName(), order.getMsgPrice()*100);
+    public void onPayOrderClick(Order order) {// TODO: 2017/1/23 价格有问题 
+        new PayPopupWindow(mContext, order.getId(), order.getMsgPrice()*100,order.getGoodsName()).show(getActivity().getWindow().getDecorView());
     }
 
     @Override
@@ -295,60 +276,4 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
             mRvOrders.refresh();
         }
     }
-
-    @Subscribe
-    public void onWxPayFinished(WxPayEvent event) {
-        switch (event.getCode()) {
-            case 1:
-                ToastUtils.show(mContext, "支付成功");
-                break;
-            case 2:
-                ToastUtils.show(mContext, "取消支付");
-                break;
-            default:
-                ToastUtils.show(mContext, "支付失败, " + event.getCode());
-                break;
-        }
-    }
-
-    @Override
-    public void showGetWxPayInfoLoading() {
-        mLoadingDialog.start("获取订单中...");
-    }
-
-    @Override
-    public void hideGetWxPayInfoLoading() {
-        mLoadingDialog.stop();
-    }
-
-    @Override
-    public void showCallingPayLoading() {
-        ToastUtils.show(mContext, "正在调起支付...");
-    }
-
-    @Override
-    public void onGetWxPayInfoFailed(String msg) {
-        ToastUtils.show(mContext, "创建订单失败");
-    }
-
-    @Override
-    public void showGetWxPayInfoLoading_Ali() {
-        mLoadingDialog.start("获取订单中...");
-    }
-
-    @Override
-    public void hideGetWxPayInfoLoading_Ali() {
-        mLoadingDialog.stop();
-    }
-
-    @Override
-    public  void showCallingPayLoading_Ali() {
-        ToastUtils.show(mContext, "正在调起支付...");
-    }
-
-    @Override
-    public void onGetWxPayInfoFailed_Ali(String msg) {
-        ToastUtils.show(mContext, msg);
-    }
-
 }
