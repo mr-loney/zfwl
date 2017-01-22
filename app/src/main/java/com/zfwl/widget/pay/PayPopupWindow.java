@@ -69,7 +69,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
                 0, 0);
     }
 
-    @OnClick({R.id.layout_wx, R.id.layout_zfb, R.id.layout_face})
+    @OnClick({R.id.layout_wx, R.id.layout_zfb, R.id.layout_face, R.id.btn_close, R.id.layout_empty})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_wx:
@@ -80,6 +80,10 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
                 break;
             case R.id.layout_face:
                 onFacePayClick();
+                break;
+            case R.id.btn_close:
+            case R.id.layout_empty:
+                dismiss();
                 break;
         }
     }

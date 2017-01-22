@@ -4,17 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
-        android:background="#000000"
-        android:alpha="0.3"
-        android:layout_above="@+id/layout_bottom"
+        android:id="@+id/layout_empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_bottom"/>
+
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/layout_bottom"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:orientation="vertical"
         >
@@ -30,10 +32,11 @@
                 android:text="请选择支付信息费用的方式"/>
 
             <ImageView
+                android:id="@+id/btn_close"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:padding="12dp"
                 android:layout_alignParentRight="true"
+                android:padding="12dp"
                 android:src="@drawable/ic_close"/>
         </RelativeLayout>
 
@@ -91,6 +94,7 @@
                 style="@style/GrayDivider"
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/layout_zfb"
             android:layout_width="match_parent"
@@ -142,6 +146,7 @@
                 style="@style/GrayDivider"
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/layout_face"
             android:layout_width="match_parent"
