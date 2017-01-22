@@ -14,6 +14,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zfwl.R;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.controls.LoadingDialog;
+import com.zfwl.event.RefreshOrderListEvent;
 import com.zfwl.event.WxPayEvent;
 import com.zfwl.mvp.wxpay.WxPayMvpView;
 import com.zfwl.mvp.wxpay.WxPayPresenter;
@@ -43,8 +44,10 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     private Context mContext;
     private IWXAPI mWxApi;
     private WxPayPresenter mWxPayPresenter;
+    private long mOrderId;
+    private double mPrice;
 
-    public PayPopupWindow(Context context) {
+    public PayPopupWindow(Context context, long orderId, double price) {
         super(context);
         initViews(context);
         EventBus.getDefault().register(this);
@@ -53,6 +56,8 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
         mWxPayPresenter = new WxPayPresenter();
         mWxPayPresenter.attachView(this);
         setOnDismissListener(this);
+        mOrderId = orderId;
+        mPrice = price;
     }
 
     private void initViews(Context context) {
@@ -89,7 +94,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     }
 
     private void onWxPayClick() {
-        mWxPayPresenter.wechatPay(mWxApi, System.currentTimeMillis() + "", "goodsDesc", 0.01);
+        mWxPayPresenter.wechatPay(mWxApi, mOrderId+"", "goodsDesc", mPrice);
     }
 
     private void onZfbPayClick() {
@@ -97,7 +102,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     }
 
     private void onFacePayClick() {
-
+        mWxPayPresenter.facePayOrder(mOrderId);
     }
 
     @Override
@@ -124,6 +129,28 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     @Override
     public void onGetWxPayInfoFailed(String msg) {
         ToastUtils.show(mContext, "创建订单失败");
+    }
+
+    @Override
+    public void showLoading() {
+        mLoadingDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoadingDialog.hide();
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        ToastUtils.show(mContext, msg);
+        EventBus.getDefault().post(new RefreshOrderListEvent());
+        dismiss();
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        ToastUtils.show(mContext, msg);
     }
 
     @Subscribe

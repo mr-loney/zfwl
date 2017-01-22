@@ -18,6 +18,7 @@ import com.zfwl.util.StringUtils;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
+import com.zfwl.widget.pay.PayPopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,6 +141,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
 
     private void onPayOrderClick() {
 //        mWaitPayOrderPresenter.acceptOrder(mOrderId);
+        new PayPopupWindow(this, mOrderId, 0.01).show(getWindow().getDecorView());
     }
 
 
@@ -172,4 +174,6 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     public void onCancelOrderFailed(String msg) {
         ToastUtils.show(this, "取消订单失败");
     }
+
+
 }

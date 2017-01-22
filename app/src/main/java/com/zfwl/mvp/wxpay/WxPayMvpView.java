@@ -14,4 +14,12 @@ public interface WxPayMvpView extends MvpView {
     void showCallingPayLoading();
 
     void onGetWxPayInfoFailed(String msg);
+
+    void showLoading();
+
+    void hideLoading();
+
+    void onSuccess(String msg);
+
+    void onFailed(String msg);
 }

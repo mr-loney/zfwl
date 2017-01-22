@@ -25,6 +25,10 @@ public class Order {
         int CHARGE_BY_CAR = 0;
         int CHARGE_BY_WEIGHT = 1;
     }
+    public interface PayMethod{
+        int WECHAT = 0;
+        int FACE = 1;
+    }
     private int id;
     private int memberId;
     private int emptyCardId;

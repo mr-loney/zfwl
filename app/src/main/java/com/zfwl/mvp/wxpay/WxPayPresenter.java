@@ -4,15 +4,15 @@ import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
+import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.pay.WxPayApi;
 import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.entity.Order.PayMethod;
+import com.zfwl.entity.Order.Type;
 import com.zfwl.entity.WxPayInfo;
 import com.zfwl.mvp.BasePresenter;
-
 import com.zfwl.util.Md5Utils;
-import com.zfwl.util.TimeUtils;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,9 +27,11 @@ import retrofit2.callback.CustomCallback;
 public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
     private static final String TAG = "WxPayPresenter";
     private WxPayApi mWxPayApi;
+    private OrderApi mOrderApi;
 
     public WxPayPresenter() {
         mWxPayApi = ApiModule.INSTANCE.provideWxPayApi();
+        mOrderApi = ApiModule.INSTANCE.provideOrderApi();
     }
 
     /**
@@ -41,6 +43,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         Map<String, String> params = getRequestMap(WeChat.APP_ID, WeChat.PAY_PARTNER_ID, WeChat.PAY_SECRET
                 , "WEB", goodsDesc, moneyInYuan, orderNumber, "APP");
         Call<WxPayInfo> call = mWxPayApi.getPayRequestInfo(params);
+        addCall(call);
         call.enqueue(new CustomCallback<WxPayInfo>() {
             @Override
             public void onSuccess(WxPayInfo wxPayInfo) {
@@ -59,6 +62,24 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         });
     }
 
+    public void facePayOrder(long orderId){
+        getMvpView().showLoading();
+        Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.PAID, PayMethod.FACE);
+        addCall(call);
+        call.enqueue(new CustomCallback<Object>() {
+            @Override
+            public void onSuccess(Object o) {
+                getMvpView().hideLoading();
+                getMvpView().onSuccess("当面支付设置成功");
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                getMvpView().hideLoading();
+                getMvpView().onFailed("当面支付设置失败：" + msg);
+            }
+        });
+    }
     private void callWxPay(IWXAPI wxApi, WxPayInfo wxPayInfo) {
         PayReq request = new PayReq();
         request.appId = wxPayInfo.getAppId();

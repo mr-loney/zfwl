@@ -18,4 +18,6 @@ public interface WaitPayOrderMvpView extends MvpView {
     void onCancelOrderSuccess();
 
     void onCancelOrderFailed(String msg);
+
+
 }
