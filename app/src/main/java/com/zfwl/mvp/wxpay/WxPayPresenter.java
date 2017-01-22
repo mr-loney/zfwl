@@ -10,6 +10,9 @@ import com.zfwl.entity.WxPayInfo;
 import com.zfwl.mvp.BasePresenter;
 
 import com.zfwl.util.Md5Utils;
+import com.zfwl.util.TimeUtils;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,7 +45,6 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
             @Override
             public void onSuccess(WxPayInfo wxPayInfo) {
                 MyLog.i(TAG, "request pay info，%s", wxPayInfo.toString());
-                wxPayInfo.setSign(calculateSign(params));
                 getMvpView().hideGetWxPayInfoLoading();
                 getMvpView().showCallingPayLoading();
                 callWxPay(wxApi, wxPayInfo);
@@ -62,10 +64,11 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         request.appId = wxPayInfo.getAppId();
         request.partnerId = wxPayInfo.getPartnerId();
         request.prepayId = wxPayInfo.getPrepayId();
-        request.packageValue = "Sign=WXPay";
+        wxPayInfo.setPackageValue("Sign=WXPay");
+        request.packageValue = wxPayInfo.getPackageValue();
         request.nonceStr = wxPayInfo.getNonceStr();
         request.timeStamp = wxPayInfo.getTimeStamp() + "";
-        request.sign = wxPayInfo.getSign();
+        request.sign = calculateSign(wxPayInfo);
         wxApi.sendReq(request);
     }
 
@@ -84,8 +87,16 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         return map;
     }
 
-    private String calculateSign(Map<String, String> params) {
-        Iterator<Entry<String, String>> it = params.entrySet().iterator();
+    private String calculateSign(WxPayInfo wxPayInfo) {
+        Map<String, String> map = new TreeMap<>();
+        map.put("appid", wxPayInfo.getAppId());
+        map.put("noncestr", wxPayInfo.getNonceStr());
+        map.put("package", wxPayInfo.getPackageValue());
+        map.put("partnerid", wxPayInfo.getPartnerId());
+        map.put("prepayid", wxPayInfo.getPrepayId());
+        map.put("timestamp", wxPayInfo.getTimeStamp()+"");
+
+        Iterator<Entry<String, String>> it = map.entrySet().iterator();
         StringBuilder paramsStr = new StringBuilder();
         while (it.hasNext()) {
             Entry<String, String> entry = it.next();
