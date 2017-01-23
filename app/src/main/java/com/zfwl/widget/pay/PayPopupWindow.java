@@ -48,11 +48,11 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     private IWXAPI mWxApi;
     private WxPayPresenter mWxPayPresenter;
     private AliPayPresenter mAliPayPresenter;
-    private long mOrderId;
+    private String mOrderId;
     private double mPrice;
     private String mGoodsName;
 
-    public PayPopupWindow(Context context, long orderId, double price,String goodsName) {
+    public PayPopupWindow(Context context, String orderId, double price,String goodsName) {
         super(context);
         initViews(context);
         EventBus.getDefault().register(this);
@@ -110,7 +110,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
     }
 
     private void onFacePayClick() {
-        mWxPayPresenter.facePayOrder(mOrderId);
+        mWxPayPresenter.facePayOrder(Long.parseLong(mOrderId));
     }
 
     @Override
@@ -156,7 +156,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
 
     @Override
     public void onGetWxPayInfoFailed_Ali(String msg) {
-        ToastUtils.show(mContext, "创建订单失败");
+        ToastUtils.show(mContext, msg);
     }
 
     @Override

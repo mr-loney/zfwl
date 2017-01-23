@@ -64,6 +64,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
     private WaitPayOrderPresenter mWaitPayOrderPresenter;
+    private OrderDetails data;
 
     public static void launch(Context context, long orderId) {
         Intent intent = new Intent(context, WaitPayOrderDetailActivity.class);
@@ -97,6 +98,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
 
     @Override
     protected void populateDetails(OrderDetails orderDetails) {
+        data = orderDetails;
         OrderEmptyCar carInfo = orderDetails.getMemberEmptyCar();
         ListBean logisticsInfo = orderDetails.getLogisticsInfo();
         if (logisticsInfo != null) {
@@ -141,7 +143,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
 
     private void onPayOrderClick() {
 //        mWaitPayOrderPresenter.acceptOrder(mOrderId);
-        new PayPopupWindow(this, mOrderId, 0.01).show(getWindow().getDecorView());
+        new PayPopupWindow(this, mOrderId+"", data.getMsgPrice()*100,data.getOrderCode()).show(getWindow().getDecorView());
     }
 
 

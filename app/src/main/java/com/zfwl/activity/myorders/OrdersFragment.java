@@ -194,7 +194,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     }
 
     public void onPayOrderClick(Order order) {// TODO: 2017/1/23 价格有问题 
-        new PayPopupWindow(mContext, order.getId(), order.getMsgPrice()*100,order.getGoodsName()).show(getActivity().getWindow().getDecorView());
+        new PayPopupWindow(mContext, order.getId()+"", order.getMsgPrice()*100,order.getGoodsName()).show(getActivity().getWindow().getDecorView());
     }
 
     @Override
