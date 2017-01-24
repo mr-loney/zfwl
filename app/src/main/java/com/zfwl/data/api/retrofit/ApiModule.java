@@ -33,7 +33,7 @@ import rx.schedulers.Schedulers;
 public class ApiModule {
 
     public static ApiModule INSTANCE = new ApiModule();
-    public static final String BASE_URL = "http://112.126.93.160:9080/logistics/";
+    public static final String BASE_URL = "http://101.201.223.195:8080/logistics/";
     private static final int CONNECT_TIMEOUT = 15;
     private Retrofit mRetrofit;
     private OkHttpClient mOkHttpClient;
