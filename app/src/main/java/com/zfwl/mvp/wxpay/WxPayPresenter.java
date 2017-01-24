@@ -36,11 +36,11 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
     /**
      * 传入的价格是以分为单位
      */
-    public void wechatPay(IWXAPI wxApi, String orderNumber, String goodsDesc, double totalFeeInFen) {
+    public void wechatPay(IWXAPI wxApi, String orderNumber, String goodsDesc, double price) {
         getMvpView().showGetWxPayInfoLoading();
-        int moneyInYuan = 1;//(int) (totalFeeInFen * 100);
+        int moneyInFen = (int) (price * 100);
         Map<String, String> params =
-                getRequestMap(WeChat.APP_ID, WeChat.PAY_PARTNER_ID, WeChat.PAY_SECRET, "WEB", goodsDesc, moneyInYuan,
+                getRequestMap(WeChat.APP_ID, WeChat.PAY_PARTNER_ID, WeChat.PAY_SECRET, "WEB", goodsDesc, moneyInFen,
                         orderNumber, "APP");
         Call<WxPayInfo> call = mWxPayApi.getPayRequestInfo(params);
         addCall(call);
