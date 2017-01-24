@@ -136,7 +136,7 @@ public class PayPopupWindow extends PopupWindow implements OnDismissListener, Wx
 
     @Override
     public void onGetWxPayInfoFailed(String msg) {
-        ToastUtils.show(mContext, "创建订单失败");
+        ToastUtils.show(mContext, msg);
     }
 
     @Override

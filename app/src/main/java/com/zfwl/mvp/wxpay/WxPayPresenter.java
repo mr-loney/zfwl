@@ -11,13 +11,12 @@ import com.zfwl.entity.Order.PayMethod;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.entity.WxPayInfo;
 import com.zfwl.mvp.BasePresenter;
+import com.zfwl.util.FP;
 import com.zfwl.util.Md5Utils;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import retrofit2.Call;
 import retrofit2.callback.CustomCallback;
 
@@ -40,8 +39,9 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
     public void wechatPay(IWXAPI wxApi, String orderNumber, String goodsDesc, double totalFeeInFen) {
         getMvpView().showGetWxPayInfoLoading();
         int moneyInYuan = (int) (totalFeeInFen * 100);
-        Map<String, String> params = getRequestMap(WeChat.APP_ID, WeChat.PAY_PARTNER_ID, WeChat.PAY_SECRET
-                , "WEB", goodsDesc, moneyInYuan, orderNumber, "APP");
+        Map<String, String> params =
+                getRequestMap(WeChat.APP_ID, WeChat.PAY_PARTNER_ID, WeChat.PAY_SECRET, "WEB", goodsDesc, moneyInYuan,
+                        orderNumber, "APP");
         Call<WxPayInfo> call = mWxPayApi.getPayRequestInfo(params);
         addCall(call);
         call.enqueue(new CustomCallback<WxPayInfo>() {
@@ -49,8 +49,12 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
             public void onSuccess(WxPayInfo wxPayInfo) {
                 MyLog.i(TAG, "request pay info，%s", wxPayInfo.toString());
                 getMvpView().hideGetWxPayInfoLoading();
-                getMvpView().showCallingPayLoading();
-                callWxPay(wxApi, wxPayInfo);
+                if ("SUCCESS".equals(wxPayInfo.getReturnCode()) && FP.empty(wxPayInfo.getErrorCode())) {
+                    getMvpView().showCallingPayLoading();
+                    callWxPay(wxApi, wxPayInfo);
+                } else {
+                    getMvpView().onGetWxPayInfoFailed(wxPayInfo.getErrorCode() + " : " + wxPayInfo.getErrorDesc());
+                }
             }
 
             @Override
@@ -62,7 +66,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         });
     }
 
-    public void facePayOrder(long orderId){
+    public void facePayOrder(long orderId) {
         getMvpView().showLoading();
         Call<Object> call = mOrderApi.updateOrderStatus(orderId, Type.PAID, PayMethod.FACE);
         addCall(call);
@@ -80,6 +84,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
             }
         });
     }
+
     private void callWxPay(IWXAPI wxApi, WxPayInfo wxPayInfo) {
         PayReq request = new PayReq();
         request.appId = wxPayInfo.getAppId();
@@ -94,7 +99,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
     }
 
     private Map<String, String> getRequestMap(String appId, String mchId, String secKey, String deviceInfo,
-                                              String goodsDesc, int totalFee, String outTradeNo, String tradeType) {
+            String goodsDesc, int totalFee, String outTradeNo, String tradeType) {
 
         Map<String, String> map = new TreeMap<>();
         map.put("appid", appId);
@@ -115,7 +120,7 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         map.put("package", wxPayInfo.getPackageValue());
         map.put("partnerid", wxPayInfo.getPartnerId());
         map.put("prepayid", wxPayInfo.getPrepayId());
-        map.put("timestamp", wxPayInfo.getTimeStamp()+"");
+        map.put("timestamp", wxPayInfo.getTimeStamp() + "");
 
         Iterator<Entry<String, String>> it = map.entrySet().iterator();
         StringBuilder paramsStr = new StringBuilder();
@@ -128,6 +133,4 @@ public class WxPayPresenter extends BasePresenter<WxPayMvpView> {
         MyLog.i(TAG, "calculateSign, original params: %s, MD5: %s", paramsStr.toString(), sign);
         return sign;
     }
-
-
 }

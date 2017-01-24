@@ -28,6 +28,10 @@ public class WxPayInfo {
     private String sign;
     @SerializedName("return_code")
     private String returnCode;//SUCCESS表示请求成功
+    @SerializedName("err_code")
+    private String errorCode;
+    @SerializedName("err_code_des")
+    private String errorDesc;
 
     public String getAppId() {
         return appId;
@@ -83,6 +87,30 @@ public class WxPayInfo {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorDesc() {
+        return errorDesc;
+    }
+
+    public void setErrorDesc(String errorDesc) {
+        this.errorDesc = errorDesc;
     }
 
     @Override
