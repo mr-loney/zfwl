@@ -166,6 +166,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
     }
 
     private void onLoginSuccess(User user) {
+        saveUserInfo(user);
         getMvpView().onLoginSuccess(user);
     }
 }

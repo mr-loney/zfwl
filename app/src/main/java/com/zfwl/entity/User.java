@@ -157,4 +157,27 @@ public class User {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", account='" + account + '\'' +
+                ", realname='" + realname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", sex=" + sex +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", idcard='" + idcard + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                ", isBlacklist=" + isBlacklist +
+                ", memberType=" + memberType +
+                ", cdate=" + cdate +
+                ", mdate=" + mdate +
+                ", isCompletedInfo=" + isCompletedInfo +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }
