@@ -34,6 +34,7 @@ public class UserInfoManager {
         mUserPref = EasySPUserPref.create(mContext, user.getId() + "");
         mUserPref.setUserJson(GsonUtils.objectToJson(user));
         GlobalPref.get(mContext).setLastLoginMemberId(user.getId());
+        PushConfig.setTag(mContext, user.getAccount());
     }
 
     public boolean hasLogin() {

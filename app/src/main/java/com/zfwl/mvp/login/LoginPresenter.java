@@ -167,6 +167,5 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     private void onLoginSuccess(User user) {
         getMvpView().onLoginSuccess(user);
-        PushConfig.setTag(mContext, user.getAccount());
     }
 }
