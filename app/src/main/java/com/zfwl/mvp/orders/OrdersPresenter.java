@@ -90,4 +90,8 @@ public class OrdersPresenter extends BasePresenter<OrdersMvpView> {
         MyLog.i(TAG, "refreshOrders success");
         getMvpView().onRefreshOrdersSuccess(orders);
     }
+
+    public void updateWxPaySuccess(long orderId) {
+        mOrderApi.updateOrderStatus(orderId, Order.Type.PAID, Order.PayMethod.WECHAT);
+    }
 }

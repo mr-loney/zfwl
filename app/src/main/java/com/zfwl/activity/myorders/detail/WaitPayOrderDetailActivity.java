@@ -8,9 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.PaySuccessActivity;
 import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.entity.OrderDetails;
 import com.zfwl.entity.OrderDetails.OrderEmptyCar;
+import com.zfwl.event.RefreshOrderListEvent;
+import com.zfwl.event.WxPayEvent;
 import com.zfwl.mvp.orders.waitpay.WaitPayOrderMvpView;
 import com.zfwl.mvp.orders.waitpay.WaitPayOrderPresenter;
 import com.zfwl.util.AddressUtils;
@@ -24,6 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * 待支付
@@ -143,7 +148,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
 
     private void onPayOrderClick() {
 //        mWaitPayOrderPresenter.acceptOrder(mOrderId);
-        new PayPopupWindow(this, mOrderId+"", data.getMsgPrice()*100,data.getOrderCode()).show(getWindow().getDecorView());
+        new PayPopupWindow(this, mOrderId+"", data.getMsgPrice(),data.getOrderCode()).show(getWindow().getDecorView());
     }
 
 
@@ -177,5 +182,10 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
         ToastUtils.show(this, "取消订单失败");
     }
 
-
+    @Subscribe
+    public void onWxPaySuccess(WxPayEvent event){
+        mWaitPayOrderPresenter.updateWxPaySuccess(mOrderDetails.getId());
+        PaySuccessActivity.launch(this, data.getMsgPrice(), data.getRelationPhone());
+        EventBus.getDefault().post(new RefreshOrderListEvent());
+    }
 }

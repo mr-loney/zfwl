@@ -28,6 +28,7 @@ public class Order {
     public interface PayMethod{
         int WECHAT = 0;
         int FACE = 1;
+        int ZFB = 2;
     }
     private int id;
     private int memberId;

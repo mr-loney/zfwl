@@ -29,6 +29,7 @@ import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.ClearOrderReadPointEvent;
 import com.zfwl.event.RefreshOrderListEvent;
+import com.zfwl.event.WxPayEvent;
 import com.zfwl.mvp.orders.OrdersMvpView;
 import com.zfwl.mvp.orders.OrdersPresenter;
 import com.zfwl.mvp.orders.waitconfirm.WaitConfirmOrderMvpView;
@@ -59,6 +60,7 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     private WaitConfirmOrderPresenter mWaitConfirmOrderPresenter;
     private int mOrderType;
     private boolean mInited;
+    private Order mCurrentPayOrder;
 
     public OrdersFragment() {
     }
@@ -193,8 +195,9 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         }
     }
 
-    public void onPayOrderClick(Order order) {// TODO: 2017/1/23 价格有问题 
-        new PayPopupWindow(mContext, order.getId()+"", order.getMsgPrice()*100,order.getGoodsName()).show(getActivity().getWindow().getDecorView());
+    public void onPayOrderClick(Order order) {
+        mCurrentPayOrder = order;
+        new PayPopupWindow(mContext, order.getId()+"", order.getMsgPrice(),order.getGoodsName()).show(getActivity().getWindow().getDecorView());
     }
 
     @Override
@@ -275,5 +278,11 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
         if (mRvOrders != null) {
             mRvOrders.refresh();
         }
+    }
+    @Subscribe
+    public void onWxPaySuccess(WxPayEvent event){
+        mOrdersPresenter.updateWxPaySuccess(mCurrentPayOrder.getId());
+        PaySuccessActivity.launch(mContext, mCurrentPayOrder.getMsgPrice(), mCurrentPayOrder.getRelationPhone());
+        EventBus.getDefault().post(new RefreshOrderListEvent());
     }
 }

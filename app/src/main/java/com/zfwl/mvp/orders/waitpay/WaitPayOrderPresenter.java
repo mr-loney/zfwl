@@ -2,6 +2,7 @@ package com.zfwl.mvp.orders.waitpay;
 
 import com.zfwl.data.api.OrderApi;
 import com.zfwl.data.api.retrofit.ApiModule;
+import com.zfwl.entity.Order;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.mvp.BasePresenter;
 
@@ -54,5 +55,9 @@ public class WaitPayOrderPresenter extends BasePresenter<WaitPayOrderMvpView> {
                 getMvpView().onCancelOrderFailed(msg);
             }
         });
+    }
+
+    public void updateWxPaySuccess(long orderId) {
+        mOrderApi.updateOrderStatus(orderId, Order.Type.PAID, Order.PayMethod.WECHAT);
     }
 }
