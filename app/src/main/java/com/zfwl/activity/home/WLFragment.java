@@ -22,6 +22,7 @@ import com.zfwl.controls.pulltorefresh.PullToRefreshListView.OnRefreshListener;
 import com.zfwl.controls.pulltorefresh.PullToRefreshListViewEx;
 import com.zfwl.entity.Address;
 import com.zfwl.entity.LogisticsInfo.ListBean;
+import com.zfwl.event.RefreshWlEvent;
 import com.zfwl.mvp.logistics.LogisticsMvpView;
 import com.zfwl.mvp.logistics.LogisticsPresenter;
 import com.zfwl.widget.ToastUtils;
@@ -35,7 +36,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class WLFragment extends Fragment implements SelectAreaCallback,
         LogisticsMvpView, Callback, OnLoadMoreListener, OnRefreshListener {
@@ -87,6 +89,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -102,6 +105,7 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mLogisticsPresenter.detachView();
     }
 
@@ -326,5 +330,8 @@ public class WLFragment extends Fragment implements SelectAreaCallback,
         mRvSelectTime.setAdapter(selectTimeAdapter);
         mFromAndToView.setSelectTime(mSelectTimeView, selectTimeAdapter);
     }
-
+    @Subscribe
+    public void onReceiveRefresh(RefreshWlEvent event) {
+        onRefresh();
+    }
 }

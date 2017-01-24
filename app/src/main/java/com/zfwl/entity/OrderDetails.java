@@ -232,10 +232,10 @@ public class OrderDetails implements Serializable{
         private long id;// 1,
         private long memberId;// 1,
         private int carNumber;// 8,
-        private int loadNumber;// 13,
+        private float loadNumber;// 13,
         private int priceType;// 1,
         private double price;// 23,
-        private int total;// 299,
+        private double total;// 299,
         private int status;// 0,
 
         public long getId() {
@@ -262,11 +262,11 @@ public class OrderDetails implements Serializable{
             this.carNumber = carNumber;
         }
 
-        public int getLoadNumber() {
+        public float getLoadNumber() {
             return loadNumber;
         }
 
-        public void setLoadNumber(int loadNumber) {
+        public void setLoadNumber(float loadNumber) {
             this.loadNumber = loadNumber;
         }
 
@@ -286,11 +286,11 @@ public class OrderDetails implements Serializable{
             this.price = price;
         }
 
-        public int getTotal() {
+        public double getTotal() {
             return total;
         }
 
-        public void setTotal(int total) {
+        public void setTotal(double total) {
             this.total = total;
         }
 
@@ -312,7 +312,7 @@ public class OrderDetails implements Serializable{
         private String fromAddressName;// 北京市-市辖区-东城区 aaaa,
         private String goDate;// 2016-12-29 10;//00;//00.0,
         private int carNumber;// 5,
-        private int loadNumber;// 10,
+        private float loadNumber;// 10,
         private int carLength;// 15,
         private long cdate;// 1482908283000,
         private long mdate;// 1482908282000,
@@ -394,11 +394,11 @@ public class OrderDetails implements Serializable{
             this.carNumber = carNumber;
         }
 
-        public int getLoadNumber() {
+        public float getLoadNumber() {
             return loadNumber;
         }
 
-        public void setLoadNumber(int loadNumber) {
+        public void setLoadNumber(float loadNumber) {
             this.loadNumber = loadNumber;
         }
 
