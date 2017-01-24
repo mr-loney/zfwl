@@ -156,7 +156,8 @@ public class WaitConfirmOrderDetailActivity extends BaseOrderDetailActivity impl
 
     @Override
     public void onConfirmOrderSuccess() {
-        ToastUtils.show(this, "确认订单成功");
+        ToastUtils.show(this, "成功接单");
+        finish();
     }
 
     @Override

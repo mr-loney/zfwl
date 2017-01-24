@@ -250,8 +250,8 @@ public class OrdersFragment extends BaseFragment implements Callback, OrdersMvpV
     @Override
     public void onConfirmOrderSuccess() {
         mRvOrders.refresh();
-        ToastUtils.show(mContext, "确认订单成功");
-        PaySuccessActivity.launch(mContext, 0, "00");
+        ToastUtils.show(mContext, "成功接单");
+        //PaySuccessActivity.launch(mContext, 0, "00");
     }
 
     @Override
