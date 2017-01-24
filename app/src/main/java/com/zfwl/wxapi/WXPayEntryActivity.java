@@ -2,7 +2,6 @@ package com.zfwl.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -13,7 +12,7 @@ import com.zfwl.activity.BaseActivity;
 import com.zfwl.common.Const.WeChat;
 import com.zfwl.common.MyLog;
 import com.zfwl.event.WxPayEvent;
-
+import com.zfwl.widget.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
 
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
@@ -49,9 +48,17 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
      */
     @Override
     public void onResp(BaseResp resp) {
-        MyLog.i(TAG, "onPayFinish, type: %d, errCode: %d ", resp.getType(), resp.errCode);
+        int code = resp.errCode;
+        MyLog.i(TAG, "onPayFinish, type: %d, errCode: %d ", resp.getType(), code);
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            EventBus.getDefault().post(new WxPayEvent(resp.errCode));
+            if (code == 0) {
+                EventBus.getDefault().post(new WxPayEvent(code));
+            } else if(code == -2) {
+                ToastUtils.show(this, "取消支付");
+            } else{
+                ToastUtils.show(this, "支付失败:" + code);
+            }
+
             finish();
         }
     }
