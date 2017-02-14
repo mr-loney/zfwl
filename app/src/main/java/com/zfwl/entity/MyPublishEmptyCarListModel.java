@@ -148,7 +148,7 @@ public class MyPublishEmptyCarListModel implements Serializable {
 		private int fromCityId;
 		private int fromCountyId;
 		private String fromAddressName;
-		private String goDate;
+		private long goDate;
 		private int carNumber;
 		private int loadNumber;
 		private int carLength;
@@ -205,11 +205,11 @@ public class MyPublishEmptyCarListModel implements Serializable {
 			this.fromAddressName = fromAddressName;
 		}
 
-		public String getGoDate() {
+		public long getGoDate() {
 			return goDate;
 		}
 
-		public void setGoDate(String goDate) {
+		public void setGoDate(long goDate) {
 			this.goDate = goDate;
 		}
 

@@ -26,6 +26,7 @@ import com.zfwl.mvp.logistics.AddLogisticsMvpView;
 import com.zfwl.mvp.logistics.AddLogisticsPresenter;
 import com.zfwl.util.DisplayUtil;
 import com.zfwl.util.FP;
+import com.zfwl.util.ViewHub;
 import com.zfwl.widget.SelectCPDListView;
 import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.slsectarea.SelectAreaListView;
@@ -175,6 +176,15 @@ public class AddzfwlActivity extends BaseActivity implements SelectAreaListView.
 				Dialog dateDialog=new DatePickerDialog(vThis, new DatePickerDialog.OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+						Calendar c = Calendar.getInstance();
+						int nyear = c.get(Calendar.YEAR);
+						int nmonth = c.get(Calendar.MONTH);
+						int nday = c.get(Calendar.DAY_OF_MONTH);
+						if (nyear>year || nmonth>month || nday>dayOfMonth) {
+							ViewHub.showLongToast(vThis,"发布日期不可以小于当前时间");
+							return;
+						}
+
 						detailTxt1.met.setText(year+"-"+(month+1)+"-"+dayOfMonth+" ");
 						detailTxt1.mtv2.setText(year+"-"+(month+1)+"-"+dayOfMonth+" ");
 						Calendar time=Calendar.getInstance();
