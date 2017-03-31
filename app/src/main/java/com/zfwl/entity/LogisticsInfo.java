@@ -152,6 +152,7 @@ public class LogisticsInfo implements Serializable {
         private String contactWay;
         private String remark;
         private List<AddressInfoListBean> addressInfoList;
+        private String relationPhone;
 
         public String getDepartureTimeStr() {
             return departureTimeStr;
@@ -255,6 +256,14 @@ public class LogisticsInfo implements Serializable {
 
         public void setAddressInfoList(List<AddressInfoListBean> addressInfoList) {
             this.addressInfoList = addressInfoList;
+        }
+
+        public String getRelationPhone() {
+            return relationPhone;
+        }
+
+        public void setRelationPhone(String relationPhone) {
+            this.relationPhone = relationPhone;
         }
 
         public static class AddressInfoListBean implements Serializable {
