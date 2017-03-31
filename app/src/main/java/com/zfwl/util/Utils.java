@@ -47,16 +47,17 @@ public class Utils {
         Date nowDate = new Date(System.currentTimeMillis());
         if (date.getYear() == nowDate.getYear() &&
                 date.getMonth() == nowDate.getMonth() &&
-                (nowDate.getDay() - date.getDay())<3)
+                date.getDate() >= nowDate.getDate() &&
+                (date.getDate() - nowDate.getDate())<3)
         {
             strTime = strTime.substring(11,16);
-            if (nowDate.getDay() == date.getDay()) {
+            if (nowDate.getDate() == date.getDate()) {
                 strTime = "今天" + strTime;
             }
-            if (nowDate.getDay() == date.getDay()+1) {
+            if (nowDate.getDate() == date.getDate()+1) {
                 strTime = "明天" + strTime;
             }
-            if (nowDate.getDay() == date.getDay()+2) {
+            if (nowDate.getDate() == date.getDate()+2) {
                 strTime = "后天" + strTime;
             }
         } else {
