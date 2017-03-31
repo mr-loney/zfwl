@@ -57,6 +57,8 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_car_number)
     KeyValueItem mItemCarNumber;
+    @BindView(R.id.item_has_car_number)
+    KeyValueItem mItemHasCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
 
@@ -118,7 +120,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String title = "需要"+data.getCarNum()+"辆"+data.getLength()+"米的车 从"+fromStr+"到"+toStr;
+        String title = "需要"+(data.getCarNum()-data.getHasCarNum())+"辆"+data.getLength()+"米的车 从"+fromStr+"到"+toStr;
         String content = "发车时间"+time;
         String url = ApiModule.BASE_URL + "app/weixin/showDetail.do?logisticsId="+data.getId();
 
@@ -174,6 +176,8 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemGoodsLength.setValueText(data.getLength() + "");
         mItemCarNumber.setKeyText("需要车辆");
         mItemCarNumber.setValueText(data.getCarNum() + "");
+        mItemHasCarNumber.setKeyText("剩余车辆");
+        mItemHasCarNumber.setValueText((data.getCarNum()-data.getHasCarNum()) + "");
         if (data.getRemark() == null || data.getRemark().length() == 0) {
             findViewById(R.id.tv_remark_bg).setVisibility(View.GONE);
         } else {

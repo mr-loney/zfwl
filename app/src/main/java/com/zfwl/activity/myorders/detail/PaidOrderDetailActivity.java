@@ -45,6 +45,8 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
+    @BindView(R.id.item_has_car_number)
+    KeyValueItem mItemhasCarNumber;
     @BindView(R.id.btn_contact_sales)
     TextView mBtnContactSales;
     @BindView(R.id.tv_remark)
@@ -96,6 +98,7 @@ public class PaidOrderDetailActivity extends BaseOrderDetailActivity {
             mItemGoodsWeight.setText("货物重量(吨)", StringUtils.removeTrailingZero(logisticsInfo.getWeight() + ""));
             mItemGoodsLength.setText("货物长度(米)", StringUtils.removeTrailingZero(logisticsInfo.getLength() + ""));
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemhasCarNumber.setText("剩余车辆", (logisticsInfo.getCarNum()-logisticsInfo.getHasCarNum()) + "");
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
         }

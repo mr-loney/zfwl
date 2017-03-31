@@ -54,6 +54,8 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
     KeyValueItem mItemGoodsWeight;
     @BindView(R.id.item_goods_length)
     KeyValueItem mItemGoodsLength;
+    @BindView(R.id.item_has_car_number)
+    KeyValueItem mItemHasCarNumber;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
     @BindView(R.id.item_my_quoted_price)
@@ -114,6 +116,7 @@ public class WaitPayOrderDetailActivity extends BaseOrderDetailActivity implemen
             mItemGoodsWeight.setText("货物重量(吨)", StringUtils.removeTrailingZero(logisticsInfo.getWeight() + ""));
             mItemGoodsLength.setText("货物长度(米)", StringUtils.removeTrailingZero(logisticsInfo.getLength() + ""));
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemHasCarNumber.setText("剩余车辆", (logisticsInfo.getCarNum()-logisticsInfo.getHasCarNum()) + "");
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
         }

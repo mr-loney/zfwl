@@ -172,6 +172,14 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
                 initView();
                 break;
             case R.id.submit:
+                if (etCarWeight.getText().toString().length()==0) {
+                    ViewHub.showLongToast(this,"请输入装载吨数");
+                    return;
+                }
+                if (tvPrice.getText().toString().length()==0) {
+                    ViewHub.showLongToast(this,"请输入单价");
+                    return;
+                }
                 mPresenter.add(logisticsId,
                         carCount,
                         carWeight,

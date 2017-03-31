@@ -160,6 +160,7 @@ public class MyQuotedModel implements Serializable {
 		private int id;
 		private int memberId;
 		private int carNumber;
+		private int hasCarNum;
 		private double loadNumber;
 		private int priceType;
 		private double price;
@@ -185,6 +186,14 @@ public class MyQuotedModel implements Serializable {
 		private Object toAddress;
 		private Object logisticsInfo;
 		private List<AddressInfoListBean> addressInfoList;
+
+		public int getHasCarNum() {
+			return hasCarNum;
+		}
+
+		public void setHasCarNum(int hasCarNum) {
+			this.hasCarNum = hasCarNum;
+		}
 
 		public int getId() {
 			return id;

@@ -144,6 +144,7 @@ public class LogisticsInfo implements Serializable {
         private double weight;
         private double length;
         private int carNum;
+        private int hasCarNum;
         private long departureTime;
         private String departureTimeStr;
         private long createTime;
@@ -152,6 +153,14 @@ public class LogisticsInfo implements Serializable {
         private String contactWay;
         private String remark;
         private List<AddressInfoListBean> addressInfoList;
+
+        public int getHasCarNum() {
+            return hasCarNum;
+        }
+
+        public void setHasCarNum(int hasCarNum) {
+            this.hasCarNum = hasCarNum;
+        }
 
         public String getDepartureTimeStr() {
             return departureTimeStr;

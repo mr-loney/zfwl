@@ -92,7 +92,7 @@ public class LogisticsAdapter  extends BaseAdapter {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            holder.tvDesc.setText(data.getGoodsName()+" "+data.getLength()+"米  要"+data.getCarNum()+"辆车");
+            holder.tvDesc.setText(data.getGoodsName()+" "+data.getLength()+"米  要"+(data.getCarNum()-data.getHasCarNum())+"辆车");
             holder.btnRob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -62,6 +62,8 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
+    @BindView(R.id.item_has_car_number)
+    KeyValueItem mItemHasCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
 
@@ -157,6 +159,8 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemGoodsLength.setValueText(StringUtils.removeTrailingZero(data.getLength()+""));
             mItemNeedCarNumber.setKeyText("需要车辆");
             mItemNeedCarNumber.setValueText(data.getCarNumber()+"");
+            mItemHasCarNumber.setKeyText("剩余车辆");
+            mItemHasCarNumber.setValueText((data.getCarNumber()-data.getHasCarNum())+"");
 
             if (data.getRemark().length()>0) {
                 mTvRemark.setText(data.getRemark());

@@ -41,6 +41,8 @@ public class WaitCommentDetailActivity extends BaseOrderDetailActivity {
     KeyValueItem mItemGoodsLength;
     @BindView(R.id.item_need_car_number)
     KeyValueItem mItemNeedCarNumber;
+    @BindView(R.id.item_has_car_number)
+    KeyValueItem mItemHasCarNumber;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
 
@@ -78,6 +80,7 @@ public class WaitCommentDetailActivity extends BaseOrderDetailActivity {
             mItemGoodsWeight.setText("货物重量(吨)", StringUtils.removeTrailingZero(logisticsInfo.getWeight() + ""));
             mItemGoodsLength.setText("货物长度(米)", StringUtils.removeTrailingZero(logisticsInfo.getLength() + ""));
             mItemNeedCarNumber.setText("需要车辆", logisticsInfo.getCarNum() + "");
+            mItemHasCarNumber.setText("剩余车辆", (logisticsInfo.getCarNum()-logisticsInfo.getHasCarNum()) + "");
             mItemBeginTime.setText("发车时间", getTimeStr(logisticsInfo.getDepartureTime()));
             mTvRemark.setText(logisticsInfo.getRemark());
         }

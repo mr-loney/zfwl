@@ -272,6 +272,12 @@
             android:layout_height="45dp"
             android:background="@color/white"/>
 
+        <com.zfwl.widget.goodsdetail.KeyValueItem
+            android:id="@+id/item_has_car_number"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"/>
+
         <View
             style="@style/GrayDivider"
             android:layout_marginBottom="21dp"/>
