@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bilibili.socialize.share.core.SocializeMedia;
 import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
+import com.zfwl.common.Nav;
 import com.zfwl.data.UserInfoManager;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.LogisticsInfo;
@@ -59,8 +60,11 @@ public class GoodsDetailActivity extends BaseShareableActivity {
     KeyValueItem mItemCarNumber;
     @BindView(R.id.item_has_car_number)
     KeyValueItem mItemHasCarNumber;
+    @BindView(R.id.item_contact)
+    KeyValueItem mItemContact;
     @BindView(R.id.tv_remark)
     TextView mTvRemark;
+
 
     private WechatShareManager mShareManager;
     private LogisticsInfo.ListBean data;
@@ -94,38 +98,38 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
     @OnClick(R.id.share_wx)
     public void onShareWxClick() {
-        share( WechatShareManager.WECHAT_SHARE_TYPE_TALK);
+        share(WechatShareManager.WECHAT_SHARE_TYPE_TALK);
     }
 
     @OnClick(R.id.share_wx_friend)
     public void onShareWxFriendClick() {
-        share( WechatShareManager.WECHAT_SHARE_TYPE_FRENDS);
+        share(WechatShareManager.WECHAT_SHARE_TYPE_FRENDS);
     }
 
-    private void share(int t){
+    private void share(int t) {
         if (!isWebchatAvaliable()) {
             Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
             return;
         }
-        if (data==null) {
+        if (data == null) {
             Toast.makeText(this, "请重新进入详情", Toast.LENGTH_LONG).show();
             return;
         }
 
         String fromStr = AddressUtils.getFromAddressStr(data.getAddressInfoList());
         String toStr = AddressUtils.getToAddressStr(data.getAddressInfoList());
-        String time = data.getCreateTime()+"";
+        String time = data.getCreateTime() + "";
         try {
             time = Utils.longToString(data.getCreateTime(), "yyyy-MM-dd HH:mm");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String title = "需要"+(data.getCarNum()-data.getHasCarNum())+"辆"+data.getLength()+"米的车 从"+fromStr+"到"+toStr;
-        String content = "发车时间"+time;
-        String url = ApiModule.BASE_URL + "app/weixin/showDetail.do?logisticsId="+data.getId();
+        String title = "需要" + (data.getCarNum()-data.getHasCarNum()) + "辆" + data.getLength() + "米的车 从" + fromStr + "到" + toStr;
+        String content = "发车时间" + time;
+        String url = ApiModule.BASE_URL + "app/weixin/showDetail.do?logisticsId=" + data.getId();
 
         WechatShareManager.ShareContentWebpage s =
-                (WechatShareManager.ShareContentWebpage)mShareManager.getShareContentWebpag(
+                (WechatShareManager.ShareContentWebpage) mShareManager.getShareContentWebpag(
                         title,
                         content,
                         url,
@@ -178,6 +182,8 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemCarNumber.setValueText(data.getCarNum() + "");
         mItemHasCarNumber.setKeyText("剩余车辆");
         mItemHasCarNumber.setValueText((data.getCarNum()-data.getHasCarNum()) + "");
+        mItemContact.setKeyText("联系方式");
+        mItemContact.setValueText(data.getRelationPhone());
         if (data.getRemark() == null || data.getRemark().length() == 0) {
             findViewById(R.id.tv_remark_bg).setVisibility(View.GONE);
         } else {
@@ -202,7 +208,10 @@ public class GoodsDetailActivity extends BaseShareableActivity {
             return false;
         }
     }
-
+    @OnClick(R.id.item_contact)
+    void onContactClick() {
+        Nav.toDialPhonePage(this, data.getRelationPhone());
+    }
     @Override
     public BaseShareParam getShareContent(ShareHelper helper, SocializeMedia target) {
 

@@ -148,6 +148,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"/>
 
+            <com.zfwl.widget.goodsdetail.KeyValueItem
+                android:background="@color/white"
+                android:id="@+id/item_contact"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="21dp"
