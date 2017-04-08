@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.zfwl.activity.home.HomeActivity;
 import com.zfwl.util.TimeUtils;
 import com.zfwl.common.SpManager;
 import java.util.Date;
@@ -88,14 +89,14 @@ public class StartActivity extends Activity {
             state = 1;
         } else {
             // 读取当前登录用户配置文件，存在Cookie信息时不在执行登录操作直接进入主界面，不存在则进入登录界面
-            String cookie = SpManager.getCookie(vThis);
-            if (!TextUtils.isEmpty(cookie.trim())) {
-                Log.i(TAG, "Cookie值：" + SpManager.getCookie(vThis));
-                state = 3;
-            } else {
-                Log.i(TAG, "进入登录界面");
+//            String cookie = SpManager.getCookie(vThis);
+//            if (!TextUtils.isEmpty(cookie.trim())) {
+//                Log.i(TAG, "Cookie值：" + SpManager.getCookie(vThis));
+//                state = 3;
+//            } else {
+//                Log.i(TAG, "进入登录界面");
                 state = 2;
-            }
+//            }
         }
 
         switch (state) {
@@ -126,8 +127,9 @@ public class StartActivity extends Activity {
      * 进入登录界面
      */
     private void toLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        LoginActivity.launch(this, true);
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        startActivity(intent);
         finish();// 需要finish这个页面，否则无法退出应用
     }
 
@@ -135,7 +137,7 @@ public class StartActivity extends Activity {
      * 自动登录，登录成功进入主界面
      */
     private void autoLogin() {
-        toOtherActivity(MainActivity.class);
+        HomeActivity.launch(this);
     }
 
     private void toOtherActivity(Class<?> clazz) {

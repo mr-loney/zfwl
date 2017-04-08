@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void onLoginSuccess(User user) {
         mLoadingDialog.stop();
         HomeActivity.launch(this);
-
+finish();
     }
 
     @Override
