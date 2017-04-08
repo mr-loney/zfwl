@@ -181,7 +181,7 @@ public class MyQuotedModel implements Serializable {
 		private Object succAndTotal;
 		private Object weight;
 		private int isLargeGo;
-		private Object carNum;
+		private int carNum;
 		private Object fromAddress;
 		private Object toAddress;
 		private Object logisticsInfo;
@@ -379,11 +379,11 @@ public class MyQuotedModel implements Serializable {
 			this.isLargeGo = isLargeGo;
 		}
 
-		public Object getCarNum() {
+		public int getCarNum() {
 			return carNum;
 		}
 
-		public void setCarNum(Object carNum) {
+		public void setCarNum(int carNum) {
 			this.carNum = carNum;
 		}
 

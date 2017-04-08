@@ -57,10 +57,12 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
 
     private DriverQuotedPresenter mPresenter;
     private String logisticsId;
+    private int maxCarNum = 0;
 
-    public static void launch(Context context, String id) {
+    public static void launch(Context context, String id,int maxCarNum) {
         Intent intent = new Intent(context, DriverQuotedPriceActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("maxCarNum", maxCarNum);
         context.startActivity(intent);
     }
 
@@ -104,6 +106,7 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
         mPresenter = new DriverQuotedPresenter(this);
         mPresenter.attachView(this);
         logisticsId = getIntent().getStringExtra("id");
+        maxCarNum = getIntent().getIntExtra("maxCarNum",0);
 
         etCarWeight.addTextChangedListener(watcher);
         tvPrice.addTextChangedListener(watcher);
@@ -174,6 +177,17 @@ public class DriverQuotedPriceActivity extends AppCompatActivity implements Driv
             case R.id.submit:
                 if (etCarWeight.getText().toString().length()==0) {
                     ViewHub.showLongToast(this,"请输入装载吨数");
+                    return;
+                }
+                try {
+                    double d = Double.parseDouble(etCarWeight.getText().toString());
+                    if (d <= 0) {
+                        ViewHub.showLongToast(this,"装载吨数必须大于0");
+                        return;
+                    }
+                } catch (Exception ex) {}
+                if (carCount>maxCarNum) {
+                    ViewHub.showLongToast(this,"提供车辆不能大于剩余车辆，剩余车辆："+maxCarNum);
                     return;
                 }
                 if (tvPrice.getText().toString().length()==0) {

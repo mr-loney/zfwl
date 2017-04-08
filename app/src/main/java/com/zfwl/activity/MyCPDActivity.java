@@ -44,7 +44,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
     SelectAreaListView mSelectAreaView;
 
     private CPDAdatper adapter;
-    private int select_address_index;
+    private int select_address_index = -1;
 
     private MyCPDActivity vThis = this;
     private LoadingDialog loadingDialog;
@@ -84,8 +84,16 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         rightTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CPDModel m = ((CPDModel)adapter.getItem(select_address_index));
-                mPresenter.add(m);
+                if (select_address_index>=0) {
+                    CPDModel m = ((CPDModel) adapter.getItem(select_address_index));
+                    mPresenter.add(m);
+                } else {
+                    if (isFromSignup) {
+                        HomeActivity.launch(vThis);
+                    } else {
+                        finish();
+                    }
+                }
             }
         });
 
@@ -125,7 +133,7 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
 
     @Override
     public void onAddressSelected(int idWhoSelect, Address address) {
-        if(address == null || address.getProvince() == null || address.getCity() == null || address.getDistrict() == null){
+        if(address == null || address.getProvince() == null){// || address.getCity() == null || address.getDistrict() == null
             ToastUtils.show(this, "请把信息填完整");
             return;
         }
@@ -133,21 +141,37 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
         switch (idWhoSelect) {
             case ID_WHO_SELECT_FROM:
                 m.fromaddress = address;
-                m.setFromProvinceId(address.getProvince().getId());
-                m.setFromCityId(address.getCity().getId());
-                m.setFromCountyId(address.getDistrict().getId());
-                m.setFromAddressName(address.getProvince().getName()+" "+
-                        address.getCity().getName()+" "+
-                        address.getDistrict().getName()+" ");
+                String t = "";
+                if (address.getProvince()!=null) {
+                    m.setFromProvinceId(address.getProvince().getId());
+                    t += address.getProvince().getName()+" ";
+                }
+                if (address.getCity()!=null) {
+                    m.setFromCityId(address.getCity().getId());
+                    t += address.getCity().getName()+" ";
+                }
+                if (address.getDistrict()!=null) {
+                    m.setFromCountyId(address.getDistrict().getId());
+                    t += address.getDistrict().getName()+" ";
+                }
+                m.setFromAddressName(t);
                 break;
             case ID_WHO_SELECT_TO:
                 m.toaddress = address;
-                m.setToProvinceId(address.getProvince().getId());
-                m.setToCityId(address.getCity().getId());
-                m.setToCountyId(address.getDistrict().getId());
-                m.setToAddressName(address.getProvince().getName()+" "+
-                        address.getCity().getName()+" "+
-                        address.getDistrict().getName()+" ");
+                String tt = "";
+                if (address.getProvince()!=null) {
+                    m.setToProvinceId(address.getProvince().getId());
+                    tt += address.getProvince().getName()+" ";
+                }
+                if (address.getCity()!=null) {
+                    m.setToCityId(address.getCity().getId());
+                    tt += address.getCity().getName()+" ";
+                }
+                if (address.getDistrict()!=null) {
+                    m.setToCountyId(address.getDistrict().getId());
+                    tt += address.getDistrict().getName()+" ";
+                }
+                m.setToAddressName(tt);
                 break;
         }
         adapter.notifyDataSetChanged();

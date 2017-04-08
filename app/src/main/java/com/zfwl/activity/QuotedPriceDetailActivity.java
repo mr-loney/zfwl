@@ -158,9 +158,9 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemGoodsLength.setKeyText("货物长度（米）");
             mItemGoodsLength.setValueText(StringUtils.removeTrailingZero(data.getLength()+""));
             mItemNeedCarNumber.setKeyText("需要车辆");
-            mItemNeedCarNumber.setValueText(data.getCarNumber()+"");
+            mItemNeedCarNumber.setValueText(data.getCarNum()+"");
             mItemHasCarNumber.setKeyText("剩余车辆");
-            mItemHasCarNumber.setValueText((data.getCarNumber()-data.getHasCarNum())+"");
+            mItemHasCarNumber.setValueText((data.getCarNum()-data.getHasCarNum())+"");
 
             if (data.getRemark().length()>0) {
                 mTvRemark.setText(data.getRemark());

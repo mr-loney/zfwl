@@ -104,7 +104,7 @@ public class MyQuotedListAdapter extends BaseAdapter {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			holder.txt2.setText(data.getGoodsName()+" "+data.getLength()+"米 要"+(data.getCarNumber()-data.getHasCarNum())+"辆车");
+			holder.txt2.setText(data.getGoodsName()+" "+data.getLength()+"米 要"+(data.getCarNum()-data.getHasCarNum())+"辆车");
 			holder.txt3.setText("总计："+data.getTotal()+"元");
 		}
 

@@ -93,7 +93,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
     @OnClick(R.id.tv_quoted_price)
     public void onSubmitClick() {
-        DriverQuotedPriceActivity.launch(this, data.getId() + "");
+        DriverQuotedPriceActivity.launch(this, data.getId() + "",data.getCarNum() - data.getHasCarNum());
     }
 
     @OnClick(R.id.share_wx)
