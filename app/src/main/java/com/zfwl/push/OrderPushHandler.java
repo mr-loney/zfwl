@@ -11,6 +11,10 @@ import com.zfwl.activity.myorders.detail.WaitPayOrderDetailActivity;
 import com.zfwl.common.MyLog;
 import com.zfwl.entity.Order.Type;
 import com.zfwl.event.OrderPushEvent;
+import com.zfwl.push.data.NewLogicInfo;
+import com.zfwl.push.data.OrderPushContent;
+import com.zfwl.push.data.PushData;
+import com.zfwl.push.data.QuotedCarRunOut;
 import com.zfwl.util.GsonUtils;
 import com.zfwl.widget.ToastUtils;
 
@@ -27,15 +31,31 @@ public class OrderPushHandler {
         int pushType = getPushType(extra);
         switch (pushType) {
             case 1://订单信息推送
-                OrderPushContent content = extraToOrder(extra);
-                int orderType = content.orderType;
-                EventBus.getDefault().post(new OrderPushEvent(orderType));
+                onReceiveOrderPush(extra);
                 break;
             case 2://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
                 break;
             case 3://新增物流信息向app推送消息
                 break;
         }
+    }
+
+    private static void onClickNewLogicInfoPush(Context context, String extra) {
+        MyLog.i(TAG, "onReceiveNewLogicInfoPush");
+        NewLogicInfo data = GsonUtils.jsonToObject(extra, NewLogicInfo.class);
+
+    }
+
+    private static void onClickQuotedCarRunOutPush(Context context, String extra) {
+        MyLog.i(TAG, "onReceiveQuotedCarRunOutPush");
+        QuotedCarRunOut data = GsonUtils.jsonToObject(extra, QuotedCarRunOut.class);
+    }
+
+    private static void onReceiveOrderPush(String extra) {
+        MyLog.i(TAG, "onReceiveOrderPush");
+        OrderPushContent content = extraToOrder(extra);
+        int orderType = content.orderType;
+        EventBus.getDefault().post(new OrderPushEvent(orderType));
     }
 
     public static void onClickPush(Context context, String extra) {
@@ -46,11 +66,15 @@ public class OrderPushHandler {
                 onClickOrderPush(context, extra);
                 break;
             case 2://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
+//                QuotedPriceDetailActivity.launch(context, );
+                onClickQuotedCarRunOutPush(context, extra);
                 break;
             case 3://新增物流信息向app推送消息
+                onClickNewLogicInfoPush(context, extra);
                 break;
         }
     }
+
     private static void onClickOrderPush(Context context, String extra) {
         OrderPushContent content = extraToOrder(extra);
         int orderType = content.orderType;
@@ -91,15 +115,5 @@ public class OrderPushHandler {
             content = new OrderPushContent();
         }
         return content;
-    }
-
-    private static class PushData {
-        private int type;
-    }
-
-    private static class OrderPushContent {
-        private long orderId;
-        private String orderCode;
-        private int orderType = Type.UNKNOWN;
     }
 }
