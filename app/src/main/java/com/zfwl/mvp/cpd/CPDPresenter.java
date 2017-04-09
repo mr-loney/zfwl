@@ -67,6 +67,26 @@ public class CPDPresenter extends BasePresenter<CPDMvpView> {
                 });
     }
 
+    public void save(CPDModel data) {
+        showloading();
+        api.save(UserInfoManager.INSTANCE.getUserInfo().getId()+"",
+                data.getId()+"",
+                data.getFromProvinceId(),
+                data.getFromCityId(),
+                data.getFromCountyId(),
+                data.getToProvinceId(),
+                data.getToCityId(),
+                data.getToCountyId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(d -> {
+                    getMvpView().onAdded(d);
+                    stoploading();
+                }, throwable -> {
+                    getMvpView().onAddedFail(throwable.getMessage());
+                    stoploading();
+                });
+    }
+
     public void del(CPDModel data) {
         showloading();
         api.del(UserInfoManager.INSTANCE.getUserInfo().getId()+"",

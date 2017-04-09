@@ -86,7 +86,11 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
             public void onClick(View v) {
                 if (select_address_index>=0) {
                     CPDModel m = ((CPDModel) adapter.getItem(select_address_index));
-                    mPresenter.add(m);
+                    if (m.getId()>0) {
+                        mPresenter.save(m);
+                    } else {
+                        mPresenter.add(m);
+                    }
                 } else {
                     if (isFromSignup) {
                         HomeActivity.launch(vThis);

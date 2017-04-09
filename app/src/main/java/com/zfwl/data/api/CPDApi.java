@@ -20,8 +20,9 @@ public interface CPDApi {
     Observable<List<CPDModel>> getList(@Field("memberId") String memberId);
 
     @FormUrlEncoded
-    @POST("app/member/saveAdressOften.do ")
-    Observable<CPDModel> add(@Field("memberId") String memberId,
+    @POST("app/member/saveAdressOften.do")
+    Observable<CPDModel> save(@Field("memberId") String memberId,
+                             @Field("id") String id,
                               @Field("fromProvinceId") String fromProvinceId,
                          @Field("fromCityId") String fromCityId,
                          @Field("fromCountyId") String fromCountyId,
@@ -30,6 +31,15 @@ public interface CPDApi {
                          @Field("toCountyId") String toCountyId);
 
 
+    @FormUrlEncoded
+    @POST("app/member/saveAdressOften.do")
+    Observable<CPDModel> add(@Field("memberId") String memberId,
+                              @Field("fromProvinceId") String fromProvinceId,
+                              @Field("fromCityId") String fromCityId,
+                              @Field("fromCountyId") String fromCountyId,
+                              @Field("toProvinceId") String toProvinceId,
+                              @Field("toCityId") String toCityId,
+                              @Field("toCountyId") String toCountyId);
 
     @FormUrlEncoded
     @POST("app/member/delAdressOften.do")
