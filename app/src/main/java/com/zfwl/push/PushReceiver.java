@@ -39,11 +39,11 @@ public class PushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             MyLog.d(TAG, "[PushReceiver] 接收到推送下来的通知，id: %d", notificationId);
-            OrderPushHandler.onReceiveOrderPush(extraMsg);
+            OrderPushHandler.onReceivePush(extraMsg);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             MyLog.d(TAG, "[PushReceiver] 用户点击打开了通知");
-            OrderPushHandler.onClickOrderPush(context, extraMsg);
+            OrderPushHandler.onClickPush(context, extraMsg);
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             MyLog.d(TAG, "[PushReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
