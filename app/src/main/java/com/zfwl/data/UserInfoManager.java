@@ -2,8 +2,6 @@ package com.zfwl.data;
 
 import android.content.Context;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 import com.zfwl.ZfwlApplication;
 import com.zfwl.common.MyLog;
 import com.zfwl.data.sp.GlobalPref;
@@ -12,7 +10,11 @@ import com.zfwl.entity.User;
 import com.zfwl.push.PushConfig;
 import com.zfwl.util.GsonUtils;
 import com.zzb.easysp.generated.EasySPUserPref;
+
 import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by ZZB on 2016/12/25.
@@ -78,4 +80,13 @@ public class UserInfoManager {
         GlobalPref.get(mContext).setLastLoginMemberId(0);
         PushConfig.clearTag(mContext);
     }
+
+    public void setOnlyReceiveAlwaysRunPush(boolean onlyReceive){
+        mUserPref.setOnlyReceiveAlwaysRunPush(onlyReceive);
+    }
+
+    public boolean getOnlyReceiveAlwaysRunPush() {
+        return mUserPref.getOnlyReceiveAlwaysRunPush();
+    }
+
 }

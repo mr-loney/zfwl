@@ -39,6 +39,16 @@
                 app:wsiLeftIcon="@null"
                 app:wsiLeftText="是否接收订单通知"
                 app:wsiRightText="开" />
+            <com.zfwl.controls.WidgetSettingItem
+                android:id="@+id/wsi_always_run_notify"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                app:wsiLeftIcon="@null"
+                app:wsiLeftText="只接收常跑地消息推送"
+                app:wsiRightText="关" />
 
             <com.zfwl.controls.WidgetSettingItem
                 android:id="@+id/wsi_clear"

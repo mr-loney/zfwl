@@ -21,6 +21,7 @@ import com.zfwl.controls.LightPopDialog;
 import com.zfwl.controls.LoadingDialog;
 import com.zfwl.controls.WidgetSettingItem;
 import com.zfwl.data.UserInfoManager;
+import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.util.ViewHub;
 
 import java.io.File;
@@ -40,6 +41,8 @@ public class SettingActivity extends BaseActivity {
     WidgetSettingItem wsiCpdSet;
     @BindView(R.id.wsi_notify)
     WidgetSettingItem wsiNotify;
+    @BindView(R.id.wsi_always_run_notify)
+    WidgetSettingItem wsiAlwaysRunPush;
     @BindView(R.id.wsi_clear)
     WidgetSettingItem wsiClear;
     @BindView(R.id.wsi_exit)
@@ -49,10 +52,11 @@ public class SettingActivity extends BaseActivity {
     private boolean mUploadingErrorLog;
     private LoadingDialog loadingDialog;
 
-    public static void launch(Context context){
+    public static void launch(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +75,14 @@ public class SettingActivity extends BaseActivity {
     private void initView() {
         titlebarBtnLeft.setVisibility(View.VISIBLE);
         tvTitle.setText("设置");
+        wsiAlwaysRunPush.setRightText(UserInfoManager.INSTANCE.getOnlyReceiveAlwaysRunPush() ? "开" : "关");
     }
 
     @OnClick(R.id.wsi_cpd_set)
     public void onCptClick() {
-        MyCPDActivity.launch(mContext,false);
+        MyCPDActivity.launch(mContext, false);
     }
+
     @OnClick(R.id.wsi_notify)
     public void onNotifyClick() {
         final String items[] = {"开", "关"};
@@ -93,17 +99,46 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                if (which>=0&&which<items.length) {
+                if (which >= 0 && which < items.length) {
                     wsiNotify.setRightText(items[which]);
                 }
             }
         });
         builder.create().show();
     }
+
+    @OnClick(R.id.wsi_always_run_notify)
+    public void onAlwaysRunClick() {
+        final String items[] = {"开", "关"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("只接收常跑地消息推送");
+        final int checkedItem = UserInfoManager.INSTANCE.getOnlyReceiveAlwaysRunPush() ? 0 : 1;
+        builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                wsiAlwaysRunPush.setRightText(items[which]);
+                boolean yes = which == 0;
+                UserInfoManager.INSTANCE.setOnlyReceiveAlwaysRunPush(yes);
+            }
+        });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                boolean yes = UserInfoManager.INSTANCE.getOnlyReceiveAlwaysRunPush();
+                ApiModule.INSTANCE.provideSettingsApi()
+                        .alwaysRunPush(UserInfoManager.INSTANCE.getUserInfo().getAccount(),
+                                yes ? 1 : 0, 0).subscribe();
+            }
+        });
+        builder.create().show();
+    }
+
     @OnClick(R.id.wsi_clear)
     public void onClearClick() {
         new ClearTask().execute();
     }
+
     @OnClick(R.id.wsi_exit)
     public void onExitClick() {
         ViewHub.showLightPopDialog(this, getString(R.string.dialog_title),
@@ -142,12 +177,12 @@ public class SettingActivity extends BaseActivity {
                 delFileSize(cacheFile);
                 gcCountEnd += getFileSize(cacheFile, 0);
                 //清除sd cache
-                File cacheFile5 = new File(SDCardHelper.getSDCardRootDirectory()+"/zfwl");
+                File cacheFile5 = new File(SDCardHelper.getSDCardRootDirectory() + "/zfwl");
                 gcCountBefore += getFileSize(cacheFile5, 0);
-                delFileSize(cacheFile5);delImg2Media(cacheFile5);
+                delFileSize(cacheFile5);
+                delImg2Media(cacheFile5);
                 gcCountEnd += getFileSize(cacheFile5, 0);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
             }
             //toast
             String showText = Formatter.formatFileSize(mContext, gcCountBefore - gcCountEnd);
@@ -195,9 +230,8 @@ public class SettingActivity extends BaseActivity {
         return;
     }
 
-    private void delImg2Media(File f)
-    {
-        mContext.getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "_data like '%"+f.getAbsolutePath()+"%'", null);
+    private void delImg2Media(File f) {
+        mContext.getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "_data like '%" + f.getAbsolutePath() + "%'", null);
         Log.e("asd", "asdasd");
     }
 }

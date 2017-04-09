@@ -11,6 +11,7 @@ import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.MyPublishEmptyCarApi;
 import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.OrderApi;
+import com.zfwl.data.api.SettingsApi;
 import com.zfwl.data.api.SignUpApi;
 import com.zfwl.data.api.WJApi;
 import com.zfwl.data.api.pay.WxPayApi;
@@ -96,7 +97,9 @@ public class ApiModule {
     public LogisticsApi provideLogisticsApi() {
         return ApiModule.INSTANCE.provideRetrofit().create(LogisticsApi.class);
     }
-
+    public SettingsApi provideSettingsApi(){
+        return ApiModule.INSTANCE.provideRetrofit().create(SettingsApi.class);
+    }
     private OkHttpClient provideOkHttpClient() {
         if (mOkHttpClient == null) {
             initOkHttpClient();

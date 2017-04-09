@@ -12,6 +12,16 @@ public class UserPref {
     private long userId;
     @DefaultValue("{}")
     private String userJson;
+    private boolean onlyReceiveAlwaysRunPush;
+
+
+    public boolean getOnlyReceiveAlwaysRunPush() {
+        return onlyReceiveAlwaysRunPush;
+    }
+
+    public void setOnlyReceiveAlwaysRunPush(boolean onlyReceiveAlwaysRunPush) {
+        this.onlyReceiveAlwaysRunPush = onlyReceiveAlwaysRunPush;
+    }
 
     public long getUserId() {
         return userId;
