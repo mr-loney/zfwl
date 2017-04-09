@@ -184,7 +184,7 @@ public class MyQuotedModel implements Serializable {
 		private int carNum;
 		private Object fromAddress;
 		private Object toAddress;
-		private Object logisticsInfo;
+		private ListBean logisticsInfo;
 		private List<AddressInfoListBean> addressInfoList;
 
 		public int getHasCarNum() {
@@ -403,11 +403,11 @@ public class MyQuotedModel implements Serializable {
 			this.toAddress = toAddress;
 		}
 
-		public Object getLogisticsInfo() {
+		public ListBean getLogisticsInfo() {
 			return logisticsInfo;
 		}
 
-		public void setLogisticsInfo(Object logisticsInfo) {
+		public void setLogisticsInfo(ListBean logisticsInfo) {
 			this.logisticsInfo = logisticsInfo;
 		}
 

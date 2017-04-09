@@ -13,6 +13,7 @@ import com.zfwl.R;
 import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.MyQuotedModel;
+import com.zfwl.entity.MyQuotedModel.ListBean;
 import com.zfwl.mvp.logistics.MyQuotedMvpView;
 import com.zfwl.mvp.logistics.MyQuotedPresenter;
 import com.zfwl.util.StringUtils;
@@ -99,17 +100,20 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
 
     private void loadData() {
         MyQuotedModel.ListBean data = (MyQuotedModel.ListBean) getIntent().getSerializableExtra("data");
+        long id;
         if (data != null) {
-            onDataLoaded(data);
+            id = data.getId();
+//            onDataLoaded(data);
         } else {
-            long priceId = getIntent().getLongExtra("priceId", 0);
-            MyQuotedApi api = ApiModule.INSTANCE.quotedApi();
-            api.getQuotedPriceDetail(priceId)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onDataLoaded, throwable -> {
-                        ToastUtils.show(QuotedPriceDetailActivity.this, "加载失败");
-                    });
+            id = getIntent().getLongExtra("priceId", 0);
+
         }
+        MyQuotedApi api = ApiModule.INSTANCE.quotedApi();
+        api.getQuotedPriceDetail(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onDataLoaded, throwable -> {
+                    ToastUtils.show(QuotedPriceDetailActivity.this, "加载失败");
+                });
     }
 
     @Override
@@ -144,7 +148,8 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
 
             String fromStr = "";
             String toStr = "";
-            for (MyQuotedModel.ListBean.AddressInfoListBean item : data.getAddressInfoList()) {
+            ListBean logisticInfo = data.getLogisticsInfo();
+            for (MyQuotedModel.ListBean.AddressInfoListBean item : logisticInfo.getAddressInfoList()) {
                 if (fromStr.indexOf(item.getFromProvinceName() + item.getFromCityName() + item.getFromCountyName() + item.getFromDetail()) < 0) {
                     fromStr += item.getFromProvinceName() + item.getFromCityName() + item.getFromCountyName() + item.getFromDetail() + "<br/>";
                 }
@@ -187,9 +192,9 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
             mItemGoodsLength.setKeyText("货物长度（米）");
             mItemGoodsLength.setValueText(StringUtils.removeTrailingZero(data.getLength() + ""));
             mItemNeedCarNumber.setKeyText("需要车辆");
-            mItemNeedCarNumber.setValueText(data.getCarNum() + "");
+            mItemNeedCarNumber.setValueText(logisticInfo.getCarNum() + "");
             mItemHasCarNumber.setKeyText("剩余车辆");
-            mItemHasCarNumber.setValueText((data.getCarNum() - data.getHasCarNum()) + "");
+            mItemHasCarNumber.setValueText((logisticInfo.getCarNum() - data.getHasCarNum()) + "");
 
             if (data.getRemark().length() > 0) {
                 mTvRemark.setText(data.getRemark());
