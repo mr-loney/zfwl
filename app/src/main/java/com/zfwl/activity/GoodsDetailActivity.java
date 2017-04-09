@@ -15,13 +15,16 @@ import com.bilibili.socialize.share.core.shareparam.BaseShareParam;
 import com.zfwl.R;
 import com.zfwl.common.Nav;
 import com.zfwl.data.UserInfoManager;
+import com.zfwl.data.api.LogisticsApi;
 import com.zfwl.data.api.retrofit.ApiModule;
 import com.zfwl.entity.LogisticsInfo;
+import com.zfwl.entity.LogisticsInfo.ListBean;
 import com.zfwl.share.ShareHelper;
 import com.zfwl.share.WechatShareManager;
 import com.zfwl.util.AddressUtils;
 import com.zfwl.util.StringUtils;
 import com.zfwl.util.Utils;
+import com.zfwl.widget.ToastUtils;
 import com.zfwl.widget.goodsdetail.KeyValueItem;
 
 import java.text.ParseException;
@@ -31,6 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 import cn.bingoogolapple.titlebar.BGATitleBar.SimpleDelegate;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 货源详情
@@ -77,7 +81,13 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         } else {
             LoginActivity.launch(context, false);
         }
+    }
 
+    public static void launchFromPush(Context context, long id) {
+        Intent intent = new Intent(context, GoodsDetailActivity.class);
+        intent.putExtra("id", id);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 
     @Override
@@ -85,15 +95,30 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_activity);
         ButterKnife.bind(this);
-        data = (LogisticsInfo.ListBean) getIntent().getSerializableExtra("data");
         initViews();
 
         mShareManager = WechatShareManager.getInstance(this);
+        loadData();
+    }
+
+    private void loadData() {
+        data = (LogisticsInfo.ListBean) getIntent().getSerializableExtra("data");
+        if (data != null) {
+            onDataLoaded(data);
+        } else {
+            long id = getIntent().getLongExtra("id", 0);
+            LogisticsApi api = ApiModule.INSTANCE.provideLogisticsApi();
+            api.getLogisticsDetail(id)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onDataLoaded, throwable -> {
+                        ToastUtils.show(GoodsDetailActivity.this, "加载失败");
+                    });
+        }
     }
 
     @OnClick(R.id.tv_quoted_price)
     public void onSubmitClick() {
-        DriverQuotedPriceActivity.launch(this, data.getId() + "",data.getCarNum() - data.getHasCarNum());
+        DriverQuotedPriceActivity.launch(this, data.getId() + "", data.getCarNum() - data.getHasCarNum());
     }
 
     @OnClick(R.id.share_wx)
@@ -124,7 +149,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String title = "需要" + (data.getCarNum()-data.getHasCarNum()) + "辆" + data.getLength() + "米的车 从" + fromStr + "到" + toStr;
+        String title = "需要" + (data.getCarNum() - data.getHasCarNum()) + "辆" + data.getLength() + "米的车 从" + fromStr + "到" + toStr;
         String content = "发车时间" + time;
         String url = ApiModule.BASE_URL + "app/weixin/showDetail.do?logisticsId=" + data.getId();
 
@@ -157,7 +182,17 @@ public class GoodsDetailActivity extends BaseShareableActivity {
 
     private void initViews() {
         initTitleBar();
+        mShareView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mShareView.setVisibility(View.GONE);
+                return false;
+            }
+        });
+    }
 
+    private void onDataLoaded(ListBean data) {
+        this.data = data;
         String fromStr = AddressUtils.getFromAddressStr(data.getAddressInfoList());
         String toStr = AddressUtils.getToAddressStr(data.getAddressInfoList());
         mTvFrom.setText(fromStr);
@@ -181,7 +216,7 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         mItemCarNumber.setKeyText("需要车辆");
         mItemCarNumber.setValueText(data.getCarNum() + "");
         mItemHasCarNumber.setKeyText("剩余车辆");
-        mItemHasCarNumber.setValueText((data.getCarNum()-data.getHasCarNum()) + "");
+        mItemHasCarNumber.setValueText((data.getCarNum() - data.getHasCarNum()) + "");
         mItemContact.setKeyText("联系方式");
         mItemContact.setValueText(data.getRelationPhone());
         if (data.getRemark() == null || data.getRemark().length() == 0) {
@@ -189,14 +224,6 @@ public class GoodsDetailActivity extends BaseShareableActivity {
         } else {
             mTvRemark.setText(data.getRemark());
         }
-
-        mShareView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mShareView.setVisibility(View.GONE);
-                return false;
-            }
-        });
     }
 
     private boolean isWebchatAvaliable() {
@@ -208,10 +235,12 @@ public class GoodsDetailActivity extends BaseShareableActivity {
             return false;
         }
     }
+
     @OnClick(R.id.item_contact)
     void onContactClick() {
         Nav.toDialPhonePage(this, data.getRelationPhone());
     }
+
     @Override
     public BaseShareParam getShareContent(ShareHelper helper, SocializeMedia target) {
 

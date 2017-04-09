@@ -2,18 +2,12 @@ package com.zfwl.data.api;
 
 import com.zfwl.entity.DriverQuotedModel;
 import com.zfwl.entity.LogisticsInfo;
-import com.zfwl.entity.User;
 
-import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -51,4 +45,7 @@ pageSize
                                       @Field("loadNumber") double loadNumber,
                                       @Field("priceType") int priceType,
                                       @Field("price") double price);
+
+    @GET("app/logistics/getLogisticsDtail.do")
+    Observable<LogisticsInfo.ListBean> getLogisticsDetail(@Query("logisticsId") long logisticsId);
 }

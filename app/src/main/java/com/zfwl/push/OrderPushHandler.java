@@ -2,6 +2,7 @@ package com.zfwl.push;
 
 import android.content.Context;
 
+import com.zfwl.activity.GoodsDetailActivity;
 import com.zfwl.activity.QuotedPriceDetailActivity;
 import com.zfwl.activity.myorders.detail.CarryingOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
@@ -44,7 +45,7 @@ public class OrderPushHandler {
     private static void onClickNewLogicInfoPush(Context context, String extra) {
         MyLog.i(TAG, "onReceiveNewLogicInfoPush");
         NewLogicInfo data = GsonUtils.jsonToObject(extra, NewLogicInfo.class);
-
+        GoodsDetailActivity.launchFromPush(context, data.logisticsInfoId);
     }
 
     private static void onClickQuotedCarRunOutPush(Context context, String extra) {
