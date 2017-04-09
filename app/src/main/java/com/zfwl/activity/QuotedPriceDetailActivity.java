@@ -79,9 +79,8 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
         context.startActivity(intent);
     }
 
-    public static void launchFromPush(Context context, long memberId, long priceId) {
+    public static void launchFromPush(Context context, long priceId) {
         Intent intent = new Intent(context, QuotedPriceDetailActivity.class);
-        intent.putExtra("memberId", memberId);
         intent.putExtra("priceId", priceId);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
@@ -103,10 +102,9 @@ public class QuotedPriceDetailActivity extends BaseActivity implements MyQuotedM
         if (data != null) {
             onDataLoaded(data);
         } else {
-            long memberId = getIntent().getLongExtra("memberId", 0);
             long priceId = getIntent().getLongExtra("priceId", 0);
             MyQuotedApi api = ApiModule.INSTANCE.quotedApi();
-            api.getQuotedPriceDetail(memberId, priceId)
+            api.getQuotedPriceDetail(priceId)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::onDataLoaded, throwable -> {
                         ToastUtils.show(QuotedPriceDetailActivity.this, "加载失败");

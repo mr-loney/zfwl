@@ -51,7 +51,7 @@ public class OrderPushHandler {
     private static void onClickQuotedCarRunOutPush(Context context, String extra) {
         MyLog.i(TAG, "onReceiveQuotedCarRunOutPush");
         QuotedCarRunOut data = GsonUtils.jsonToObject(extra, QuotedCarRunOut.class);
-        QuotedPriceDetailActivity.launchFromPush(context, data.logisticsInfoId, data.memberPriceId);
+        QuotedPriceDetailActivity.launchFromPush(context, data.memberPriceId);
     }
 
     private static void onReceiveOrderPush(String extra) {

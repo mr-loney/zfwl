@@ -16,5 +16,5 @@ public interface MyQuotedApi {
     Observable<String> del(@Query("id") int id);
 
     @GET("app/member/getPriceDetail.do")
-    Observable<MyQuotedModel.ListBean> getQuotedPriceDetail(@Query("memberId") long memberId, @Query("priceId") long priceId);
+    Observable<MyQuotedModel.ListBean> getQuotedPriceDetail(@Query("priceId") long priceId);
 }
