@@ -3,11 +3,8 @@ package com.zfwl.mvp.logistics;
 import android.content.Context;
 
 import com.zfwl.controls.LoadingDialog;
-import com.zfwl.data.UserInfoManager;
-import com.zfwl.data.api.AddLogisticsApi;
 import com.zfwl.data.api.MyQuotedApi;
 import com.zfwl.data.api.retrofit.ApiModule;
-import com.zfwl.entity.AllzfwlModel;
 import com.zfwl.entity.MyQuotedModel;
 import com.zfwl.mvp.BasePresenter;
 
@@ -22,20 +19,21 @@ public class MyQuotedPresenter extends BasePresenter<MyQuotedMvpView> {
         loadingDialog = new LoadingDialog(context);
     }
 
-    private void showloading(){
+    private void showloading() {
         if (!loadingDialog.isShowing()) {
             loadingDialog.show();
         }
     }
-    private void stoploading(){
+
+    private void stoploading() {
         if (loadingDialog.isShowing()) {
             loadingDialog.stop();
         }
     }
 
-    public void getList(int pageIndex,int pageSize) {
+    public void getList(int pageIndex, int pageSize) {
         showloading();
-        api.getList(pageIndex,pageSize)
+        api.getList(pageIndex, pageSize)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(d -> {
                     getMvpView().onGetListSuccess(d);
@@ -46,7 +44,11 @@ public class MyQuotedPresenter extends BasePresenter<MyQuotedMvpView> {
                 });
     }
 
-   public void del(MyQuotedModel.ListBean d) {
+    public void del(MyQuotedModel.ListBean d) {
+        if (d == null) {
+            getMvpView().onDelFail("删除数据为空");
+            return;
+        }
         api.del(d.getId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(str -> {
@@ -57,5 +59,6 @@ public class MyQuotedPresenter extends BasePresenter<MyQuotedMvpView> {
                     stoploading();
                 });
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.zfwl.push;
 
 import android.content.Context;
 
+import com.zfwl.activity.QuotedPriceDetailActivity;
 import com.zfwl.activity.myorders.detail.CarryingOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.FinishedOrderDetailActivity;
 import com.zfwl.activity.myorders.detail.PaidOrderDetailActivity;
@@ -30,12 +31,12 @@ public class OrderPushHandler {
         MyLog.i(TAG, "onReceivePush, PushMsg: %s", extra);
         int pushType = getPushType(extra);
         switch (pushType) {
-            case 1://订单信息推送
+            case 0://订单信息推送
                 onReceiveOrderPush(extra);
                 break;
-            case 2://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
+            case 1://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
                 break;
-            case 3://新增物流信息向app推送消息
+            case 2://新增物流信息向app推送消息
                 break;
         }
     }
@@ -49,6 +50,7 @@ public class OrderPushHandler {
     private static void onClickQuotedCarRunOutPush(Context context, String extra) {
         MyLog.i(TAG, "onReceiveQuotedCarRunOutPush");
         QuotedCarRunOut data = GsonUtils.jsonToObject(extra, QuotedCarRunOut.class);
+        QuotedPriceDetailActivity.launchFromPush(context, data.logisticsInfoId, data.memberPriceId);
     }
 
     private static void onReceiveOrderPush(String extra) {
@@ -62,14 +64,14 @@ public class OrderPushHandler {
         MyLog.i(TAG, "onClickPush, PushMsg: %s", extra);
         int pushType = getPushType(extra);
         switch (pushType) {
-            case 1://订单信息推送
+            case 0://订单信息推送
                 onClickOrderPush(context, extra);
                 break;
-            case 2://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
+            case 1://物流信息车辆已抢完向所有已报价且没有生成订单的司机推送消息
 //                QuotedPriceDetailActivity.launch(context, );
                 onClickQuotedCarRunOutPush(context, extra);
                 break;
-            case 3://新增物流信息向app推送消息
+            case 2://新增物流信息向app推送消息
                 onClickNewLogicInfoPush(context, extra);
                 break;
         }
