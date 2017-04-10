@@ -148,14 +148,17 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
                 String t = "";
                 if (address.getProvince()!=null) {
                     m.setFromProvinceId(address.getProvince().getId());
+                    m.setFromProvinceName(address.getProvince().getName());
                     t += address.getProvince().getName()+" ";
                 }
                 if (address.getCity()!=null) {
                     m.setFromCityId(address.getCity().getId());
+                    m.setFromCityName(address.getCity().getName());
                     t += address.getCity().getName()+" ";
                 }
                 if (address.getDistrict()!=null) {
                     m.setFromCountyId(address.getDistrict().getId());
+                    m.setFromCountyName(address.getDistrict().getName());
                     t += address.getDistrict().getName()+" ";
                 }
                 m.setFromAddressName(t);
@@ -165,14 +168,17 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
                 String tt = "";
                 if (address.getProvince()!=null) {
                     m.setToProvinceId(address.getProvince().getId());
+                    m.setToProvinceName(address.getProvince().getName());
                     tt += address.getProvince().getName()+" ";
                 }
                 if (address.getCity()!=null) {
                     m.setToCityId(address.getCity().getId());
+                    m.setToCityName(address.getCity().getName());
                     tt += address.getCity().getName()+" ";
                 }
                 if (address.getDistrict()!=null) {
                     m.setToCountyId(address.getDistrict().getId());
+                    m.setToCountyName(address.getDistrict().getName());
                     tt += address.getDistrict().getName()+" ";
                 }
                 m.setToAddressName(tt);

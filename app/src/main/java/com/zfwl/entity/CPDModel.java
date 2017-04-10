@@ -34,6 +34,60 @@ public class CPDModel{
 	private long cdate;
 	private long mdate;
 	private Object remark;
+	private String fromProvinceName;
+	private String fromCityName;
+	private String fromCountyName;
+	private String toProvinceName;
+	private String toCityName;
+	private String toCountyName;
+
+	public String getFromProvinceName() {
+		return fromProvinceName;
+	}
+
+	public void setFromProvinceName(String fromProvinceName) {
+		this.fromProvinceName = fromProvinceName;
+	}
+
+	public String getFromCityName() {
+		return fromCityName;
+	}
+
+	public void setFromCityName(String fromCityName) {
+		this.fromCityName = fromCityName;
+	}
+
+	public String getFromCountyName() {
+		return fromCountyName;
+	}
+
+	public void setFromCountyName(String fromCountyName) {
+		this.fromCountyName = fromCountyName;
+	}
+
+	public String getToProvinceName() {
+		return toProvinceName;
+	}
+
+	public void setToProvinceName(String toProvinceName) {
+		this.toProvinceName = toProvinceName;
+	}
+
+	public String getToCityName() {
+		return toCityName;
+	}
+
+	public void setToCityName(String toCityName) {
+		this.toCityName = toCityName;
+	}
+
+	public String getToCountyName() {
+		return toCountyName;
+	}
+
+	public void setToCountyName(String toCountyName) {
+		this.toCountyName = toCountyName;
+	}
 
 	public int getId() {
 		return id;

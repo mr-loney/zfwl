@@ -78,8 +78,30 @@ public class CPDAdatper extends BaseAdapter {
         holder.del.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         holder.txt1.setText("常跑地"+(position+1));
         if (model != null) {
-            holder.from.setText(model.getFromAddressName());
-            holder.to.setText(model.getToAddressName());
+
+            String t = "";
+            if (model.getFromProvinceName()!=null) {
+                t += model.getFromProvinceName()+" ";
+            }
+            if (model.getFromCityName()!=null) {
+                t += model.getFromCityName()+" ";
+            }
+            if (model.getFromCountyName()!=null) {
+                t += model.getFromCountyName()+" ";
+            }
+
+            String tt = "";
+            if (model.getToProvinceName()!=null) {
+                tt += model.getToProvinceName()+" ";
+            }
+            if (model.getToCityName()!=null) {
+                tt += model.getToCityName()+" ";
+            }
+            if (model.getToCountyName()!=null) {
+                tt += model.getToCountyName()+" ";
+            }
+            holder.from.setText(t);
+            holder.to.setText(tt);
         }
 
         return view;
