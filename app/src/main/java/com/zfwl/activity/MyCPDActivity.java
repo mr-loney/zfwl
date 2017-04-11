@@ -155,11 +155,17 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
                     m.setFromCityId(address.getCity().getId());
                     m.setFromCityName(address.getCity().getName());
                     t += address.getCity().getName()+" ";
+                } else {
+                    m.setFromCityId("");
+                    m.setFromCityName("");
                 }
                 if (address.getDistrict()!=null) {
                     m.setFromCountyId(address.getDistrict().getId());
                     m.setFromCountyName(address.getDistrict().getName());
                     t += address.getDistrict().getName()+" ";
+                } else {
+                    m.setFromCountyId("");
+                    m.setFromCountyName("");
                 }
                 m.setFromAddressName(t);
                 break;
@@ -175,11 +181,17 @@ public class MyCPDActivity extends BaseActivity implements SelectAreaListView.Se
                     m.setToCityId(address.getCity().getId());
                     m.setToCityName(address.getCity().getName());
                     tt += address.getCity().getName()+" ";
+                } else {
+                    m.setToCityId("");
+                    m.setToCityName("");
                 }
                 if (address.getDistrict()!=null) {
                     m.setToCountyId(address.getDistrict().getId());
                     m.setToCountyName(address.getDistrict().getName());
                     tt += address.getDistrict().getName()+" ";
+                } else {
+                    m.setToCountyId("");
+                    m.setToCountyName("");
                 }
                 m.setToAddressName(tt);
                 break;

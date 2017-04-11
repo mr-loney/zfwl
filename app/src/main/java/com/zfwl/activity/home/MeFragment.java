@@ -121,7 +121,7 @@ public class MeFragment extends Fragment {
         if (name == null) {
             name = "";
         }
-        if (name.length() < 0) {
+        if (name.length() <= 0) {
             name = UserInfoManager.INSTANCE.getUserInfo().getPhone();
         }
         txtName.setText(name);
