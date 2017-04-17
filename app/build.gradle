@@ -5,7 +5,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.zfwl"
+        applicationId "com.zfwl.official"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 5
@@ -17,7 +17,7 @@ android {
         }
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "59e19553a7112e57ccd7ae94", //JPush上注册的包名对应的appkey.
+                JPUSH_APPKEY : "9c885db4afe14cb25db8d0a4", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
     }
