@@ -1,4 +1,4 @@
-package com.zfwl.wxapi;
+package com.zfwl.official.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;

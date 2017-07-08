@@ -1,4 +1,4 @@
-package com.zfwl.wxapi;
+package com.zfwl.official.wxapi;
 
 import com.bilibili.socialize.share.core.ui.BaseWXEntryActivity;
 import com.tencent.mm.sdk.modelbase.BaseReq;
