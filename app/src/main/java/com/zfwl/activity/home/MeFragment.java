@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zfwl.R;
+import com.zfwl.activity.AddzfwlActivity;
+import com.zfwl.activity.LoginActivity;
 import com.zfwl.activity.MyPublishEmptyCarActivity;
 import com.zfwl.activity.MyQuotedListActivity;
 import com.zfwl.activity.SettingActivity;
@@ -110,6 +112,12 @@ public class MeFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUserInfo();
+    }
+
     private void initView() {
         initItem(itemOrder, "我的订单", false);
         setItemRightText(itemOrder, "查看全部订单");
@@ -117,6 +125,10 @@ public class MeFragment extends Fragment {
         itemBJ.findViewById(R.id.view_btm_line).setVisibility(View.GONE);
         initItem(itemKC, "我发布的空车", false);
 
+        setUserInfo();
+    }
+
+    private void setUserInfo() {
         String name = UserInfoManager.INSTANCE.getUserInfo().getRealname();
         if (name == null) {
             name = "";
@@ -130,6 +142,10 @@ public class MeFragment extends Fragment {
     @OnClick({R.id.my_dcwj, R.id.my_setting, R.id.btn_order_wait_confirm, R.id.btn_order_wait_pay, R.id.btn_order_paid, R.id.btn_order_carrying,
             R.id.item_myorder, R.id.item_mykc, R.id.item_mybj, R.id.iv_userhead})
     public void onClick(View view) {
+        if (!UserInfoManager.INSTANCE.hasLogin()) {
+            LoginActivity.launch(mContext, false);
+            return;
+        }
         switch (view.getId()) {
             case R.id.my_dcwj:
                 WJActivity.launch(mContext);
